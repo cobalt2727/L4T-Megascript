@@ -1,4 +1,5 @@
 clear
+echo "these are here because i'm a lazy coder and i want an easy reference for coloring in the menu - if you're able to read this inside the program, something's wrong"
 echo -e "\e[30mBlack Text\e[0m"
 echo -e "\e[31mRed Text\e[0m"
 echo -e "\e[32mGreen Text\e[0m"
