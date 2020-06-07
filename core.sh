@@ -21,9 +21,9 @@ clear
 #echo "create a desktop file for the script on this line"
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
-echo "Enter a number from the choices below to configure the specified program."#
+echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 #echo "Keep in mind how much storage you have left on your SD card!"
-echo -e "\e[1mKeep in mind how much storage you have left on your SD card!\e[0m"
+echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
 sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
@@ -40,10 +40,18 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #echo "9...............Video Settings - Is your display going past the edges of your TV?)"
 #echo "10..............Citra - 3DS emulator, this probably is completely broken"
 #echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
+read userInput
 
-#if input equals 1
-#curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
-#fi
+##------------------------
+if [$userInput == 1]; then
+  curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
+
+
+
+else
+  exit 1
+fi
+##-------------------------
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
