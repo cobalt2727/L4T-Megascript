@@ -36,7 +36,7 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #echo "8...............Development IDEs - write code on your Switch!"
 #echo "9...............Video Settings - Is your display going past the edges of your TV?)"
 #echo "10..............Citra - 3DS emulator, this probably is completely broken"
-#echo "any other key...Close L4T Megascript, view credits, and get Discord support server link"
+#echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
 
 #if input equals 1
 #curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
@@ -54,3 +54,4 @@ echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actu
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
+echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
