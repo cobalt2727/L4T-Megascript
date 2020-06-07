@@ -42,7 +42,7 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
 read userInput
 
-##------------------------
+#echo "--------------------"
 if [$userInput == 1]; then
   curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
 
@@ -51,7 +51,7 @@ if [$userInput == 1]; then
 else
   exit 1
 fi
-##-------------------------
+#echo "--------------------"
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
