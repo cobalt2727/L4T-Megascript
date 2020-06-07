@@ -20,7 +20,6 @@ echo -e "\x1B[31mHello World\e[0m"
 clear
 #echo "create a desktop file for the script on this line"
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
-sleep 1
 echo
 echo "Enter a number from the choices below to configure the specified program."#
 #echo "Keep in mind how much storage you have left on your SD card!"
@@ -46,7 +45,7 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
 #fi
 
-echo "Thank you for using the L4T Megascript!
+echo "Thank you for using the L4T Megascript!"
 sleep 2
 clear
 echo "Credits:"
