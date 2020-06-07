@@ -42,10 +42,10 @@ echo "any other key...Close L4T Megascript, view credits and source code, and ge
 read -p "Make a selection: " userInput
 echo
 echo "you have chosen $userInput"
-if [$userInput == 1]; then
+if [[ $userInput == 1 ]]; then
   curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
 
-elif [$userInput == 2]; then
+elif [[ $userInput == 2 ]]; then
   curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh | bash
 
 
