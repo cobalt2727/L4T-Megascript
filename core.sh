@@ -8,3 +8,4 @@ sleep 10
 clear
 echo 'Thank you for using L4T Megascript! Stop by our Discord server https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.`
+echo -e "\e[31mRed Text\e[0m"
