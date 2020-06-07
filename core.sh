@@ -1,7 +1,6 @@
 clear
 echo "Welcome back, $USER."
 echo "Enter a number from the choices below to configure that program."
-echo "if you're reading this, color should be working"
 
 echo "more stuff goes here"
 sleep 10
