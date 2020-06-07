@@ -1,3 +1,14 @@
+$ echo -e "\e[30mBlack Text\e[0m"
+$ echo -e "\e[31mRed Text\e[0m"
+$ echo -e "\e[32mGreen Text\e[0m"
+$ echo -e "\e[33mBrown Text\e[0m"
+$ echo -e "\e[34mBlue Text\e[0m"
+$ echo -e "\e[35mPurple Text\e[0m"
+$ echo -e "\e[36mCyan Text\e[0m"
+$ echo -e "\e[37mLight Gray Text\e[0m"
+
+
+
 clear
 echo "Welcome back, $USER. This isn't quite finished yet - we'll be ready eventually!"
 sleep 2
