@@ -22,7 +22,6 @@ clear
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
-#echo "Keep in mind how much storage you have left on your SD card!"
 echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
 sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
