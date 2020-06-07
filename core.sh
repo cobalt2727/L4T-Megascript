@@ -25,6 +25,7 @@ echo "Enter a number from the choices below to configure the specified program."
 echo "Be mindful of how much storage you have left on your SD card!"
 
 echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
+echo "1..........Update your programs - stuff built from source like Dolphin or RetroArch do not get updated with this"
 #echo "1..........Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
 echo "2..........Dolphin - latest development version)"
 #echo "3..........RetroArch - Not quite working yet, I don't have a collection of working cores"
