@@ -27,8 +27,8 @@ sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
 echo
+#echo "0...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
 echo "1...............Update your programs - download and install updates from the repos"
-#echo "1...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
 echo "2...............Dolphin - Gamecube and Wii emulator, latest development version)"
 #echo "3...............RetroArch - Not quite working yet, I don't have a collection of working cores"
 #echo "4...............Minecraft - automatically install Luke Chambers's MCSwitchTools (https://gitlab.com/devluke/mcswitchtools)"
@@ -44,7 +44,11 @@ echo
 read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
-if [[ $userInput == 1 ]]; then
+if [[ $userInput == 0 ]]; then
+  echo "This is where the initial setup script will be!"
+  #  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
+  
+elif [[ $userInput == 1 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
 
 
