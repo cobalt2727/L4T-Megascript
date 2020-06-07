@@ -45,10 +45,11 @@ read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
 if [[ $userInput == 1 ]]; then
-  curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
+
 
 elif [[ $userInput == 2 ]]; then
-  curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh | bash
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
 
 
 else
