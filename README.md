@@ -1,2 +1,2 @@
 # L4T-Megascript
-All-in-one installer and updater for popular programs on L4T Ubuntu with no prior knowledge of Linux needed
+We did the hard work so you don't have to - a multipurpose for updating and installing things like Dolphin, RetroArch, Moonlight, the joycon mouse config, and more!
