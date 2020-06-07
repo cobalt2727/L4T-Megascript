@@ -57,7 +57,7 @@ elif [[ $userInput == 2 ]]; then
 
 
 else
-  exit 1
+  echo ""
 fi
 
 echo "Thank you for using the L4T Megascript!"
