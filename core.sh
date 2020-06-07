@@ -1,5 +1,5 @@
 clear
-echo "Welcome back, $USER."
+echo "Welcome back, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo "Enter a number from the choices below to configure that program."
 
 echo "more stuff goes here"
