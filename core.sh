@@ -39,7 +39,7 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #echo "9...............Video Settings - Is your display going past the edges of your TV?)"
 #echo "10..............Citra - 3DS emulator, this probably is completely broken"
 echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
-read -p 'Make a selection: " userInput
+read -p "Make a selection: " userInput
 echo
 echo "you have chosen $userInput"
 if [$userInput == 1]; then
