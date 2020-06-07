@@ -22,6 +22,7 @@ echo "4..........Minecraft - using Luke Chambers's MCSwitchTools (https://gitlab
 echo "5..........moonlight-qt - stream games from your PC as long as it has an Nvidia GPU!)"
 echo "6..........Discord setup - not the actual program, but the web app)"
 echo "7..........Kodi - media center)"
+echo "8..........Development IDEs - write code on your Switch!)"
 
 
 echo "0..........Video Settings - Is your display going past the edges of your TV?)"
