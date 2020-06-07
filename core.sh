@@ -38,6 +38,9 @@ echo "2...............Dolphin - Gamecube and Wii emulator, latest development ve
 #echo "10..............Citra - 3DS emulator, this probably is completely broken"
 #echo "any other key...Close L4T Megascript, view credits, and get Discord support server link"
 
+#if input equals 1
+#curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh | bash
+#fi
 
 echo "Thank you for using the L4T Megascript!
 sleep 2
