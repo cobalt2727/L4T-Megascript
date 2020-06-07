@@ -13,6 +13,7 @@ echo "create a desktop file for the script on this line"
 echo "Welcome back, $USER. This isn't quite finished yet - we'll be ready eventually!"
 sleep 2
 echo "Enter a number from the choices below to configure the specified program."
+echo "Be mindful of how much storage you have left on your SD card!"
 
 echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo "1..........Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
@@ -28,5 +29,8 @@ echo "8..........Development IDEs - write code on your Switch!)"
 echo "0..........Video Settings - Is your display going past the edges of your TV?)"
 echo "x..........Close L4T Megascript, view credits, and get Discord support server link"
 
+echo "Credits:"
+echo "Cobalt - Manager/Lead Coder"
+echo "credit everyone here later when it's not 2 AM"
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
