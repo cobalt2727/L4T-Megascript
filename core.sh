@@ -17,5 +17,5 @@ echo "more stuff goes here"
 sleep 10
 
 clear
-echo -e 'Thank you for using L4T Megascript! Stop by our "\e[36mDiscord\e[0m" server at https://tinyurl.com/L4TScript for support.'
+echo -e 'Thank you for using L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
