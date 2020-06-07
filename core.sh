@@ -16,6 +16,7 @@ echo "Enter a number from the choices below to configure that program."
 echo "more stuff goes here"
 sleep 10
 
-clear
+echo 'Everything from here on is what happens when the user presses whatever I make the quit button to be'
+
 echo -e 'Thank you for using L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
