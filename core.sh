@@ -64,6 +64,7 @@ echo
 echo "Cobalt - Manager/Lead Coder"
 #echo "put other people that helped me write this here later if anyone gives some suggestions
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+echo "https://twitter.com/jsjfree34 - MASSIVE help in testing and giving me the idea for this in the first place"
 #echo "credit everyone else here later when it's not 2 AM"
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
