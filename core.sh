@@ -23,8 +23,9 @@ echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't qui
 sleep 2
 echo "Enter a number from the choices below to configure the specified program."
 echo "Be mindful of how much storage you have left on your SD card!"
-
-echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
+#echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
+echo
+echo
 echo "1...............Update your programs - download and install updates from the repos"
 #echo "1...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
 echo "2...............Dolphin - Gamecube and Wii emulator, latest development version)"
@@ -46,7 +47,8 @@ echo "Thank you for using the L4T Megascript!
 sleep 2
 clear
 echo "Credits:"
-echo "CTRL + CLICK ON A LINK TO OPEN IT
+echo "CTRL + CLICK ON A LINK TO OPEN IT"
+echo
 echo "Cobalt - Manager/Lead Coder"
 #echo "put other people that helped me write this here later if anyone gives some suggestions
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
