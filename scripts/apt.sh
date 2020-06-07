@@ -4,7 +4,7 @@ sleep 1
 sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove -y
-sudo flatpak update
+sudo flatpak update -y
 echo "Done! Sending you back to the main menu..."
-sleep 5
+sleep 4
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
