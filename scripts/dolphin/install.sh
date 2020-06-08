@@ -1,6 +1,3 @@
-echo "placeholder script here"
-sleep 10
-
 echo "looking to see if Dolphin's PPA already exists..."
 
 if ! [[ grep -q "^deb .*dolphin-emu/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/* ]]; then
@@ -12,7 +9,7 @@ else
 fi
 sudo apt update
 sudo apt install dolphin-emu-master
-
+sleep 30
 echo
 echo
 echo "NOTE: If you already have dolphin installed, you don't need to"
