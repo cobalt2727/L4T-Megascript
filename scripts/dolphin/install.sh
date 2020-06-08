@@ -3,7 +3,7 @@ sleep 10
 
 echo "looking to see if Dolphin's PPA already exists...
 
-if ! grep -q "^deb .*dolphin-emu/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+if ! [[ grep -q "^deb .*dolphin-emu/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/* ]]; then
     echo "Dolphin PPA not found, installing now!"
     sudo apt-add-repository ppa:dolphin-emu/ppa
 else
