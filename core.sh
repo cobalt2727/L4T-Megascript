@@ -30,7 +30,7 @@ echo
 #echo "0...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
 echo "1...............Update your programs - download and install updates from the repos (check this at least once daily!)"
 echo "2...............Dolphin - Gamecube and Wii emulator, latest development version"
-echo "3...............RetroArch - Not quite working yet, I don't have a collection of working cores"
+echo "3...............RetroArch - Not quite working yet, I don't have a collection of working cores (make sure you have flatpak installed)"
 echo "4...............Minecraft - automatically install Luke Chambers's MCSwitchTools (https://gitlab.com/devluke/mcswitchtools)"
 echo "5...............moonlight-qt - stream games from your PC as long as it has an Nvidia GPU!"
 echo "6...............Discord setup - not the actual program, but the web app"
