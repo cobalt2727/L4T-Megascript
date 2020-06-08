@@ -4,7 +4,7 @@ sleep 1
 echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | sudo tee /etc/apt/sources.list.d/moonlight-l4t.list
 echo "Adding key..."
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-echo "Updating sources and installing Moonlight
+echo "Updating sources and installing Moonlight"
 sudo apt-get update
 sudo apt install moonlight-qt
 echo "Done!"
