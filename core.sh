@@ -39,6 +39,7 @@ echo "8...............Development IDEs - write code on your Switch!"
 echo "9...............Video Settings - Is your display going past the edges of your TV?"
 echo "10..............Citra - 3DS emulator, this probably is completely broken"
 echo "11..............Dolphin Stable - Gamecube and Wii emulator, latest stable version N-Games Test"
+echo "12..............Flathub - Linux kind of app store (is needed for RetroArch)"
 echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
@@ -61,6 +62,9 @@ elif [[ $userInput == 11 ]]; then
   
   elif [[ $userInput == 3 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/RetroArch/main.sh)"
+ 
+ elif [[ $userInput == 3 ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/FLATHUB/main.sh)"
 
 else
   echo ""
