@@ -1,3 +1,4 @@
+sudo apt install software-properties-common
 echo "looking to see if Dolphin's PPA already exists..."
 
 if ! grep -q "^deb .*dolphin-emu/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
