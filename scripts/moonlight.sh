@@ -10,7 +10,7 @@ sudo apt install moonlight-qt
 echo "Done!"
 echo "Ctrl + click this link before this message disappears in 20 seconds"
 echo "For a guide on how to set Moonlight up on your PC and connect"
-echo "to it from your Switch!
+echo "to it from your Switch!"
 echo
 echo "https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide"
 echo
