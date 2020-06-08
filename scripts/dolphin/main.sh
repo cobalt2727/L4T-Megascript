@@ -4,7 +4,7 @@ echo
 echo
 echo "1...............Install or update Dolphin (this can and will take a LONG time, so grab some popcorn)"
 echo "2...............Download my latest autoconfigs for Dolphin for the Switch:"
-echo "3...............NOT IMPLEMENTED YET AND WON'T BE FOR A WHILE - Build other variants of Dolphin from source (Primehack, Project+, etc)
+echo "3...............NOT IMPLEMENTED YET AND WON'T BE FOR A WHILE - Build other variants of Dolphin from source (Primehack, Project+, etc)"
 echo "  -graphics settings"
 echo "  -game-specific controller profiles"
 echo "  -custom user interface"
