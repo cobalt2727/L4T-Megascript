@@ -55,7 +55,6 @@ elif [[ $userInput == 1 ]]; then
 elif [[ $userInput == 2 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
 
-
 else
   echo ""
 fi
