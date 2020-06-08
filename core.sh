@@ -69,7 +69,7 @@ clear
 echo "Credits:"
 echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo
-echo -e "\e[34mCobalt and N-Games - Manager/Lead Coder\e[0m"
+echo -e "\e[34mCobalt, N-Games - Manager/Lead Coder\e[0m"
 
 #echo "put other people that helped me write this here later if anyone gives some suggestions
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
