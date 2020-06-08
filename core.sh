@@ -40,7 +40,7 @@ echo "9...............Video Settings - Is your display going past the edges of y
 echo "10..............Citra - 3DS emulator, this probably is completely broken"
 echo "11..............Dolphin Stable - Gamecube and Wii emulator, latest stable version N-Games Test"
 echo "12..............Flathub - Linux kind of app store (is needed for RetroArch)"
-echo "13..............PPSPP - PSP emulator for Linux (make sure you have flatpak installed)"
+echo "13..............PPSSPP - PSP emulator for Linux (make sure you have flatpak installed)"
 echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
