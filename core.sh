@@ -16,13 +16,13 @@ echo -e "\e[4munderline\e[0m"
 echo -e "\e[9mstrikethrough\e[0m"
 echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
-
-clear
 #echo "create a desktop file for the script on this line"
-echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
-echo
+
 while true
 do
+clear
+echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
+echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
 sleep 2
