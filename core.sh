@@ -38,7 +38,7 @@ echo "7...............Kodi - media center"
 echo "8...............Development IDEs - write code on your Switch!"
 echo "9...............Video Settings - Is your display going past the edges of your TV?"
 echo "10..............Citra - 3DS emulator, this probably is completely broken"
-echo "11..............Dolphin Stable - Gamecube and Wii emulator, latest stable version"
+echo "11..............Dolphin Stable - Gamecube and Wii emulator, latest stable version (N-Games Test)"
 echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
