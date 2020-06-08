@@ -26,4 +26,3 @@ else
   
 fi
 echo "Sending you back to the main menu..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
