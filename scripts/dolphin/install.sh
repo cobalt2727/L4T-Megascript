@@ -22,4 +22,3 @@ sleep 10
 
 echo "Sending you back to the main menu..."
 sleep 1
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
