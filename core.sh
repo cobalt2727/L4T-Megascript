@@ -63,7 +63,7 @@ elif [[ $userInput == 11 ]]; then
   elif [[ $userInput == 3 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/RetroArch/main.sh)"
  
- elif [[ $userInput == 3 ]]; then
+ elif [[ $userInput == 12 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/FLATHUB/main.sh)"
 
 else
