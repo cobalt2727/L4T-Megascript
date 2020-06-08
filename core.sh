@@ -59,7 +59,7 @@ elif [[ $userInput == 2 ]]; then
 elif [[ $userInput == 11 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/dolphin_stable/main.sh)"
   
-  elif [[ $userInput == 1 ]]; then
+  elif [[ $userInput == 3 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/RetroArch/main.sh)"
 
 else
