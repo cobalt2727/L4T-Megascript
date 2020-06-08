@@ -21,6 +21,8 @@ clear
 #echo "create a desktop file for the script on this line"
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
+while true
+do
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
 sleep 2
@@ -55,11 +57,7 @@ elif [[ $userInput == 1 ]]; then
 elif [[ $userInput == 2 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
 
-
-else
-  echo ""
-fi
-
+elif [[ $userInput == -1 ]]; then
 echo "Thank you for using the L4T Megascript!"
 sleep 2
 clear
@@ -76,3 +74,11 @@ echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
+
+exit 0
+else
+  echo ""
+fi
+
+done
+
