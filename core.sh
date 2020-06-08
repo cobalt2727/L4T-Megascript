@@ -57,7 +57,7 @@ elif [[ $userInput == 2 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
 
 elif [[ $userInput == 11 ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/dolphin/main.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/N-Games/L4T-Megascript/master/scripts/dolphin_stable/main.sh)"
 
 else
   echo ""
