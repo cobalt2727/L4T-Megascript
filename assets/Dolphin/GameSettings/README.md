@@ -1,0 +1,1 @@
+This is where I'll be setting up individual game-specific profiles for video and controller settings. There will be a LOT of games to cover, so if you have a request or a profile submission, submit it at https://discord.gg/UYsUFCY in the #dolphin-game-profiles channel!
