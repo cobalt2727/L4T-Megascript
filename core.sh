@@ -41,7 +41,7 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10...............Video Settings - Is your display going past the edges of your TV?"
 #echo "11..............Citra - 3DS emulator, this probably is completely broken"
-echo "any other key...Close L4T Megascript, view credits and source code, and get Discord support server link"
+echo "X...Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
 read -p "Make a selection: " userInput
@@ -55,8 +55,10 @@ elif [[ $userInput == 1 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
 
 elif [[ $userInput == 2 ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript-Assets/master/asset-core.sh)"
-
+  #bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript-Assets/master/asset-core.sh)"
+clear
+echo "needs to be fixed!"
+sleep 4
 
 elif [[ $userInput == 3 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
