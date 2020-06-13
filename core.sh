@@ -41,6 +41,7 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10...............Video Settings - Is your display going past the edges of your TV?"
 #echo "11..............Citra - 3DS emulator, this probably is completely broken"
+echo "starwars........Watch Episode IV entirely in this terminal window!"
 echo "X...Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
@@ -55,10 +56,11 @@ elif [[ $userInput == 1 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
 
 elif [[ $userInput == 2 ]]; then
-  #bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript-Assets/master/asset-core.sh)"
-clear
-echo "needs to be fixed!"
-sleep 4
+  sudo apt install subversion
+  clear
+  echo "needs to be fixed!"
+  sleep 4
+  #something something svn
 
 elif [[ $userInput == 3 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
@@ -66,6 +68,20 @@ elif [[ $userInput == 3 ]]; then
 elif [[ $userInput == 6 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
 
+elif [[ $userInput == starwars ]]; then
+  sudo apt install telnet -y
+  clear
+  echo "The script will now run the command \e[32mtelnet towel.blinkenlights.nl\e[0m"
+  echo "For more info on what this is and how"
+  echo "it works, Ctrl+click the following links:"
+  echo "http://www.blinkenlights.nl/thereg/"
+  echo "http://www.asciimation.co.nz/"
+  echo "This message will close in 30 seconds,"
+  echo "and the movie will start. Press Ctrl + C"
+  echo "or click the X on the terminal window to cancel"
+  echo "at any time. Enjoy!"
+  sleep 30
+  telnet towel.blinkenlights.nl
 
 elif [[ $userInput == x || $userInput == X ]]; then
 echo "Thank you for using the L4T Megascript!"
