@@ -39,10 +39,10 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "7...............Discord setup - not the actual program, but the web app"
 #echo "8...............Kodi - media center"
 #echo "9...............Development IDEs - write code on your Switch!"
-#echo "10...............Video Settings - Is your display going past the edges of your TV?"
+#echo "10..............Video Settings - Is your display going past the edges of your TV?"
 #echo "11..............Citra - 3DS emulator, this probably is completely broken"
-echo "starwars........Watch Episode IV entirely in this terminal window!"
-echo "X...Close L4T Megascript, view credits and source code, and get Discord support server link"
+#echo "starwars........Watch Episode IV entirely in this terminal window!"
+echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
 read -p "Make a selection: " userInput
