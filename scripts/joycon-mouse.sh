@@ -7,9 +7,4 @@ wget https://cdn.discordapp.com/attachments/604648722491768883/68492624850570448
 
 echo "Done!"
 
-
-echo "placeholder to ask if they want to reboot now"
-
-
-echo "Going back to the menu in 5 seconds..."
-sleep 5
+sleep 2
