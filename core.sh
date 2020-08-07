@@ -20,11 +20,15 @@ echo -e "\x1B[31mHello World\e[0m"
 
 while true
 do
+cd ~
+available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
-echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
+#echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
+echo -e "\x1B[31mYou have $available_space of space left on your SD card! Make sure you don't use too much!\e[0m"
+
 sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
