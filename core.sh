@@ -41,6 +41,7 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10..............Video Settings - Is your display going past the edges of your TV?"
 #echo "11..............Citra - 3DS emulator, this probably is completely broken"
+echo "12...............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
 #echo "starwars........Watch Episode IV entirely in this terminal window!"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
@@ -48,11 +49,11 @@ echo
 read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
-if [[ $userInput == 0 ]]; then
+if [[ $userInput == 0 || $userInput == setup ]]; then
   echo "This is where the initial setup script will be!"
   #  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
   
-elif [[ $userInput == 1 ]]; then
+elif [[ $userInput == 1 || $userInput == update ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
 
 elif [[ $userInput == 2 ]]; then
@@ -62,11 +63,14 @@ elif [[ $userInput == 2 ]]; then
   sleep 4
   #something something svn
 
-elif [[ $userInput == 3 ]]; then
+elif [[ $userInput == 3 || $userInput == dolphin ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
 
-elif [[ $userInput == 6 ]]; then
+elif [[ $userInput == 6 || $userInput == moonlight ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
+
+elif [[ $userInput == 12 || $userInput == flightgear ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh)"
 
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y
