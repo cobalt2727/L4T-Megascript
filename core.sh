@@ -33,7 +33,7 @@ sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
 echo
-#echo "0...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
+#echo "0...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc (2 GB of open space required for the swapfile!)"
 echo "1...............Update your programs - download and install updates from the repos (check this at least once daily!)"
 echo "2...............Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 echo "3...............Dolphin - Gamecube and Wii emulator, latest development version"
