@@ -33,7 +33,7 @@ sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
 echo
-#echo "0...............Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc (2 GB of open space required for the swapfile!)"
+echo "0...............***WIP***Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc (2 GB of open space required for the swapfile!)"
 echo "1...............Update your programs - download and install updates from the repos (check this at least once daily!)"
 echo "2...............Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 echo "3...............Dolphin - Gamecube and Wii emulator, latest development version"
@@ -54,8 +54,7 @@ read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
 if [[ $userInput == 0 || $userInput == setup ]]; then
-  echo "This is where the initial setup script will be!"
-  #  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
   
 elif [[ $userInput == 1 || $userInput == update ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
