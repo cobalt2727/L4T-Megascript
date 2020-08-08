@@ -33,7 +33,6 @@ echo "Installing the direct access"
 echo
 sudo mv CaveStoryIcon.png -t /usr
 cd game_english
-sudo mv
 sudo mv CSE2.desktop -t /usr/share/applications 
 echo
 echo "Game Installed!"
