@@ -79,7 +79,6 @@ elif [[ $userInput == 12 || $userInput == flightgear ]]; then
 elif [[ $userInput == 13 || $userInput == CSE2 ]]; then 
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh)"
   
-
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y
   clear
