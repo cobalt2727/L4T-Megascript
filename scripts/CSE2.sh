@@ -1,8 +1,9 @@
 echo "Downloading the files and installing needed dependencies..." 
-git clone https://github.com/Lang-Kasempo/CSE2.git
-sudo apt install git cmake g++ libxext-dev libgl-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+git clone https://github.com/Lang-Kasempo/CSE2/archive/enhanced.zip
+sudo apt install git cmake g++ libxext-dev libgl-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev unzip
 
-cd CSE2
+unzip CSE2-enhanced.zip
+cd CSE2-enhanced
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cd build
 make
@@ -37,7 +38,7 @@ chmod 777 CaveStory.sh
 sudo mv CSE2.desktop -t /usr/share/applications 
 cd ..
 cd ..
-sudo mv CSE2 -t /usr/share
+sudo mv CSE2-enhanced -t /usr/share
 echo
 echo "Game Installed!"
 echo
