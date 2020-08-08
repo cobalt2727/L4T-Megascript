@@ -47,7 +47,7 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "11..............Citra - 3DS emulator, this probably is completely broken"
 echo "12...............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
 #echo "starwars........Watch Episode IV entirely in this terminal window!"
-echo "13...............CSE2 - An enhansed version of Cave Story. 60 FPS and other soundtrack supports"
+echo "13...............CSE2 - An enhansed version of Cave Story. 60 FPS and other soundtrack support"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo
 echo
