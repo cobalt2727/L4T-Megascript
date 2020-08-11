@@ -107,7 +107,7 @@ echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo
 echo -e "\e[34mCobalt - Manager/Lead Developer\e[0m"
 echo -e "Lugsole - Contributor/GUI Manager"
-echo -e "Lang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts"
+echo -e "\e[35mLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\e[0m"
 #echo "put other people that helped me write this here later if anyone gives some suggestions
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
