@@ -48,8 +48,9 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 echo "12...............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
 #echo "starwars........Watch Episode IV entirely in this terminal window!"
 echo "13...............CSE2 - An enhansed version of Cave Story. 60 FPS and other soundtracks support"
+echo "14...............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
-echo
+echo 
 echo
 read -p "Make a selection: " userInput
 
@@ -79,6 +80,9 @@ elif [[ $userInput == 12 || $userInput == flightgear ]]; then
 elif [[ $userInput == 13 || $userInput == CSE2 ]]; then 
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh)"
   
+elif [[ $userInput == 14 || $userInput == SRB2 ]]; then 
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh)"
+
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y
   clear
