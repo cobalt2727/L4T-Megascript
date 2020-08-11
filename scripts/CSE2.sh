@@ -1,4 +1,7 @@
-echo "Downloading the files and installing needed dependencies..." 
+clear
+echo "CSE2 script started!"
+echo "Downloading the files and installing needed dependencies..."
+sleep 3
 wget https://github.com/Clownacy/CSE2/archive/enhanced.zip
 unzip enhanced.zip
 sudo apt install git cmake g++ libxext-dev libgl-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev subversion svn-all-fast-export
@@ -16,6 +19,7 @@ echo "Game compilated!"
 echo
 cd ..
 echo "Erasing files to save space..."
+sleep 2
 echo
 echo
 rm -r assets
@@ -46,8 +50,9 @@ echo
 echo "Game Installed!"
 echo
 echo
-echo "[NOTE] Remember NOT to move the CSE2 folder or any file inside it or the game will stop working. If the game icon
-doesn't appear inmediately, restart the system"
+echo "[NOTE] Remember NOT to move the CSE2 folder or any file inside it or the game will stop working."
+echo "If the game icon doesn't appear inmediately, restart the system."
+echo "This message will close in 10 seconds."
 sleep 10
 
 echo "Sending you back to the main menu..."
