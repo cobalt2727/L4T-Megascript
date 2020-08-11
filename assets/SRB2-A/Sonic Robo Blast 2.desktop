@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/SRB2/SRB2Icon.png
+Name=Sonic Robo Blast 2
+Exec=/usr/share/SRB2/SRB2.sh
+Terminal=true
+Hidden=false
+Categories=Games
