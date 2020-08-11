@@ -10,7 +10,7 @@ rm -r CSE2
 cd CSE2-enhanced
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cd build
-make
+make -j$(nproc)
 echo
 echo "Game compilated!"
 echo
