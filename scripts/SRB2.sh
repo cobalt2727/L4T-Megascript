@@ -30,7 +30,7 @@ echo
 echo "Compiling the game..."
 echo
 cmake ..
-make
+make -j$(nproc)
 echo
 echo "Game compiled!"
 echo
