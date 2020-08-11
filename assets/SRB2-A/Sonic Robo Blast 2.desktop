@@ -6,3 +6,4 @@ Exec=/usr/share/SRB2/SRB2.sh
 Terminal=true
 Hidden=false
 Categories=Games
+Path=/usr/share/SRB2/assets/installer
