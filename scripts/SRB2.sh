@@ -1,4 +1,7 @@
+clear
+echo "SRB2 script started!"
 echo "Downloading the files, and installing needed dependencies..." 
+sleep 2
 wget https://github.com/STJr/SRB2/archive/master.zip
 sudo apt install libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion svn-all-fast-export
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "Data" | grep "SRB2_release_" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
@@ -28,14 +31,17 @@ mv music.dta patch.pk3 patch_music.pk3 player.dta srb2.pk3 zones.pk3 -t /home/$U
 cd /home/$USER/SRB2-master/build
 echo
 echo "Compiling the game..."
+sleep 1
 echo
 cmake ..
 make -j$(nproc)
 echo
 echo "Game compiled!"
+sleep 1
 echo
 echo
-echo "Erasing files to save space..."
+echo "Erasing temporary build files to save space..."
+sleep 2
 echo
 cd /home/$USER/SRB2-master/assets
 rm -r debian-template
@@ -89,8 +95,9 @@ echo
 echo "Game installed!"
 echo
 echo
-echo "[NOTE] Remember NOT to move the SRB2 folder or any file inside it or the game will stop working. If the game icon
-doesn't appear inmediately, restart the system"
+echo "[NOTE] Remember NOT to move the SRB2 folder or any file inside it or the game will stop working."
+echo "If the game icon doesn't appear inmediately, restart the system."
+echo "This message will close in 10 seconds."
 sleep 10
 echo
 echo "Sending you back to the main menu..."
