@@ -3,11 +3,13 @@ echo "Initial setup script started!"
 
 sleep 2
 
-
-sudo apt-get update
-sudo apt install indicator-cpufreq
-sudo apt install flatpak
-sudo apt install gnome-software-plugin-flatpak
+echo "Checking for updates and installing a few extra recommended packages."
+echo "This might take a while, depending on your internet speed."
+echo "Pull up a chair!"
+sleep 10
+sudo dpkg --add-architecture armhf
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak
 
 #flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
