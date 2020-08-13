@@ -44,13 +44,13 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "8...............Kodi - media center"
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10..............Video Settings - Is your display going past the edges of your TV?"
-#echo "11..............Citra - 3DS emulator, this probably is completely broken"
-echo "12...............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
+echo "11..............Citra - 3DS emulator, don't expect perfect performance"
+echo "12..............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
 #echo "starwars........Watch Episode IV entirely in this terminal window!"
-echo "13...............CSE2 - An enhanced version of Cave Story. 60 FPS and other soundtracks support"
-echo "14...............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
-echo "15...............RetroPie - Powerful frontend for both emulators and native programs alike"
-echo "X................Close L4T Megascript, view credits and source code, and get Discord support server link"
+echo "13..............CSE2 - An enhanced version of Cave Story. 60 FPS and other soundtracks support"
+echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
+echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
+echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
 echo
 read -p "Make a selection: " userInput
@@ -74,6 +74,9 @@ elif [[ $userInput == 3 || $userInput == dolphin ]]; then
 
 elif [[ $userInput == 6 || $userInput == moonlight ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
+
+elif [[ $userInput == 11 || $userInput == citra ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
 
 elif [[ $userInput == 12 || $userInput == flightgear ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh)"
@@ -112,7 +115,8 @@ echo
 echo -e "\e[34mCobalt - Manager/Lead Developer\e[0m"
 echo -e "Lugsole - Contributor/GUI Manager"
 echo -e "\e[35mLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\e[0m"
-#echo "put other people that helped me write this here later if anyone gives some suggestions
+echo -e "\e[32mGman - Contributor/RetroPie script/Celeste native port\e[0m"
+#echo "hey, if you're reading this, you probably helped make the thing. you can add stuff to your credits in your PRs if you want to!"
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
 echo ""
