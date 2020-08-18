@@ -51,7 +51,7 @@ echo "13..............CSE2 - An enhanced version of Cave Story. 60 FPS and other
 echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
 echo "16..............Celeste (Pico 8 Port) - A tight platforming game which lead to the development of Celeste"
-echo "17..............Flappy-Bird - A game about a bird flying in-between warp pipes"
+echo "17..............Flappy Bird - A game about a bird flying in-between warp pipes"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
 echo
@@ -95,7 +95,7 @@ elif [[ $userInput == 15 || $userInput == RetroPie ]]; then
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
 
-elif [[ $userInput == 17 || $userInput == Flappy-Bird ]]; then
+elif [[ $userInput == 17 || $userInput == Flappy Bird ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
 
 elif [[ $userInput == starwars ]]; then
