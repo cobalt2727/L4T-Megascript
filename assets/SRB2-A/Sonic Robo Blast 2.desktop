@@ -2,8 +2,6 @@
 Type=Application
 Icon=/usr/share/SRB2/SRB2Icon.png
 Name=Sonic Robo Blast 2
-Exec=/usr/share/SRB2/SRB2.sh
-Terminal=true
-Hidden=false
+Exec=gnome-terminal -e "bash -c 'cd /usr/share/SRB2/assets/installer; /usr/share/SRB2/SRB2.sh'"
+Terminal=false
 Categories=Games
-Path=/usr/share/SRB2/assets/installer
