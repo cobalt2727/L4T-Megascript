@@ -95,7 +95,7 @@ elif [[ $userInput == 15 || $userInput == RetroPie ]]; then
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
 
-elif [[ $userInput == 17 || $userInput == Flappy Bird ]]; then
+elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
 
 elif [[ $userInput == starwars ]]; then
