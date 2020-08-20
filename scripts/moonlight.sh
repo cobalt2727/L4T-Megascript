@@ -6,7 +6,7 @@ echo "Adding key..."
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 echo "Updating sources and installing Moonlight"
 sudo apt-get update
-sudo apt install moonlight-qt
+sudo apt install moonlight-qt -y
 echo "Done!"
 echo "Ctrl + click this link before this message disappears in 20 seconds"
 echo "For a guide on how to set Moonlight up on your PC and connect"
