@@ -33,25 +33,27 @@ sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
 echo
 echo
-echo "0...............***WIP***Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc (2 GB of open space required for the swapfile!)"
+echo "0...............***WIP***Initial setup - swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc"
+echo "................(2 GB of open space required for the swapfile!)"
 echo "1...............Update your programs - download and install updates from the repos (check this at least once daily!)"
 echo "2...............Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 echo "3...............Dolphin - Gamecube and Wii emulator, latest development version"
 #echo "4...............RetroArch - Not quite working yet, I don't have a collection of working cores"
-#echo "5...............Minecraft - automatically install Luke Chambers's MCSwitchTools (https://gitlab.com/devluke/mcswitchtools)"
+#echo "................ngl we should really just scrap the above option and go all in on RetroPie let's be honest"
+#echo "5...............Minecraft - automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
 echo "6...............moonlight-qt - stream games from your PC as long as it has an Nvidia GPU!"
 #echo "7...............Discord setup - not the actual program, but the web app"
 #echo "8...............Kodi - media center"
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10..............Video Settings - Is your display going past the edges of your TV?"
-echo "11..............Citra - 3DS emulator, don't expect perfect performance"
+#echo "11..............Citra - 3DS emulator, currently broken"
 echo "12..............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
-#echo "starwars........Watch Episode IV entirely in this terminal window!"
 echo "13..............CSE2 - An enhanced version of Cave Story. 60 FPS and other soundtracks support"
 echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
-echo "16..............Celeste (Pico 8 Port) - A tight platforming game which lead to the development of Celeste"
-echo "17..............Flappy Bird - A game about a bird flying in-between warp pipes"
+echo "16..............Celeste (Pico-8 Port) - A tight platforming game which lead to the development of Celeste"
+echo "17..............Flappy Bird - A game about a bird flying in between warp pipes"
+#echo "starwars........Watch Episode IV entirely in this terminal window in glorious animated ASCII art"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
 echo
@@ -67,9 +69,10 @@ elif [[ $userInput == 1 || $userInput == update ]]; then
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
   clear
-  echo "needs to be fixed!"
+  echo "asset downloading needs to be implemented!"
+  echo "go ping me on discord and yell at me about this"
+  something something svn
   sleep 4
-  #something something svn
 
 elif [[ $userInput == 3 || $userInput == dolphin ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
