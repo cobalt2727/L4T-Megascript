@@ -19,7 +19,9 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 sleep 1
 
 clear
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
+echo "hey can someone confirm the swapfile script i threw together actually works?"
+sleep 10
+#bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
 sleep 1
 
 clear
