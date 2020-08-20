@@ -6,6 +6,9 @@ sleep 2
 echo "Checking for updates and installing a few extra recommended packages."
 echo "This might take a while, depending on your internet speed."
 echo "Pull up a chair!"
+echo "CREDITS:"
+echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
+echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
 sudo dpkg --add-architecture armhf
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
@@ -16,7 +19,7 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 sleep 1
 
 clear
-echo "Placeholder for the swapfile script"
+bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
 sleep 1
 
 clear
