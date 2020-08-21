@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
@@ -9,7 +9,6 @@ echo "Add a check from the choices in the GUI and then press INSTALL to configur
 echo -e "\x1B[31mYou have $available_space of space left on your SD card! Make sure you don't use too much!\e[0m"
 
 sleep 2
-
 
 CHOICE=$(zenity \
 	--width="1000"\
@@ -32,35 +31,59 @@ CHOICE=$(zenity \
     
 if grep -q "RetroPie" <<< "$CHOICE";
 then echo "install retropie..."
-bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing retropie" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "Celeste (Pico-8 Port)" <<< "$CHOICE";
 then echo "install celeste..."
-bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing celeste" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "Flappy Bird" <<< "$CHOICE";
 then echo "install flappy bird..."
-bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing flappy bird" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "moonlight-qt" <<< "$CHOICE";
 then echo "install moonlight..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing moonlight" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "FlightGear" <<< "$CHOICE";
 then echo "install FlightGear..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing FlightGear" --percentage=0 |
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "CSE2" <<< "$CHOICE";
 then echo "install CSE2..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing CSE2" --percentage=0 |
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "SRB2" <<< "$CHOICE";
 then echo "install SRB2..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing SRB2" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 if grep -q "Citra" <<< "$CHOICE";
 then echo "install Citra..."
- bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
+PRIVATE=`zenity --password`
+zenity --progress --text="Installing Citra" --percentage=0 |
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | sh
+zenity --info --text="Sucessfully installed"
 fi
 
 echo "Thank you for using the L4T Megascript!"
