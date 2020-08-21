@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
@@ -29,60 +29,60 @@ CHOICE=$(zenity \
     FALSE "CSE2" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
     FALSE "Citra" "3DS emulator, currently broken")
     
-if grep -q "RetroPie" <<< "$CHOICE";
+if echo $CHOICE | grep -q "RetroPie";
 then echo "install retropie..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing retropie" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "Celeste (Pico-8 Port)" <<< "$CHOICE";
+if echo $CHOICE | grep -q "Celeste (Pico-8 Port)"
 then echo "install celeste..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing celeste" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "Flappy Bird" <<< "$CHOICE";
+if echo $CHOICE | grep -q "Flappy Bird"
 then echo "install flappy bird..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing flappy bird" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "moonlight-qt" <<< "$CHOICE";
+if echo $CHOICE | grep -q "moonlight-qt"
 then echo "install moonlight..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing moonlight" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "FlightGear" <<< "$CHOICE";
+if echo $CHOICE | grep -q "FlightGear"
 then echo "install FlightGear..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing FlightGear" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "CSE2" <<< "$CHOICE";
+if echo $CHOICE | grep -q "CSE2"
 then echo "install CSE2..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing CSE2" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "SRB2" <<< "$CHOICE";
+if echo $CHOICE | grep -q "SRB2"
 then echo "install SRB2..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing SRB2" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
-if grep -q "Citra" <<< "$CHOICE";
+if echo $CHOICE | grep -q "Citra"
 then echo "install Citra..."
 PRIVATE=`zenity --password`
 zenity --progress --text="Installing Citra" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | sh
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | bash
 zenity --info --text="Sucessfully installed"
 fi
 
