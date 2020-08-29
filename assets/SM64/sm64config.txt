@@ -24,7 +24,7 @@ key_stickdown 001f ffff ffff
 key_stickleft 001e ffff ffff 
 key_stickright 0020 ffff ffff 
 stick_deadzone 15
-rumble_strength 50
+rumble_strength 0
 precache true
 bettercam_enable true
 bettercam_mouse_look false
