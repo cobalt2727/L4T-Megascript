@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/SM64/SM64Icon.png
+Name=Super Mario 64
+Exec=/usr/share/SM64/sm64
+Terminal=false
+Hidden=false
+Categories=Games
+Name=Super Mario 64
