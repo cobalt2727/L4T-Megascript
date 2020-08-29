@@ -6,4 +6,4 @@ Exec=/usr/share/SM64/sm64
 Terminal=false
 Hidden=false
 Categories=Games
-Name[es_ES]=Super Mario 64
+Name=Super Mario 64
