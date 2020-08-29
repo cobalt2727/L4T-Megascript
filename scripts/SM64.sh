@@ -8,11 +8,14 @@ wget https://github.com/sm64pc/sm64ex/archive/master.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SM64
 unzip master.zip
 cd sm64ex-master
-echo "To build this port, you need a Super Mario 64 rom with the extension .z64. Because of copyright reasons, we don't provide that rom. Please put the rom into the repository's root (sm64ex-master) and rename it to baserom.VERSION.z64, where VERSION can be us, jp, or eu(We recommend US, because EU has some issues like no sound)"
+echo "To build this port, you need a Super Mario 64 rom with the extension .z64."
+echo "Due to copyright restrictions, we will not provide the game file ourselves."
+echo "Please legally acquire a copy and put the rom into the repository's root (sm64ex-master) and rename it to baserom.VERSION.z64."
+echo "VERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio)"
 sleep 10
 read -p "Do you want to continue? (y/n) " userInput
 if [[ $userInput == n || $userInput == no ]]; then
-echo "Stoping the script..."
+echo "Stopping the script..."
 cd /$HOME 
 rm -r sm64ex-master
 rm -r SM64
