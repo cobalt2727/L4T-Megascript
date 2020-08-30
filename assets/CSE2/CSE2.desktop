@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Terminal=true
-Hidden=false
-Name=CSE2
-Icon=/usr/share/CSE2/game_english/CaveStoryIcon.png
-Categories=Games
-Exec=/usr/share/CSE2/game_english/CaveStory.sh
