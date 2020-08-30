@@ -29,8 +29,13 @@ CHOICE=$(zenity \
     FALSE "CSE2" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
     FALSE "Citra" "3DS emulator, currently broken")
     
-PRIVATE=`zenity --password`
 
+
+if ["$?" != 0 ]
+then
+PRIVATE=`zenity --password`
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh | bash
+fi
 if echo $CHOICE | grep -q "RetroPie";
 then echo "install retropie..."
 #zenity --progress --text="Installing retropie" --percentage=0 | 
