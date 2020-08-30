@@ -38,7 +38,7 @@ We currenly have the following scripts:
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor/GUI Manager 
-- Lang-Kasempo: Contributor/Beta Tester/did a lot of the standalone game scripts
+- Lang Kasempo: Contributor/Beta Tester/did a lot of the standalone game scripts
 - Gman: Contributor/RetroPie script/Celeste native port
 ## Do you have a question or want to give ideas?
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
@@ -51,3 +51,4 @@ You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 - moonlight-stream: Creators and developers of Moonlight-Qt
 - lemon-sherbet: Creator and developer of the Celeste Classic Port
 - Acry: Creator and developer of the Flappy Bird Port
+- SuperTux: Creators and developers of SuperTux2
