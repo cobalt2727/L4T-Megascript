@@ -22,7 +22,7 @@ We currenly have the following scripts:
 - Dolphin: Gamecube and Wii emulator, latest development version
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia GPU!
 - FlightGear: Free, open source flight simulator
-- CSE2: An enhanced version of Cave Story. 60 FPS and other soundtracks support
+- CSE2-Tweaks: An enhanced version of Cave Story. 60 FPS, bugs fixes, other soundtracks support
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
 - RetroPie - Powerful frontend for both emulators and native programs alike
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
@@ -45,7 +45,7 @@ We currenly have the following scripts:
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 ## Credits
 - STJr: Creators and developers of SRB2
-- Clownacy: Creator and developer of CSE2
+- Clownacy: Creator and developer of CSE2-Tweaks
 - RetroPie: Creators and developers of Retropie
 - dolphin-emu: Creators and dvelopers of Dolphin
 - FlightGear: Creators and developers of the FlightGear
