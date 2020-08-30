@@ -28,7 +28,6 @@ elif [[ $userInput == y || $userInput == yes ]]; then
 echo "Continuing the script..."
 sleep 3
 fi
-sed -e 's/return hap;/return NULL;/' -i.orig src/pc/controller/controller_sdl.c
 read -p "Please select the ROM's region (us/eu/jp) " userInput
 if [[ $userInput == us || $userInput == US ]]; then
 make -j$(nproc) BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1
