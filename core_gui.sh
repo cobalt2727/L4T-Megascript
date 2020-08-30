@@ -26,10 +26,10 @@ CHOICE=$(zenity \
     FALSE "FlightGear" "Free, open source flight simulator (3 GB DOWNLOAD)"\
     FALSE "Dolphin" "Gamecube and Wii emulator, latest development version"\
     FALSE "SRB2" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
-    FALSE "CSE2" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
-    FALSE "Citra" "3DS emulator, currently broken")
-    
-
+    FALSE "CSE2-Tweaks" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
+    FALSE "Citra" "3DS emulator, currently broken"\
+    FALSE "SM64Port" "A native port of the classic game for the N64 (requieres a ROM)"\
+    FALSE "Dolphin" "Gamecube and Wii emulator, latest development version")
 
 if [ "$?" != 1 ]
 then
@@ -66,10 +66,10 @@ then echo "install FlightGear..."
 echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
-if echo $CHOICE | grep -q "CSE2"
+if echo $CHOICE | grep -q "CSE2-Tweaks"
 then echo "install CSE2..."
 #zenity --progress --text="Installing CSE2" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "SRB2"
@@ -78,12 +78,24 @@ then echo "install SRB2..."
 echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
-if echo $CHOICE | grep -q "Citra"
-then echo "install Citra..."
-#zenity --progress --text="Installing Citra" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | bash
+if echo $CHOICE | grep -q "SM64"
+then echo "install SM64..."
+#zenity --progress --text="Installing SM64" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SM64.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
+if echo $CHOICE | grep -q "Dolphin"
+then echo "install Dolphin..."
+#zenity --progress --text="Installing Dolphin" --percentage=0 | 
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh | bash
+#zenity --info --text="Sucessfully installed"
+fi
+# if echo $CHOICE | grep -q "Citra"
+# then echo "install Citra..."
+# #zenity --progress --text="Installing Citra" --percentage=0 |
+# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | bash
+# #zenity --info --text="Sucessfully installed"
+# fi
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
