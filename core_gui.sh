@@ -31,12 +31,12 @@ CHOICE=$(zenity \
     
 
 
-if ["$?" != 0 ]
+if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
 echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh | bash
 fi
-if echo $CHOICE | grep -q "RetroPie";
+if echo $CHOICE | grep -q "RetroPie"
 then echo "install retropie..."
 #zenity --progress --text="Installing retropie" --percentage=0 | 
 echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh | bash
