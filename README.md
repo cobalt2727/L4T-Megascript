@@ -27,7 +27,8 @@ We currenly have the following scripts:
 - RetroPie - Powerful frontend for both emulators and native programs alike
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
 - Flappy Bird: A game about a bird flying in between warp pipes
-
+- SuperTux2: A 2D jump'n run sidescroller game in a style similar to the original Super Mario games
+- SM64Port - A native port of the classic game for the N64 (requieres a ROM)
 
  We are planning in adding more scripts and functions to the script in future updates.
 ## To do list:
@@ -52,3 +53,5 @@ You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 - lemon-sherbet: Creator and developer of the Celeste Classic Port
 - Acry: Creator and developer of the Flappy Bird Port
 - SuperTux: Creators and developers of SuperTux2
+- n64decomp: Responsibles of the SM64 Decompilation Proyect
+- sm64pc: Adapted the SM64 Port to work with ARM64 devices (Like the Nintendo Switch)
