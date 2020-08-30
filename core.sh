@@ -63,7 +63,7 @@ read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
 
-if [[ $userInput != X]]; then
+if [[ $userInput != X ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)"
 fi
 
