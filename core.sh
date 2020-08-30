@@ -53,6 +53,8 @@ echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built u
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
 echo "16..............Celeste (Pico-8 Port) - A tight platforming game which lead to the development of Celeste"
 echo "17..............Flappy Bird - A game about a bird flying in between warp pipes"
+echo "18..............SuperTux2 - a 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
+echo "19..............SM64Port - A native port of the classic game for the N64 (requieres a ROM)
 #echo "starwars........Watch Episode IV entirely in this terminal window in glorious animated ASCII art"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
@@ -100,6 +102,12 @@ elif [[ $userInput == 16 || $userInput == Celeste ]]; then
 
 elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
+  
+elif [[ $userInput == 18 || $userInput == SuperTux2 ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/ST2.sh)"
+  
+elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SM64.sh)"
 
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y
