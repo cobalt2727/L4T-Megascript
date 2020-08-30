@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/CSE2-Tweaks/CSE2-TweaksIcon.png
+Name=CSE2-Tweaks
+Exec=/usr/share/CSE2-Tweaks/CSE2
+Terminal=false
+Hidden=false
+Categories=Games
