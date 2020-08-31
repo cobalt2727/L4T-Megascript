@@ -26,7 +26,7 @@ bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/m
 sleep 1
 
 clear
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)
+bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)"
 sleep 1
 
 clear
