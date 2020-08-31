@@ -41,8 +41,6 @@ clear
 echo "Placeholder for the overclock script"
 sleep 1
 
-while true
-do
 echo "All done! Would you like to restart now? (y/n)"
 read -p "Make a selection: " userInput
 
