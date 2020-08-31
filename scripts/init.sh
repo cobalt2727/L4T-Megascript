@@ -14,18 +14,19 @@ sudo dpkg --add-architecture armhf
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak
 
-#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sleep 1
 
 clear
-echo "hey can someone confirm the swapfile script i threw together actually works?"
-sleep 10
-#bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
 sleep 1
 
 clear
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/joycon-mouse.sh)"
+sleep 1
+
+clear
+bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)
 sleep 1
 
 clear
@@ -45,8 +46,8 @@ do
 echo "All done! Would you like to restart now? (y/n)"
 read -p "Make a selection: " userInput
 
-else
-  echo ""
-fi
-
-done
+if [[ $userInput == y || $userInput == Y ]] then;
+reboot
+elif [[ $userInput == n || $userInput == N ]] then;
+echo "Sending you back to the main menu..."
+sleep 3
