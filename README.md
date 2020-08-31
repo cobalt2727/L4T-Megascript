@@ -6,7 +6,7 @@ A multipurpose script for updating and installing multple programs and games lik
 
 ## What is this?
 
-L4T-Megascropt is an open source multipurpose script for installing and updating multiple softwares in L4T-Ubuntu, with the purpose of helping new users to install programs and games in only a few setps. We work so you can easily play. Pretty simple, right? This script was made for Ubuntu 18.04 Bionic Beaver for the Nintendo Switch. Credits to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This proyect still is in a pretty early stage
+L4T-Megascript is an open source multipurpose script for installing and updating multiple softwares in L4T-Ubuntu, with the purpose of helping new users to install programs and games in only a few setps. We work so you can easily play. Pretty simple, right? This script was made for Ubuntu 18.04 Bionic Beaver for the Nintendo Switch. Credits to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This proyect still is in a pretty early stage
 
 ## Where can I start?
 ### Here is a guide of how you can install the OS:
