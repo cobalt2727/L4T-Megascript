@@ -3,7 +3,7 @@ echo "SuperMario64 Port script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
 cd /$HOME
-sudo apt install build-essential git python3 libglew-dev libsdl2-dev -y
+sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
 wget https://github.com/sm64pc/sm64ex/archive/master.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SM64
 unzip master.zip
