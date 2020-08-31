@@ -41,8 +41,9 @@ sleep 1
 
 clear
 echo "Do you want to build and install SDL2? (Require for some games in the script)"
+read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
-echo "Buiding and installing SDL2..."
+echo "Building and installing SDL2..."
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
