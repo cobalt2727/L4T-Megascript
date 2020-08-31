@@ -54,7 +54,7 @@ echo "15..............RetroPie - Powerful frontend for both emulators and native
 echo "16..............Celeste (Pico-8 Port) - A tight platforming game which lead to the development of Celeste"
 echo "17..............Flappy Bird - A game about a bird flying in between warp pipes"
 echo "18..............SuperTux2 - A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
-echo "19..............SM64Port - A native port of the classic game for the N64 (requieres a ROM)"
+echo "19..............SM64Port - A native port of the classic game for the N64 (requires a ROM)"
 #echo "starwars........Watch Episode IV entirely in this terminal window in glorious animated ASCII art"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
