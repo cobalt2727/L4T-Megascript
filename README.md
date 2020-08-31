@@ -28,7 +28,7 @@ We currently have the following scripts:
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
 - Flappy Bird: A game about a bird flying in between warp pipes
 - SuperTux2: A 2D jump'n run sidescroller game in a style similar to the original Super Mario games
-- SM64Port - A native port of the classic game for the N64 (requieres a ROM)
+- SM64Port - A native port of the classic game for the N64 (requires a ROM)
 
  We are planning in adding more scripts and functions to the script in future updates.
 ## To do list:
