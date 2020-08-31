@@ -1,19 +1,33 @@
 cd
-if dpkg -s libsdl2-dev | grep "2.0.10+5"; then
+if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
 echo ""
 echo "Already Installed Newest SDL2 Version"
 sleep 1
 else
 sudo apt-get --assume-yes install git
-sudo rm -rf temp_install
-mkdir temp_install
-cd temp_install
-git clone --depth=1 https://github.com/theofficialgman/RetroPie-Setup.git
+cd /tmp
+mkdir temp_install_sdl2
+cd temp_install_sdl2
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/retropie_packages.sh' > retropie_packages.sh
+chmod -R 777 retropie_packages.sh
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/retropie_setup.sh' > retropie_setup.sh
+mkdir scriptmodules
+cd ./scriptmodules
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/system.sh' > system.sh
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/helpers.sh' > helpers.sh
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/packages.sh' > packages.sh
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/inifuncs.sh' > inifuncs.sh
+mkdir supplementary
+cd ./supplementary
+curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/supplementary/sdl2.sh' > sdl2.sh
+cd /tmp/temp_install_sdl2
+
+
 #auto install sdl2 and then remove unneeded files
-cd RetroPie-Setup
 sudo ./retropie_packages.sh sdl2
+cd /tmp
+sudo rm -rf temp_install_sdl2
 cd
-sudo rm -rf temp_install
 echo ""
 echo "Successfully Installed Newest SDL2 Version"
 sleep 3
