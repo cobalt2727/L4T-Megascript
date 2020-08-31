@@ -30,10 +30,6 @@ bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/m
 sleep 1
 
 clear
-echo "Placeholder for the swapfile script"
-sleep 1
-
-clear
 echo "Placeholder for getting Bluetooth audio/input and USB input working"
 sleep 1
 
@@ -44,8 +40,8 @@ sleep 1
 echo "All done! Would you like to restart now? (y/n)"
 read -p "Make a selection: " userInput
 
-if [[ $userInput == y || $userInput == Y ]] then;
+if [[ $userInput == y || $userInput == Y ]]; then
 reboot
-elif [[ $userInput == n || $userInput == N ]] then;
+elif [[ $userInput == n || $userInput == N ]]; then
 echo "Sending you back to the main menu..."
 sleep 3
