@@ -2,11 +2,11 @@
 ![Logo](https://raw.githubusercontent.com/Lang-Kasempo/L4T-Megascript/master/L4T%20Megascript-logo.png)
 **We did the hard parts so you don't have to!**
 
-A multipurpose script for updating and installing multple programs and games like Dolphin, Moonlight, SRB2, SuperTux2 and more for Ubuntu Linux on the Nintendo Switch!
+A multipurpose script for updating and installing multiple programs and games like Dolphin, Moonlight, SRB2, SuperTux2 and more for Ubuntu Linux on the Nintendo Switch!
 
 ## What is this?
 
-L4T-Megascript is an open source multipurpose script for installing and updating multiple softwares in L4T-Ubuntu, with the purpose of helping new users to install programs and games in only a few setps. We work so you can easily play. Pretty simple, right? This script was made for Ubuntu 18.04 Bionic Beaver for the Nintendo Switch. Credits to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This proyect still is in a pretty early stage
+L4T-Megascript is an open source multipurpose script for installing and updating multiple softwares in L4T-Ubuntu, with the purpose of helping new users to install programs and games in only a few steps. We work so you can easily play. Pretty simple, right? This script was made for Ubuntu 18.04 Bionic Beaver for the Nintendo Switch. Credits to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This project still is in a pretty early stage
 
 ## Where can I start?
 ### Here is a guide of how you can install the OS:
@@ -15,10 +15,10 @@ https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
 
 ## Scripts
-We currenly have the following scripts: 
+We currently have the following scripts: 
 
 - Initial Setup: Installs the swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc
-- Update: Update your programs downloaidng the lastest updates from the repos
+- Update: Update your programs downloaidng the latest updates from the repos
 - Dolphin: Gamecube and Wii emulator, latest development version
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia GPU!
 - FlightGear: Free, open source flight simulator
@@ -47,11 +47,11 @@ You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 - STJr: Creators and developers of SRB2
 - Clownacy: Creator and developer of CSE2-Tweaks
 - RetroPie: Creators and developers of Retropie
-- dolphin-emu: Creators and dvelopers of Dolphin
+- dolphin-emu: Creators and developers of Dolphin
 - FlightGear: Creators and developers of the FlightGear
 - moonlight-stream: Creators and developers of Moonlight-Qt
 - lemon-sherbet: Creator and developer of the Celeste Classic Port
 - Acry: Creator and developer of the Flappy Bird Port
 - SuperTux: Creators and developers of SuperTux2
-- n64decomp: Responsibles of the SM64 Decompilation Proyect
+- n64decomp: Responsible of the SM64 Decompilation Proyect
 - sm64pc: Adapted the SM64 Port to work with ARM64 devices (Like the Nintendo Switch)
