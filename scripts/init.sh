@@ -40,6 +40,16 @@ fi
 sleep 1
 
 clear
+echo "Do you want to build and install CMake (Its needed for almost all apps and games)?"
+echo "(Connect the charger to the console. This can take approximately 1 hour and a half)
+read -p "(y/n) " userInput
+if [[ $userInput == y || $userInput == Y ]]; then
+elif [[ $userInput == n || $userInput == N ]]; then
+echo "Going to the next option"
+fi
+sleep 1
+
+clear
 echo "Do you want to build and install SDL2? (Required for many games in the script)"
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
