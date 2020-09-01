@@ -30,7 +30,7 @@ sleep 1
 
 clear
 echo "Do you want to install the Joycon Mouse (It let you use the Joycons as a mouse!)"
-read -p "(y/n)" userInput
+read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Installing the Joycon Mouse..."
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/joycon-mouse.sh)"
