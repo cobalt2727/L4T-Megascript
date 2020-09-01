@@ -44,6 +44,7 @@ echo "Do you want to build and install CMake (Its needed for almost all apps and
 echo "(Connect the charger to the console. This can take approximately 1 hour and a half)
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
+bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
 fi
