@@ -47,7 +47,6 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10..............Video Settings - Is your display going past the edges of your TV?"
 #echo "11..............Citra - 3DS emulator, currently broken"
-echo "12..............FlightGear - Free, open source flight simulator (3 GB DOWNLOAD)"
 echo "13..............CSE2-Tweaks - An enhanced version of Cave Story. 60 FPS, bugs fixes, and other soundtracks support"
 echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
@@ -85,9 +84,6 @@ elif [[ $userInput == 6 || $userInput == moonlight ]]; then
 
 elif [[ $userInput == 11 || $userInput == citra ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
-
-elif [[ $userInput == 12 || $userInput == flightgear ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh)"
 
 elif [[ $userInput == 13 || $userInput == CSE2-Tweaks ]]; then 
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh)"
