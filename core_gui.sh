@@ -19,22 +19,26 @@ CHOICE=$(zenity \
     --column "Program" \
     --column "Details" \
     --ok-label="INSTALL"\
+    TRUE "Initial Setup" "Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"\
     FALSE RetroPie "Powerful frontend for both emulators and native programs alike"\
     FALSE "Celeste (Pico-8 Port)" "A tight platforming game which lead to the development of Celeste" \
     FALSE "Flappy Bird" "A game about a bird flying in between warp pipes" \
     FALSE "moonlight-qt" "stream games from your PC as long as it has an Nvidia GPU!"\
-    FALSE "FlightGear" "Free, open source flight simulator (3 GB DOWNLOAD)"\
     FALSE "Dolphin" "Gamecube and Wii emulator, latest development version"\
     FALSE "SRB2" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
     FALSE "CSE2-Tweaks" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
-    FALSE "Citra" "3DS emulator, currently broken"\
     FALSE "SM64Port" "A native port of the classic game for the N64 (requieres a ROM)"\
     FALSE "Dolphin" "Gamecube and Wii emulator, latest development version")
 
 if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh | bash
+#echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh | bash
+fi
+if echo $CHOICE | grep -q "Initial Setup"
+then echo "installing initial setup script..."
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh | bash
+#zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "RetroPie"
 then echo "install retropie..."
@@ -60,12 +64,12 @@ then echo "install moonlight..."
 echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
-if echo $CHOICE | grep -q "FlightGear"
-then echo "install FlightGear..."
-#zenity --progress --text="Installing FlightGear" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
+# if echo $CHOICE | grep -q "FlightGear"
+# then echo "install FlightGear..."
+# #zenity --progress --text="Installing FlightGear" --percentage=0 |
+# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | bash
+# #zenity --info --text="Sucessfully installed"
+# fi
 if echo $CHOICE | grep -q "CSE2-Tweaks"
 then echo "install CSE2..."
 #zenity --progress --text="Installing CSE2" --percentage=0 |
