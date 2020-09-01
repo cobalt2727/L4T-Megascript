@@ -4,7 +4,7 @@ echo "Downloading the files and installing needed dependencies..."
 sleep 3
 wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
 unzip tweaks.zip
-sudo apt install cmake g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
+sudo apt install g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/CSE2-Tweaks
 cd CSE2-tweaks-tweaks
 echo
