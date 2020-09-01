@@ -18,7 +18,7 @@ https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537
 ## Scripts
 We currently have the following scripts: 
 
-- Initial Setup: Installs the swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc
+- Initial Setup: Installs the swapfile, joycon mouse, 2.0 GHz overclock, SDL2 etc
 - Update: Update your programs downloaidng the latest updates from the repos
 - Dolphin: Gamecube and Wii emulator, latest development version
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia GPU!
