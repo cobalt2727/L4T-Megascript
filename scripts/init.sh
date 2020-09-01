@@ -51,10 +51,6 @@ fi
 sleep 1
 
 clear
-echo "Placeholder for getting Bluetooth audio/input and USB input working (Coming Soon™)"
-sleep 5
-
-clear
 echo "Placeholder for the overclock script (Coming Soon™)"
 sleep 5
 
