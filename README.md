@@ -11,7 +11,8 @@ L4T-Megascript is an open source multipurpose script for installing and updating
 ## Where can I start?
 ### Here is a guide of how you can install the OS:
 https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/
-### After that, you can start the megascript using the following command (Still in progress):
+### After that, you can start the megascript using the following commands (Still in progress):
+sudo apt install curl
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
 
 ## Scripts

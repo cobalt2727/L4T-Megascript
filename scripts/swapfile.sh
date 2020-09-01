@@ -2,7 +2,7 @@ clear
 echo "Swapfile script started!"
 sleep 1
 cd ~
-sudo apt-get install nano util-linux*
+sudo apt-get install nano util-linux* -y
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
