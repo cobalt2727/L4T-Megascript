@@ -14,7 +14,8 @@ sudo rm -rf minecraft-temp/
 echo "Starting up initialization..."
 sudo apt update
 ~/MCSwitchTools/tools.sh init
-##how in God's name do I automate restarting a terminal
+##shoutouts to Luke for telling me how to restart a terminal entirely automated
+source ~/.bashrc
 mc lwjgl 3
 echo "You will now need to log into your Minecraft/Mojang account, and then immediately close the launcher."
 echo "Please do so when the program launches in 10 seconds."
