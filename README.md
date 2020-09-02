@@ -18,11 +18,10 @@ https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537
 ## Scripts
 We currently have the following scripts: 
 
-- Initial Setup: Installs the swapfile, joycon mouse, Bluetooth audio, USB controller support, 2.0 GHz overclock, etc
+- Initial Setup: Installs the swapfile, joycon mouse, 2.0 GHz overclock, SDL2 etc
 - Update: Update your programs downloaidng the latest updates from the repos
 - Dolphin: Gamecube and Wii emulator, latest development version
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia GPU!
-- FlightGear: Free, open source flight simulator
 - CSE2-Tweaks: An enhanced version of Cave Story. 60 FPS, bugs fixes, other soundtracks support
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
 - RetroPie - Powerful frontend for both emulators and native programs alike
@@ -49,7 +48,6 @@ You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 - Clownacy: Creator and developer of CSE2-Tweaks
 - RetroPie: Creators and developers of Retropie
 - dolphin-emu: Creators and developers of Dolphin
-- FlightGear: Creators and developers of the FlightGear
 - moonlight-stream: Creators and developers of Moonlight-Qt
 - lemon-sherbet: Creator and developer of the Celeste Classic Port
 - Acry: Creator and developer of the Flappy Bird Port
