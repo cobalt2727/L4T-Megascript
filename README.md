@@ -33,8 +33,9 @@ We currently have the following scripts:
  We are planning in adding more scripts and functions to the script in future updates.
 ## To do list:
 - [ ] Finish the GUI
-- [ ] Add the Retroarch Script
+- [x] Add the Retropie Script
 - [ ] Figure a way of making Citra work
+- [ ] Figure a way of making Minecraft-Bedrock work
 - [ ] Add the Minecraft Script
 ## Our Team
 - Cobalt: Manager/Lead Dev
