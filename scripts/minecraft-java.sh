@@ -1,5 +1,5 @@
 clear
-echo "Minecraft script started!"
+echo "Minecraft Java script started!"
 sleep 1
 cd ~
 mkdir minecraft-temp && cd minecraft-temp
