@@ -4,6 +4,7 @@ sleep 1
 cd ~
 mkdir minecraft-temp && cd minecraft-temp
 echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
+##i wish gitlab supported svn
 git clone https://gitlab.com/devluke/mcswitchtools
 cd mcswitchtools/
 echo "Moving the Minecraft files to the /home/$USER/ folder..."
