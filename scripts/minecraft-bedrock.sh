@@ -1,5 +1,6 @@
 clear
 echo "Minecraft Bedrock script started!"
+echo "this will probably currently fail and give you a warning about broken dependencies. it currently doesn't support 64-bit ARM, which the switch uses. we're working on it"
 sleep 1
 ##department of redundancy department
 sudo dpkg --add-architecture armhf
