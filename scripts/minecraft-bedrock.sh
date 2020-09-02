@@ -9,7 +9,8 @@ sleep 1
 echo "Double-checking to see that Flatpak is installed and Flathub added..."
 sleep 1
 sudo apt update
-sudo apt install flatpak -y
+sudo apt install flatpak unity-gtk-module canberra-gtk-module -y
+
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 echo "Installing Minecraft Bedrock..."
 sudo flatpak install flathub io.mrarm.mcpelauncher -y
