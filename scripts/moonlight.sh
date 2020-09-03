@@ -1,3 +1,4 @@
+cd
 clear
 echo "Moonlight script started!"
 sleep 1
@@ -6,7 +7,12 @@ echo "Adding key..."
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 echo "Updating sources and installing Moonlight"
 sudo apt-get update
-sudo apt install moonlight-qt -y
+sudo apt install moonlight-qt subversion -y
+svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/moonlight
+cd moonlight
+mv moonlight.sh -t /$HOME/RetroPie/roms/ports
+cd
+rm -r moonlight
 echo "Done!"
 echo "Ctrl + click this link before this message disappears in 20 seconds"
 echo "For a guide on how to set Moonlight up on your PC and connect"

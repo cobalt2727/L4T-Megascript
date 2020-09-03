@@ -1,3 +1,4 @@
+cd
 clear
 echo "SRB2 script started!"
 echo "Downloading the files, and installing needed dependencies..." 
@@ -6,6 +7,9 @@ wget https://github.com/STJr/SRB2/archive/master.zip
 sudo apt install libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion -y
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "Data" | grep "SRB2_release_" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SRB2-A
+cd SRB2-A
+mv SRB2_retropie.sh -t /$HOME/RetroPie/roms/ports
+cd
 unzip master.zip
 mkdir SRB2-DT
 mv SRB2-Data.zip -t /home/$USER/SRB2-DT

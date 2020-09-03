@@ -62,6 +62,11 @@ read -p "Make a selection: " userInput
 
 echo "you have chosen $userInput"
 
+if [[ $userInput != X || $userInput != x ]]; then
+  cd
+  mkdir -p RetroPie/roms/ports
+fi
+
 if [[ $userInput == 0 || $userInput == setup ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
   
