@@ -37,14 +37,17 @@ We currently have the following scripts:
  We are planning in adding more scripts and functions to the script in future updates.
 ## To do list:
 - [ ] Finish the GUI
-- [ ] Add the Retroarch Script
+- [x] Add the Retropie Script
 - [ ] Figure a way of making Citra work
+- [ ] Figure a way of making Minecraft-Bedrock work
 - [ ] Add the Minecraft Script
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor/GUI Manager 
-- Lang Kasempo: Contributor/Beta Tester/did a lot of the standalone game scripts
+- Lang Kasempo: Contributor/Beta Tester/Did a lot of the standalone game scripts
 - Gman: Contributor/Beta Tester/RetroPie script/Celeste native port
+- Fafabis: Contributor/Helped in the script GUI
+- Quacka: Beta Tester/Helped in testing Retropie script
 ## Do you have a question or want to give ideas?
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 ## Credits
