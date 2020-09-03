@@ -40,8 +40,10 @@ We currently have the following scripts:
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor/GUI Manager 
-- Lang Kasempo: Contributor/Beta Tester/did a lot of the standalone game scripts
+- Lang Kasempo: Contributor/Beta Tester/Did a lot of the standalone game scripts
 - Gman: Contributor/Beta Tester/RetroPie script/Celeste native port
+- Fafabis: Contributor/Helped in the script GUI
+- Quacka: Beta Tester/Helped in testing Retropie script
 ## Do you have a question or want to give ideas?
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 ## Credits
