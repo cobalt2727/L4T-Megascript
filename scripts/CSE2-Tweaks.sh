@@ -1,3 +1,4 @@
+cd
 clear
 echo "CSE2-Tweaks script started!"
 echo "Downloading the files and installing needed dependencies..."
@@ -8,6 +9,9 @@ sudo apt install snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxra
 sudo snap install cmake --classic
 hash -r
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/CSE2-Tweaks
+cd CSE2-Tweaks
+mv CSE2-Tweaks.sh -t /$HOME/RetroPie/roms/ports
+cd
 cd CSE2-tweaks-tweaks
 echo
 read -p "Select the game language (jp/en) " userInput

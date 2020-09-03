@@ -6,6 +6,9 @@ cd /$HOME
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
 wget https://github.com/sm64pc/sm64ex/archive/master.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SM64
+cd SM64
+mv SM64.sh -t /$HOME/RetroPie/roms/ports
+cd
 unzip master.zip
 cd sm64ex-master
 echo "To build this port, you need a Super Mario 64 rom with the extension .z64."
