@@ -132,6 +132,8 @@ echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev\e[0m"
 echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor/GUI Manager\e[0m"
 echo -e "\e[35mLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\e[0m"
 echo -e "\e[32mGman - Contributor/Beta Tester/RetroPie script/Celeste native port\e[0m"
+echo -e "Fafabis: Contributor/Helped in the script GUI"
+echo -e "Quacka: Beta Tester/Helped in testing Retropie script"
 #echo "hey, if you're reading this, you probably helped make the thing. you can add stuff to your credits in your PRs if you want to!"
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
