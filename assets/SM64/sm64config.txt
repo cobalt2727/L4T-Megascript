@@ -28,8 +28,8 @@ rumble_strength 0
 precache true
 bettercam_enable true
 bettercam_mouse_look false
-bettercam_invertx false
-bettercam_inverty false
+bettercam_invertx true
+bettercam_inverty true
 bettercam_xsens 35
 bettercam_ysens 35
 bettercam_aggression 0
