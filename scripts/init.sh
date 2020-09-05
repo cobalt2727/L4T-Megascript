@@ -11,6 +11,7 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
 sudo dpkg --add-architecture armhf
+sudo add-apt-repository ppa:alexlarsson/flatpak
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak -y
 
