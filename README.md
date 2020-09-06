@@ -2,7 +2,7 @@
 ![Logo](https://raw.githubusercontent.com/Lang-Kasempo/L4T-Megascript/master/L4T%20Megascript-logo.png)
 **We did the hard parts so you don't have to!**
 
-A multipurpose script for updating and installing multiple programs and games like Dolphin, Moonlight, SRB2, SuperTux2 and more for Ubuntu Linux on the Nintendo Switch!
+A multipurpose script for updating and installing multiple programs and games like Dolphin, Moonlight, Minecraft, RetroArch (using RetroPie), SRB2, and more for Ubuntu Linux on the Nintendo Switch!
 
 ## What is this?
 
