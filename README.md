@@ -12,14 +12,12 @@ L4T-Megascript is an open source multipurpose script for installing and updating
 ### Here is a guide of how you can install the OS:
 https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/
 ### After that, you can start the megascript using the following commands (Still in progress):
-- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-- sudo apt install bash curl
-- bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
+- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
+
 
  or for a Graphical User Interface Installer
-- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-- sudo apt install bash curl
-- bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_gui.sh)"
+-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl zenity -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_gui.sh)"
+
 
 ## Scripts
 We currently have the following scripts: 
