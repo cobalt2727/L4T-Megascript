@@ -15,8 +15,8 @@ https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537
 - sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
 
 
- or for a Graphical User Interface Installer
--sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl zenity -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_gui.sh)"
+### ...Or for a Graphical User Interface Installer
+- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl zenity -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_gui.sh)"
 
 
 ## Scripts
