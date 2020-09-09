@@ -7,7 +7,7 @@ echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
 ##i wish gitlab supported svn
 git clone https://gitlab.com/devluke/mcswitchtools
 cd mcswitchtools/
-echo "Moving the Minecraft files to the /home/$USER/ folder..."
+echo "Moving the Minecraft files to the $HOME/ folder..."
 sudo mv MCSwitchTools/ ~
 cd ~
 sudo rm -rf minecraft-temp/
