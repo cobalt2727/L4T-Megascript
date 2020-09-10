@@ -13,7 +13,7 @@ sleep 10
 sudo dpkg --add-architecture armhf
 sudo add-apt-repository ppa:alexlarsson/flatpak
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server -y
+sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sleep 1
