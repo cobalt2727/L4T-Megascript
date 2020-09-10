@@ -2,17 +2,17 @@ clear
 echo "SuperTux2 script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
-cd /home/$USER
+cd ~
 git clone --recursive https://github.com/SuperTux/supertux
 sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion -y
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/ST2
 cd ST2
-mv supertux2.sh -t /$HOME/RetroPie/roms/ports
+mv supertux2.sh -t ~/RetroPie/roms/ports
 cd
-cd /home/$USER/supertux/data/images/engine/menu
+cd ~/supertux/data/images/engine/menu
 rm logo_dev.png
 mv logo.png logo_dev.png
-cd /home/$USER/supertux
+cd ~/supertux
 mkdir build && cd build
 echo
 echo "Compiling the game..."
@@ -28,10 +28,10 @@ sudo make install
 echo "Erasing temporary build files to save space..."
 sleep 2
 echo
-cd /home/$USER/.local/share && mkdir supertux2
-cd /home/$USER/ST2
-mv config -t /home/$USER/.local/share/supertux2
-cd /home/$USER
+cd ~/.local/share && mkdir supertux2
+cd ~/ST2
+mv config -t ~/.local/share/supertux2
+cd ~
 sudo rm -r supertux
 rm -r ST2
 echo

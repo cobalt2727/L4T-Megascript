@@ -10,7 +10,7 @@ sudo apt-get update
 sudo apt install moonlight-qt subversion -y
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/moonlight
 cd moonlight
-mv moonlight.sh -t /$HOME/RetroPie/roms/ports
+mv moonlight.sh -t ~/RetroPie/roms/ports
 cd
 rm -r moonlight
 echo "Done!"
