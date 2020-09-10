@@ -2,12 +2,12 @@ clear
 echo "SuperMario64 Port script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
-cd /$HOME
+cd ~
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
 wget https://github.com/sm64pc/sm64ex/archive/master.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SM64
 cd SM64
-mv SM64.sh -t /$HOME/RetroPie/roms/ports
+mv SM64.sh -t ~/RetroPie/roms/ports
 cd
 unzip master.zip
 cd sm64ex-master
@@ -19,7 +19,7 @@ sleep 10
 read -p "Do you want to continue? (y/n) " userInput
 if [[ $userInput == n || $userInput == no ]]; then
 echo "Stopping the script..."
-cd /$HOME 
+cd ~
 rm -r sm64ex-master
 rm -r SM64
 rm master.zip
@@ -58,25 +58,25 @@ echo "Erasing files to save space..."
 sleep 2
 echo
 echo
-cd /$HOME/SM64
-mv SM64Icon.png -t /$HOME/sm64ex-master/build/SM64
-cd /$HOME/sm64ex-master/build
+cd ~/SM64
+mv SM64Icon.png -t ~/sm64ex-master/build/SM64
+cd ~/sm64ex-master/build
 sudo mv SM64 -t /usr/share
-cd /$HOME
+cd ~
 sudo rm -r sm64ex-master
 rm master.zip
 echo
 echo "Installing the direct access and configuration files.."
 echo
-cd /$HOME/SM64
+cd ~/SM64
 sudo mv "Super Mario 64.desktop" -t /usr/share/applications
-cd /$HOME/.local/share
+cd ~/.local/share
 mkdir sm64pc
 cd sm64pc
 svn export https://github.com/gabomdq/SDL_GameControllerDB/trunk/gamecontrollerdb.txt
-cd /$HOME/SM64
-mv sm64config.txt -t /$HOME/.local/share/sm64pc
-cd /$HOME 
+cd ~/SM64
+mv sm64config.txt -t ~/.local/share/sm64pc
+cd ~
 rm -r SM64
 echo
 echo "Game Installed!"

@@ -10,7 +10,7 @@ sudo snap install cmake --classic
 hash -r
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/CSE2-Tweaks
 cd CSE2-Tweaks
-mv CSE2-Tweaks.sh -t /$HOME/RetroPie/roms/ports
+mv CSE2-Tweaks.sh -t ~/RetroPie/roms/ports
 cd
 cd CSE2-tweaks-tweaks
 echo
@@ -39,19 +39,19 @@ echo
 echo "Erasing files to save space..."
 sleep 2
 echo
-cd /$HOME/CSE2-Tweaks 
-mv ConfigCSE2E.dat CSE2-TweaksIcon.png -t /$HOME/CSE2-tweaks-tweaks/CSE2-Tweaks
-cd /$HOME/CSE2-tweaks-tweaks
+cd ~/CSE2-Tweaks
+mv ConfigCSE2E.dat CSE2-TweaksIcon.png -t ~/CSE2-tweaks-tweaks/CSE2-Tweaks
+cd ~/CSE2-tweaks-tweaks
 sudo mv CSE2-Tweaks -t /usr/share
-cd /$HOME
+cd ~
 sudo rm -r CSE2-tweaks-tweaks
 rm tweaks.zip
 echo
 echo "Installing the direct access"
 echo
-cd /$HOME/CSE2-Tweaks 
+cd ~/CSE2-Tweaks
 sudo mv CSE2-Tweaks.desktop -t /usr/share/applications
-cd /$HOME
+cd ~
 rm -r CSE2-Tweaks
 echo
 echo "Game Installed!"
