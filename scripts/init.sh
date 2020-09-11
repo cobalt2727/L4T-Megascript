@@ -23,7 +23,7 @@ echo "Do you want to install the swapfile (You need 2 GB. Very important to avoi
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Installing the swapfile..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/swapfile.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Skipping swapfile setup..."
 fi
@@ -34,7 +34,7 @@ echo "Do you want to install configurations that will let you use the joycons as
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Installing the Joycon Mouse..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/joycon-mouse.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
 fi
@@ -45,7 +45,7 @@ echo "Do you want to build and install SDL2? (Required for many games in the scr
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Building and installing SDL2..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
 fi
