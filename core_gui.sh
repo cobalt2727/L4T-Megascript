@@ -2,6 +2,19 @@
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
+
+#allow developer to set repository username and branch
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+    export repository_username=cobalt2727
+else
+    echo "Developer Mode Enabled! Repository = $repository_username"
+fi
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+    export repository_branch=master
+else
+    echo "Developer Mode Enabled! Branch = $repository_branch"
+fi
+
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
 echo "Add a check from the choices in the GUI and then press INSTALL to configure the specified program."
@@ -33,11 +46,11 @@ CHOICE=$(zenity \
 if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
-#echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh | bash
+#echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh | bash
 fi
 if echo $CHOICE | grep -q "Initial Setup"
 then echo "installing initial setup script..."
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "RetroPie"
@@ -61,43 +74,43 @@ fi
 if echo $CHOICE | grep -q "moonlight-qt"
 then echo "install moonlight..."
 #zenity --progress --text="Installing moonlight" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 # if echo $CHOICE | grep -q "FlightGear"
 # then echo "install FlightGear..."
 # #zenity --progress --text="Installing FlightGear" --percentage=0 |
-# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/flightgear.sh | bash
+# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/flightgear.sh | bash
 # #zenity --info --text="Sucessfully installed"
 # fi
 if echo $CHOICE | grep -q "CSE2-Tweaks"
 then echo "install CSE2..."
 #zenity --progress --text="Installing CSE2" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "SRB2"
 then echo "install SRB2..."
 #zenity --progress --text="Installing SRB2" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "SM64"
 then echo "install SM64..."
 #zenity --progress --text="Installing SM64" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SM64.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "Dolphin"
 then echo "install Dolphin..."
 #zenity --progress --text="Installing Dolphin" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 # if echo $CHOICE | grep -q "Citra"
 # then echo "install Citra..."
 # #zenity --progress --text="Installing Citra" --percentage=0 |
-# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh | bash
+# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh | bash
 # #zenity --info --text="Sucessfully installed"
 # fi
 

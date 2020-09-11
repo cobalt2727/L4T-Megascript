@@ -5,7 +5,7 @@ sleep 3
 cd ~
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
 wget https://github.com/sm64pc/sm64ex/archive/master.zip
-svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SM64
+svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
 cd SM64
 mv SM64.sh -t ~/RetroPie/roms/ports
 cd

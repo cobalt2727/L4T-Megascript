@@ -23,6 +23,20 @@ do
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
+
+#allow developer to set repository username and branch
+#developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+    export repository_username=cobalt2727
+else
+    echo "Developer Mode Enabled! Repository = $repository_username"
+fi
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+    export repository_branch=master
+else
+    echo "Developer Mode Enabled! Branch = $repository_branch"
+fi
+
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
@@ -68,10 +82,10 @@ if [[ $userInput != X || $userInput != x ]]; then
 fi
 
 if [[ $userInput == 0 || $userInput == setup ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)"
   
 elif [[ $userInput == 1 || $userInput == update ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/apt.sh)"
 
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
@@ -82,19 +96,19 @@ elif [[ $userInput == 2 ]]; then
   sleep 4
 
 elif [[ $userInput == 3 || $userInput == dolphin ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/main.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)"
 
 elif [[ $userInput == 6 || $userInput == moonlight ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)"
 
 elif [[ $userInput == 11 || $userInput == citra ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)"
 
 elif [[ $userInput == 13 || $userInput == CSE2-Tweaks ]]; then 
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh)"
   
 elif [[ $userInput == 14 || $userInput == SRB2 ]]; then 
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)"
 
 elif [[ $userInput == 15 || $userInput == RetroPie ]]; then 
   bash -c "$(sudo curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
@@ -106,10 +120,10 @@ elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
   
 elif [[ $userInput == 18 || $userInput == SuperTux2 ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/ST2.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)"
   
 elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SM64.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)"
 
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y

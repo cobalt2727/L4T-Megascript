@@ -18,7 +18,7 @@ if [[ $userInput == y || $userInput == Y ]]; then
   
   echo "Downloading ALL files from the Megascript GitHub..."
   echo "If you'd like to interrupt this, press Ctrl + C
-  svn checkout https://github.com/cobalt2727/L4T-Megascript/trunk/assets
+  svn checkout https://github.com/$repository_username/L4T-Megascript/trunk/assets
 
 elif [[ $userInput == 1 ]]; then
   echo "Returning you to the main menu since you typed something other than Y..."
