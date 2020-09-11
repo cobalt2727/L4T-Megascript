@@ -17,10 +17,10 @@ sleep 1
 
 ##echo "you have chosen $userInput"
 ##if [[ $userInput == 1 ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/install.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/install.sh)"
 
 ##elif [[ $userInput == 2 ]]; then
-##  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/config.sh)"
+##  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/config.sh)"
 
 ##else
 ##  echo ""

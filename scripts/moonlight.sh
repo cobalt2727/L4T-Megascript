@@ -8,7 +8,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D
 echo "Updating sources and installing Moonlight"
 sudo apt-get update
 sudo apt install moonlight-qt subversion -y
-svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/moonlight
+svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/moonlight
 cd moonlight
 mv moonlight.sh -t ~/RetroPie/roms/ports
 cd
