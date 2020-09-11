@@ -97,7 +97,7 @@ elif [[ $userInput == 14 || $userInput == SRB2 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh)"
 
 elif [[ $userInput == 15 || $userInput == RetroPie ]]; then 
-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
+  bash -c "$(sudo curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
 
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
