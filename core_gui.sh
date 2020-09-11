@@ -4,14 +4,13 @@ available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
 
 #allow developer to set repository username and branch
-if [[ -v $repository_username || $repository_username == cobalt2727 ]]; then
-	repository_username=cobalt2727
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+    export repository_username=cobalt2727
 else
     echo "Developer Mode Enabled! Repository = $repository_username"
 fi
-
-if [[ -v $repository_branch || $repository_branch == master ]]; then
-	repository_branch=master
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+    export repository_branch=master
 else
     echo "Developer Mode Enabled! Branch = $repository_branch"
 fi

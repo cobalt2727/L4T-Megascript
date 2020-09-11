@@ -18,26 +18,25 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 #echo "create a desktop file for the script on this line"
 
-#allow developer to set repository username and branch
-if [[ -v $repository_username || $repository_username == cobalt2727 ]]; then
-    echo "Default Repository Selected"
-	repository_username=cobalt2727
-else
-    echo "Developer Mode Enabled! Repository = $repository_username"
-fi
-
-if [[ -v $repository_branch || $repository_branch == master ]]; then
-    echo "Master Branch Selected"
-	repository_branch=master
-else
-    echo "Developer Mode Enabled! Branch = $repository_branch"
-fi
-
 while true
 do
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
 clear
+
+#allow developer to set repository username and branch
+#developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+    export repository_username=cobalt2727
+else
+    echo "Developer Mode Enabled! Repository = $repository_username"
+fi
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+    export repository_branch=master
+else
+    echo "Developer Mode Enabled! Branch = $repository_branch"
+fi
+
 echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
 echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
