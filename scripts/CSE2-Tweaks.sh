@@ -1,3 +1,7 @@
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 cd
 clear
 echo "CSE2-Tweaks script started!"
