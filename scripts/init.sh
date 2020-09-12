@@ -1,7 +1,3 @@
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
 clear
 echo "Initial setup script started!"
 
@@ -14,12 +10,12 @@ echo "CREDITS:"
 echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
-dpkg --add-architecture armhf
-add-apt-repository ppa:alexlarsson/flatpak
-apt update && apt upgrade -y && apt autoremove -y
-apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
+sudo dpkg --add-architecture armhf
+sudo add-apt-repository ppa:alexlarsson/flatpak
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sleep 1
 
 clear

@@ -1,7 +1,3 @@
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
 clear
 echo "Minecraft Java script started!"
 sleep 1
@@ -12,11 +8,11 @@ echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
 git clone https://gitlab.com/devluke/mcswitchtools
 cd mcswitchtools/
 echo "Moving the Minecraft files to the $HOME/ folder..."
-mv MCSwitchTools/ ~
+sudo mv MCSwitchTools/ ~
 cd ~
-rm -rf minecraft-temp/
+sudo rm -rf minecraft-temp/
 echo "Starting up initialization..."
-apt update
+sudo apt update
 ~/MCSwitchTools/tools.sh init
 ##shoutouts to Luke for telling me how to restart a terminal entirely automated
 source ~/.bashrc
@@ -24,7 +20,7 @@ mc lwjgl 3
 echo "You will now need to log into your Minecraft/Mojang account, and then immediately close the launcher."
 echo "Please do so when the program launches in 10 seconds."
 sleep 10
-##jetson_clocks
+##sudo jetson_clocks
 mc run
 sleep 3
 mc profiles
