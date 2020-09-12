@@ -1,13 +1,17 @@
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 cd
 clear
 echo "Moonlight script started!"
 sleep 1
-echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | sudo tee /etc/apt/sources.list.d/moonlight-l4t.list
+echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | tee /etc/apt/sources.list.d/moonlight-l4t.list
 echo "Adding key..."
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 echo "Updating sources and installing Moonlight"
-sudo apt-get update
-sudo apt install moonlight-qt subversion -y
+apt-get update
+apt install moonlight-qt subversion -y
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/moonlight
 cd moonlight
 mv moonlight.sh -t ~/RetroPie/roms/ports

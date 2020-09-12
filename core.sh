@@ -82,10 +82,10 @@ if [[ $userInput != X || $userInput != x ]]; then
 fi
 
 if [[ $userInput == 0 || $userInput == setup ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)"
   
 elif [[ $userInput == 1 || $userInput == update ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/apt.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/apt.sh)"
 
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
@@ -102,25 +102,25 @@ elif [[ $userInput == 6 || $userInput == moonlight ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)"
 
 elif [[ $userInput == 11 || $userInput == citra ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)"
 
 elif [[ $userInput == 13 || $userInput == CSE2-Tweaks ]]; then 
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh)"
   
 elif [[ $userInput == 14 || $userInput == SRB2 ]]; then 
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)"
 
 elif [[ $userInput == 15 || $userInput == RetroPie ]]; then 
-  bash -c "$(sudo curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
+  sudo bash -c "$(sudo curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
 
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
 
 elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
   
 elif [[ $userInput == 18 || $userInput == SuperTux2 ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)"
   
 elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)"
