@@ -89,7 +89,7 @@ fi
 if echo $CHOICE | grep -q "SRB2"
 then echo "install SRB2..."
 #zenity --progress --text="Installing SRB2" --percentage=0 | 
-echo $PRIVATE | sudo -S https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "SM64"
