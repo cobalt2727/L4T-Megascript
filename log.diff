@@ -1,0 +1,440 @@
+diff --git a/core.sh b/core.sh
+index bd54b57..b11264c 100644
+--- a/core.sh
++++ b/core.sh
+@@ -68,10 +68,10 @@ if [[ $userInput != X || $userInput != x ]]; then
+ fi
+ 
+ if [[ $userInput == 0 || $userInput == setup ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/init.sh)"
+   
+ elif [[ $userInput == 1 || $userInput == update ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/apt.sh)"
+ 
+ elif [[ $userInput == 2 ]]; then
+   sudo apt install subversion
+@@ -88,25 +88,25 @@ elif [[ $userInput == 6 || $userInput == moonlight ]]; then
+   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/moonlight.sh)"
+ 
+ elif [[ $userInput == 11 || $userInput == citra ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/citra.sh)"
+ 
+ elif [[ $userInput == 13 || $userInput == CSE2-Tweaks ]]; then 
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/CSE2-Tweaks.sh)"
+   
+ elif [[ $userInput == 14 || $userInput == SRB2 ]]; then 
+   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SRB2.sh)"
+ 
+ elif [[ $userInput == 15 || $userInput == RetroPie ]]; then 
+-  bash -c "$(sudo curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/auto_install.sh)"
+ 
+ elif [[ $userInput == 16 || $userInput == Celeste ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
+ 
+ elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
+   
+ elif [[ $userInput == 18 || $userInput == SuperTux2 ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/ST2.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/ST2.sh)"
+   
+ elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
+   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/SM64.sh)"
+diff --git a/scripts/CSE2-Tweaks.sh b/scripts/CSE2-Tweaks.sh
+index 0d8802b..f76c076 100644
+--- a/scripts/CSE2-Tweaks.sh
++++ b/scripts/CSE2-Tweaks.sh
+@@ -5,8 +5,8 @@ echo "Downloading the files and installing needed dependencies..."
+ sleep 3
+ wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
+ unzip tweaks.zip
+-sudo apt install snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
+-sudo snap install cmake --classic
++apt install snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
++snap install cmake --classic
+ hash -r
+ svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/CSE2-Tweaks
+ cd CSE2-Tweaks
+@@ -42,15 +42,19 @@ echo
+ cd ~/CSE2-Tweaks
+ mv ConfigCSE2E.dat CSE2-TweaksIcon.png -t ~/CSE2-tweaks-tweaks/CSE2-Tweaks
+ cd ~/CSE2-tweaks-tweaks
+-sudo mv CSE2-Tweaks -t /usr/share
++mv CSE2-Tweaks -t /usr/share
+ cd ~
+-sudo rm -r CSE2-tweaks-tweaks
++rm -r CSE2-tweaks-tweaks
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ rm tweaks.zip
+ echo
+ echo "Installing the direct access"
+ echo
+ cd ~/CSE2-Tweaks
+-sudo mv CSE2-Tweaks.desktop -t /usr/share/applications
++mv CSE2-Tweaks.desktop -t /usr/share/applications
+ cd ~
+ rm -r CSE2-Tweaks
+ echo
+diff --git a/scripts/ST2.sh b/scripts/ST2.sh
+index e507a08..8d44cb8 100644
+--- a/scripts/ST2.sh
++++ b/scripts/ST2.sh
+@@ -1,10 +1,14 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ clear
+ echo "SuperTux2 script started!"
+ echo "Downloading the files and installing needed dependencies..."
+ sleep 3
+ cd ~
+ git clone --recursive https://github.com/SuperTux/supertux
+-sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion -y
++ apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion -y
+ svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/ST2
+ cd ST2
+ mv supertux2.sh -t ~/RetroPie/roms/ports
+@@ -24,7 +28,7 @@ echo
+ echo "Game compiled!"
+ sleep 1
+ echo "Installing game...."
+-sudo make install
++make install
+ echo "Erasing temporary build files to save space..."
+ sleep 2
+ echo
+@@ -32,7 +36,7 @@ cd ~/.local/share && mkdir supertux2
+ cd ~/ST2
+ mv config -t ~/.local/share/supertux2
+ cd ~
+-sudo rm -r supertux
++rm -r supertux
+ rm -r ST2
+ echo
+ echo "Game installed!"
+diff --git a/scripts/apt.sh b/scripts/apt.sh
+index 58f2c5f..beeee6c 100644
+--- a/scripts/apt.sh
++++ b/scripts/apt.sh
+@@ -1,10 +1,14 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ clear
+ echo "Updater script successfully started! Running updates..."
+ sleep 1
+-sudo apt update
+-sudo apt upgrade -y
+-sudo apt autoremove -y
+-sudo flatpak update -y
++apt update
++apt upgrade -y
++apt autoremove -y
++flatpak update -y
+ ##maybe somehow add a way to automatically re-run scripts for things that were built from source?
+ echo "Done! Sending you back to the main menu..."
+ sleep 4
+diff --git a/scripts/citra.sh b/scripts/citra.sh
+index f7257dc..ebe91f5 100644
+--- a/scripts/citra.sh
++++ b/scripts/citra.sh
+@@ -5,13 +5,17 @@ sleep 3
+ 
+ echo "Running updates..."
+ sleep 1
+-sudo apt update -y
++apt update -y
+ 
+ echo "Installing dependencies..."
+ sleep 1
+-sudo apt-get install libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libfdk-aac-dev build-essential cmake ffmpeg libswscale-dev libavdevice57 libavformat-dev libavcodec-dev libavdevice-dev -y
++apt-get install libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libfdk-aac-dev build-essential cmake ffmpeg libswscale-dev libavdevice57 libavformat-dev libavcodec-dev libavdevice-dev -y
+ 
+ echo "Building Citra..."
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ sleep 1
+ cd ~
+ git clone --recursive https://github.com/citra-emu/citra
+@@ -20,12 +24,12 @@ mkdir build
+ cd build
+ cmake .. -DCMAKE_BUILD_TYPE=Release
+ make -j$(nproc)
+-sudo make install
++make install
+ 
+ echo "Removing build files..."
+ sleep 1
+ cd ~
+-sudo rm -rf citra
++rm -rf citra
+ 
+ echo "Done!"
+ echo "Sending you back to the main menu..."
+diff --git a/scripts/dolphin/install.sh b/scripts/dolphin/install.sh
+index 3e666fe..2b682d5 100644
+--- a/scripts/dolphin/install.sh
++++ b/scripts/dolphin/install.sh
+@@ -1,17 +1,17 @@
+ echo "Making sure software-properties-common is installed..."
+-sudo apt install software-properties-common
++apt install software-properties-common
+ #echo "looking to see if Dolphin's PPA already exists..."
+ 
+ #if ! grep -q "^deb .*dolphin-emu/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+     #echo "Dolphin PPA not found, installing now!"
+ echo "Making sure the Dolphin PPA is installed..."
+-    sudo apt-add-repository ppa:dolphin-emu/ppa
++    apt-add-repository ppa:dolphin-emu/ppa
+ #else
+     #echo "You've already installed the PPA, moving on to checking for updates..."
+ 
+ #fi
+-sudo apt update
+-sudo apt install dolphin-emu-master
++apt update
++apt install dolphin-emu-master
+ echo
+ echo
+ echo "NOTE: If you already have dolphin installed, you don't need to"
+diff --git a/scripts/dolphin/main.sh b/scripts/dolphin/main.sh
+index 43d8b3d..12a3d1c 100644
+--- a/scripts/dolphin/main.sh
++++ b/scripts/dolphin/main.sh
+@@ -17,7 +17,7 @@ sleep 1
+ 
+ ##echo "you have chosen $userInput"
+ ##if [[ $userInput == 1 ]]; then
+-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/install.sh)"
++  sudo bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/install.sh)"
+ 
+ ##elif [[ $userInput == 2 ]]; then
+ ##  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/dolphin/config.sh)"
+diff --git a/scripts/init.sh b/scripts/init.sh
+index 7004822..8868650 100644
+--- a/scripts/init.sh
++++ b/scripts/init.sh
+@@ -6,16 +6,20 @@ sleep 2
+ echo "Checking for updates and installing a few extra recommended packages."
+ echo "This might take a while, depending on your internet speed."
+ echo "Pull up a chair!"
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ echo "CREDITS:"
+ echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
+ echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
+ sleep 10
+-sudo dpkg --add-architecture armhf
+-sudo add-apt-repository ppa:alexlarsson/flatpak
+-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+-sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
++dpkg --add-architecture armhf
++add-apt-repository ppa:alexlarsson/flatpak
++apt update && apt upgrade -y && apt autoremove -y
++apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
+ 
+-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
++flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+ sleep 1
+ 
+ clear
+diff --git a/scripts/joycon-mouse.sh b/scripts/joycon-mouse.sh
+index f4f09b1..7646236 100644
+--- a/scripts/joycon-mouse.sh
++++ b/scripts/joycon-mouse.sh
+@@ -1,9 +1,13 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ clear
+ echo "Joycon mouse script started!"
+ sleep 1
+ cd ~
+-sudo apt install xserver-xorg-input-joystick
+-wget https://cdn.discordapp.com/attachments/604648722491768883/684926248505704484/50-joystick.conf && sudo mv 50-joystick.conf /usr/share/X11/xorg.conf.d
++apt install xserver-xorg-input-joystick
++wget https://cdn.discordapp.com/attachments/604648722491768883/684926248505704484/50-joystick.conf &&  mv 50-joystick.conf /usr/share/X11/xorg.conf.d
+ 
+ echo "Done! Restart your Switch when you're ready to gain access to using your joycons as a mouse."
+ 
+diff --git a/scripts/minecraft-bedrock.sh b/scripts/minecraft-bedrock.sh
+index f842880..1584d41 100644
+--- a/scripts/minecraft-bedrock.sh
++++ b/scripts/minecraft-bedrock.sh
+@@ -1,20 +1,24 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ clear
+ echo "Minecraft Bedrock script started!"
+ echo "this will probably currently fail and give you a warning about broken dependencies. it currently doesn't support 64-bit ARM, which the switch uses. we're working on it"
+ sleep 1
+ ##department of redundancy department
+-sudo dpkg --add-architecture armhf
++ dpkg --add-architecture armhf
+ echo "Updating sources..."
+ sleep 1
+ echo "Double-checking to see that Flatpak is installed and Flathub added..."
+ sleep 1
+-sudo apt update
+-sudo apt install flatpak -y
+-##sudo apt install libcanberra-gtk-module
++ apt update
++ apt install flatpak -y
++## apt install libcanberra-gtk-module
+ 
+-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
++ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+ echo "Installing Minecraft Bedrock..."
+-sudo flatpak install flathub io.mrarm.mcpelauncher -y
++ flatpak install flathub io.mrarm.mcpelauncher -y
+ 
+ echo "Done!"
+ sleep 1
+diff --git a/scripts/minecraft-java.sh b/scripts/minecraft-java.sh
+index e14135b..92fc864 100644
+--- a/scripts/minecraft-java.sh
++++ b/scripts/minecraft-java.sh
+@@ -1,3 +1,7 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
+ clear
+ echo "Minecraft Java script started!"
+ sleep 1
+@@ -8,11 +12,11 @@ echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
+ git clone https://gitlab.com/devluke/mcswitchtools
+ cd mcswitchtools/
+ echo "Moving the Minecraft files to the $HOME/ folder..."
+-sudo mv MCSwitchTools/ ~
++mv MCSwitchTools/ ~
+ cd ~
+-sudo rm -rf minecraft-temp/
++rm -rf minecraft-temp/
+ echo "Starting up initialization..."
+-sudo apt update
++apt update
+ ~/MCSwitchTools/tools.sh init
+ ##shoutouts to Luke for telling me how to restart a terminal entirely automated
+ source ~/.bashrc
+@@ -20,7 +24,7 @@ mc lwjgl 3
+ echo "You will now need to log into your Minecraft/Mojang account, and then immediately close the launcher."
+ echo "Please do so when the program launches in 10 seconds."
+ sleep 10
+-##sudo jetson_clocks
++## jetson_clocks
+ mc run
+ sleep 3
+ mc profiles
+diff --git a/scripts/moonlight.sh b/scripts/moonlight.sh
+index 3f9e20b..14642bd 100644
+--- a/scripts/moonlight.sh
++++ b/scripts/moonlight.sh
+@@ -1,13 +1,17 @@
+-cd
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
++cd ~
+ clear
+ echo "Moonlight script started!"
+ sleep 1
+-echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | sudo tee /etc/apt/sources.list.d/moonlight-l4t.list
++echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" |  tee /etc/apt/sources.list.d/moonlight-l4t.list
+ echo "Adding key..."
+-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
++apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+ echo "Updating sources and installing Moonlight"
+-sudo apt-get update
+-sudo apt install moonlight-qt subversion -y
++apt-get update
++apt install moonlight-qt subversion -y
+ svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/moonlight
+ cd moonlight
+ mv moonlight.sh -t ~/RetroPie/roms/ports
+diff --git a/scripts/sdl2_install_helper.sh b/scripts/sdl2_install_helper.sh
+index bfcd016..ae18917 100644
+--- a/scripts/sdl2_install_helper.sh
++++ b/scripts/sdl2_install_helper.sh
+@@ -1,10 +1,14 @@
+-cd
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
++cd ~
+ if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
+ echo ""
+ echo "Already Installed Newest SDL2 Version"
+ sleep 1
+ else
+-sudo apt-get --assume-yes install git
++apt-get --assume-yes install git
+ cd /tmp
+ mkdir temp_install_sdl2
+ cd temp_install_sdl2
+@@ -24,9 +28,9 @@ cd /tmp/temp_install_sdl2
+ 
+ 
+ #auto install sdl2 and then remove unneeded files
+-sudo ./retropie_packages.sh sdl2
++./retropie_packages.sh sdl2
+ cd /tmp
+-sudo rm -rf temp_install_sdl2
++rm -rf temp_install_sdl2
+ cd
+ echo ""
+ echo "Successfully Installed Newest SDL2 Version"
+diff --git a/scripts/swapfile.sh b/scripts/swapfile.sh
+index c678bb1..cbb75d7 100644
+--- a/scripts/swapfile.sh
++++ b/scripts/swapfile.sh
+@@ -1,16 +1,21 @@
++if [ "$EUID" -ne 0 ]
++  then echo "Please run as root"
++  exit
++fi
++
+ clear
+ echo "Swapfile script started!"
+ sleep 1
+ cd ~
+-sudo apt-get install nano util-linux* -y
+-sudo fallocate -l 2G /swapfile
+-sudo chmod 600 /swapfile
+-sudo mkswap /swapfile
+-sudo swapon /swapfile
+-grep -qxF '/swapfile swap swap defaults 0 0' /etc/fstab || echo '/swapfile swap swap defaults 0 0' | sudo tee --append /etc/fstab
++apt-get install nano util-linux* -y
++fallocate -l 2G /swapfile
++chmod 600 /swapfile
++mkswap /swapfile
++swapon /swapfile
++grep -qxF '/swapfile swap swap defaults 0 0' /etc/fstab || echo '/swapfile swap swap defaults 0 0' |  tee --append /etc/fstab
+ 
+ echo "Done!"
+-sudo free -h
++free -h
+ echo ""
+ echo "Moving on..."
+ 
