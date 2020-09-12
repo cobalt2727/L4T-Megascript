@@ -1,3 +1,7 @@
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 clear
 echo "Initial setup script started!"
 
@@ -10,12 +14,12 @@ echo "CREDITS:"
 echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
-sudo dpkg --add-architecture armhf
-sudo add-apt-repository ppa:alexlarsson/flatpak
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
+dpkg --add-architecture armhf
+add-apt-repository ppa:alexlarsson/flatpak
+apt update && apt upgrade -y && apt autoremove -y
+apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
 
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sleep 1
 
 clear
@@ -23,7 +27,7 @@ echo "Do you want to install the swapfile (You need 2 GB. Very important to avoi
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Installing the swapfile..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/swapfile.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/swapfile.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Skipping swapfile setup..."
 fi
@@ -34,7 +38,7 @@ echo "Do you want to install configurations that will let you use the joycons as
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Installing the Joycon Mouse..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/joycon-mouse.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
 fi
@@ -45,7 +49,7 @@ echo "Do you want to build and install SDL2? (Required for many games in the scr
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
 echo "Building and installing SDL2..."
-bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/sdl2_install_helper.sh)"
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Going to the next option"
 fi
