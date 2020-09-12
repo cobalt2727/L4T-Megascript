@@ -14,13 +14,9 @@ if [ -v $repository_branch ] || [ $repository_branch == master ]; then
 else
     echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
-
-echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
-echo
-echo "Add a check from the choices in the GUI and then press INSTALL to configure the specified program."
+zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program."
 #echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
-echo -e "\x1B[31mYou have $available_space of space left on your SD card! Make sure you don't use too much!\e[0m"
-
+zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!"
 sleep 2
 
 CHOICE=$(zenity \
@@ -47,6 +43,7 @@ if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
 #echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh | bash
+zenity --progress --title="Installing..."--text="Installing ${CHOICE}" 
 fi
 if echo $CHOICE | grep -q "Initial Setup"
 then echo "installing initial setup script..."
@@ -92,7 +89,7 @@ fi
 if echo $CHOICE | grep -q "SRB2"
 then echo "install SRB2..."
 #zenity --progress --text="Installing SRB2" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
+echo $PRIVATE | sudo -S https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "SM64"
@@ -114,6 +111,8 @@ fi
 # #zenity --info --text="Sucessfully installed"
 # fi
 
+zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+
 echo "Thank you for using the L4T Megascript!"
 sleep 2
 clear
@@ -127,7 +126,11 @@ echo -e "\e[32mGman - Contributor/RetroPie script/Celeste native port\e[0m"
 #echo "hey, if you're reading this, you probably helped make the thing. you can add stuff to your credits in your PRs if you want to!"
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
-echo ""
+echo
+echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
+echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
+echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
+
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
 echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
