@@ -1,5 +1,5 @@
 #download git
-apt-get --assume-yes install git
+apt-get --assume-yes install git dialog unzip xmlstarlet
 cd
 rm -rf RetroPie-Setup
 su -c "git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git" $SUDO_USER
@@ -43,14 +43,14 @@ cd RetroPie-Setup
 ./retropie_packages.sh lzdoom
 # ./retropie_packages.sh scraper
 # ./retropie_packages.sh skyscraper
-#./retropie_packages.sh usbromservice
+# ./retropie_packages.sh usbromservice
 if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
-echo ""
-echo "Already Installed Newest SDL2 Version"
-sleep 3
+  echo ""
+  echo "Already Installed Newest SDL2 Version"
+  sleep 3
 else
-./retropie_packages.sh sdl2
-echo ""
-echo "Successfully Installed Newest SDL2 Version"
-sleep 3
+  ./retropie_packages.sh sdl2
+  echo ""
+  echo "Successfully Installed Newest SDL2 Version"
+  sleep 3
 fi
