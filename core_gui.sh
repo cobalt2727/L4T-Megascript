@@ -53,7 +53,7 @@ fi
 if echo $CHOICE | grep -q "RetroPie"
 then echo "install retropie..."
 #zenity --progress --text="Installing retropie" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "Celeste (Pico-8 Port)"

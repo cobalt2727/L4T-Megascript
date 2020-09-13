@@ -2,7 +2,7 @@
 apt-get --assume-yes install git dialog unzip xmlstarlet
 cd
 rm -rf RetroPie-Setup
-su -c "git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git" $SUDO_USER
+sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 
 #auto install retropie with most important emulators (which don't take up much space)
 cd RetroPie-Setup

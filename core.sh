@@ -112,7 +112,7 @@ elif [[ $userInput == 14 || $userInput == SRB2 ]]; then
 
 elif [[ $userInput == 15 || $userInput == RetroPie ]]; then 
   #please don't change the sudo, my script is written with it in mind
-  bash -c "$(sudo -s curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh)"
+  sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh)"
 
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
