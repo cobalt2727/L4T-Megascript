@@ -13,7 +13,7 @@ cd RetroPie-Setup
 ./retropie_packages.sh emulationstation
 ./retropie_packages.sh retropiemenu
 ./retropie_packages.sh runcommand
-./retropie_packages.sh ports-enable configure
+#./retropie_packages.sh ports-enable configure
 ./retropie_packages.sh lr-mupen64plus-next
 ./retropie_packages.sh lr-atari800
 ./retropie_packages.sh lr-beetle-ngp
