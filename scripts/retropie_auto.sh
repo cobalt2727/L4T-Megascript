@@ -36,7 +36,7 @@ cd RetroPie-Setup
 ./retropie_packages.sh lr-flycast
 # ./retropie_packages.sh lr-mame2016
 # ./retropie_packages.sh lr-mame2010
-./retropie_packages.sh lr-mame
+#./retropie_packages.sh lr-mame
 ./retropie_packages.sh lr-pcsx-rearmed
 ./retropie_packages.sh lr-ppsspp
 ./retropie_packages.sh lr-snex9x
