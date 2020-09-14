@@ -39,7 +39,7 @@ cd RetroPie-Setup
 #./retropie_packages.sh lr-mame
 ./retropie_packages.sh lr-pcsx-rearmed
 ./retropie_packages.sh lr-ppsspp
-./retropie_packages.sh lr-snex9x
+./retropie_packages.sh lr-snes9x
 ./retropie_packages.sh lzdoom
 # ./retropie_packages.sh scraper
 # ./retropie_packages.sh skyscraper
