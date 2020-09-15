@@ -56,6 +56,7 @@ A lot more listed in the Discord!
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 ## Credits
 - STJr: Creators and developers of SRB2 and SRB2Kart
+- Kart Krew: Creators and developers of SRB2Kart
 - Clownacy: Creator and developer of CSE2-Tweaks
 - RetroPie: Creators and developers of Retropie
 - dolphin-emu: Creators and developers of Dolphin
