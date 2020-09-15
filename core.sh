@@ -69,6 +69,7 @@ echo "17..............Flappy Bird - A game about a bird flying in between warp p
 echo "18..............SuperTux2 - A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
 echo "19..............SM64Port - A native port of the classic game for the N64 (requires a ROM)"
 #echo "20..............Xonotic - The Free and Fast Arena Shooter"
+echo "21...............SRB2Kart  A kart racing mod based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2"
 #echo "starwars........Watch Episode IV entirely in this terminal window in glorious animated ASCII art"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
@@ -129,6 +130,9 @@ elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
 
 elif [[ $userInput == 20 || $userInput == Xonotic ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/xonotic.sh)"
+  
+elif [[ $userInput == 21 || $userInput == SRB2Kart ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)"
 
 elif [[ $userInput == starwars ]]; then
   sudo apt install telnet -y
