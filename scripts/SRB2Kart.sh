@@ -3,10 +3,11 @@ clear
 echo "SRB2 Kart script started!"
 echo "Downloading the files, and installing needed dependencies..." 
 sleep 2
+sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y
+
 wget https://github.com/STJr/Kart-Public/archive/master.zip
 unzip master.zip
 svn export https://github.com/cobalt2727/L4T-Megascript/trunk/assets/SRB2Kart
-sudo apt install libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y
 mkdir SRB2Kart-Data && cd SRB2Kart-Data
 wget $(curl --silent "https://api.github.com/repos/STJr/Kart-Public/releases/latest" | grep "Installer" | grep ".exe" | cut -c 31- | cut -d '"' -f 2) -O SRB2Kart.exe
 7z x SRB2Kart.exe
