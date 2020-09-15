@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/SRB2Kart/SRB2KartIcon.png
+Name=SRB2 Kart
+Exec=/usr/share/SRB2Kart/SRB2Kart.sh
+Path=/usr/share/SRB2Kart/assets/installer
+Terminal=true
+Hidden=false
+Categories=Games
