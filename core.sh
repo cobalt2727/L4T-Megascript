@@ -69,7 +69,7 @@ echo "17..............Flappy Bird - A game about a bird flying in between warp p
 echo "18..............SuperTux2 - A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
 echo "19..............SM64Port - A native port of the classic game for the N64 (requires a ROM)"
 #echo "20..............Xonotic - The Free and Fast Arena Shooter"
-echo "21...............SRB2Kart  A kart racing mod based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2"
+echo "21..............SRB2Kart - A kart racing game based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2"
 #echo "starwars........Watch Episode IV entirely in this terminal window in glorious animated ASCII art"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
