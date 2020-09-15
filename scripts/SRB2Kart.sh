@@ -26,7 +26,7 @@ echo
 echo "Game compiled!"
 sleep 1
 cd ~ 
-echo "Erasing temporary build files to save space and installing the direct access and configuration files....."
+echo "Erasing temporary build files to save space, installing the direct access and configuration files....."
 sleep 5
 echo
 mkdir .srb2kart
@@ -47,7 +47,7 @@ echo
 echo "Game Installed!"
 echo
 echo
-echo "[NOTE] Remember NOT to move the SM64 folder or any file inside it or the game will stop working."
+echo "[NOTE] Remember NOT to move the SRB2Kart folder or any file inside it or the game will stop working."
 echo "If the game icon doesn't appear inmediately, restart the system."
 echo "This message will close in 10 seconds."
 sleep 10
