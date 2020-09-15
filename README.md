@@ -28,6 +28,7 @@ We currently have the following scripts:
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia GPU!
 - CSE2-Tweaks: An enhanced version of Cave Story. 60 FPS, bugs fixes, other soundtracks support
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
+- SRB2Kart  A kart racing mod based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2
 - RetroPie - Powerful frontend for both emulators and native programs alike
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
 - Flappy Bird: A game about a bird flying in between warp pipes
