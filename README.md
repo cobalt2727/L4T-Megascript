@@ -31,7 +31,7 @@ We currently have the following scripts:
 - SRB2Kart: A kart racing game based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2
 - RetroPie: Powerful frontend for both emulators and native programs alike
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
-- Flappy Bird: hey guys don't delete flappy bird off your phone you can't get it back
+- Flappy Bird: A game about a bird flying in between warp pipes
 - SuperTux2: A 2D jump'n run sidescroller game in a style similar to the original Super Mario games
 - SM64Port: A native port of the classic game for the N64 (requires your own, legally dumped ROM)
 
@@ -43,7 +43,7 @@ We currently have the following scripts:
 - [ ] Figure out how to make Minecraft Bedrock work
 - [x] Add the Java Minecraft script (shoutouts to Luke Chambers)
 - [ ] Add the Sodium mod (for performance) to the Minecraft Script
-- [ ] a lot more listed in the Discord!
+A lot more listed in the Discord!
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor/GUI Manager 
@@ -55,7 +55,7 @@ We currently have the following scripts:
 ## Do you have a question or want to give ideas?
 You are lucky! We have a Discord Server: https://discord.gg/UYsUFCY
 ## Credits
-- STJr: Creators and developers of SRB2
+- STJr: Creators and developers of SRB2 and SRB2Kart
 - Clownacy: Creator and developer of CSE2-Tweaks
 - RetroPie: Creators and developers of Retropie
 - dolphin-emu: Creators and developers of Dolphin
