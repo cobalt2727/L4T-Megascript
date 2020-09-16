@@ -43,7 +43,7 @@ We currently have the following scripts:
 - [ ] Figure out how to make Minecraft Bedrock work
 - [x] Add the Java Minecraft script (shoutouts to Luke Chambers)
 - [ ] Add the Sodium mod (for performance) to the Minecraft Script
-A lot more listed in the Discord!
+-  A lot more listed in the Discord!
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor/GUI Manager 
