@@ -5,7 +5,10 @@ echo "Are you sure you want to continue?"
 
 ##prompt yes/no
 sudo apt update
-sudo apt install mate-desktop-environment mate-desktop-environment-extras ubuntu-mate-themes -y
+sudo apt install mate-desktop-environment mate-desktop-environment-extras ubuntu-mate-themes plank -y
+##should we add these?
+##echo "Installing extras..."
+##sudo apt-get install mate-session-manager mate-themes mate-screensaver mate-power-manager mate-indicator-applet mate-indicator-applet-common mate-tweak dconf-editor mate-applet-appmenu -y
 
 echo "If your screen goes black, don't panic, that's normal. Give it a minute..."
 sleep 5
