@@ -18,7 +18,7 @@ cd RetroPie-Setup
 ./retropie_packages.sh lr-atari800
 ./retropie_packages.sh lr-beetle-ngp
 ./retropie_packages.sh lr-beetle-pce-fast
-./retropie_packages.sh lr-beetle-superfrafx
+./retropie_packages.sh lr-beetle-supergrafx
 ./retropie_packages.sh lr-fbneo
 ./retropie_packages.sh lr-fceumm
 ./retropie_packages.sh lr-gambatte
