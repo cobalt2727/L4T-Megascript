@@ -1,6 +1,6 @@
 clear
 echo "Initial setup script started!"
-
+cd ~
 sleep 2
 
 echo "Checking for updates and installing a few extra recommended packages."
@@ -13,9 +13,13 @@ sleep 10
 sudo dpkg --add-architecture armhf
 sudo add-apt-repository ppa:alexlarsson/flatpak
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-sudo apt install indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
+sudo apt install wget indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji -y
 #grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
 
+echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
+cd /etc/udev/rules.d/
+wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/51-gcadapter.rules
+cd ~
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sleep 1
