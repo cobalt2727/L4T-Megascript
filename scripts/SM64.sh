@@ -33,19 +33,19 @@ sleep 3
 fi
 read -p "Please select the ROM's region (us/eu/jp) " userInput
 if [[ $userInput == us || $userInput == US ]]; then
-make -j$(nproc) BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1
+make -j$(nproc) BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv us_pc SM64
 cd SM64
 mv sm64.us.f3dex2e sm64
 elif [[ $userInput == eu || $userInput == EU ]]; then
-make -j$(nproc) VERSION=eu BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1
+make -j$(nproc) VERSION=eu BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv eu_pc SM64
 cd SM64
 mv sm64.eu.f3dex2e sm64
 elif [[ $userInput == jp || $userInput == JP ]]; then
-make -j$(nproc) VERSION=jp BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1
+make -j$(nproc) VERSION=jp BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv jp_pc SM64
 cd SM64
