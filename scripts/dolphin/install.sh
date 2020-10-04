@@ -11,7 +11,7 @@ echo "Making sure the Dolphin PPA is installed..."
 
 #fi
 sudo apt update
-sudo apt install dolphin-emu-master
+sudo apt install dolphin-emu-master -y
 echo
 echo
 echo "NOTE: If you already have dolphin installed, you don't need to"
