@@ -5,7 +5,9 @@ echo "Downloading the files, removing old files and installing needed dependenci
 sleep 2
 sudo rm -r /usr/share/SRB2 
 cd ~/.srb2
-sudo rm config.cfg
+rm config.cfg
+cd /usr/share/applications
+sudo rm "Sonic Robo Blast 2.desktop"
 cd
 sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev -y
 wget https://github.com/STJr/SRB2/archive/master.zip
