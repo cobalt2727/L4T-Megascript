@@ -1,8 +1,12 @@
 cd
 clear
 echo "SRB2 script started!"
-echo "Downloading the files, and installing needed dependencies..." 
+echo "Downloading the files, removing old files and installing needed dependencies..." 
 sleep 2
+sudo rm -r /usr/share/SRB2 
+cd ~/.srb2
+sudo rm config.cfg
+cd
 sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev -y
 wget https://github.com/STJr/SRB2/archive/master.zip
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
