@@ -8,6 +8,8 @@ cd ~/.srb2
 rm config.cfg
 cd /usr/share/applications
 sudo rm "Sonic Robo Blast 2.desktop"
+cd ~/RetroPie/roms/ports
+rm SRB2_retropie.sh
 cd
 sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev -y
 wget https://github.com/STJr/SRB2/archive/master.zip
