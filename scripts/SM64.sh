@@ -1,6 +1,13 @@
 clear
 echo "SuperMario64 Port script started!"
-echo "Downloading the files and installing needed dependencies..."
+echo "Downloading the files, removing old files and installing needed dependencies..."
+cd ~/RetroPie/roms/ports 
+rm SM64.sh
+sudo rm -r /usr/share/SM64
+cd /usr/share/applications
+sudo rm "Super Mario 64.desktop"
+cd ~/.local/share/sm64pc
+rm sm64config.txt
 sleep 3
 cd ~
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
