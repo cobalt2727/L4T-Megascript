@@ -60,7 +60,7 @@ echo
 cd ~/CSE2-Tweaks
 sudo mv CSE2-Tweaks.desktop -t /usr/share/applications
 cd ~
-rm -r CSE2-Tweaks-t 
+rm -r CSE2-Tweaks
 sudo mv Profile.dat -t /usr/share/CSE2-Tweaks
 echo
 echo "Game Installed!"
