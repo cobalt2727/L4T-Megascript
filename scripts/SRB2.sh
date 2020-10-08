@@ -59,6 +59,7 @@ echo
 cd ~/SRB2-master
 mv assets build -t ~/SRB2
 cd ~
+rm -r SRB2-DT
 rm -r SRB2-master
 sudo mv SRB2 -t /usr/share
 echo 
