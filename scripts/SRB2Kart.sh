@@ -3,8 +3,12 @@ clear
 echo "SRB2 Kart script started!"
 echo "Downloading the files, and installing needed dependencies..." 
 sleep 2
+sudo rm -r /usr/share/SRB2Kart
+cd ~/.srb2kart
+rm kartconfig.cfg 
+cd /usr/share/applications
+sudo rm "SRB2 Kart.desktop"
 sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y
-
 wget https://github.com/STJr/Kart-Public/archive/master.zip
 unzip master.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2Kart
