@@ -3,6 +3,14 @@ clear
 echo "CSE2-Tweaks script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
+cd /usr/share/CSE2-Tweaks
+sudo mv Profile.dat -t ~/
+cd /usr/share
+sudo rm -r CSE2-Tweaks
+cd /usr/share/applications
+sudo rm CSE2-Tweaks.desktop
+cd ~/RetroPie/roms/ports
+rm CSE2-Tweaks.sh
 wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
 unzip tweaks.zip
 sudo apt install snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
@@ -53,6 +61,7 @@ cd ~/CSE2-Tweaks
 sudo mv CSE2-Tweaks.desktop -t /usr/share/applications
 cd ~
 rm -r CSE2-Tweaks
+sudo mv Profile.dat -t /usr/share/CSE2-Tweaks
 echo
 echo "Game Installed!"
 echo
