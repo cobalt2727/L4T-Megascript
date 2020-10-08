@@ -5,6 +5,7 @@ echo "Downloading the files and installing needed dependencies..."
 sleep 3
 cd /usr/share/CSE2-Tweaks
 sudo mv Profile.dat -t ~/
+cd /usr/share
 sudo rm -r CSE2-Tweaks
 cd /usr/share/applications
 sudo rm CSE2-Tweaks.desktop
