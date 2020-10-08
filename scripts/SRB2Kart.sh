@@ -8,6 +8,7 @@ cd ~/.srb2kart
 rm kartconfig.cfg 
 cd /usr/share/applications
 sudo rm "SRB2 Kart.desktop"
+cd
 sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y
 wget https://github.com/STJr/Kart-Public/archive/master.zip
 unzip master.zip
