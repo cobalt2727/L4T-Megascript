@@ -11,7 +11,7 @@ echo "Making sure the Dolphin PPA is installed..."
 
 #fi
 sudo apt update
-sudo apt install dolphin-emu-master
+sudo apt install dolphin-emu-master -y
 echo
 echo
 echo "NOTE: If you already have dolphin installed, you don't need to"
@@ -23,6 +23,7 @@ sleep 10
 echo "Sending you back to the main menu..."
 sleep 1
 
+##cd ~
 ##git clone https://github.com/dolphin-emu/dolphin
 ##cd dolphin
 ##mkdir build && cd build
@@ -30,3 +31,5 @@ sleep 1
 ##make -j$(nproc)
 ##sudo make install
 ##wget default configs, maybe autolaunch Wii sports with real Wii remotes forced on
+##cd ../..
+##sudo rm -rf dolphin
