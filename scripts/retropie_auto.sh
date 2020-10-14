@@ -1,5 +1,6 @@
 #download git
-apt-get --assume-yes install git dialog unzip xmlstarlet
+sudo apt install git dialog unzip xmlstarlet lsb-release -y
+
 cd
 rm -rf RetroPie-Setup
 sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
