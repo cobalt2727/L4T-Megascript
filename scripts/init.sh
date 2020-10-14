@@ -74,10 +74,6 @@ clear
 echo "Placeholder for the overclock script (Coming Soon™)"
 sleep 1
 
-clear
-echo "Placeholder for the RetroPie updater (we NEED to y/n prompt this if we decide to add it)"
-##sudo ~/RetroPie-Setup/retropie_packages.sh setup update_packages
-sleep 1
 
 echo "All done! Would you like to restart now?"
 echo "Required for some of the init script's components to take effect. (y/n)"
