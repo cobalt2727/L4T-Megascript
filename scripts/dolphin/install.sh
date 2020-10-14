@@ -24,6 +24,7 @@ echo "Sending you back to the main menu..."
 sleep 1
 
 ##cd ~
+##sudo apt install git cmake ffmpeg libavcodec-dev libevdev-dev libusb-1.0-0-dev libavformat-dev libswscale-dev libsfml-dev libminiupnpc-dev libmbedtls-dev curl libhidapi-dev libpangocairo-1.0-0 libgtk2.0-dev libbluetooth-dev qt5-default qtbase5-private-dev libudev-dev portaudio19-dev -y
 ##git clone https://github.com/dolphin-emu/dolphin
 ##cd dolphin
 ##mkdir build && cd build
