@@ -86,7 +86,7 @@ if [[ $userInput == 0 || $userInput == setup ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)"
   
 elif [[ $userInput == 1 || $userInput == update ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/apt.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)"
 
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
