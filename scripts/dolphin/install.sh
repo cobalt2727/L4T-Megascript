@@ -28,7 +28,7 @@ sleep 1
 ##git clone https://github.com/dolphin-emu/dolphin
 ##cd dolphin
 ##mkdir build && cd build
-##cmake ..
+##cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_INIT="-flto=6"
 ##make -j$(nproc)
 ##sudo make install
 ##wget default configs, maybe autolaunch Wii sports with real Wii remotes forced on
