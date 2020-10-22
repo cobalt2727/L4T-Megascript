@@ -2,10 +2,12 @@ clear
 cd ~
 echo "eDEX-UI script started!"
 sleep 1
-echo "Installing dependencies..."
+echo "Removing previous installation files..."
+sudo rm -rf edex-ui/
 cd /usr/share/applications
 sudo rm "eDEX-UI.desktop"
 cd ~
+echo "Installing dependencies..."
 sudo apt-get install npm* nodejs*
 
 echo "Downloading the source..."
