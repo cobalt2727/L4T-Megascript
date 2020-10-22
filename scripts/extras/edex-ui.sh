@@ -8,7 +8,9 @@ cd /usr/share/applications
 sudo rm "eDEX-UI.desktop"
 cd ~
 echo "Installing dependencies..."
-sudo apt-get install npm* nodejs*
+#the next line fixes a dependency issue
+sudo apt-get install libssl1.0-dev -y
+sudo apt-get install npm* nodejs* -y
 
 echo "Downloading the source..."
 git clone https://github.com/GitSquared/edex-ui
