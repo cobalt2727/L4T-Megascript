@@ -71,8 +71,14 @@ fi
 sleep 1
 
 clear
-echo "Placeholder for the overclock script (Coming Soon™)"
-sleep 1
+
+
+##Placeholder for the overclock script (can someone check my work on this? I feel like I'm gonnna break something
+##The guide at https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/ says to add the line BEFORE the exit 0 line
+##I'm not sure how to automate that
+##grep -qxF 'echo 1 > /sys/kernel/tegra_cpufreq/overclock' /etc/rc.local || echo 'echo 1 > /sys/kernel/tegra_cpufreq/overclock' | sudo tee --append /etc/rc.local
+##echo 1 > /sys/kernel/tegra_cpufreq/overclock
+##sleep 1
 
 
 echo "All done! Would you like to restart now?"
