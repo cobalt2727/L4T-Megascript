@@ -16,3 +16,7 @@ sleep 5
 sudo systemctl restart gdm
 echo "Going back to the main menu..."
 sleep 1
+
+##note to self, have someone test later
+##doing this may fix touchscreen issues
+##sudo apt-get remove switch-touch-rules
