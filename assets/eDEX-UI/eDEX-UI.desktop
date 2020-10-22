@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/edex-ui/logo.svg
+Name=eDEX-UI
+Exec=bash -c 'cd /home/$USER/edex-ui; npm start'
+Terminal=false
+Categories=System; Utility
+Comment=A cross-platform, customizable science fiction terminal emulator with advanced monitoring & touchscreen support.
