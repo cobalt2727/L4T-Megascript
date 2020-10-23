@@ -11,7 +11,7 @@ echo "Installing dependencies..."
 if grep -q bionic /etc/os-release; then
   echo "Ubuntu 18.04 detected, using NodeSource to install Node.js..."
   echo "(The version that ships with Ubuntu Bionic isn't new enough)"
-  curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 fi
 #the next line fixes a dependency issue that may occur depending on what you have installed
 sudo apt-get install libssl1.0-dev -y
