@@ -9,7 +9,7 @@ sudo rm "eDEX-UI.desktop"
 cd ~
 echo "Installing dependencies..."
 if grep -q bionic /etc/os-release; then
-	echo "Ubuntu 18.04 detected, using NodeSource to install Node.js..."
+  echo "Ubuntu 18.04 detected, using NodeSource to install Node.js..."
   echo "(The version that ships with Ubuntu Bionic isn't new enough)"
   curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 fi
