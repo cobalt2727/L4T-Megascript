@@ -27,7 +27,7 @@ else
     cd dolphin
     mkdir build && cd build
     echo "Building..."
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=armv8-a+simd -DCMAKE_C_FLAGS=-march=armv8-a+simd
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=armv8-a+simd -DCMAKE_C_FLAGS=-march=armv8-a+simd -DCMAKE_C_FLAGS_INIT="-static"
     make -j$(nproc)
     echo "Installing..."
     sudo make install
