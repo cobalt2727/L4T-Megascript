@@ -20,28 +20,35 @@ cd RetroPie-Setup
 ./retropie_packages.sh lr-beetle-ngp
 ./retropie_packages.sh lr-beetle-pce-fast
 ./retropie_packages.sh lr-beetle-supergrafx
+# ./retropie_packages.sh lr-beetle-saturn
+./retropie_packages.sh lr-bsnes
+./retropie_packages.sh lr-desmume
+# ./retropie_packages.sh lr-desmume2015
 ./retropie_packages.sh lr-fbneo
 ./retropie_packages.sh lr-fceumm
+./retropie_packages.sh lr-flycast
 ./retropie_packages.sh lr-gambatte
 ./retropie_packages.sh lr-genesis-plus-gx
 ./retropie_packages.sh lr-handy
+#./retropie_packages.sh lr-mame
 # ./retropie_packages.sh lr-mame2003
+# ./retropie_packages.sh lr-mame2010
+# ./retropie_packages.sh lr-mame2016
+# ./retropie_packages.sh lr-mesen
 ./retropie_packages.sh lr-mgba
 ./retropie_packages.sh lr-nestopia
+./retropie_packages.sh lr-pcsx-rearmed
+./retropie_packages.sh lr-ppsspp
 ./retropie_packages.sh lr-prosystem
 ./retropie_packages.sh lr-quicknes
+./retropie_packages.sh lr-smsplus-gx
 ./retropie_packages.sh lr-stella2014
 ./retropie_packages.sh lr-vba-next
 ./retropie_packages.sh lr-vecx
-./retropie_packages.sh lr-bsnes
-./retropie_packages.sh lr-flycast
-# ./retropie_packages.sh lr-mame2016
-# ./retropie_packages.sh lr-mame2010
-#./retropie_packages.sh lr-mame
-./retropie_packages.sh lr-pcsx-rearmed
-./retropie_packages.sh lr-ppsspp
 ./retropie_packages.sh lr-tgbdual
 ./retropie_packages.sh lr-snes9x
+# ./retropie_packages.sh lr-yabasanshiro
+./retropie_packages.sh lr-yabause
 ./retropie_packages.sh lzdoom
 # ./retropie_packages.sh scraper
 # ./retropie_packages.sh skyscraper
