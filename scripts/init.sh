@@ -14,7 +14,7 @@ sleep 10
 sudo dpkg --add-architecture armhf
 
 #bionic's flatpak app is out of date, i'll probably leave this line in even after the focal upgrade as long as it's not hurting anything
-sudo add-apt-repository ppa:alexlarsson/flatpak
+sudo add-apt-repository ppa:alexlarsson/flatpak -y
 
 #updates whee
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
