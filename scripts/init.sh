@@ -30,7 +30,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 #if you're reading this and i haven't credited Faster Melee for this file in the README yet, please yell at me -Cobalt
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 cd /etc/udev/rules.d/
-wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/51-gcadapter.rules
+sudo wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/51-gcadapter.rules
 cd ~
 
 #kinda hard to install flatpaks without flathub
