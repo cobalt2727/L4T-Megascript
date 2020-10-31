@@ -27,7 +27,7 @@ else
     cd dolphin
     mkdir build && cd build
     echo "Building..."
-    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static"
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
     make -j$(nproc)
     echo "Installing..."
     sudo make install
