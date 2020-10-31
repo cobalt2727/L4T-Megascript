@@ -15,7 +15,7 @@ if grep -q bionic /etc/os-release; then
     sudo apt install dolphin-emu-master -y
 
 else
-	echo "Building from source with armv8 optimizations..."
+	echo "Building from source with device-specific optimizations..."
 
     cd ~
     echo "Installing dependencies..."
@@ -27,7 +27,7 @@ else
     cd dolphin
     mkdir build && cd build
     echo "Building..."
-    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=armv8-a+simd -DCMAKE_C_FLAGS=-march=armv8-a+simd -DCMAKE_C_FLAGS_INIT="-static"
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static"
     make -j$(nproc)
     echo "Installing..."
     sudo make install
