@@ -20,3 +20,4 @@ cd Dolphin/
 sudo mv * ..
 cd ..
 sudo rm -rf Dolphin/
+cd ~
