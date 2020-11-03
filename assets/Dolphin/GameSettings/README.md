@@ -1,1 +1,1 @@
-This is where I'll be setting up individual game-specific profiles for video and controller settings. There will be a LOT of games to cover, so if you have a request or a profile submission, submit it at https://discord.gg/UYsUFCY in the #dolphin-game-profiles channel!
+This is to hold game-specific tweaks to get games running smoothly on the Switch that Dolphin doesn't have, whether that's forcing on a certain graphics setting or using an Action Replay/Gecko code.
