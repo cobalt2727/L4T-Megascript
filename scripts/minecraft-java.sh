@@ -5,7 +5,7 @@ cd ~
 mkdir minecraft-temp && cd minecraft-temp
 echo "Downloading dependencies..."
 ##these should do the trick - jarwrapper is included to make it so that .jar files (like OptiFine) can be run with ./[filepath]/[filename] like .deb files
-sudo apt install default-jre default-jdk jarwrapper -i
+sudo apt install default-jre default-jdk jarwrapper -y
 
 echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
 ##i wish gitlab supported svn.
@@ -18,6 +18,7 @@ cd ~
 sudo rm -rf minecraft-temp/
 echo "Starting up initialization..."
 sudo apt update
+sudo apt install openjdk-11-jdk openjdk-8-jdk -y
 ~/MCSwitchTools/tools.sh init
 ##shoutouts to Luke for telling me how to restart a terminal entirely automated
 source ~/.bashrc
