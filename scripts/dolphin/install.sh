@@ -25,6 +25,7 @@ else
     echo "Downloading the source..."
     git clone https://github.com/dolphin-emu/dolphin
     cd dolphin
+    git pull
     mkdir build && cd build
     echo "Building..."
     cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
@@ -32,8 +33,10 @@ else
     echo "Installing..."
     sudo make install
     #wget any game-specific configs, maybe autolaunch stuff like Wii sports with real Wii remotes forced on by default
-    cd ../..
-    sudo rm -rf dolphin
+    cd ~
+    #commenting out the below line since the first build takes way too long to do on weak hardware like the Switch
+    #leaving the source folder there will make future builds faster
+    ##sudo rm -rf dolphin
 fi
 echo "Done!"
 echo "Sending you back to the main menu..."
