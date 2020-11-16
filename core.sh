@@ -135,7 +135,7 @@ elif [[ $userInput == extra || $userInput == secret ]]; then
 
 
 
-elif [[ $userInput == x || $userInput == X ]]; then
+elif [[ $userInput == x || $userInput == X || $userInput == exit || $userInput == Exit ]]; then
 echo "Thank you for using the L4T Megascript!"
 sleep 2
 clear
