@@ -8,11 +8,15 @@ cd /usr/share/applications
 sudo rm "eDEX-UI.desktop"
 cd ~
 echo "Installing dependencies..."
-##if grep -q bionic /etc/os-release; then
-##  echo "Ubuntu 18.04 detected, using NodeSource to install Node.js..."
-##  echo "(The version that ships with Ubuntu Bionic isn't new enough)"
-##  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-##fi
+if grep -q bionic /etc/os-release; then
+  echo "Ubuntu 18.04 detected - no support for eDex-UI"
+  echo "(Believe me, I tried building it myself. If you've got a cross-compiled binary, make a PR! -Cobalt)"
+  echo "You'll have to wait for 20.04 to launch on L4T or, if it's out by the time you read this,"
+  echo "Reinstall L4T Ubuntu yourself."
+  sleep 5
+  exit 1
+fi
+
 #the next line fixes a dependency issue that may occur depending on what you have installed
 sudo apt-get install libssl1.0-dev -y
 sudo apt-get install npm* nodejs* -y
@@ -35,7 +39,6 @@ sudo wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/ass
 
 echo ""
 echo ""
-#echo "We'll make a desktop file later, but to launch the program, navigate to /home/$USER/edex-ui/ and type 'npm start'"
 echo "Done!"
 echo "Settings can be modified by changing /home/$USER/.config/eDEX-UI/settings.json"
 echo "Available themes to apply in the settings text file can be listed by typing 'ls /home/$USER/.config/eDEX-UI/themes'"
