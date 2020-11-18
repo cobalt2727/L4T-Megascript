@@ -26,8 +26,11 @@ else
     git clone https://github.com/dolphin-emu/dolphin
     cd dolphin
     git pull
-    mkdir build && cd build
+    mkdir build
+    cd build
     echo "Building..."
+    #if you're looking at this script as a reference for building Dolphin on your own hardware,
+    #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
     cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
     make -j$(nproc)
     echo "Installing..."
