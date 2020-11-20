@@ -1,16 +1,14 @@
 clear
 echo "Minecraft Bedrock script started!"
-echo "this will probably currently fail and give you a warning about broken dependencies. it currently doesn't support 64-bit ARM, which the switch uses. we're working on it"
+echo "Currently this installs correctly, but we're having trouble getting it to run properly."
 sleep 1
-##department of redundancy department
-sudo dpkg --add-architecture armhf
 echo "Updating sources..."
 sleep 1
 echo "Double-checking to see that Flatpak is installed and Flathub added..."
 sleep 1
+sudo add-apt-repository ppa:alexlarsson/flatpak -y
 sudo apt update
-sudo apt install flatpak -y
-##sudo apt install libcanberra-gtk-module
+sudo apt install pulseaudio glibc-source flatpak libcanberra-gtk-module -y
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 echo "Installing Minecraft Bedrock..."
