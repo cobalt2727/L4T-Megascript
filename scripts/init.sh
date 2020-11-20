@@ -10,8 +10,6 @@ echo "CREDITS:"
 echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
-#allow support for 32-bit architecture
-sudo dpkg --add-architecture armhf
 
 #bionic's flatpak app is out of date, i'll probably leave this line in even after the focal upgrade as long as it's not hurting anything
 sudo add-apt-repository ppa:alexlarsson/flatpak -y
@@ -35,6 +33,9 @@ cd ~
 
 #kinda hard to install flatpaks without flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+#fix up an issue with running flatpaks by enabling non-privileged user namespaces
+sudo chmod u+s /usr/libexec/flatpak-bwrap
 sleep 1
 
 clear
