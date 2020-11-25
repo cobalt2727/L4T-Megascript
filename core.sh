@@ -116,7 +116,7 @@ elif [[ $userInput == 15 || $userInput == RetroPie ]]; then
   sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh)"
 
 elif [[ $userInput == 16 || $userInput == Celeste ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh)"
 
 elif [[ $userInput == 17 || $userInput == FlappyBird ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"
