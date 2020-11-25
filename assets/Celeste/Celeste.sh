@@ -1,2 +1,2 @@
 cd /usr/share/celeste
-/usr/share/celeste/celeste-sdl12
+/usr/share/celeste/cceleste
