@@ -59,7 +59,7 @@ fi
 if echo $CHOICE | grep -q "Celeste (Pico-8 Port)"
 then echo "install celeste..."
 #zenity --progress --text="Installing celeste" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/master/celeste_install.sh | bash
+echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash
 #zenity --info --text="Sucessfully installed"
 fi
 if echo $CHOICE | grep -q "Flappy Bird"
