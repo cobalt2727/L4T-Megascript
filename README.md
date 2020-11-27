@@ -40,7 +40,7 @@ We currently have the following scripts:
 - [ ] Finish the GUI
 - [x] Add the Retropie Script
 - [ ] Figure out how to make Citra work
-- [ ] Figure out how to make Minecraft Bedrock work
+- [x] Figure out how to make Minecraft Bedrock work
 - [x] Add the Java Minecraft script (shoutouts to Luke Chambers)
 - [ ] Add the Sodium mod (for performance) to the Minecraft Script
 -  A lot more listed in the Discord!
