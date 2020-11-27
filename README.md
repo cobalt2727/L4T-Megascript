@@ -9,14 +9,8 @@ A multipurpose script for updating and installing multiple programs and games li
 The L4T Megascript is an open source multipurpose script for easily installing and updating a diverse collection of programs in L4T Ubuntu, with the purpose of helping new users to install programs and games in only a few steps. We work so you can easily play. Pretty simple, right? This script was made for Ubuntu 18.04 Bionic Beaver for the Nintendo Switch (but we'll move to 20.04 when that releases for the Switch). Credits to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This project still is in a pretty early stage, but it's more than usable already for most of what's included. Give it a try, and send us feedback!
 
 ## Where can I start?
-### Here is a guide of how you can install the OS:
-https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/
-### After that, you can start the megascript using the following command (still in progress):
-- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core.sh)"
-
-
-### ...Or for a Graphical User Interface Installer (even more in progress):
-- sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install bash curl zenity -y && bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_gui.sh)"
+### Go to the wiki for instructions of the first setup:
+https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 
 
 ## Scripts
