@@ -11,7 +11,8 @@ sudo rm "Sonic Robo Blast 2.desktop"
 cd ~/RetroPie/roms/ports
 rm SRB2_retropie.sh
 cd
-sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev -y
+sudo snap install cmake --classic
+sudo apt install wget libsdl2-dev libsdl2-mixer-dev extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev -y
 wget https://github.com/STJr/SRB2/archive/master.zip
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2-A
