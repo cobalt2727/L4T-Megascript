@@ -78,11 +78,11 @@ echo
 cd ~/SM64
 sudo mv "Super Mario 64.desktop" -t /usr/share/applications
 cd ~/.local/share
-mkdir sm64pc
-cd sm64pc
+mkdir sm64ex
+cd sm64ex
 svn export https://github.com/gabomdq/SDL_GameControllerDB/trunk/gamecontrollerdb.txt
 cd ~/SM64
-mv sm64config.txt -t ~/.local/share/sm64pc
+mv sm64config.txt -t ~/.local/share/sm64ex
 cd ~
 rm -r SM64
 echo
