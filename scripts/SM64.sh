@@ -11,25 +11,25 @@ rm sm64config.txt
 sleep 3
 cd ~
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
-wget https://github.com/sm64pc/sm64ex/archive/master.zip
+wget https://github.com/sm64pc/sm64ex/archive/nightly.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
 cd SM64
 mv SM64.sh -t ~/RetroPie/roms/ports
 cd
-unzip master.zip
-cd sm64ex-master
+unzip nightly.zip
+cd sm64ex-nightly
 echo "To build this port, you need a Super Mario 64 rom with the extension .z64."
 echo "Due to copyright restrictions, we will not provide the game file ourselves."
-echo "Please legally acquire a copy and put the rom into the repository's root (sm64ex-master) and rename it to baserom.VERSION.z64."
+echo "Please legally acquire a copy and put the rom into the repository's root (sm64ex-nightly) and rename it to baserom.VERSION.z64."
 echo "VERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio)"
 sleep 10
 read -p "Do you want to continue? (y/n) " userInput
 if [[ $userInput == n || $userInput == no ]]; then
 echo "Stopping the script..."
 cd ~
-rm -r sm64ex-master
+rm -r sm64ex-nightly
 rm -r SM64
-rm master.zip
+rm nightly.zip
 echo
 echo "Sending you back to the main menu..."
 sleep 1
@@ -66,12 +66,12 @@ sleep 2
 echo
 echo
 cd ~/SM64
-mv SM64Icon.png -t ~/sm64ex-master/build/SM64
-cd ~/sm64ex-master/build
+mv SM64Icon.png -t ~/sm64ex-nightly/build/SM64
+cd ~/sm64ex-nightly/build
 sudo mv SM64 -t /usr/share
 cd ~
-sudo rm -r sm64ex-master
-rm master.zip
+sudo rm -r sm64ex-nightly
+rm nightly.zip
 echo
 echo "Installing the direct access and configuration files.."
 echo
