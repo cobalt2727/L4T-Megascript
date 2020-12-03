@@ -9,7 +9,7 @@ sudo apt update -y
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt-get install libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libfdk-aac-dev build-essential cmake ffmpeg libswscale-dev libavdevice57 libavformat-dev libavcodec-dev libavdevice-dev -y
+sudo apt-get install libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice58 libavformat-dev libavcodec-dev libavdevice-dev -y
 
 echo "Building Citra..."
 sleep 1
@@ -18,7 +18,7 @@ git clone --recursive https://github.com/citra-emu/citra
 cd citra
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 make -j$(nproc)
 sudo make install
 
