@@ -41,7 +41,7 @@ echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't qui
 echo
 echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 #echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
-echo -e "\x1B[31mYou have $available_space of space left on your SD card! Make sure you don't use too much!\e[0m"
+echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
 
 sleep 2
 #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
@@ -50,26 +50,26 @@ echo
 echo "0...............***WIP***Initial setup - swapfile, joycon mouse, 2.0 GHz overclock, SDL2, etc"
 echo "................(2 GB of open space required for the swapfile!)"
 echo "1...............Update your programs - download and install updates from the repos (check this at least once daily!)"
-echo "2...............Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
+#echo "2...............Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 echo "3...............Dolphin - Gamecube and Wii emulator, latest development version"
-#echo "4...............RetroArch - Not quite working yet, I don't have a collection of working cores"
-#echo "................ngl we should really just scrap the above option and go all in on RetroPie let's be honest"
+#echo "4...............RetroArch - we've scrapped this idea in favor of RetroPie"
+#echo "remind me to get a script working to sync save data between RetroPie/Arch if the user chooses to use regular RetroArch for whatever reason..."
 #echo "5...............Minecraft - automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
 echo "6...............moonlight-qt - stream games from your PC as long as it has an Nvidia GPU!"
 #echo "7...............Discord setup - not the actual program, but the web app"
 #echo "8...............Kodi - media center"
 #echo "9...............Development IDEs - write code on your Switch!"
-#echo "10..............Video Settings - Is your display going past the edges of your TV?"
-#echo "11..............Citra - 3DS emulator, currently broken"
-echo "13..............CSE2-Tweaks (Git Down) - An enhanced version of Cave Story. 60 FPS, bugs fixes, and other soundtracks support"
+#echo "10..............i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
+echo "11..............Citra - 3DS emulator, probably broken right now, please test!"
+#echo "13..............CSE2-Tweaks (Git down due to DMCA, thanks Nicalis) - An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support"
 echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
 echo "16..............Celeste (Pico-8 Port) - A tight platforming game which lead to the development of Celeste"
 echo "17..............Flappy Bird - A game about a bird flying in between warp pipes"
 echo "18..............SuperTux2 - A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
 echo "19..............SM64Port - A native port of the classic game for the N64 (requires a ROM)"
-echo "20..............SRB2Kart - A kart racing game based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2"
-#echo "extra...........Secret scripts!"
+echo "20..............SRB2Kart - A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2"
+#echo "extra...........Oh, you're looking around the source code? Try typing in "extra" in the console!"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
 echo
@@ -78,7 +78,7 @@ read -p "Make a selection: " userInput
 echo "you have chosen $userInput"
 
 if [[ $userInput != X || $userInput != x || $userInput != exit || $userInput != Exit ]]; then
-  cd
+  cd ~
   mkdir -p RetroPie/roms/ports
 fi
 
@@ -91,9 +91,9 @@ elif [[ $userInput == 1 || $userInput == update ]]; then
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
   clear
-  echo "asset downloading needs to be implemented!"
-  echo "go ping me on discord and yell at me about this"
-  something something svn
+  echo "asset downloading probably going to be handled by individual scripts"
+  echo "go ping cobalt on discord and yell at me about getting an updater system working"
+  #something something svn
   sleep 4
 
 elif [[ $userInput == 3 || $userInput == dolphin ]]; then
@@ -106,7 +106,7 @@ elif [[ $userInput == 11 || $userInput == citra ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)"
 
 elif [[ $userInput == 13 || $userInput == CSE2-Tweaks ]]; then 
-echo "We are sorry to imform you that the CSE2-Tweaks repo is down at the moment thanks to an DMCA. Hope you can understand"
+echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
 echo "Sending you back to the main menu..."
 sleep 1
   #bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh)"
@@ -132,7 +132,8 @@ elif [[ $userInput == 19 || $userInput == SM64Port ]]; then
 
 elif [[ $userInput == 20 || $userInput == SRB2Kart ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)"
-  
+
+#well hello there
 elif [[ $userInput == extra || $userInput == secret ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/extras/core_extra.sh)"
 
@@ -145,13 +146,13 @@ clear
 echo "Credits:"
 echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo
-echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev\e[0m"
-echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor/GUI Manager\e[0m"
-echo -e "\e[35mLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\e[0m"
-echo -e "\e[32mGman - Contributor/Beta Tester/RetroPie script/Celeste native port\e[0m"
-echo -e "Fafabis: Contributor/Helped in the script GUI"
-echo -e "Quacka: Beta Tester/Helped in testing Retropie script"
-#echo "hey, if you're reading this, you probably helped make the thing. you can add stuff to your credits in your PRs if you want to!"
+echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev/Benevolent Dictator\e[0m"
+echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
+echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
+echo -e "\e[32mGman - Contributor/Beta Tester\e[0m"
+echo -e "Fafabis: Contributor"
+echo -e "Quacka: Beta Tester"
+#echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
 echo ""
