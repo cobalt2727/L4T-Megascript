@@ -17,8 +17,8 @@ if grep -q bionic /etc/os-release; then
   exit 1
 fi
 
-#the next line fixes a dependency issue that may occur depending on what you have installed
-sudo apt-get install libssl1.0-dev -y
+#the next lines fix a dependency issue that may occur depending on what you have installed
+sudo apt-get install libssl* -y
 sudo apt-get install npm* nodejs* -y
 
 echo "Downloading the source..."
