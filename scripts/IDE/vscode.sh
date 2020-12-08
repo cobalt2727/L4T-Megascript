@@ -1,15 +1,19 @@
 clear
-echo "Installing Visual Studio Code directly from Microsoft..."
-echo "(This script is an automation of https://code.visualstudio.com/docs/setup/linux)"
+echo "Installing the aarch64 build of Visual Studio Code directly from Microsoft..."
 sleep 5
 
 ##i'd be surprised if these weren't already installed, but...
 sudo apt install wget gpg -y
 
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+##Thankfully Microsoft has a link that always downloads whatever the latest version is.
+##the -O parameter lets me choose the filename myself to make the installation lines easier
+wget -O vscode-latest.deb https://aka.ms/linux-arm64-deb
+sudo dpkg -i vscode-latest.deb
+sudo apt --fix-broken install
+echo "Done! You can now launch VS Code from your app list or by typing 'code' into a terminal."
+sleep 1
 
-sudo apt-get install apt-transport-https
-sudo apt-get update
-sudo apt install code
+echo "Removing the .deb file..."
+rm vscode-latest.deb
+
+echo "Done! Going back to the main menu..."
