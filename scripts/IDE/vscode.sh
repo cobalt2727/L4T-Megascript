@@ -1,6 +1,6 @@
 clear
 echo "Installing the aarch64 build of Visual Studio Code directly from Microsoft..."
-sleep 5
+sleep 1
 
 ##i'd be surprised if these weren't already installed, but...
 sudo apt install wget gpg -y
@@ -9,6 +9,8 @@ sudo apt install wget gpg -y
 ##the -O parameter lets me choose the filename myself to make the installation lines easier
 wget -O vscode-latest.deb https://aka.ms/linux-arm64-deb
 sudo dpkg -i vscode-latest.deb
+
+##If you're still somehow missing any dependencies...
 sudo apt --fix-broken install
 echo "Done! You can now launch VS Code from your app list or by typing 'code' into a terminal."
 sleep 1
