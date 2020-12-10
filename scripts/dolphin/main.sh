@@ -16,22 +16,22 @@ if [[ $userInput == 1 ]]; then
   
   
   if grep -q bionic /etc/os-release; then
-	  echo "Ubuntu 18.04 detected, using the PPA..."
+	echo "Ubuntu 18.04 detected, using the PPA..."
     
-    echo "Making sure software-properties-common is installed..."
-    sudo apt install software-properties-common -y
+    	echo "Making sure software-properties-common is installed..."
+	sudo apt install software-properties-common -y
 
-    echo "Making sure the Dolphin PPA is installed..."
-    sudo apt-add-repository ppa:dolphin-emu/ppa -y
+	echo "Making sure the Dolphin PPA is installed..."
+	sudo apt-add-repository ppa:dolphin-emu/ppa -y
 
-    sudo apt update
-    sudo apt install dolphin-emu-master -y
+	sudo apt update
+	sudo apt install dolphin-emu-master -y
 
   else
-	  echo "Building from source with device-specific optimizations..."
-
-    cd ~
-    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/install.sh)"
+	echo "Building from source with device-specific optimizations..."
+	
+	cd ~
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/install.sh)"
   fi
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/config.sh)"
 
