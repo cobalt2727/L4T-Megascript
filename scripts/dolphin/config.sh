@@ -5,7 +5,7 @@ mkdir dolphin-emu
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/Dolphin-Config
 cd Dolphin-Config/
 ls
-mv *.ini ../dolphin-emu/
+mv * ../dolphin-emu/
 cd ..
 rm -rf Dolphin-Config/
 cd ~
