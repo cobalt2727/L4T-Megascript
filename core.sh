@@ -60,7 +60,7 @@ echo "6...............moonlight-qt - stream games from your PC as long as it has
 #echo "8...............Kodi - media center"
 #echo "9...............Development IDEs - write code on your Switch!"
 #echo "10..............i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
-echo "11..............Citra - 3DS emulator, probably broken right now, please test!"
+echo "11..............Citra - 3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!"
 #echo "13..............CSE2-Tweaks (Git down due to DMCA, thanks Nicalis) - An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support"
 echo "14..............SRB2 - A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
 echo "15..............RetroPie - Powerful frontend for both emulators and native programs alike"
