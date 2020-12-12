@@ -1,5 +1,6 @@
 ##Import config files
 cd ~
+sudo apt install subversion -y
 cd .config/
 mkdir dolphin-emu
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/Dolphin-Config
