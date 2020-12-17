@@ -15,11 +15,26 @@ cd build
 echo "Building..."
 #if you're looking at this script as a reference for building Dolphin on your own hardware,
 #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
-cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
+
+if grep -q bionic /etc/os-release; then
+  
+  echo "Ubuntu 18.04 detected, skipping LTO optimization..."
+  echo "If that means nothing to you, don't worry about it."
+  
+  cmake .. -D -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
+
+else  
+  
+  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
+
+fi
+
+
+
+
 make -j$(nproc)
 echo "Installing..."
 sudo make install
-#wget any game-specific configs, maybe autolaunch stuff like Wii sports with real Wii remotes forced on by default
 cd ~
 #commenting out the below line since the first build takes way too long to do on weak hardware like the Switch
 #leaving the source folder there will make future builds faster
