@@ -6,10 +6,11 @@
 
 The L4T Megascript is an open source multipurpose script for easily installing and updating a diverse collection of programs in L4T Ubuntu, with the purpose of helping new users to install programs and games in just a few steps. Currently designed with 18.04 in mind, but almost everything should be ready for when L4T updates to 20.04. Credit to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This project still is in a pretty early stage, but it's more than usable already for most of what's included. Give it a try, and send us feedback!
 
-## Where can I start?
-### Go to the wiki for instructions of the first setup:
+## Install/run the script
+### The script itself doesn't actually get installed, even though it does install a lot of other programs and features. It all runs directly off of this GitHub page so you don't have to worry about updating the script! Get started at the link below:
 https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 
+DISCLAIMER: in the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the source code. NEVER RUN LINUX SCRIPTS YOU DON'T TRUST!
 
 ## Scripts
 We currently have the following scripts: 
@@ -40,8 +41,9 @@ We currently have the following scripts:
 - Lang Kasempo: Contributor
 - Gman: Contributor
 - Fafabis: Contributor
-- Quacka: Beta Tester
 - Azkali: Advice, part of Switchroot dev team
+- All the beta testers in the Discord that put up with Cobalt breaking things every other day
+
 
 ## Do you have a question or an idea about the project?
 You're in luck - we've got a Discord server: https://discord.gg/UYsUFCY
@@ -52,7 +54,7 @@ You're in luck - we've got a Discord server: https://discord.gg/UYsUFCY
 - calvarado194: Developers, CSE2-Tweaks
 - RetroPie: Developers, RetroPie (who would've guessed?)
 - dolphin-emu: Developers, Dolphin
-- moonlight-stream: Creators and developers of Moonlight-Qt
+- moonlight-stream: Creators and developers of Moonlight-QT
 - lemon-sherbet: Developer, Celeste Classic port
 - Acry: Developer, Flappy Bird port
 - SuperTux: Developers, SuperTux2
