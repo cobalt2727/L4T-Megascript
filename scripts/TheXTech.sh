@@ -57,6 +57,7 @@ svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/T
 cd TheXTech
 sudo mv "Super Mario Bros X.desktop" -t /usr/share/applications
 sudo mv TheXTech-Icon.png -t /usr/share/TheXTech 
+cd
 rm -r TheXTech
 echo
 echo "Game Installed!"
