@@ -60,3 +60,5 @@ You're in luck - we've got a Discord server: https://discord.gg/UYsUFCY
 - SuperTux: Developers, SuperTux2
 - n64decomp: Responsible for the SM64 Decompilation Project
 - sm64pc: Adapted the SM64 Port to work with ARM64 devices (Like the Nintendo Switch)
+- Wohlstand: Developers, TheXTech
+- Rediget: Original SMBX Developer
