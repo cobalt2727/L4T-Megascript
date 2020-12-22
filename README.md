@@ -27,6 +27,7 @@ We currently have the following scripts:
 - Flappy Bird: A game about a bird flying in between warp pipes
 - SuperTux2: A 2D jump'n run sidescroller game in a style similar to the original Super Mario games
 - SM64Port: A native port of the classic game for the N64 (requires your own, legally dumped ROM)
+- TheXTech: SMBX engine, rewritten into C++ from VisualBasic 6
 
  We are planning in adding more scripts and functions to the script in future updates.
 ## Planned features:
@@ -60,3 +61,5 @@ You're in luck - we've got a Discord server: https://discord.gg/UYsUFCY
 - SuperTux: Developers, SuperTux2
 - n64decomp: Responsible for the SM64 Decompilation Project
 - sm64pc: Adapted the SM64 Port to work with ARM64 devices (Like the Nintendo Switch)
+- Wohlstand: Developers, TheXTech
+- Rediget: Original SMBX Developer
