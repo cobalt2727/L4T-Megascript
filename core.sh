@@ -135,7 +135,7 @@ elif [[ $userInput == 20 || $userInput == SRB2Kart ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)"
 
 elif [[ $userInput == 21 || $userInput == SRB2Kart ]]; then
-  bash -c "$(curl -s temp.org)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/TheXTech.sh)"
   
 #well hello there
 elif [[ $userInput == extra || $userInput == secret ]]; then
