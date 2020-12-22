@@ -30,7 +30,7 @@ git pull
 mkdir build
 cd build
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DUSE_SYSTEM_LIBS=OFF -DUSE_FREEIMAGE_SYSTEM_LIBS=ON ..
-echo -e "\e[31mThis will take a while, please wait, if it seems like it is stuck it is not so please have patience.\e[0m"
+echo -e "\e[0mThis will take a while, please wait, if it seems like it is stuck it is not so please have patience.\e[0m"
 ninja
 cd
 mkdir -p ~/.PGE_Project/thextech/
