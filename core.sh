@@ -69,7 +69,7 @@ echo "17..............Flappy Bird - A game about a bird flying in between warp p
 echo "18..............SuperTux2 - A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
 echo "19..............SM64Port - A native port of the classic game for the N64 (requires a ROM)"
 echo "20..............SRB2Kart - A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2"
-echo "21..............TheXTech - Super Mario Bros. X engine, rewritten into C++ from VisualBasic 6."
+echo "21..............TheXTech - Rewrite of the SMBX engine into C++ from VisualBasic 6."
 #echo "extra...........Oh, you're looking around the source code? Try typing in "extra" in the console!"
 echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
 echo 
