@@ -57,6 +57,19 @@ svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/T
 cd TheXTech
 sudo mv "Super Mario Bros X.desktop" -t /usr/share/applications
 sudo mv TheXTech-Icon.png -t /usr/share/TheXTech 
+if [ ! -d ~/.PGE_Project/thextech/worlds ]; then
+mv worlds.7z -t ~/.PGE_Project/thextech/
+cd ~/.PGE_Project/thextech/
+7z x worlds.7z 
+rm worlds.7z
+cd ~/TheXTech
+fi
+if [ ! -d ~/.PGE_Project/thextech/battle ]; then
+mv battle.7z -t ~/.PGE_Project/thextech/
+cd ~/.PGE_Project/thextech/
+7z x battle.7z 
+rm battle.7z
+fi
 cd
 rm -r TheXTech
 echo
