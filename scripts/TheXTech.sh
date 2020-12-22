@@ -35,9 +35,9 @@ ninja
 cd
 mkdir -p ~/.PGE_Project/thextech/
 cd ~/.PGE_Project/thextech
-wget https://wohlsoft.ru/TheXTech/_downloads/thextech-a2xt-ptts-assets.7z
-7z x thextech-a2xt-ptts-assets.7z
-rm thextech-a2xt-ptts-assets.7z
+wget https://wohlsoft.ru/TheXTech/_downloads/thextech-smbx13-assets.7z
+7z x thextech-smbx13-assets.7z
+rm thextech-smbx13-assets.7z
 echo
 echo "Game Installed!"
 echo
