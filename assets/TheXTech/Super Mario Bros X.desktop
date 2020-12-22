@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/share/TheXTech/TheXTech-Icon.png
+Name=Super Mario Bros X
+Exec=/usr/share/TheXTech/bin/thextech
+Path=/usr/share/TheXTech/lib
+Terminal=false
+Hidden=false
+Categories=Games
