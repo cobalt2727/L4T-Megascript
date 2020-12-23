@@ -1,22 +1,22 @@
 cd
 clear
 echo "TheXTech script started!"
-echo -e "\e[31mMMMMMMMMMMmmmmmmmmmmmmMMMMMMMMMM
-MMMMMMmmmm    hhhh    mmmmMMMMMM
-MMMMmmhh      yyyy      hhmmMMMM
-MMmmhhyy    yyyyyyyy    yyhhmmMM
-MMmm  yyyyyy++++++++yyyyyy  mmMM
+echo -e "\e[31m          mmmmmmmmmmmm          
+      mmmm    hhhh    mmmm      
+    mmhh      yyyy      hhmm    
+  mmhhyy    yyyyyyyy    yyhhmm  
+  mm  yyyyyy++++++++yyyyyy  mm  
 mm      yy++        ++yy      mm
 mm      yy            yy      mm
 mm      yy            yy      mm
 mm    yyyy            yyyy    mm
 mmhhyyhhhhhh        hhhhhhyyhhmm
 mmhhhhmmmmmmmmmmmmmmmmmmmmhhhhmm
-MMmmmmmm----mm----mm----mmmmmmMM
-MMMMmm--    mm    mm    --mmMMMM
-MMMMmm--                --mmMMMM
-MMMMMMmm----------------mmMMMMMM
-MMMMMMMMmmmmmmmmmmmmmmmmMMMMMMMM\e[0m"
+  mmmmmm----mm----mm----mmmmmm  
+    mm--    mm    mm    --mm    
+    mm--                --mm    
+      mm----------------mm      
+        mmmmmmmmmmmmmmmm        \e[0m"
 sudo rm -r /usr/share/TheXTech 
 cd /usr/share/applications
 sudo rm "Super Mario Bros X.desktop"
