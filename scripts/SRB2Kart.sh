@@ -1,6 +1,22 @@
 cd ~
 clear
 echo "SRB2 Kart script started!"
+echo -e "\e[33m          :/+oo+/++s/ooso:y+    
+          s/ddds++s:yhhy:s-     
+         -/shhh-d+/hhho:ss      
+         s-hhhy.:oyyy/+o        
+        .o+yss:.osso-s-         
+        o.o+++:++//-ss          
+       ss-/////++/:o            
+       +-yhhhydhhh-s            
+       s/hhhs-hhhho//           
+      ::syyy:-syyyy:y.          
+      s-yyys:d-sssss-s          
+     .++sss:y+/+oooo/:/         
+     o.oo+o.s y-+////-s.        
+    .o:///:s. :+::::--yy        
+    o.::--.s   s//:://://       
+    d:://:/.                    \e[0m"
 echo "Downloading the files, and installing needed dependencies..." 
 sleep 2
 sudo rm -r /usr/share/SRB2Kart
