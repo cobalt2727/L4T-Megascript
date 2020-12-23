@@ -19,6 +19,17 @@ zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome ba
 zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!"
 sleep 2
 
+num1="Initial Setup"
+num2="RetroPie"
+num3="Celeste (Pico-8 Port)"
+num4="Flappy Bird"
+num5="moonlight-qt"
+num6="Dolphin"
+num7="SRB2"
+num8="CSE2-Tweaks"
+num9="SM64Port"
+
+
 CHOICE=$(zenity \
 	--width="1000"\
 	--height="500"\
@@ -28,88 +39,35 @@ CHOICE=$(zenity \
     --column "Program" \
     --column "Details" \
     --ok-label="INSTALL"\
-    TRUE "Initial Setup" "Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"\
-    FALSE RetroPie "Powerful frontend for both emulators and native programs alike"\
-    FALSE "Celeste (Pico-8 Port)" "A tight platforming game which lead to the development of Celeste" \
-    FALSE "Flappy Bird" "A game about a bird flying in between warp pipes" \
-    FALSE "moonlight-qt" "stream games from your PC as long as it has an Nvidia GPU!"\
-    FALSE "Dolphin" "Gamecube and Wii emulator, latest development version"\
-    FALSE "SRB2" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
-    FALSE "CSE2-Tweaks" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
-    FALSE "SM64Port" "A native port of the classic game for the N64 (requieres a ROM)"\
-    FALSE "Dolphin" "Gamecube and Wii emulator, latest development version")
+    TRUE "$num1" "Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"\
+    FALSE "$num2" "Powerful frontend for both emulators and native programs alike"\
+    FALSE "$num3" "A tight platforming game which lead to the development of Celeste" \
+    FALSE "$num4" "A game about a bird flying in between warp pipes" \
+    FALSE "$num5" "stream games from your PC as long as it has an Nvidia GPU!"\
+    FALSE "$num6" "Gamecube and Wii emulator, latest development version"\
+    FALSE "$num7" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
+    FALSE "$num8" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
+    FALSE "$num9" "A native port of the classic game for the N64 (requieres a ROM)"\
+    --separator=':')
 
 if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
-#echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh | bash
-#zenity --progress --title="Installing..."--text="Installing ${CHOICE}" 
 fi
-if echo $CHOICE | grep -q "Initial Setup"
-then echo "installing initial setup script..."
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "RetroPie"
-then echo "install retropie..."
-#zenity --progress --text="Installing retropie" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "Celeste (Pico-8 Port)"
-then echo "install celeste..."
-#zenity --progress --text="Installing celeste" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "Flappy Bird"
-then echo "install flappy bird..."
-#zenity --progress --text="Installing flappy bird" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "moonlight-qt"
-then echo "install moonlight..."
-#zenity --progress --text="Installing moonlight" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-# if echo $CHOICE | grep -q "FlightGear"
-# then echo "install FlightGear..."
-# #zenity --progress --text="Installing FlightGear" --percentage=0 |
-# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/flightgear.sh | bash
-# #zenity --info --text="Sucessfully installed"
-# fi
-if echo $CHOICE | grep -q "CSE2-Tweaks"
-then echo "install CSE2..."
-#zenity --progress --text="Installing CSE2" --percentage=0 |
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "SRB2"
-then echo "install SRB2..."
-#zenity --progress --text="Installing SRB2" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "SM64"
-then echo "install SM64..."
-#zenity --progress --text="Installing SM64" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-if echo $CHOICE | grep -q "Dolphin"
-then echo "install Dolphin..."
-#zenity --progress --text="Installing Dolphin" --percentage=0 | 
-echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh | bash
-#zenity --info --text="Sucessfully installed"
-fi
-# if echo $CHOICE | grep -q "Citra"
-# then echo "install Citra..."
-# #zenity --progress --text="Installing Citra" --percentage=0 |
-# echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh | bash
-# #zenity --info --text="Sucessfully installed"
-# fi
+
+IFS=":" ; for word in $CHOICE ; do 
+   case $word in
+      "$num1") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh | bash ;;
+      "$num2") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
+      "$num3") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
+      "$num4") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
+      "$num5") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh | bash ;;
+      "$num6") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh | bash ;;
+      "$num7") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash ;;
+      "$num8") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh | bash ;;
+      "$num9") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh | bash ;;
+   esac
+done
 
 zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
