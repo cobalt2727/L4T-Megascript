@@ -43,7 +43,7 @@ if [ "$?" != 1 ]
 then
 PRIVATE=`zenity --password`
 #echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh | bash
-zenity --progress --title="Installing..."--text="Installing ${CHOICE}" 
+#zenity --progress --title="Installing..."--text="Installing ${CHOICE}" 
 fi
 if echo $CHOICE | grep -q "Initial Setup"
 then echo "installing initial setup script..."
