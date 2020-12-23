@@ -1,5 +1,21 @@
 clear
 echo "SuperMario64 Port script started!"
+echo -e "\e[31m            yyyy                
+          //sssssshh            
+        ++::--ooooyyhh          
+        ::::::ssoossyyhh        
+      hh++++ooyyyyyyyyhhhh      
+    mmmmddyyhhhhhhhhhhhhhhdd    
+      ddhhyyddhhhhhhdddddddd    
+        ----------::ssdddddddd  
+        //``ss//--//hhdd::::ss  
+    --////..ss::--ooddoo//++//  
+  --..::++::sshh:://dd//oo::::  
+  //::++ssmmmmmm////ss//::--++  
+    oohhNNMMmm:://++++ooss      
+      mmhhyy++//++oossyyNNNN    
+        ss++++ssssyyyymmNNNN    
+          oossyyyyyy            \e[0m"
 echo "Downloading the files, removing old files and installing needed dependencies..."
 cd ~/RetroPie/roms/ports 
 rm SM64.sh
