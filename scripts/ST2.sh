@@ -1,5 +1,21 @@
 clear
 echo "SuperTux2 script started!"
+echo -e "\e[1;34m         ////.......-..o..      
+       -- --/s+yo+ooyyo/:.:     
+     :::.::s/+ossssssosyys+     
+     ::o:/:+oshh++/+dhhm+       
+     h++.+ooosh                 
+     +/-/ooooooosyhs:: :        
+     ssoosssssssooooh/..++      
+       +/sso+++syysooh:::::     
+                  s+/+y/---/    
+                  /-.:ohos-/    
+        --       /////oooosm    
+   ..:::....::ooyooo/oooooyd    
+  //soyoyhyyo+os/-:/oooooohm    
+  //::/+ooooo+o++ooooooosyd     
+   +s++oooooooooooosssyhs+      
+      /+///++syyo+//o+:         \e[0m"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
 cd ~
