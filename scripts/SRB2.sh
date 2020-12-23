@@ -1,6 +1,22 @@
 cd
 clear
 echo "SRB2 script started!"
+echo -e "\e[34m                                
+              //////////        
+         //ddddddddddddddd//    
+       /ddddddddddddddddddddd   
+ddd//ddddddddddddddddddd/       
+ddddddddddddddddddddddd//       
+/ddddddd/    /ddddddddddddd//   
+ d/dddd/      dddddddddddddddd  
+ d  ddd    dd  dddddddddddddddd 
+ d  dd     ddd ddddddddd//      
+ // dd     /d/ddddddddddd//     
+ /dd+d//// //ddddddddddddddd    
+  ///dddddddddddddddddddddddd   
+      /dddddddd///        ///d  
+                                
+                                \e[0m"
 echo "Downloading the files, removing old files and installing needed dependencies..." 
 sleep 2
 sudo rm -r /usr/share/SRB2 
