@@ -1,5 +1,21 @@
 clear
 echo "Minecraft Bedrock script started!"
+echo -e "\e[37myyddddddddyy++yyyy++yyddddyyddyy
+ddyyyy++yy++yy++dd++++yymmddyydd
+ddmmddddmmdddddd++ddyyyyyy++yyyy
+yy++yyyyyymmyy++yyyyddddddddddyy
+mmdd++ddddddddyyddddyy++++yyyydd
+ddyyyyyyddyyyyddddmmyyyyddddmmdd
+++++yyyyyy++++yyyyyy++++yy++ddmm
+yyyyyyddyyyyyyddddmmddddyyddyyyy
+yy++++yyddddyyyyyy++++yy++++++++
+yyddddmmddyyddyyddyyyydddddd++yy
+yyyy++ddyy++++ddmmdd++++++yydddd
+mmyyyyyyddddyyyy++++yyyyyy++++mm
+yyddddddyyyyddddyy++ddddddddddyy
+yy++yy++yymmyyddddddmmddyyyy++++
+yyyyyyddddyyddddyyyy++++yyddddyy
+ddmmddddmm++++yyddyyyymmddddyyyy\e[0m"
 sleep 1
 echo "Updating sources..."
 sleep 1
