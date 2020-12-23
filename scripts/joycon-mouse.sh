@@ -1,5 +1,21 @@
 clear
 echo "Joycon mouse script started!"
+echo -e "\e[30m                                
+    -sdNMMMMMMMo  yMMMMMNdo.    
+   yMmo-.....mMo  yMMMMMMMMMy   
+  hMhh  ..   dMo  yMMMMMMMMMMy  
+  MM: :NMMm- dMo  yMMMMMMMMMMN  
+  MM: oMMMM+ dMo  hMMMMMMMMMMN  
+  MM-  -++-  dMo  hMMMMMMMMMMN  
+  MM-        dMo  hMMm+::sNMMN  
+  MM-        dMo  hMM.    +MMN  
+  MM-        dMo  hMMss  -dMMN  
+  MM:        dMo  hMMMMNNMMMMN  
+  MM:        dMo  yMMMMMMMMMMN  
+  yMhh       dMo  yMMMMMMMMMMy  
+   yMNs:.....mMo  yMMMMMMMMMs   
+    .ohNNMMMMMMo  yMMMMMmho.    
+                                \e[0m"
 sleep 1
 cd ~
 sudo apt install xserver-xorg-input-joystick wget -y
