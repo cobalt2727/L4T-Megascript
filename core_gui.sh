@@ -36,18 +36,19 @@ CHOICE=$(zenity \
     --list \
     --checklist \
     --column "Install" \
+    --column "Number" \
     --column "Program" \
     --column "Details" \
     --ok-label="INSTALL"\
-    TRUE "$num1" "Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"\
-    FALSE "$num2" "Powerful frontend for both emulators and native programs alike"\
-    FALSE "$num3" "A tight platforming game which lead to the development of Celeste" \
-    FALSE "$num4" "A game about a bird flying in between warp pipes" \
-    FALSE "$num5" "stream games from your PC as long as it has an Nvidia GPU!"\
-    FALSE "$num6" "Gamecube and Wii emulator, latest development version"\
-    FALSE "$num7" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
-    FALSE "$num8" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
-    FALSE "$num9" "A native port of the classic game for the N64 (requieres a ROM)"\
+    TRUE 1 "$num1" "Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"\
+    FALSE 2 "$num2" "Powerful frontend for both emulators and native programs alike"\
+    FALSE 3 "$num3" "A tight platforming game which lead to the development of Celeste" \
+    FALSE 4 "$num4" "A game about a bird flying in between warp pipes" \
+    FALSE 5 "$num5" "stream games from your PC as long as it has an Nvidia GPU!"\
+    FALSE 6 "$num6" "Gamecube and Wii emulator, latest development version"\
+    FALSE 7 "$num7" "A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"\
+    FALSE 8 "$num8" "An enhanced version of Cave Story. 60 FPS and other soundtracks support"\
+    FALSE 9 "$num9" "A native port of the classic game for the N64 (requieres a ROM)"\
     --separator=':')
 
 if [ "$?" != 1 ]
@@ -57,15 +58,15 @@ fi
 
 IFS=":" ; for word in $CHOICE ; do 
    case $word in
-      "$num1") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh | bash ;;
-      "$num2") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
-      "$num3") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
-      "$num4") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
-      "$num5") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh | bash ;;
-      "$num6") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh | bash ;;
-      "$num7") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash ;;
-      "$num8") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh | bash ;;
-      "$num9") echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh | bash ;;
+      1) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh | bash ;;
+      2) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
+      3) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
+      4) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
+      5) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh | bash ;;
+      6) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh | bash ;;
+      7) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh | bash ;;
+      8) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/CSE2-Tweaks.sh | bash ;;
+      9) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh | bash ;;
    esac
 done
 
