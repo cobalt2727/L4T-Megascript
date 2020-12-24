@@ -1,5 +1,21 @@
 clear
 echo "Minecraft Java script started!"
+echo -e "\e[32m++++++oooooooooo++++oooooooossoo
+++oo++++++hhoooooo////++oooooooo
+//hh//oooohh++hh++++////hhssoohh
+hhsshhhh++hhhhhhoohhoohhyyhhhhyy
+ssyyss++hhssyyyyhhhhhhssyysshhyy
+yyhhssssyysshhhhhhyyyyhhyyyyyy++
+++yyyyyyooyyyy++++yy++++yyssyyss
+yyyy++++ssssyyyysshhssssyyyyssss
+ssyyyyssyyssyyhhyyssssyyyyyyhhyy
+yysshhyyyyhhhhyyyyyyyyyy++++yyss
+yyssyy++++yy++sshh++++hhssssooyy
+ssyyyyssss++yyssssssssyyhhssyyhh
+yyhhssyyssss++yyyyyyyyyyyyyy++++
+yyssyyyyyyyyssssyyhh++hhyy++ssss
+ssyyhh++yyhhyyhh++++yyssyyyyssss
+ssyy++ssssyyooyyssssyyyyssssyyhh\e[0m"
 sleep 1
 cd ~
 mkdir minecraft-temp && cd minecraft-temp
