@@ -1,5 +1,21 @@
 clear
 echo "Dolphin script started!"
+echo -e "\e[36m                                
+                                
+                                
+       -////////  ./:--::       
+   //s//////////+s/////         
+ /o///:--      .---///o/        
+ ++++/:----:////     --+s/      
+s+++-----++++:++ss/-    -+s     
+-         -++s/  ---s//   -+/   
+             ---      -:    -/  
+                             -/ 
+                              -:
+                                
+                                
+                                
+                                \e[0m"
 sleep 1
 cd ~
 echo "Installing dependencies..."
