@@ -1,6 +1,22 @@
 cd
 clear
 echo "Moonlight script started!"
+echo -e "\e[37myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+yyyyyyyyyyyyyoossooyyyyyyyyyyyyy
+yyyyyyyys/--   /:   --/syyyyyyyy
+yyyyyysss      /:      oosyyyyyy
+yyyyy/ ////    ::    //// /yyyyy
+yyyy:    ////  ::  ////    :yyyy
+yyyo       //////////       oyyy
+yyy/.........-ssss-........./yyy
+yyy/.........-ssss:........./yyy
+yyyo       //////////       oyyy
+yyyy:    ////  :/  ////    :yyyy
+yyyyy/ ////    :/    //// /yyyyy
+yyyyyyss/      //      /ssyyyyyy
+yyyyyyyys/--   //   --/syyyyyyyy
+yyyyyyyyyyyyyoossooyyyyyyyyyyyyy
+yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\e[0m"
 sleep 1
 echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | sudo tee /etc/apt/sources.list.d/moonlight-l4t.list
 echo "Adding key..."
