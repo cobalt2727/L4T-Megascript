@@ -23,7 +23,7 @@ sudo rm "Super Mario Bros X.desktop"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
 cd 
-sudo apt install -y cmake ninja-build gcc git mercurial p7zip-full libpng-dev libjpeg-dev
+sudo apt install -y cmake ninja-build gcc git mercurial p7zip-full
 hash -r
 git clone https://github.com/Wohlstand/TheXTech.git
 cd TheXTech
@@ -32,7 +32,7 @@ git submodule update
 git pull
 mkdir build
 cd build
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DUSE_SYSTEM_LIBS=OFF -DUSE_FREEIMAGE_SYSTEM_LIBS=ON ..
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ..
 echo
 echo -e "\e[31mThis will take a while, please wait, if it seems like it is stuck it is not so please have patience.\e[0m"
 echo
