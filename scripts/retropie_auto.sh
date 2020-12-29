@@ -5,18 +5,18 @@ echo -e "\e[31m            .+sys//.
            :hyyyy/.s/           
            syyyyyyyys           
            -hyyyyyyh-           
-            `/hssy/`            
+            //hssy//            
               o  o              
               o  o              
-       `-/+oosd  hsso+/-`       
+       --/+oosd  hsso+/--       
      :syyyyyydN-.Ndyyhyyhs/     
     /yyyyyyyyhddddyshysshyys    
     :hyyyyyyyyyyyy//ohyyyyys    
      :dhhyyyyyyyyyyyyyyyhd/     
       -ddddddhhhdhhdddddd+      
        +hhhhhddhhddhhhhhs       
-        +hhhhhhhhhhhhhhs`       
-         `:osyhhhhyso/`         \e[0m"
+        +hhhhhhhhhhhhhhss       
+         ::osyhhhhyso//         \e[0m"
 echo
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
