@@ -10,46 +10,46 @@ cd RetroPie-Setup
 # unfortunatly I can't use this this not all main packages work ... ./retropie_packages.sh setup basic_install
 # manually install all of the required and good stuff
 
-./retropie_packages.sh retroarch
-./retropie_packages.sh emulationstation
-./retropie_packages.sh retropiemenu
-./retropie_packages.sh runcommand
+sudo ./retropie_packages.sh retroarch
+sudo ./retropie_packages.sh emulationstation
+sudo ./retropie_packages.sh retropiemenu
+sudo ./retropie_packages.sh runcommand
 #./retropie_packages.sh ports-enable configure
-./retropie_packages.sh lr-mupen64plus-next
-./retropie_packages.sh lr-atari800
-./retropie_packages.sh lr-beetle-ngp
-./retropie_packages.sh lr-beetle-pce-fast
-./retropie_packages.sh lr-beetle-supergrafx
+sudo ./retropie_packages.sh lr-mupen64plus-next
+sudo ./retropie_packages.sh lr-atari800
+sudo ./retropie_packages.sh lr-beetle-ngp
+sudo ./retropie_packages.sh lr-beetle-pce-fast
+sudo ./retropie_packages.sh lr-beetle-supergrafx
 # ./retropie_packages.sh lr-beetle-saturn
-./retropie_packages.sh lr-bsnes
-./retropie_packages.sh lr-desmume
+sudo ./retropie_packages.sh lr-bsnes
+sudo ./retropie_packages.sh lr-desmume
 # ./retropie_packages.sh lr-desmume2015
-./retropie_packages.sh lr-fbneo
-./retropie_packages.sh lr-fceumm
-./retropie_packages.sh lr-flycast
-./retropie_packages.sh lr-gambatte
-./retropie_packages.sh lr-genesis-plus-gx
-./retropie_packages.sh lr-handy
+sudo ./retropie_packages.sh lr-fbneo
+sudo ./retropie_packages.sh lr-fceumm
+sudo ./retropie_packages.sh lr-flycast
+sudo ./retropie_packages.sh lr-gambatte
+sudo ./retropie_packages.sh lr-genesis-plus-gx
+sudo ./retropie_packages.sh lr-handy
 #./retropie_packages.sh lr-mame
 # ./retropie_packages.sh lr-mame2003
 # ./retropie_packages.sh lr-mame2010
 # ./retropie_packages.sh lr-mame2016
 # ./retropie_packages.sh lr-mesen
-./retropie_packages.sh lr-mgba
-./retropie_packages.sh lr-nestopia
-./retropie_packages.sh lr-pcsx-rearmed
-./retropie_packages.sh lr-ppsspp
-./retropie_packages.sh lr-prosystem
-./retropie_packages.sh lr-quicknes
-./retropie_packages.sh lr-smsplus-gx
-./retropie_packages.sh lr-stella2014
-./retropie_packages.sh lr-vba-next
-./retropie_packages.sh lr-vecx
-./retropie_packages.sh lr-tgbdual
-./retropie_packages.sh lr-snes9x
+sudo ./retropie_packages.sh lr-mgba
+sudo ./retropie_packages.sh lr-nestopia
+sudo ./retropie_packages.sh lr-pcsx-rearmed
+sudo ./retropie_packages.sh lr-ppsspp
+sudo ./retropie_packages.sh lr-prosystem
+sudo ./retropie_packages.sh lr-quicknes
+sudo ./retropie_packages.sh lr-smsplus-gx
+sudo ./retropie_packages.sh lr-stella2014
+sudo ./retropie_packages.sh lr-vba-next
+sudo ./retropie_packages.sh lr-vecx
+sudo ./retropie_packages.sh lr-tgbdual
+sudo ./retropie_packages.sh lr-snes9x
 # ./retropie_packages.sh lr-yabasanshiro
-./retropie_packages.sh lr-yabause
-./retropie_packages.sh lzdoom
+sudo ./retropie_packages.sh lr-yabause
+sudo ./retropie_packages.sh lzdoom
 # ./retropie_packages.sh scraper
 # ./retropie_packages.sh skyscraper
 # ./retropie_packages.sh usbromservice
