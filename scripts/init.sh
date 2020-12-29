@@ -18,7 +18,8 @@ sudo add-apt-repository ppa:alexlarsson/flatpak -y
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install subversion wget indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji qt5-style-plugins -y
+sudo apt install subversion wget indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji qt5-style-plugins gnutls-bin -y
+hash -r
 
 #automatically sets QT applications to follow the system theme
 grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
