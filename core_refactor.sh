@@ -185,7 +185,7 @@ while [ $x == 1 ]; do
     19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
     20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
     21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/TheXTech.sh)" ;;
-    22) bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/extras/core_extra.sh)" ;;
+    22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
 
     esac
   done

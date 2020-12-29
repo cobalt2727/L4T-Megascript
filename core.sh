@@ -147,7 +147,7 @@ elif [[ $userInput == 21 || $userInput == TheXTech ]]; then
   
 #well hello there
 elif [[ $userInput == extra || $userInput == secret ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/extras/core_extra.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)"
 
 
 
