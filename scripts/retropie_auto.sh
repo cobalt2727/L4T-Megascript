@@ -1,6 +1,29 @@
+cd
+clear
+echo "TheXTech script started!"
+echo -e "\e[31m            .+sys//.            
+           :hyyyy/.s/           
+           syyyyyyyys           
+           -hyyyyyyh-           
+            `/hssy/`            
+              o  o              
+              o  o              
+       `-/+oosd  hsso+/-`       
+     :syyyyyydN-.Ndyyhyyhs/     
+    /yyyyyyyyhddddyshysshyys    
+    :hyyyyyyyyyyyy//ohyyyyys    
+     :dhhyyyyyyyyyyyyyyyhd/     
+      -ddddddhhhdhhdddddd+      
+       +hhhhhddhhddhhhhhs       
+        +hhhhhhhhhhhhhhs`       
+         `:osyhhhhyso/`         \e[0m"
+echo
+echo "Downloading the files and installing needed dependencies..."
+sleep 3
+cd 
+
 #download git
 sudo apt install git dialog unzip xmlstarlet lsb-release -y
-
 cd
 rm -rf RetroPie-Setup
 sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
