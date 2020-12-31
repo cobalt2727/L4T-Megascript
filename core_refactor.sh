@@ -20,76 +20,77 @@ echo -e "\x1B[31mHello World\e[0m"
 #echo "create a desktop file for the script on this line"
 x=1
 
+#allow developer to set repository username and branch
+#developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+  export repository_username=cobalt2727
+else
+  echo "Developer Mode Enabled! Repository = $repository_username"
+fi
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+  export repository_branch=master
+else
+  echo "Developer Mode Enabled! Branch = $repository_branch"
+fi
+
+hidden=(2 4 5 7 8 9 10 12 13 22)
+
+num=()
+num[0]="Initial Setup"
+num[1]="Auto Updater"
+num[2]="Auto Config Updater"
+num[3]="Dolphin"
+num[4]="RetroArch"
+num[5]="Minecraft"
+num[6]="moonlight-qt"
+num[7]="Discord"
+num[8]="Kodi"
+num[9]="Development IDEs"
+num[10]="Overscan Fix"
+num[11]="Citra"
+num[12]="empty"
+num[13]="CSE2-Tweaks"
+num[14]="SRB2"
+num[15]="RetroPie"
+num[16]="Celeste (Pico-8 Port)"
+num[17]="Flappy Bird"
+num[18]="supertux"
+num[19]="SM64Port"
+num[20]="SRB2Kart"
+num[21]="TheXTech"
+num[22]="extra"
+
+length=${#num[@]}
+
+t=()
+t[0]="Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"
+t[1]="download and install updates from the repos (check this at least once daily!)"
+t[2]="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
+t[3]="Gamecube and Wii emulator, latest development version"
+t[4]="we've scrapped this idea in favor of RetroPie"
+t[5]="automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
+t[6]="stream games from your PC as long as it has an Nvidia GPU!"
+t[7]="not the actual program, but the web app"
+t[8]="media center"
+t[9]="write code on your Switch!"
+t[10]="i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
+t[11]="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!"
+t[12]="empty"
+t[13]="An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support"
+t[14]="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
+t[15]="Powerful frontend for both emulators and native programs alike"
+t[16]="A tight platforming game which lead to the development of Celeste"
+t[17]="A game about a bird flying in between warp pipes"
+t[18]="A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
+t[19]="A native port of the classic game for the N64 (requires a ROM)"
+t[20]="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2"
+t[21]="Rewrite of the SMBX engine into C++ from VisualBasic 6."
+t[22]="hidden stuff"
+
 while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
   clear
-  #allow developer to set repository username and branch
-  #developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
-  if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
-    export repository_username=cobalt2727
-  else
-    echo "Developer Mode Enabled! Repository = $repository_username"
-  fi
-  if [ -v $repository_branch ] || [ $repository_branch == master ]; then
-    export repository_branch=master
-  else
-    echo "Developer Mode Enabled! Branch = $repository_branch"
-  fi
-
-  hidden=(2 4 5 7 8 9 10 12 13 22)
-
-  num=()
-  num[0]="Initial Setup"
-  num[1]="Auto Updater"
-  num[2]="Auto Config Updater"
-  num[3]="Dolphin"
-  num[4]="RetroArch"
-  num[5]="Minecraft"
-  num[6]="moonlight-qt"
-  num[7]="Discord"
-  num[8]="Kodi"
-  num[9]="Development IDEs"
-  num[10]="Overscan Fix"
-  num[11]="Citra"
-  num[12]="empty"
-  num[13]="CSE2-Tweaks"
-  num[14]="SRB2"
-  num[15]="RetroPie"
-  num[16]="Celeste (Pico-8 Port)"
-  num[17]="Flappy Bird"
-  num[18]="supertux"
-  num[19]="SM64Port"
-  num[20]="SRB2Kart"
-  num[21]="TheXTech"
-  num[22]="extra"
-
-  length=${#num[@]}
-
-  t=()
-  t[0]="Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL2 etc"
-  t[1]="download and install updates from the repos (check this at least once daily!)"
-  t[2]="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
-  t[3]="Gamecube and Wii emulator, latest development version"
-  t[4]="we've scrapped this idea in favor of RetroPie"
-  t[5]="automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
-  t[6]="stream games from your PC as long as it has an Nvidia GPU!"
-  t[7]="not the actual program, but the web app"
-  t[8]="media center"
-  t[9]="write code on your Switch!"
-  t[10]="i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
-  t[11]="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!"
-  t[12]="empty"
-  t[13]="An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support"
-  t[14]="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom"
-  t[15]="Powerful frontend for both emulators and native programs alike"
-  t[16]="A tight platforming game which lead to the development of Celeste"
-  t[17]="A game about a bird flying in between warp pipes"
-  t[18]="A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
-  t[19]="A native port of the classic game for the N64 (requires a ROM)"
-  t[20]="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2"
-  t[21]="Rewrite of the SMBX engine into C++ from VisualBasic 6."
-  t[22]="hidden stuff"
 
   if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program."
@@ -156,8 +157,15 @@ while [ $x == 1 ]; do
     echo "you have chosen $CHOICE"
 
   fi
-
+  # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
+  # initialize sudo password and extent timeout so we never run out
+  echo $PRIVATE | sudo -S echo ""
   IFS=":"
+  while true; do
+    sleep 60
+    sudo -n true
+    kill -0 "$$" 2>/dev/null || exit
+  done &
   for word in $CHOICE; do
     case $word in
     0) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)" ;;
@@ -178,7 +186,7 @@ while [ $x == 1 ]; do
       echo "Sending you back to the main menu..."
       ;;
     14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)" ;;
-    15) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo -S bash ;;
+    15) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
     16) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
     17) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
     18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
@@ -189,7 +197,6 @@ while [ $x == 1 ]; do
 
     esac
   done
-
 done
 
 if [[ $gui == "gui" ]]; then
