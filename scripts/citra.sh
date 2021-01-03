@@ -52,10 +52,10 @@ cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODE
 make -j$(nproc)
 sudo make install
 
-echo "Removing build files..."
-sleep 1
-cd ~
-sudo rm -rf citra
+##echo "Removing build files..."
+##sleep 1
+##cd ~
+##sudo rm -rf citra
 
 echo "Done!"
 echo "Sending you back to the main menu..."
