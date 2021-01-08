@@ -29,13 +29,13 @@ echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
 git clone https://gitlab.com/devluke/mcswitchtools
 cd mcswitchtools/
 echo "Moving the Minecraft files to the $HOME/ folder..."
-sudo mv MCSwitchTools/ ~
+mv MCSwitchTools/ ~
 cd ~
 sudo rm -rf minecraft-temp/
 echo "Starting up initialization..."
 sudo apt update
 sudo apt install openjdk-11-jdk openjdk-8-jdk -y
-~/MCSwitchTools/tools.sh init
+./MCSwitchTools/tools.sh init
 ##shoutouts to Luke for telling me how to restart a terminal entirely automated
 source ~/.bashrc
 mc lwjgl 3
@@ -55,12 +55,12 @@ echo "Downloading and installing OptiFine..."
 echo "If the script automatically installs a version that's not up to date,"
 echo "let us know on GitHub or Discord - we haven't figured out how to automate updating yet..."
 cd ~
-wget https://optifine.net/downloadx?f=OptiFine_1.16.3_HD_U_G3.jar&x=ba40d84b0b4333b35fde7329aa59ba31
-sudo chmod +x OptiFine_1.16.3_HD_U_G3.jar
+wget https://optifine.net/downloadx?f=OptiFine_1.16.4_HD_U_G5.jar&x=77a0881a558c0f80f29a6c7b3428ac3f
+sudo chmod +x OptiFine_1.16.4_HD_U_G5.jar
 echo "You will now need to click Install and then exit the program when prompted."
 echo "Please do so when the installer launches in 10 seconds."
-./OptiFine_1.16.3_HD_U_G3.jar
-sudo rm OptiFine_1.16.3_HD_U_G3.jar
+./OptiFine_1.16.4_HD_U_G5.jar
+sudo rm OptiFine_1.16.4_HD_U_G5.jar
 
 sleep 1
 echo "Fixing profiles for use with the Switch..."
