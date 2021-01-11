@@ -32,7 +32,7 @@ We currently have the following scripts:
  We are planning in adding more scripts and functions to the script in future updates.
 ## Planned features:
 - Finish the GUI
-- Figure out how to make Citra work
+- Figure out how to make Citra work (On 18.04)
 - Figure out how to make Minecraft Bedrock work
 - Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - possibly making them build from source on each run to ensure we don't have to manually update any download links any time a new version's out
 -  A lot more listed in the Discord!
