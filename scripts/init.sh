@@ -26,10 +26,12 @@ grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_P
 #and now i force it on anyway so that the user doesn't have to reboot to see the effect
 export QT_QPA_PLATFORMTHEME=gtk2
 
-#if you're reading this and i haven't credited Faster Melee for this file in the README yet, please yell at me -Cobalt
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
-cd /etc/udev/rules.d/
-sudo wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/51-gcadapter.rules
+sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
+sudo touch /etc/udev/rules.d/51-gcadapter.rules
+echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules > /dev/null
+sudo udevadm control --reload-rules
+sudo systemctl restart udev.service
 cd ~
 
 #kinda hard to install flatpaks without flathub
