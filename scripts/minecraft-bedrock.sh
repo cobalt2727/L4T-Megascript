@@ -33,6 +33,7 @@ sudo flatpak install flathub io.mrarm.mcpelauncher -y
 sudo chmod u+s /usr/libexec/flatpak-bwrap
 
 #according to the Minecraft PE Linux Launcher Discord, this line is needed to ensure the flatpak saves server lists and skins after a launcher restart
+cd ~
 sudo flatpak override --persist=../../../data io.mrarm.mcpelauncher
 
 echo "Done!"
