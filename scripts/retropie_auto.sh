@@ -23,6 +23,7 @@ sleep 3
 
 #download git
 sudo apt install git dialog unzip xmlstarlet lsb-release -y
+sudo apt install joycond -y
 
 cd
 rm -rf RetroPie-Setup
