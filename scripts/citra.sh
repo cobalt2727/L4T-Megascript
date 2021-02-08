@@ -23,23 +23,23 @@ echo "Running updates..."
 sleep 1
 sudo apt update -y
 
-echo "Installing dependencies..."
-sleep 1
-sudo apt-get install git ninja-build libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev -y
-
 if grep -q bionic /etc/os-release; then
-	echo "-------UBUNTU 18.04 DETECTED-------"
+  echo "          -------UBUNTU 18.04 DETECTED-------"
   echo
   echo "This message will close in 30 seconds and kick you back to the main menu."
   echo "If you want more time to read this, press Ctrl + C at any point to stop the script entirely."
   echo "This script will not work, as you need a newer version of QT installed."
   echo "We'll either add a script to build THAT from source later, or you can wait for Switchroot to release an upgrade to 20.04."
   echo "If you just so happen to already have that set up on your Switch, make a PR on the GitHub to get your build method incorporated into this script!"
-  echo "Note that trying to upgrade L4T Ubuntu from within your existing installation is not supported and will break your Linux install!"
+  echo "Note that trying to upgrade L4T Ubuntu from within your existing installation is not supported and WILL BREAK YOUR LINUX INSTALL!"
   echo "When 20.04 launches you'll have to reinstall completely to upgrade."
   sleep 30
   exit
 fi
+
+echo "Installing dependencies..."
+sleep 1
+sudo apt-get install git ninja-build libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev -y
 
 echo "Building Citra..."
 sleep 1
