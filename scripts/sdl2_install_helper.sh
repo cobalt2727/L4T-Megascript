@@ -1,4 +1,7 @@
 cd
+#make sure this is updated
+#note that this is an apt package in the Switchroot repository
+sudo apt install joycond -y
 if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
 echo ""
 echo "Already Installed Newest SDL2 Version"
