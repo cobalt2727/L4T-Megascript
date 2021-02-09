@@ -1,22 +1,8 @@
+#!/bin/bash
+
 cd
 clear
 echo "Retropie script started!"
-echo -e "\e[31m            .+sys//.            
-           :hyyyy/.s/           
-           syyyyyyyys           
-           -hyyyyyyh-           
-            //hssy//            
-              o  o              
-              o  o              
-       --/+oosd  hsso+/--       
-     :syyyyyydN-.Ndyyhyyhs/     
-    /yyyyyyyyhddddyshysshyys    
-    :hyyyyyyyyyyyy//ohyyyyys    
-     :dhhyyyyyyyyyyyyyyyhd/     
-      -ddddddhhhdhhdddddd+      
-       +hhhhhddhhddhhhhhs       
-        +hhhhhhhhhhhhhhss       
-         ::osyhhhhyso//         \e[0m"
 echo
 echo "Downloading the files and installing needed dependencies..."
 sleep 3
