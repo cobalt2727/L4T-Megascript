@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear
 echo "Swapfile script started!"
 sleep 1
