@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 echo "Thonny script started!"
 echo "This one's fairly straightforward."
 echo "Installing dependencies..."
