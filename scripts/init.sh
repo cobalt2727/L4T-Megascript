@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "Initial setup script started!"
 cd ~
