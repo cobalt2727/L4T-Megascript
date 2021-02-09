@@ -1,21 +1,5 @@
 clear
 echo "Citra script successfully started!"
-echo -e "\e[33m                                
-                    ..          
-               ..---..----      
-           ..- ---..----.-. o   
-        ..:--- -..----.--:.-+-  
-        ....--  ...------.-+++  
-     .:-----   ------... -/+++  
-   .:::.------ -----:: -///+++  
-   .:.::-..-------:..-/////++   
-   ::::..:---  :...:://///++-   
-   .:..:::::.  :::::::://++-    
-   -     ...:.-:::::::://+      
-    -./:::::::::::::::/-        
-       ...::::::::/..           
-                                
-                                \e[0m"
 echo "Credits: i literally just took https://citra-emu.org/wiki/building-for-linux/ and made it run by itself"
 sleep 3
 
