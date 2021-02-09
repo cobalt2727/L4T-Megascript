@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd
 #make sure this is updated
 #note that this is an apt package in the Switchroot repository
