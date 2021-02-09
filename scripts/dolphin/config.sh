@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 ##Import config files
 cd ~
 sudo apt install subversion -y
