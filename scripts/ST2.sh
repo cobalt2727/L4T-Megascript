@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "SuperTux2 script started!"
 echo "Downloading the files and installing needed dependencies..."
