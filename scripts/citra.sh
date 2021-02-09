@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "Citra script successfully started!"
 echo "Credits: i literally just took https://citra-emu.org/wiki/building-for-linux/ and made it run by itself"
