@@ -13,7 +13,8 @@ echo "What would you like to do?"
 echo
 echo
 echo "1...............Install Dolphin (use the updater on the main menu to update!)"
-##echo "2...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
+echo "2...............Run the RiiConnect24 Patcher"
+##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 echo "any other key...Close the Dolphin script and return to the main menu"
 echo
 echo
@@ -44,20 +45,28 @@ if [[ $userInput == 1 ]]; then
   ##fi
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/config.sh)"
 
-elif [[ $userInput == 2 ]]; then
-  echo "not ready yet"
-  sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/primehack.sh)"
+
+elif [[ $userInput == 3 ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
+
 
 elif [[ $userInput == 3 ]]; then
   echo "not ready yet"
   sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/slippi.sh)"
+  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/primehack.sh)"
+
 
 elif [[ $userInput == 4 ]]; then
   echo "not ready yet"
   sleep 3
+  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/slippi.sh)"
+
+
+elif [[ $userInput == 5 ]]; then
+  echo "not ready yet"
+  sleep 3
   ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/projectplus.sh)"
+
 
 else
   echo ""
