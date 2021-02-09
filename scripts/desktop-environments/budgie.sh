@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "You are about to install the Budgie desktop environment."
 echo "Under most cases this shouldn't break anything and install alongside of your existing one, but just to be sure..."
