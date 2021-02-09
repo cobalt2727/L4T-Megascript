@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "Dolphin script started!"
 sleep 1
