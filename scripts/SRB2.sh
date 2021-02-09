@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 cd
 clear
 echo "SRB2 script started!"
