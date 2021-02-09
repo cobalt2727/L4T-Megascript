@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear
 sleep 1
 echo "Updating sources..."
