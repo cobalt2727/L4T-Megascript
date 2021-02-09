@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear
 echo "Updater script successfully started! Running updates..."
 sleep 1
