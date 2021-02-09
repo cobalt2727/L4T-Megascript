@@ -46,7 +46,7 @@ num[6]="moonlight-qt"
 num[7]="Discord"
 num[8]="Kodi"
 num[9]="Development IDEs"
-num[10]="Overscan Fix"
+#num[10]="Overscan Fix"
 num[11]="Citra"
 num[12]="empty"
 num[13]="CSE2-Tweaks"
@@ -57,7 +57,6 @@ num[17]="Flappy Bird"
 num[18]="supertux"
 num[19]="SM64Port"
 num[20]="SRB2Kart"
-num[21]="TheXTech"
 num[22]="extra"
 
 length=${#num[@]}
@@ -73,7 +72,7 @@ t[6]="stream games from your PC as long as it has an Nvidia GPU!"
 t[7]="not the actual program, but the web app"
 t[8]="media center"
 t[9]="write code on your Switch!"
-t[10]="i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
+#t[10]="i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
 t[11]="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!"
 t[12]="empty"
 t[13]="An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support"
@@ -178,7 +177,7 @@ while [ $x == 1 ]; do
     7) echo "scripts not ready yet" ;;
     8) echo "scripts not ready yet" ;;
     9) echo "scripts not ready yet" ;;
-    10) echo "overscan is your own problem" ;;
+    #10) echo "overscan is your own problem" ;;
     11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)" ;;
     12) echo "empty for some reason" ;;
     13)
