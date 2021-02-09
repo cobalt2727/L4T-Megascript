@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 # make all the folders
 cd
 mkdir ~/MultiMC && cd ~/MultiMC
