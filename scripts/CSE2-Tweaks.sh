@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 cd
 clear
 echo "CSE2-Tweaks script started!"
