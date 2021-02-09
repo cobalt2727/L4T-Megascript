@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "SuperMario64 Port script started!"
 echo "Downloading the files, removing old files and installing needed dependencies..."
