@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 clear
 echo "On this page we've got a lineup of most of the major desktops used across Linux distributions."
 echo "Tired of how your default homescreen looks? You're in the right place!"
