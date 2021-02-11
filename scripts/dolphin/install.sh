@@ -16,6 +16,8 @@ git pull
 mkdir build
 cd build
 echo "Building..."
+echo "If it freezes, especially around 80%, even for a few minutes, that's normal."
+sleep 5
 #if you're looking at this script as a reference for building Dolphin on your own hardware,
 #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
 
