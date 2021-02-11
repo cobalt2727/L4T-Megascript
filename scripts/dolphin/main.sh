@@ -13,6 +13,8 @@ sudo systemctl restart udev.service
 cd ~
 
 echo "What would you like to do?"
+echo -e "\e[36mNote that a FIRST-TIME install can take up to 40-60 minutes on a Switch.\e[0m"
+echo -e "\e[1;31mConnect your Switch to a charger!\e[0m"
 echo
 echo
 echo "1...............Install Dolphin (use the updater on the main menu to update!)"
