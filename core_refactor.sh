@@ -217,6 +217,5 @@ echo -e "Quacka: Beta Tester"
 echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
 echo ""
-echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://tinyurl.com/L4TScript for support.'
-echo 'If that link is down for whatever reason, use https://discord.gg/UYsUFCY.'
+echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at [link not public yet] for support.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
