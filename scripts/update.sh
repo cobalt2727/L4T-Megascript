@@ -6,7 +6,13 @@ sleep 1
 sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove -y
+
+##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
 sudo flatpak update -y
+flatpak update -y
+
+##this updater will fail if the user doesn't have npm installed so there's no harm in adding it, as it's used by some scripts here
+sudo npm install -g npm
 ##maybe somehow add a way to automatically re-run scripts for things that were built from source?
 
 
