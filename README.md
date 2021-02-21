@@ -14,29 +14,26 @@ https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 DISCLAIMER: in the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the source code. NEVER RUN LINUX SCRIPTS YOU DON'T TRUST!
 
 ## Scripts
-We currently have the following scripts: 
+Some of our included program install scripts are below: 
 
 - Initial Setup: Installs the swapfile, joycon mouse, 2.0 GHz overclock, SDL2 etc
 - Update: Update your programs (APT, Flatpak, maybe someday automatic source code builds)
 - Dolphin: Gamecube and Wii emulator, latest development version
+- Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04/20.10 IMAGE)
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia (with Gamestream) or AMD (with Sunshine) GPU!
-- CSE2-Tweaks: (CURRENTLY DOWN DUE TO DMCA ON CSE2'S END) An enhanced version of Cave Story. 60 FPS, bugs fixes, other soundtracks support
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
 - SRB2Kart: A kart racing game using SRB2 as a base
 - RetroPie: Powerful frontend for both emulators and native programs alike
 - Celeste (Pico-8 Port): A tight platforming game which lead to the development of Celeste
-- Flappy Bird: A game about a bird flying in between warp pipes
-- SuperTux2: A 2D jump'n run sidescroller game in a style similar to the original Super Mario games
-- SM64Port: A native port of the classic game for the N64 (requires your own, legally dumped ROM)
-- TheXTech: SMBX engine, rewritten into C++ from VisualBasic 6
+- SM64Port: A native port of the classic game for the N64 (requires your own, **legally** dumped ROM)
 
  We are planning in adding more scripts and functions to the script in future updates.
 ## Planned features:
 - Finish the GUI
-- Figure out how to make Citra work (On 18.04)
-- Figure out how to make Minecraft Bedrock work
-- Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - possibly making them build from source on each run to ensure we don't have to manually update any download links any time a new version's out
--  A lot more listed in the Discord!
+- Figure out whether or not the Linux loader for Bedrock can be forced to run well if we build from source instead of using the Flatpak
+- Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft
+- _Possibly_ work on including the manually built scripts here into the updater?
+- More to come!
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor
@@ -44,7 +41,7 @@ We currently have the following scripts:
 - Gman: Contributor
 - Fafabis: Contributor
 - Azkali: Advice, part of Switchroot dev team
-- All the beta testers in the Discord that put up with Cobalt breaking things every other day
+- Beta testers in the Discord that put up with Cobalt breaking things every other day
 
 
 ## Do you have a question or an idea about the project?
@@ -53,7 +50,6 @@ You're in luck - we've got a Discord server: [DM Cobalt#9258]
 ## Credits
 - STJr: Developers, SRB2
 - Kart Krew: Developers, SRB2Kart
-- calvarado194: Developers, CSE2-Tweaks
 - RetroPie: Developers, RetroPie (who would've guessed?)
 - dolphin-emu: Developers, Dolphin
 - moonlight-stream: Creators and developers of Moonlight-QT
@@ -61,6 +57,4 @@ You're in luck - we've got a Discord server: [DM Cobalt#9258]
 - Acry: Developer, Flappy Bird port
 - SuperTux: Developers, SuperTux2
 - n64decomp: Responsible for the SM64 Decompilation Project
-- sm64pc: Adapted the SM64 Port to work with ARM64 devices (Like the Nintendo Switch)
-- Wohlstand: Developers, TheXTech
-- Rediget: Original SMBX Developer
+- sm64pc: Adapted the SM64 Port to work with ARM64 devices
