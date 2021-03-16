@@ -1,9 +1,11 @@
 #!/bin/bash
 
-
+sudo apt update
+sudo apt install cmake curl zlib1g-dev openjdk-8-jdk openjdk-11-jdk qtbase5-dev -y
 # make all the folders
 cd
-mkdir ~/MultiMC && cd ~/MultiMC
+mkdir ~/MultiMC
+cd ~/MultiMC
 mkdir build
 mkdir install
 # clone the complete source
