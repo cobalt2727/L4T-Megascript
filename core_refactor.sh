@@ -57,6 +57,7 @@ num[17]="Flappy Bird"
 num[18]="supertux"
 num[19]="SM64Port"
 num[20]="SRB2Kart"
+num[21]="Barrier"
 num[22]="extra"
 
 length=${#num[@]}
@@ -83,7 +84,7 @@ t[17]="A game about a bird flying in between warp pipes"
 t[18]="A 2D jump'n run sidescroller game in a style similar to the original Super Mario games"
 t[19]="A native port of the classic game for the N64 (requires a ROM)"
 t[20]="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2"
-t[21]="Rewrite of the SMBX engine into C++ from VisualBasic 6."
+t[21]="Share your mouse and keyboard between multiple computers"
 t[22]="hidden stuff"
 
 while [ $x == 1 ]; do
@@ -191,7 +192,8 @@ while [ $x == 1 ]; do
     18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
     19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
     20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
-    21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
+    21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
+    22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
 
     esac
   done
