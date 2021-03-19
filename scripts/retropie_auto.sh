@@ -11,7 +11,7 @@ else
   sleep 3
 
   #download git
-  apt install git dialog unzip xmlstarlet lsb-release -y
+  apt install git dialog unzip xmlstarlet lsb-release crudini -y
   apt install joycond -y
 
   cd
@@ -66,6 +66,9 @@ else
   # ./retropie_packages.sh scraper
   # ./retropie_packages.sh skyscraper
   # ./retropie_packages.sh usbromservice
+  
+  crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
+  
   if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
     echo ""
     echo "Already Installed Newest SDL2 Version"
