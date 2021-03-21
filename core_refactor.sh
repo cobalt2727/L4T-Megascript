@@ -33,14 +33,14 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-hidden=(2 4 5 7 8 9 10 12 13 22)
+hidden=(2 5 7 8 9 10 12 13 22)
 
 num=()
 num[0]="Initial Setup"
 num[1]="Auto Updater"
 num[2]="Auto Config Updater"
 num[3]="Dolphin"
-num[4]="RetroArch"
+num[4]="MultiMC"
 num[5]="Minecraft"
 num[6]="moonlight-qt"
 num[7]="Discord"
@@ -67,7 +67,7 @@ t[0]="Installs the swapfile, joycon mouse, 2.0 GHz overclock(in the future), SDL
 t[1]="download and install updates from the repos (check this at least once daily!)"
 t[2]="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 t[3]="Gamecube and Wii emulator, latest development version"
-t[4]="we've scrapped this idea in favor of RetroPie"
+t[4]="Mincraft Launcher, Instance, and Mod Manager"
 t[5]="automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
 t[6]="stream games from your PC as long as it has an Nvidia GPU!"
 t[7]="not the actual program, but the web app"
@@ -172,7 +172,7 @@ while [ $x == 1 ]; do
     1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
     2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
     3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
-    4) echo "we ditched RetroArch for Retropie, sorry" ;;
+    4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
     5) echo "scripts not ready yet" ;;
     6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
     7) echo "scripts not ready yet" ;;
