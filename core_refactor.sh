@@ -99,7 +99,7 @@ while [ $x == 1 ]; do
     sleep 2
 
     table=()
-    for ((i = 0; i < ${#num[@]}; i++)); do
+    for ((i = 0; i < ${length}; i++)); do
       if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
         table+=(FALSE $i "${num[$i]}" "${t[$i]}")
       fi
@@ -152,6 +152,7 @@ while [ $x == 1 ]; do
     read -p "Make a selection: " CHOICE
     if [[ $CHOICE == x || $CHOICE == X || $CHOICE == exit || $CHOICE == Exit ]]; then
       x=0
+      continue
     else
       sudo -S echo ""
     fi
@@ -159,47 +160,45 @@ while [ $x == 1 ]; do
     echo "you have chosen $CHOICE"
 
   fi
-  if [[ $CHOICE =~ [0-9] ]]; then
-    # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
-    # initialize sudo password and extent timeout so we never run out
-    IFS=":"
-    while true; do
-      sleep 60
-      sudo -v
-      kill -0 "$$" 2>/dev/null || exit
-    done &
-    for word in $CHOICE; do
-      case $word in
-      0) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)" ;;
-      1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
-      2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
-      3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
-      4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
-      5) echo "scripts not ready yet" ;;
-      6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
-      7) echo "scripts not ready yet" ;;
-      8) echo "scripts not ready yet" ;;
-      9) echo "scripts not ready yet" ;;
-      #10) echo "overscan is your own problem" ;;
-      11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)" ;;
-      12) echo "empty for some reason" ;;
-      13)
-        echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
-        echo "Sending you back to the main menu..."
-        ;;
-      14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)" ;;
-      15) sudo curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
-      16) sudo curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
-      17) sudo curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
-      18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
-      19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
-      20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
-      21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
-      22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
+  # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
+  # initialize sudo password and extent timeout so we never run out
+  IFS=":"
+  while true; do
+    sleep 60
+    sudo -v
+    kill -0 "$$" 2>/dev/null || exit
+  done &
+  for word in $CHOICE; do
+    case $word in
+    0) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)" ;;
+    1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
+    2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
+    3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
+    4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
+    5) echo "scripts not ready yet" ;;
+    6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
+    7) echo "scripts not ready yet" ;;
+    8) echo "scripts not ready yet" ;;
+    9) echo "scripts not ready yet" ;;
+    #10) echo "overscan is your own problem" ;;
+    11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)" ;;
+    12) echo "empty for some reason" ;;
+    13)
+      echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
+      echo "Sending you back to the main menu..."
+      ;;
+    14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)" ;;
+    15) sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh)" ;;
+    16) bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh)" ;;
+    17) bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)" ;;
+    18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
+    19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
+    20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
+    21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
+    22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
 
-      esac
-    done
-  fi
+    esac
+  done
 done
 
 if [[ $gui == "gui" ]]; then
