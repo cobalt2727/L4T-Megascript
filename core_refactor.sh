@@ -105,7 +105,8 @@ while [ $x == 1 ]; do
       fi
     done
 
-    CHOICE=$(zenity \
+    CHOICE=$(
+      zenity \
       --width="1000" \
       --height="500" \
       --list \
@@ -116,10 +117,11 @@ while [ $x == 1 ]; do
       --column "Details" \
       --ok-label="INSTALL" \
       "${table[@]}" \
-      --separator=':')
+      --separator=':'
+    )
 
     if [ "$?" != 1 ]; then
-      PRIVATE=$(zenity --password)
+      zenity --password | sudo -S echo ""
     fi
     x=0
   else
@@ -151,57 +153,61 @@ while [ $x == 1 ]; do
     if [[ $CHOICE == x || $CHOICE == X || $CHOICE == exit || $CHOICE == Exit ]]; then
       x=0
     else
-      read -p "Enter your password: " PRIVATE
+      sudo -S echo ""
     fi
 
     echo "you have chosen $CHOICE"
 
   fi
-  # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
-  # initialize sudo password and extent timeout so we never run out
-  echo $PRIVATE | sudo -S echo ""
-  IFS=":"
-  while true; do
-    sleep 60
-    sudo -n true
-    kill -0 "$$" 2>/dev/null || exit
-  done &
-  for word in $CHOICE; do
-    case $word in
-    0) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)" ;;
-    1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
-    2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
-    3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
-    4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
-    5) echo "scripts not ready yet" ;;
-    6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
-    7) echo "scripts not ready yet" ;;
-    8) echo "scripts not ready yet" ;;
-    9) echo "scripts not ready yet" ;;
-    #10) echo "overscan is your own problem" ;;
-    11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)" ;;
-    12) echo "empty for some reason" ;;
-    13)
-      echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
-      echo "Sending you back to the main menu..."
-      ;;
-    14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)" ;;
-    15) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
-    16) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
-    17) echo $PRIVATE | sudo -S curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
-    18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
-    19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
-    20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
-    21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
-    22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
+  if [[ $CHOICE =~ [0-9] ]]; then
+    # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
+    # initialize sudo password and extent timeout so we never run out
+    IFS=":"
+    while true; do
+      sleep 60
+      sudo -v
+      kill -0 "$$" 2>/dev/null || exit
+    done &
+    for word in $CHOICE; do
+      case $word in
+      0) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/init.sh)" ;;
+      1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
+      2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
+      3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
+      4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
+      5) echo "scripts not ready yet" ;;
+      6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
+      7) echo "scripts not ready yet" ;;
+      8) echo "scripts not ready yet" ;;
+      9) echo "scripts not ready yet" ;;
+      #10) echo "overscan is your own problem" ;;
+      11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/citra.sh)" ;;
+      12) echo "empty for some reason" ;;
+      13)
+        echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
+        echo "Sending you back to the main menu..."
+        ;;
+      14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2.sh)" ;;
+      15) sudo curl -L https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/retropie_auto.sh | sudo bash ;;
+      16) sudo curl -L https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh | bash ;;
+      17) sudo curl -L https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh | bash ;;
+      18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/ST2.sh)" ;;
+      19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SM64.sh)" ;;
+      20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/SRB2Kart.sh)" ;;
+      21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
+      22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
 
-    esac
-  done
+      esac
+    done
+  fi
 done
 
 if [[ $gui == "gui" ]]; then
   zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 fi
+
+unset repository_username
+unset repository_branch
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
