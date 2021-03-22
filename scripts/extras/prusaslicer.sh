@@ -7,7 +7,7 @@ git clone --recursive --branch version_2.2.0 https://github.com/prusa3d/PrusaSli
 cd PrusaSlicer
 # Selecting version (lateset at a time)
 cd deps
-mkdir build && cd build
+mkdir -p build && cd build
 cmake ..
 # This gonna download and build static libraries
 # you can't move or delete those after compiling, path gonna be hardcoded
@@ -16,7 +16,7 @@ make
 cd destdir/usr/local
 # cd back to PrusaSlicer main folder
 cd ~/PrusaSlicer
-mkdir build && cd build
+mkdir -p build && cd build
 
 # change DCMAKE_PREFIX_PATH to path saved above
 cmake .. -DSLIC3R_STATIC=1 -DCMAKE_PREFIX_PATH=~/PrusaSlicer/deps/build/destdir/usr/local

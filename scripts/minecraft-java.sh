@@ -4,7 +4,7 @@ clear
 echo "Minecraft Java script started!"
 sleep 1
 cd ~
-mkdir minecraft-temp && cd minecraft-temp
+mkdir -p minecraft-temp && cd minecraft-temp
 echo "Downloading dependencies..."
 ##these should do the trick - jarwrapper is included to make it so that .jar files (like OptiFine) can be run with ./[filepath]/[filename] like .deb files
 sudo apt install default-jre default-jdk jarwrapper -y

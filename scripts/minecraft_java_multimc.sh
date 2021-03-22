@@ -4,10 +4,10 @@ sudo apt update
 sudo apt install cmake curl zlib1g-dev openjdk-8-jdk openjdk-11-jdk qtbase5-dev -y
 # make all the folders
 cd
-mkdir ~/MultiMC
+mkdir -p ~/MultiMC
 cd ~/MultiMC
-mkdir build
-mkdir install
+mkdir -p build
+mkdir -p install
 # clone the complete source
 git clone --recursive https://github.com/MultiMC/MultiMC5.git src # You can clone from MultiMC's main repo, no need to use a fork.
 # configure the project

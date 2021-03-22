@@ -21,7 +21,7 @@ cd ~/supertux/data/images/engine/menu
 rm logo_dev.png
 mv logo.png logo_dev.png
 cd ~/supertux
-mkdir build && cd build
+mkdir -p build && cd build
 echo
 echo "Compiling the game..."
 sleep 1
@@ -36,7 +36,7 @@ sudo make install
 echo "Erasing temporary build files to save space..."
 sleep 2
 echo
-cd ~/.local/share && mkdir supertux2
+cd ~/.local/share && mkdir -p supertux2
 cd ~/ST2
 mv config -t ~/.local/share/supertux2
 cd ~

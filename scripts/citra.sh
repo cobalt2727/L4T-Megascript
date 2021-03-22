@@ -33,7 +33,7 @@ sleep 1
 cd ~
 git clone --recursive https://github.com/citra-emu/citra
 cd citra
-mkdir build
+mkdir -p build
 cd build
 cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 make -j$(nproc)
