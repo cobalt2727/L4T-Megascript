@@ -13,7 +13,7 @@ echo "Downloading the source..."
 git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull
-mkdir build
+mkdir -p build
 cd build
 echo "Building..."
 echo

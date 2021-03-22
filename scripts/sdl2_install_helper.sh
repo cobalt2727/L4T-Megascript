@@ -11,18 +11,18 @@ sleep 1
 else
 sudo apt-get --assume-yes install git
 cd /tmp
-mkdir temp_install_sdl2
+mkdir -p temp_install_sdl2
 cd temp_install_sdl2
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/retropie_packages.sh' > retropie_packages.sh
 chmod -R 777 retropie_packages.sh
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/retropie_setup.sh' > retropie_setup.sh
-mkdir scriptmodules
+mkdir -p scriptmodules
 cd ./scriptmodules
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/system.sh' > system.sh
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/helpers.sh' > helpers.sh
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/packages.sh' > packages.sh
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/inifuncs.sh' > inifuncs.sh
-mkdir supplementary
+mkdir -p supplementary
 cd ./supplementary
 curl -s 'https://raw.githubusercontent.com/theofficialgman/RetroPie-Setup/master/scriptmodules/supplementary/sdl2.sh' > sdl2.sh
 cd /tmp/temp_install_sdl2

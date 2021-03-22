@@ -6,7 +6,7 @@ echo "Installing dependencies..."
 sudo apt install git curl -y
 
 cd ~
-mkdir discord-tmp/
+mkdir -p discord-tmp/
 cd discord-tmp/
 
 echo "Downloading the most recent .deb from SpacingBat3's repository..."

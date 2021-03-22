@@ -35,7 +35,7 @@ npm run build-linux
 npm run install-linux
 
 cd /home/$USER/edex-ui/media/
-sudo mkdir /usr/share/edex-ui
+sudo mkdir -p /usr/share/edex-ui
 sudo cp logo.svg /usr/share/edex-ui
 cd /usr/share/applications
 sudo wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/eDEX-UI/eDEX-UI.desktop
