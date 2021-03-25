@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ##Dependencies
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade -y
 sudo apt install git cmake make xorg-dev g++ libcurl4-openssl-dev \
 libavahi-compat-libdnssd-dev libssl-dev libx11-dev \
-libqt4-dev qtbase5-dev
+libqt4-dev qtbase5-dev -y
 
 ##Build Barrier From Source
 cd
