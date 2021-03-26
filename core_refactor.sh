@@ -33,7 +33,7 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-hidden=(2 5 7 8 9 10 12 13 22)
+hidden=(2 5 8 9 10 12 13 22)
 
 num=()
 num[0]="Initial Setup"
@@ -70,7 +70,7 @@ t[3]="Gamecube and Wii emulator, latest development version"
 t[4]="Mincraft Launcher, Instance, and Mod Manager"
 t[5]="automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
 t[6]="stream games from your PC as long as it has an Nvidia GPU!"
-t[7]="not the actual program, but the web app"
+t[7]="Discord Web App"
 t[8]="media center"
 t[9]="write code on your Switch!"
 #t[10]="i had the idea for an overscan fix here but that's something the user should fix in their TV settings, this is just a placeholder now"
@@ -177,7 +177,7 @@ while [ $x == 1 ]; do
     4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
     5) echo "scripts not ready yet" ;;
     6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
-    7) echo "scripts not ready yet" ;;
+    7) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/discord.sh)" ;;
     8) echo "scripts not ready yet" ;;
     9) echo "scripts not ready yet" ;;
     #10) echo "overscan is your own problem" ;;
