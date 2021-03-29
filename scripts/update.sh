@@ -23,6 +23,9 @@ sudo apt autopurge
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
+sudo flatpak repair
+flatpak repair --user
+
 sudo flatpak update -y
 flatpak update -y
 
