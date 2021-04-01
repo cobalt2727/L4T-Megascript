@@ -4,11 +4,7 @@ cd
 clear
 echo "Moonlight script started!"
 sleep 1
-echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" | sudo tee /etc/apt/sources.list.d/moonlight-l4t.list
-echo "Adding key..."
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-echo "Updating sources and installing Moonlight"
-sudo apt-get update
+curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-l4t/setup.deb.sh' | sudo -E bash
 sudo apt install moonlight-qt subversion -y
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/moonlight
 cd moonlight
