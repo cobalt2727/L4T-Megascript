@@ -5,12 +5,13 @@ clear
 echo "Moonlight script started!"
 sleep 1
 curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-l4t/setup.deb.sh' | sudo -E bash
-sudo apt install moonlight-qt subversion -y
-svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/moonlight
-cd moonlight
-mv moonlight.sh -t ~/RetroPie/roms/ports
+sudo apt install moonlight-qt -y
+
+cat > ~/RetroPie/roms/ports/moonlight.sh << _EOF_
 cd
-rm -r moonlight
+moonlight-qt
+_EOF_
+
 echo "Done!"
 echo "Ctrl + click this link before this message disappears in 20 seconds"
 echo "For a guide on how to set Moonlight up on your PC and connect"
