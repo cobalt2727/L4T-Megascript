@@ -24,7 +24,6 @@ cd sm64ex-nightly
 echo "To build this port, you need a Super Mario 64 rom with the extension .z64."
 echo "Due to copyright restrictions, we will not provide the game file ourselves."
 echo "Please legally acquire a copy and put the rom into the repository's root (sm64ex-nightly) and rename it to baserom.VERSION.z64."
-#Cobalt doesn't want a hit from Nintendo's Ninjas 
 echo "VERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio)"
 sleep 10
 read -p "Do you want to continue? (y/n) " userInput
