@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Don't install this unless you want Cobalt complaning everytime he sees an screenshot-
 
 clear
 echo "You are about to install the Unity desktop environment."
