@@ -1,5 +1,10 @@
 #!/bin/bash
-
+#Hey user, in case you are reading this, that means you are looking in the source code. Hi, so yeah, we like to keep this in the hope Nicalis takes the DMCA up, which,
+#everyday that passes seems least likely, but well. In case you don't know, CSE2 was a open source decompilation of the game Doukutsu Monogatari (Cave Story), which
+#was taken down with a false DMCA claim. This most likely because Cave Story +, a remaster of the original game with updgraded graphics and one or two new things
+#And that is basically all the story, Nicalis never answered back, and the project ended dying with some user only sharing the saved files between them
+#In case you wonder, no, its not posible to upload the files. This put us in risk of getting a DMCA ourselves. So, unless something happens, this file would stay archived forever
+#- Lang 
 
 cd
 clear
