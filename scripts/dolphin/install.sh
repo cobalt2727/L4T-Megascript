@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#If this is failing surely is Cobalt's fault
 
 clear
 echo "Dolphin script started!"
