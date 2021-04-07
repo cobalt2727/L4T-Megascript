@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Fun fact, the original version of this script had an aprox 50 more lines of code
 
 cd
 clear
