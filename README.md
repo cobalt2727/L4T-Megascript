@@ -30,6 +30,7 @@ Some of our included program install scripts are below:
  We are planning in adding more scripts and functions to the script in future updates.
 ## Planned features:
 - Finish the GUI
+- Finish all the wiki pages 
 - Figure out whether or not the Linux loader for Bedrock can be forced to run well if we build from source instead of using the Flatpak
 - Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft
 - _Possibly_ work on including the manually built scripts here into the updater?
