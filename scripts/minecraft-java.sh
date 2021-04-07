@@ -12,7 +12,6 @@ sudo apt install default-jre default-jdk jarwrapper -y
 echo "Downloading Luke Chambers's MCSwitchTools GitLab repo..."
 ##i wish gitlab supported svn.
 ##but noooooo.
-#Cobalt buddy, are you ok? Do you need a hug?
 git clone https://gitlab.com/devluke/mcswitchtools
 cd mcswitchtools/
 echo "Moving the Minecraft files to the $HOME/ folder..."
