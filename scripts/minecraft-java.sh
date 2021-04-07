@@ -4,7 +4,8 @@ clear
 echo "Minecraft Java script started!"
 sleep 1
 cd ~
-mkdir -p minecraft-temp && cd minecraft-temp
+mkdir -p minecraft-temp
+cd minecraft-temp
 echo "Downloading dependencies..."
 ##these should do the trick - jarwrapper is included to make it so that .jar files (like OptiFine) can be run with ./[filepath]/[filename] like .deb files
 sudo apt install default-jre default-jdk jarwrapper -y
@@ -41,12 +42,12 @@ echo "Downloading and installing OptiFine..."
 echo "If the script automatically installs a version that's not up to date,"
 echo "let us know on GitHub or Discord - we haven't figured out how to automate updating yet..."
 cd ~
-wget https://optifine.net/downloadx?f=OptiFine_1.16.4_HD_U_G5.jar&x=77a0881a558c0f80f29a6c7b3428ac3f
-sudo chmod +x OptiFine_1.16.4_HD_U_G5.jar
+wget https://optifine.net/downloadx?f=OptiFine_1.16.5_HD_U_G7.jar&x=44e7290b39280400de0059747aabb7fc
+sudo chmod +x OptiFine_1.16.5_HD_U_G7.jar
 echo "You will now need to click Install and then exit the program when prompted."
 echo "Please do so when the installer launches in 10 seconds."
-./OptiFine_1.16.4_HD_U_G5.jar
-sudo rm OptiFine_1.16.4_HD_U_G5.jar
+./OptiFine_1.16.5_HD_U_G7.jar
+sudo rm OptiFine_1.16.5_HD_U_G7.jar
 
 sleep 1
 echo "Fixing profiles for use with the Switch..."
