@@ -1,6 +1,5 @@
 #!/bin/bash
-if [ -z "$SUDO_USER" ];
-then
+if [ -z "$SUDO_USER" ]; then
   echo "RetroPie install failed, please run script as sudo"
 else
   cd
@@ -23,11 +22,17 @@ else
   # unfortunatly I can't use this this not all main packages work ... ./retropie_packages.sh setup basic_install
   # manually install all of the required and good stuff
 
+  sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
+$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_setup.sh
+$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh
+_EOF_"
+
   ./retropie_packages.sh retroarch
   ./retropie_packages.sh emulationstation
   ./retropie_packages.sh retropiemenu
   ./retropie_packages.sh runcommand
   #./retropie_packages.sh ports-enable configure
+  ./retropie_packages.sh mupen64plus
   ./retropie_packages.sh lr-mupen64plus-next
   ./retropie_packages.sh lr-atari800
   ./retropie_packages.sh lr-beetle-ngp
@@ -66,9 +71,9 @@ else
   # ./retropie_packages.sh scraper
   # ./retropie_packages.sh skyscraper
   # ./retropie_packages.sh usbromservice
-  
+
   crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
-  
+
   if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
     echo ""
     echo "Already Installed Newest SDL2 Version"
