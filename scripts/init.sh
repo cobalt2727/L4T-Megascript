@@ -49,15 +49,15 @@ sudo chmod u+s /usr/libexec/flatpak-bwrap
 sleep 1
 
 clear
-echo "Do you want to install the swapfile (You need 2 GB. Very important to avoid lag and potential crashes)"
-read -p "(y/n) " userInput
-if [[ $userInput == y || $userInput == Y ]]; then
-echo "Installing the swapfile..."
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/swapfile.sh)"
-elif [[ $userInput == n || $userInput == N ]]; then
-echo "Skipping swapfile setup..."
-fi
-sleep 1
+# echo "Do you want to install the swapfile (You need 2 GB. Very important to avoid lag and potential crashes)"
+# read -p "(y/n) " userInput
+# if [[ $userInput == y || $userInput == Y ]]; then
+# echo "Installing the swapfile..."
+# bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/swapfile.sh)"
+# elif [[ $userInput == n || $userInput == N ]]; then
+# echo "Skipping swapfile setup..."
+# fi
+# sleep 1
 
 clear
 echo "Do you want to install configurations that will let you use the joycons as a mouse?"
