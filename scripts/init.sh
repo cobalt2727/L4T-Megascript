@@ -102,3 +102,4 @@ reboot
 elif [[ $userInput == n || $userInput == N ]]; then
 echo "Sending you back to the main menu..."
 sleep 3
+fi
