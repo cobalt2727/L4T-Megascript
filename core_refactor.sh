@@ -121,7 +121,12 @@ while [ $x == 1 ]; do
     )
 
     if [ "$?" != 1 ]; then
-      zenity --password | sudo -S echo ""
+      sudo -k
+      state="0"
+      while [ "$state" == "0" ]; do
+        zenity --password | sudo -S echo "" 2>&1 > /dev/null | grep -q "incorrect"
+        state=$?
+      done
     fi
     x=0
   else
