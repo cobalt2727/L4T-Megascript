@@ -52,7 +52,8 @@ if [[ $userInput == 1 ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/config.sh)"
 
 
-elif [[ $userInput == 3 ]]; then
+elif [[ $userInput == 2 ]]; then
+  sudo apt install xdelta3 -y
   bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
 
 
