@@ -9,6 +9,9 @@ cd ~
 mkdir -p discord-tmp/
 cd discord-tmp/
 
+echo "Removing previous legacy Discord installs..."
+sudo dpkg -r electron-discord-webapp
+
 echo "Downloading the most recent .deb from SpacingBat3's repository..."
 curl -s https://api.github.com/repos/SpacingBat3/electron-discord-webapp/releases/latest \
   | grep "browser_download_url.*arm64.deb" \

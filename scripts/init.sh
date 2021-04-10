@@ -10,7 +10,7 @@ echo "Checking for updates and installing a few extra recommended packages."
 echo "This might take a while, depending on your internet speed."
 echo "Pull up a chair!"
 echo "CREDITS:"
-echo "  https://gbatemp.net/threads/l4t-ubuntu-applcation-install-guides.537579/"
+echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
 
