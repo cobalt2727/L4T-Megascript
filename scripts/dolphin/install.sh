@@ -9,10 +9,7 @@ echo "Installing dependencies..."
 sleep 1
 sudo apt update
 sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y 
-echo "Adding GCC and G++ 9/10 Repo"
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-sudo apt update
-sudo apt install gcc-10 g++-10 -y
+
 
 echo "Downloading the source..."
 git clone https://github.com/dolphin-emu/dolphin
@@ -31,12 +28,17 @@ if grep -q bionic /etc/os-release; then
   
   echo "Ubuntu 18.04 detected, skipping LTO optimization..."
   echo "If that means nothing to you, don't worry about it."
-  
+  echo "That being said, we need to get you a newer compiler to prevent some bugs."
+  #oddly enough the only *known* bug here is that emulated wii remote cursors don't work with GCC 7 builds
+  echo "Adding GCC and G++ 9/10 Repo..."
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  sudo apt update
+  sudo apt install gcc-10 g++-10 -y
   cmake .. -D -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
 
 else  
   
-  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
 
 fi
 
