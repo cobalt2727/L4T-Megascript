@@ -21,6 +21,13 @@ if grep -q bionic /etc/os-release; then
   echo "Note that trying to upgrade L4T Ubuntu from within your existing installation is not supported and WILL BREAK YOUR LINUX INSTALL!"
   echo "When 20.04 launches you'll have to reinstall completely to upgrade."
   sleep 30
+  echo "laying groundwork for gman to do his QT5 wizardry later:"
+  
+  echo "Adding GCC and G++ 9/10 Repo..."
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  sudo apt update
+  sudo apt install gcc-10 g++-10 -y
+  
   exit
 fi
 
