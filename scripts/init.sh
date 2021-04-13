@@ -14,8 +14,15 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-sw
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 sleep 10
 
-#bionic's flatpak app is out of date, i'll probably leave this line in even after the focal upgrade as long as it's not hurting anything
-sudo add-apt-repository ppa:alexlarsson/flatpak -y
+#bionic's flatpak package is out of date
+if grep -q bionic /etc/os-release; then
+  sudo add-apt-repository ppa:alexlarsson/flatpak -y
+fi
+
+#focal's flatpak package is also out of date (great work there Ubuntu)
+if grep -q focal /etc/os-release; then
+  sudo add-apt-repository ppa:alexlarsson/flatpak -y
+fi
 
 #updates whee
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
@@ -28,9 +35,14 @@ gsettings reset org.gnome.shell app-picker-layout
 sudo apt install joycond subversion wget cpufrequtils indicator-cpufreq flatpak gnome-software-plugin-flatpak openssh-sftp-server fonts-migmix fonts-noto-color-emoji qt5-style-plugins gnutls-bin -y
 hash -r
 
+#it's a very very bad idea to have this on Tegra hardware
+sudo apt remove unattended-upgrades -y
+
 #automatically sets QT applications to follow the system theme
 grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
-#and now i force it on anyway so that the user doesn't have to reboot to see the effect
+#and now i (attempt to) force it on anyway so that the user doesn't have to reboot to see the effect
+#i'm not entirely positive this works, they still might have to reboot or log out and log back in
+#oh well
 export QT_QPA_PLATFORMTHEME=gtk2
 
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
