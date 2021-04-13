@@ -6,6 +6,11 @@
 #In case you wonder, no, its not posible to upload the files. This put us in risk of getting a DMCA ourselves. So, unless something happens, this file would stay archived forever
 #- Lang 
 
+#Oh yeah by the way - it's still totally possible to install Cave Story on your Switch here, we just haven't given it its own script.
+#...since it's really only one line (assuming you have flatpak set up, which we can automate for you with the initial setup script)
+#run this in your terminal: flatpak install flathub com.gitlab.coringao.cavestory-nx
+#- Cobalt
+
 cd
 clear
 echo "CSE2-Tweaks script started!"
