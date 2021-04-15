@@ -2,6 +2,8 @@
 if [ -z "$SUDO_USER" ]; then
   echo "RetroPie install failed, please run script as sudo"
 else
+  echo "Your username is"
+  echo $SUDO_USER
   cd
   clear
   echo "Retropie script started!"
