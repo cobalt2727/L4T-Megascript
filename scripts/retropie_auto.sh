@@ -5,7 +5,6 @@ else
   clear
   echo "Your username is"
   echo $SUDO_USER
-  cd
   
   echo "Retropie script started!"
   echo
@@ -16,7 +15,7 @@ else
   apt install git dialog unzip xmlstarlet lsb-release crudini -y
   apt install joycond -y
 
-  cd
+  cd /home/$SUDO_USER
   rm -rf RetroPie-Setup
   sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 
