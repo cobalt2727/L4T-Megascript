@@ -81,7 +81,7 @@ _EOF_"
 
   sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
   sdlv=${sdlv/+/.}
-  if [ $(version $sdlv) -ge $(version "2.0.10.5") ]
+  if [ $(version $sdlv) -ge $(version "2.0.10.5") ];
     echo ""
     echo "Already Installed Newest SDL2 Version"
     sleep 3
