@@ -1,4 +1,7 @@
 #!/bin/bash
+
+function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
+
 if [ -z "$SUDO_USER" ]; then
   echo "RetroPie install failed, please run script as sudo"
 else
@@ -76,7 +79,9 @@ _EOF_"
 
   crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
 
-  if dpkg -s libsdl2-dev | grep -q "2.0.10+5"; then
+  sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
+  sdlv=${sdlv/+/.}
+  if [ $(version $version) -ge $(version "2.0.10.5") ]
     echo ""
     echo "Already Installed Newest SDL2 Version"
     sleep 3
