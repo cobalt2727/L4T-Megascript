@@ -21,6 +21,7 @@ echo
 echo "1...............Install Dolphin (use the updater on the main menu to update!)"
 echo "2...............Run the RiiConnect24 Patcher"
 ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
+echo "5...............Install Project+ (builds correctly, performance untested)"
 echo "any other key...Close the Dolphin script and return to the main menu"
 echo
 echo
@@ -70,9 +71,9 @@ elif [[ $userInput == 4 ]]; then
 
 
 elif [[ $userInput == 5 ]]; then
-  echo "not ready yet"
+  echo "Loading Project+ script..."
   sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/projectplus.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/projectplus.sh)"
 
 
 else
