@@ -11,20 +11,12 @@ cd minecraft-bedrock
 curl -s https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 mv *.AppImage MC.AppImage
 chmod +x *.AppImage
-# ./*.AppImage --appimage-extract
-# rm -rf *.AppImage
-# rm -rf squashfs-root/usr/lib/libcairo.so.2
-
-sudo sh -c "cat > /usr/local/share/applications/minecraft-bedrock-appimage.desktop << _EOF_
-[Desktop Entry]
-Type=Application
-Exec=/home/$USER/minecraft-bedrock/MC.AppImage
-Hidden=false
-NoDisplay=false
-Name=Minecraft Bedrock
-# Icon=/home/$USER/minecraft-bedrock/squashfs-root/mcpelauncher-ui-qt.png
-Categories=Game
-_EOF_"
+curl -s https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+sudo dpkg -i *bionic_arm64.deb
+hash -r
+ail-cli integrate MC.AppImage
+cd ~
+rm -rf minecraft-bedrock
 
 echo "Install Dependencies..."
 cd ~
