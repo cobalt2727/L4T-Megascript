@@ -33,15 +33,15 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-hidden=(2 5 8 9 10 12 13 22)
+hidden=(2 8 9 10 12 13 22)
 
 num=()
 num[0]="Initial Setup"
 num[1]="Auto Updater"
 num[2]="Auto Config Updater"
 num[3]="Dolphin"
-num[4]="MultiMC"
-num[5]="Minecraft"
+num[4]="MultiMC (Minecraft Java)"
+num[5]="Minecraft Bedrock"
 num[6]="moonlight-qt"
 num[7]="Discord"
 num[8]="Kodi"
@@ -68,7 +68,7 @@ t[1]="download and install updates from the repos (check this at least once dail
 t[2]="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 t[3]="Gamecube and Wii emulator, latest development version"
 t[4]="Mincraft Launcher, Instance, and Mod Manager"
-t[5]="automatically install both Java and Bedrock versions (https://gitlab.com/devluke/mcswitchtools)"
+t[5]="Android Minecraft Bedrock Version. Ownership of the Android Version Required"
 t[6]="stream games from your PC as long as it has an Nvidia GPU!"
 t[7]="Discord Web App"
 t[8]="media center"
@@ -180,7 +180,7 @@ while [ $x == 1 ]; do
     2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
     3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
     4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft_java_multimc.sh)" ;;
-    5) echo "scripts not ready yet" ;;
+    5) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/minecraft-bedrock-appimage.sh)" ;;
     6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
     7) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/discord.sh)" ;;
     8) echo "scripts not ready yet" ;;
