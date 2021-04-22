@@ -53,7 +53,7 @@ Pin: release o=*zorinos*
 Pin-Priority: 1
 _EOF_"
 
-sudo apt-get install -y debian-keyring
+sudo apt-get install -y debian-archive-keyring
 
 sudo sh -c "cat > /etc/apt/sources.list.d/debian-stable.list << _EOF_
 deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian buster main
