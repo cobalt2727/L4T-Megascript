@@ -5,6 +5,7 @@ clear
 echo "Installing Minecraft Bedrock then we install the dependencies..."
 cd ~
 sudo apt install curl -y
+rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
 curl -s https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
