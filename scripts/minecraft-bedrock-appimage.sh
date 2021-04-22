@@ -8,19 +8,20 @@ sudo apt install curl -y
 mkdir minecraft-bedrock
 cd minecraft-bedrock
 curl -s https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+mv *.AppImage MC.AppImage
 chmod +x *.AppImage
-./*.AppImage --appimage-extract
-rm -rf *.AppImage
-rm -rf squashfs-root/usr/lib/libcairo.so.2
+# ./*.AppImage --appimage-extract
+# rm -rf *.AppImage
+# rm -rf squashfs-root/usr/lib/libcairo.so.2
 
 sudo sh -c "cat > /usr/local/share/applications/minecraft-bedrock-appimage.desktop << _EOF_
 [Desktop Entry]
 Type=Application
-Exec=/home/$USER/minecraft-bedrock/squashfs-root/AppRun
+Exec=/home/$USER/minecraft-bedrock/MC.AppImage
 Hidden=false
 NoDisplay=false
 Name=Minecraft Bedrock
-Icon=/home/$USER/minecraft-bedrock/squashfs-root/mcpelauncher-ui-qt.png
+# Icon=/home/$USER/minecraft-bedrock/squashfs-root/mcpelauncher-ui-qt.png
 Categories=Game
 _EOF_"
 
@@ -81,7 +82,7 @@ _EOF_"
 fi
 
 sudo apt update
-sudo apt install libc6 libc6-dev libc-dev-bin libc-bin locales -y
+sudo apt install libc6 libc6-dev libc-dev-bin libc-bin locales  -y
 sudo apt upgrade -y
 
 echo "Please Reboot before launching!"
