@@ -79,6 +79,31 @@ _EOF_"
 
   crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
 
+  sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts
+  sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts/quit
+  rm -rf /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
+  sudo -u "$SUDO_USER" cat >> /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh <<'EOF'
+mkdir ~/RetroPie/roms/ports
+cd ~/RetroPie/roms/ports
+
+grep -i -P -e "^[Cc]ategories[=].*" /usr/share/applications/*.desktop | sort | uniq | grep -o ".*Game" | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev > list.txt
+grep -i -P -e "^[Cc]ategories[=].*" ~/.local/share/applications/*.desktop | sort | uniq | grep -o ".*Game" | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev >> list.txt
+grep -i -P -e "^[Cc]ategories[=].*" ~/.local/share/flatpack/exports/share/applications/*.desktop | sort | uniq | grep -o ".*Game" | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev >> list.txt
+grep -i -P -e "^[Cc]ategories[=].*" /usr/local/share/applications/*.desktop | sort | uniq | grep -o ".*Game" | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev >> list.txt
+
+
+while read line; do
+filename=$(echo $line | grep -oP '.*?(?=\.desktop)' | sed -e 's/ /_/g')
+echo $filename
+echo 'nohup $(gtk-launch ' '"'"$line"'")' > $filename".sh"
+chmod +x $filename".sh"
+done <list.txt
+rm -rf retropie.sh
+EOF
+
+  chmod 755 /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
+
+
   sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
   sdlv=${sdlv/+/.}
   if [ $(version $sdlv) -ge $(version "2.0.10.5") ]; then
