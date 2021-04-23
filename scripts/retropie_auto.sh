@@ -83,6 +83,8 @@ _EOF_"
   sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts/quit
   rm -rf /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
   sudo -u "$SUDO_USER" cat >> /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh <<'EOF'
+#!/bin/bash
+
 param=("/usr/share/applications/" "$HOME/.local/share/applications/" "$HOME/.local/share/flatpack/exports/share/applications/" "/usr/local/share/applications/")
 mkdir ~/RetroPie/roms/ports
 cd ~/RetroPie/roms/ports
