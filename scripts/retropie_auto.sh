@@ -101,8 +101,10 @@ do
 				echo ""
 			else
 				filename=$(echo ${FILES[i]} | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev)
-				filename=$(echo $filename | grep -oP '.*?(?=\.desktop)' | sed -e 's/ /_/g')
-				echo 'nohup $(gtk-launch ' '"'"$line"'")' > $filename".sh"
+        desktop_name=$filename
+        filename=$(echo $filename | grep -oP '.*?(?=\.desktop)' | sed -e 's/ /_/g')
+        echo 'nohup $(gtk-launch ' '"'"$desktop_name"'")' > $filename".sh"
+
 				chmod +x $filename".sh"
 				echo "$filename" >>list.txt
 				path_var='./'"$filename"".sh"
