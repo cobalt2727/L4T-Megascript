@@ -21,6 +21,9 @@ Some of our included program install scripts are below:
 - Dolphin: Gamecube and Wii emulator, latest development version
 - Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04/20.10 IMAGE)
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia (with Gamestream) or AMD (with Sunshine) GPU!
+- Minecraft Bedrock (Android Version) - Android Minecraft Bedrock Version. Ownership of the Android Version Required (controllers function but may cause Minecraft to crash on launch)
+- MultiMC Minecraft Java - Mincraft Java Launcher, Instance, and Mod Manager
+- Discord (Webcord) Webapp - Electron based discord webapp built on the discord browser version.
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
 - SRB2Kart: A kart racing game using SRB2 as a base
 - RetroPie: Powerful frontend for both emulators and native programs alike
@@ -28,10 +31,10 @@ Some of our included program install scripts are below:
 - SM64Port: A native port of the classic game for the N64 (requires your own, **legally** dumped ROM)
 
  We are planning in adding more scripts and functions to the script in future updates.
+ (Check the repo folders for scripts currently in progress but not yet available in the gui/cli)
 ## Planned features:
 - Finish the GUI
 - Finish all the wiki pages 
-- Figure out whether or not the Linux loader for Bedrock can be forced to run well if we build from source instead of using the Flatpak
 - Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft
 - _Possibly_ work on including the manually built scripts here into the updater?
 - More to come!
