@@ -18,8 +18,6 @@ mkdir -p build
 cd build
 echo "Building..."
 echo
-echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
-sleep 10
 #if you're looking at this script as a reference for building Dolphin on your own hardware,
 #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
 
@@ -33,10 +31,15 @@ if grep -q bionic /etc/os-release; then
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt update
   sudo apt install gcc-10 g++-10 -y
+  echo "Alright, NOW we can start the building process."
+  echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
+  sleep 10
   cmake .. -D -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
 
 else  
   
+  echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
+  sleep 10
   cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static"
 
 fi
