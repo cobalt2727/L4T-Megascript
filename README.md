@@ -49,7 +49,7 @@ Some of our included program install scripts are below:
 
 
 ## Do you have a question or an idea about the project?
-You're in luck - we've got a Discord server: [DM Cobalt#9258]
+You're in luck - we've got a Discord server: [DM Cobalt#7768]
 
 ## Credits
 - STJr: Developers, SRB2
