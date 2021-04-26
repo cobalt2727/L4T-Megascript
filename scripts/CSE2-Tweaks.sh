@@ -11,9 +11,6 @@
 #run this in your terminal: flatpak install flathub com.gitlab.coringao.cavestory-nx
 #- Cobalt
 
-#Cobalt in case you read this, give me your new DM man, changed accounts and need to talk with you about something 
-#- Lang
-
 cd
 clear
 echo "CSE2-Tweaks script started!"
