@@ -49,7 +49,7 @@ Some of our included program install scripts are below:
 
 
 ## Do you have a question or an idea about the project?
-You're in luck - we've got a Discord server: [DM Cobalt#7768]
+You're in luck - we've got a Discord server: [opening soon™!]
 
 ## Credits
 - STJr: Developers, SRB2
@@ -62,3 +62,4 @@ You're in luck - we've got a Discord server: [DM Cobalt#7768]
 - SuperTux: Developers, SuperTux2
 - n64decomp: Responsible for the SM64 Decompilation Project
 - sm64pc: Adapted the SM64 Port to work with ARM64 devices
+- many more!
