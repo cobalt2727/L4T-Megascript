@@ -1,6 +1,6 @@
 # NOT READY YET - WE'RE STILL A WAYS TO GO BEFORE ANYTHING HERE IS CONSIDERED READY TO GO PUBLIC. USE AT YOUR OWN DEVICE'S RISK. BEAR IN MIND SOME OF THE SCRIPTS MAY SCREW UP YOUR INSTALLATION, ESPECIALLY IF YOU'RE NOT USING TEGRA HARDWARE.
 ## L4T-Megascript
-![Logo](https://raw.githubusercontent.com/Lang-Kasempo/L4T-Megascript/master/L4T%20Megascript-logo.png)
+![Logo](https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/L4T_Megascript-logo-transparent-effect.png)
 **We did the hard parts so you don't have to!**
 
 ## What is this?
