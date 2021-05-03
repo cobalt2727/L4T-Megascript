@@ -5,6 +5,7 @@ echo "Dolphin script successfully started!"
 sleep 1
 
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
+sudo apt install udev libudev1 libudev-dev
 sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
 sudo touch /etc/udev/rules.d/51-gcadapter.rules
 echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules > /dev/null
