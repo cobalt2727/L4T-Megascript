@@ -16,6 +16,7 @@ echo "  https://flatpak.org/setup/"
 sleep 10
 
 if grep -q bionic /etc/os-release; then
+  echo
   ##snap store is not preinstalled on 18.04, nothing to do here
 else
   echo -e "\e[35mDo you want to remove the snap store? If unsure, think of it as\e[0m"
