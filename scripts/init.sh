@@ -8,18 +8,54 @@ sleep 2
 
 echo "Checking for updates and installing a few extra recommended packages."
 echo "This might take a while, depending on your internet speed."
-echo "Pull up a chair!"
+echo "Grab your charger, and pull up a chair!"
 echo "CREDITS:"
 echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
+echo "  https://flatpak.org/setup/"
 sleep 10
+
+if grep -q bionic /etc/os-release; then
+  ##snap store is not preinstalled on 18.04, nothing to do here
+else
+  echo -e "\e[35mDo you want to remove the snap store? If unsure, think of it as\e[0m"
+  echo -e "\e[35mbloatware from Canonical and type 'yes' or 'y' without the quotes.\e[0m"
+  echo "It's controversial for a few reasons:"
+  echo " - the store is closed source, which is a bit weird for a Linux company..."
+  echo " - programs installed from them are in containers,"
+  echo "   which means they won't run as well"
+  echo " - the biggest issue, especially on a weaker device like"
+  echo "   the Tegra hardware you're using right now, is that"
+  echo "   it automatically updates snap packages whenever it wants"
+  echo "   to, with no input from the user - which can obviously"
+  echo "   slow anything you're doing at the moment down."
+  echo "That being said, if you've already been using this device for a while,"
+  echo "You may want to keep it for now since you might have installed stuff"
+  echo "using it. It's recommended by us to switch from snaps to apt, flatpak, and"
+  echo "building from source whenever possible."
+  echo
+  echo "So as you can probably tell, we're extremely biased against"
+  echo "it and would recommend removing it. But the choice is yours:"
+  sleep 5
+  echo
+  read -p "(y/n) " userInput
+  if [[ $userInput == y || $userInput == Y ]]; then
+    echo -e "\e[32mRemoving the Snap store...\e[0m"
+    sudo apt purge snapd unattended-upgrades -y
+  else
+    echo "Decided to keep the Snap store..."
+    echo "If you ever change your mind, type:"
+    echo -e "\e[36msudo apt purge snapd unattended-upgrades -y\e[0m"
+    sleep 5
+  fi
+fi
 
 #bionic's flatpak package is out of date
 if grep -q bionic /etc/os-release; then
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
 fi
 
-#focal's flatpak package is also out of date (great work there Ubuntu)
+#focal's flatpak package is also out of date (I get LTS is supposed to put stability above all else, but seriously?)
 if grep -q focal /etc/os-release; then
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
 fi
@@ -86,10 +122,10 @@ clear
 echo "Do you want to build and install SDL2? (Required for many games in the script)"
 read -p "(y/n) " userInput
 if [[ $userInput == y || $userInput == Y ]]; then
-echo "Building and installing SDL2..."
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+  echo "Building and installing SDL2..."
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $userInput == n || $userInput == N ]]; then
-echo "Going to the next option"
+  echo "Going to the next option"
 fi
 sleep 1
 
