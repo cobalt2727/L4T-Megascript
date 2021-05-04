@@ -1,6 +1,5 @@
 clear
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
-echo "Lang: Are you going to keep this here forever Cobalt?"
 echo -e "\e[30mBlack Text\e[0m"
 echo -e "\e[31mRed Text\e[0m"
 echo -e "\e[32mGreen Text\e[0m"
