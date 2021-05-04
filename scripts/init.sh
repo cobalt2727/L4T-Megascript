@@ -40,7 +40,7 @@ else
   sleep 5
   echo
   read -p "(y/n) " userInput
-  if [[ $userInput == y || $userInput == Y ]]; then
+  if [[ $userInput == y || $userInput == Y || $userInput == yes || $userInput == Yes ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
     sudo apt purge snapd unattended-upgrades
   else
