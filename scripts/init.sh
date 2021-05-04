@@ -42,7 +42,7 @@ else
   read -p "(y/n) " userInput
   if [[ $userInput == y || $userInput == Y ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
-    sudo apt purge snapd unattended-upgrades -y
+    sudo apt purge snapd unattended-upgrades
   else
     echo "Decided to keep the Snap store..."
     echo "If you ever change your mind, type:"
