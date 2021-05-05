@@ -28,6 +28,16 @@ cd ~
 rm -rf ocs-url/
 
 echo "Done!"
-echo "Find a theme you like and install it- enjoy!"
-sleep 3
-xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
+
+if [[ $DISPLAY ]]; then
+        echo "Find a theme you like and install it - enjoy!"
+        sleep 3
+        
+        #open up the default web browser
+        xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
+
+else
+        echo "Open up https://www.pling.com on your device"
+        echo "and find a theme you like - enjoy!"
+        sleep 4
+fi
