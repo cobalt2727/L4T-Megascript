@@ -20,7 +20,7 @@ curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
   | wget -qi -
 
 echo "Done! Installing the package (and maybe fixing dependencies)..."
-sudo apt install *arm64.deb
+sudo dpkg -i *arm64.deb
 sudo apt --fix-broken install -y
 
 cd ..
