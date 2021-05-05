@@ -26,3 +26,8 @@ sudo make install
 
 cd ~
 rm -rf ocs-url/
+
+echo "Done!"
+echo "Find a theme you like and install it- enjoy!"
+sleep 3
+xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
