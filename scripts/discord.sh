@@ -13,7 +13,7 @@ echo "Removing previous legacy Discord installs..."
 sudo dpkg -r electron-discord-webapp
 
 echo "Downloading the most recent .deb from SpacingBat3's repository..."
-curl -s https://api.github.com/repos/SpacingBat3/electron-discord-webapp/releases/latest \
+curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
   | grep "browser_download_url.*arm64.deb" \
   | cut -d : -f 2,3 \
   | tr -d \" \
