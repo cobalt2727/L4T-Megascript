@@ -36,6 +36,7 @@ fi
 hidden=()
 rm -rf /tmp/megascript_apps.txt
 wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt -O /tmp/megascript_apps.txt
+sed -i '/^$/d' /tmp/megascript_apps.txt
 length=$( wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }' )
 
 while [ $x == 1 ]; do
