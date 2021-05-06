@@ -36,4 +36,4 @@ fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)
 
 fn="SRB2Kart";;d="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2";;sn="SRB2Kart.sh";;f="scripts"
 
-fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="scripts"
+fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="extras/barrier.sh";;f="scripts"
