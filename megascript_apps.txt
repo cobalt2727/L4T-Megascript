@@ -4,7 +4,7 @@ fn="Auto Updater";;d="download and install updates from the repos (check this at
 
 fn="Auto Config Updater";;d="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)";;e='echo "go ping cobalt on discord and yell at me about getting an updater system working"';;f="scripts"
 
-fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="/dolphin/main.sh";;f="scripts"
+fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dolphin/main.sh";;f="scripts"
 
 fn="MultiMC (Minecraft Java)";;d="Mincraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="scripts"
 
