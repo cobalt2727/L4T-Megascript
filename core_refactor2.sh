@@ -33,6 +33,27 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
+conversion () {
+for ((i = 1; i <= ${length}; i++)); do
+if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
+  fn=""; d="";  e=""; f=""; sn=""
+  eval "$( sed -n $i"p" < "/tmp/megascript_apps.txt" | tr ";" "\n" )"
+  scripts[$i]=$sn
+  if [ "$f" = "scripts" ]; then
+    folder[$i]=$f
+  else
+    folder[$i]="scripts/$f"
+  fi
+  execute[$i]=$e
+  if [[ $gui == "gui" ]]; then
+    table+=(FALSE $i "$fn" "$d")
+  else
+    echo "$i...............$fn - $d"
+  fi
+fi
+done
+}
+
 hidden=()
 rm -rf /tmp/megascript_apps.txt
 wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt -O /tmp/megascript_apps.txt
@@ -54,16 +75,7 @@ while [ $x == 1 ]; do
     scripts=()
     folder=()
     execute=()
-    for ((i = 1; i <= ${length}; i++)); do
-      if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
-        fn=""; d="";  e=""; f=""; sn=""
-        eval "$( sed -n $i"p" < "/tmp/megascript_apps.txt" | tr ";" "\n" )"
-        scripts[$i]=$sn
-        folder[$i]=$f
-        execute[$i]=$e
-        table+=(FALSE $i "$fn" "$d")
-      fi
-    done
+    conversion
 
     CHOICE=$(
       zenity \
@@ -105,16 +117,11 @@ while [ $x == 1 ]; do
     echo "0...............***WIP***${num[0]} - ${t[0]}"
     echo "................(2 GB of open space required for the swapfile!)"
 
-    for ((i = 1; i <= ${length}; i++)); do
-      if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
-        fn=""; d="";  e=""; f=""; sn=""
-        eval "$( sed -n $i"p" < "/tmp/megascript_apps.txt" | tr ";" "\n" )"
-        scripts[$i]=$sn
-        folder[$i]=$f
-        execute[$i]=$e
-        echo "$i...............$fn - $d"
-      fi
-    done
+    table=()
+    scripts=()
+    folder=()
+    execute=()
+    conversion
 
     echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
     echo
