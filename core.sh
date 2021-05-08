@@ -86,8 +86,7 @@ read -p "Make a selection: " userInput
 echo "you have chosen $userInput"
 
 if [[ $userInput != X || $userInput != x || $userInput != exit || $userInput != Exit ]]; then
-  cd ~
-  mkdir -p RetroPie/roms/ports
+
 fi
 
 if [[ $userInput == 0 || $userInput == setup ]]; then

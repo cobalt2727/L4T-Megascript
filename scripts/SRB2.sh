@@ -19,8 +19,6 @@ wget https://github.com/STJr/SRB2/archive/master.zip
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2-A
 mkdir -p SRB2
-cd SRB2-A
-mv SRB2_retropie.sh -t ~/RetroPie/roms/ports
 cd
 unzip master.zip
 mkdir -p SRB2-DT

@@ -6,4 +6,4 @@ Exec=/usr/share/TheXTech/bin/thextech
 Path=/usr/share/TheXTech/lib
 Terminal=false
 Hidden=false
-Categories=Games
+Categories=Game
