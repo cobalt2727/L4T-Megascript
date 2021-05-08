@@ -16,8 +16,6 @@ cd ~
 sudo apt install build-essential git python3 libglew-dev libsdl2-dev subversion -y
 wget https://github.com/sm64pc/sm64ex/archive/nightly.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
-cd SM64
-mv SM64.sh -t ~/RetroPie/roms/ports
 cd
 unzip nightly.zip
 cd sm64ex-nightly

@@ -31,8 +31,6 @@ hash -r
 wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
 unzip tweaks.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/CSE2-Tweaks
-cd CSE2-Tweaks
-mv CSE2-Tweaks.sh -t ~/RetroPie/roms/ports
 cd
 cd CSE2-tweaks-tweaks
 echo
