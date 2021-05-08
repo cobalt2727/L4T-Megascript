@@ -69,7 +69,7 @@ gsettings reset org.gnome.shell app-picker-layout
 
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install joycond subversion wget cpufrequtils indicator-cpufreq flatpak gnome-software-plugin-flatpak fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji qt5-style-plugins gnutls-bin -y
+sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji qt5-style-plugins gnutls-bin -y
 hash -r
 
 #it's a very very bad idea to have this on Tegra hardware
