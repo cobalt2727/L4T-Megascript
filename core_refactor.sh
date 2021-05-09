@@ -206,6 +206,13 @@ while [ $x == 1 ]; do
   done
 done
 
+#create .desktop file for the megascript
+sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
+sudo rm -rf /usr/share/icons/L4T-Megascript.png
+
+sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png --output /usr/share/icons/L4T-Megascript.png
+sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop --output /usr/share/applications/L4T-Megascript.desktop
+
 if [[ $gui == "gui" ]]; then
   zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 fi
