@@ -33,32 +33,39 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-conversion () {
-for ((i = 1; i <= ${length}; i++)); do
-if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
-  fn=""; d="";  e=""; f=""; sn=""
-  eval "$( sed -n $i"p" < "/tmp/megascript_apps.txt" | tr ";" "\n" )"
-  scripts[$i]=$sn
-  if [ "$f" = "scripts" ]; then
-    folder[$i]=$f
-  else
-    folder[$i]="scripts/$f"
-  fi
-  execute[$i]=$e
-  if [[ $gui == "gui" ]]; then
-    table+=(FALSE $i "$fn" "$d")
-  else
-    echo "$i...............$fn - $d"
-  fi
-fi
-done
+conversion() {
+  for ((i = 1; i <= ${length}; i++)); do
+    if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
+      fn=""
+      d=""
+      e=""
+      f=""
+      sn=""
+      eval "$(sed -n $i"p" <"/tmp/megascript_apps.txt" | tr ";" "\n")"
+      scripts[$i]=$sn
+      if [ "$f" = "scripts" ]; then
+        folder[$i]=$f
+      else
+        folder[$i]="scripts/$f"
+      fi
+      execute[$i]=$e
+      if [[ $gui == "gui" ]]; then
+        ids+=($f)
+        declare -n current_table=table_$f
+        current_table+=(FALSE $i "$f" "$fn" "$d")
+        unset -n current_table
+      else
+        echo "$i...............$f - $fn - $d"
+      fi
+    fi
+  done
 }
 
 hidden=()
 rm -rf /tmp/megascript_apps.txt
 wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt -O /tmp/megascript_apps.txt
 sed -i '/^$/d' /tmp/megascript_apps.txt
-length=$( wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }' )
+length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
 
 while [ $x == 1 ]; do
   cd ~
@@ -75,31 +82,67 @@ while [ $x == 1 ]; do
     scripts=()
     folder=()
     execute=()
+    ids=()
     conversion
-
-    CHOICE=$(
-      zenity \
-      --width="1000" \
-      --height="500" \
-      --list \
-      --checklist \
-      --column "Install" \
-      --column "Number" \
-      --column "Program" \
-      --column "Details" \
-      --ok-label="INSTALL" \
-      "${table[@]}" \
-      --separator=':'
-    )
-
-    if [ "$?" != 1 ]; then
-      sudo -k
-      state="0"
-      while [ "$state" == "0" ]; do
-        zenity --password | sudo -S echo "" 2>&1 > /dev/null | grep -q "incorrect"
-        state=$?
-      done
-    fi
+    uniq_selection=()
+    CHOICE=""
+    uniq=($(printf "%s\n" "${ids[@]}" | sort -u))
+    echo "${uniq[@]}"
+    for string in "${uniq[@]}"; do
+      uniq_selection+=(FALSE $string)
+    done
+    while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
+      CATEGORY=$(
+        zenity \
+        --width="250" \
+        --height="250" \
+        --title "Welcome to the L4T-Megascript" \
+        --text "Please Choose a Scripts Category" \
+        --list \
+        --radiolist \
+        --column "Selection" \
+        --column "Category" \
+        "${uniq_selection[@]}" \
+        --cancel-label "Exit the Megascript" \
+        --ok-label "Go to Selection"
+      )
+      if [ "$?" != 1 ]; then
+        declare -n current_table=table_$CATEGORY
+        CHOICE=$(
+          zenity \
+          --width="1000" \
+          --height="500" \
+          --list \
+          --checklist \
+          --column "Install" \
+          --column "Number" \
+          --column "Category" \
+          --column "Program" \
+          --column "Details" \
+          --ok-label="INSTALL" \
+          --hide-column=2 \
+          "${current_table[@]}" \
+          --separator=':' \
+          --cancel-label "Exit the Megascript" \
+          --extra-button "Go Back to Categories"
+        )
+        if [ "$?" != 1 ]; then
+          sudo -k
+          state="0"
+          while [ "$state" == "0" ]; do
+            zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
+            state=$?
+          done
+        elif [ "$CHOICE" == "Go Back to Categories" ]; then
+        echo ""
+        else
+        CHOICE="exit"
+        fi
+        unset -n current_table
+      else
+        CHOICE="exit"
+      fi
+    done
     x=0
   else
 
@@ -155,8 +198,7 @@ while [ $x == 1 ]; do
   done
 done
 
-if sudo -n true
-then
+if sudo -n true; then
   #create .desktop file for the megascript
   sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
   sudo rm -rf /usr/share/icons/L4T-Megascript.png
@@ -167,7 +209,6 @@ then
 else
   echo "didn't add the L4T-Megascript.desktop file, Sudo timer ran out"
 fi
-
 
 if [[ $gui == "gui" ]]; then
   zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
