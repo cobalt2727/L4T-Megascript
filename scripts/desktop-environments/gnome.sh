@@ -14,5 +14,9 @@ echo "If your screen goes black, don't panic, that's normal. Give it a minute...
 sleep 5
 
 sudo systemctl restart gdm
+
+#automatically sorts Gnome app layout alphabetically
+gsettings reset org.gnome.shell app-picker-layout
+
 echo "Going back to the main menu..."
 sleep 1
