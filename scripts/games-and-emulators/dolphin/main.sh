@@ -49,9 +49,9 @@ if [[ $userInput == 1 ]]; then
 	echo "Building from source with device-specific optimizations..."
 	
 	cd ~
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/install.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/dolphin/install.sh)"
   ##fi
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/config.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/dolphin/config.sh)"
 
 
 elif [[ $userInput == 2 ]]; then
@@ -62,19 +62,19 @@ elif [[ $userInput == 2 ]]; then
 elif [[ $userInput == 3 ]]; then
   echo "not ready yet"
   sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/primehack.sh)"
+  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/dolphin/primehack.sh)"
 
 
 elif [[ $userInput == 4 ]]; then
   echo "not ready yet"
   sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/slippi.sh)"
+  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/dolphin/slippi.sh)"
 
 
 elif [[ $userInput == 5 ]]; then
   echo "Loading Project+ script..."
   sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/projectplus.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/dolphin/projectplus.sh)"
 
 
 else
