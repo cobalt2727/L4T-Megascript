@@ -17,7 +17,6 @@ echo -e "\e[4munderline\e[0m"
 echo -e "\e[9mstrikethrough\e[0m"
 echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
-#echo "create a desktop file for the script on this line"
 x=1
 
 #allow developer to set repository username and branch
@@ -71,18 +70,14 @@ while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
   clear
-
+  table=()
+  scripts=()
+  folder=()
+  execute=()
+  ids=()
   if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program."
-    #echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
     zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!"
-    sleep 2
-
-    table=()
-    scripts=()
-    folder=()
-    execute=()
-    ids=()
     conversion
     uniq_selection=()
     CHOICE=""
@@ -135,9 +130,9 @@ while [ $x == 1 ]; do
             state=$?
           done
         elif [ "$CHOICE" == "Go Back to Categories" ]; then
-        echo ""
+          echo ""
         else
-        CHOICE="exit"
+          CHOICE="exit"
         fi
         unset -n current_table
       else
@@ -152,21 +147,9 @@ while [ $x == 1 ]; do
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
     #echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
     echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
-
     sleep 2
-    #echo "note to self: get lakka firmware files and put in /lib/firmware - see L4T gbatemp release thread about that"
     echo
-    echo
-
-    echo "0...............***WIP***${num[0]} - ${t[0]}"
-    echo "................(2 GB of open space required for the swapfile!)"
-
-    table=()
-    scripts=()
-    folder=()
-    execute=()
     conversion
-
     echo "X...............Close L4T Megascript, view credits and source code, and get Discord support server link"
     echo
     echo
@@ -185,54 +168,53 @@ while [ $x == 1 ]; do
   # initialize sudo password and extent timeout so we never run out
   IFS=":"
   if sudo -n true; then
-  while true; do
-    sleep 60
-    sudo -v
-    kill -0 "$$" 2>/dev/null || exit
-  done &
-  for word in $CHOICE; do
-    if [ -z ${execute[$word]} ]; then
-      bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
-    else
-      eval "${execute[$word]}"
-    fi
+    while true; do
+      sleep 60
+      sudo -v
+      kill -0 "$$" 2>/dev/null || exit
+    done &
+    for word in $CHOICE; do
+      if [ -z ${execute[$word]} ]; then
+        bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+      else
+        eval "${execute[$word]}"
+      fi
 
-  done
+    done
+  fi
 done
-fi
 
 if sudo -n true; then
   #create .desktop file for the megascript
   sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
   sudo rm -rf /usr/share/icons/L4T-Megascript.png
-
   sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png --output /usr/share/icons/L4T-Megascript.png
   sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop --output /usr/share/applications/L4T-Megascript.desktop
   sudo chmod +x '/usr/share/applications/L4T-Megascript.desktop'
 else
-  echo "didn't add the L4T-Megascript.desktop file, Sudo timer ran out"
+  echo "didn't add the L4T-Megascript.desktop file, sudo timer ran out"
 fi
 
 if [[ $gui == "gui" ]]; then
   zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+  clear
+else
+  echo "Thank you for using the L4T Megascript!"
+  sleep 2
+  clear
+  echo "Credits:"
+  echo "CTRL + CLICK ON A LINK TO OPEN IT"
+  echo
+  echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev/Benevolent Dictator\e[0m"
+  echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
+  echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
+  echo -e "\e[32mGman - Contributor/Beta Tester\e[0m"
+  echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
+  #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
+  echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 fi
-
 unset repository_username
 unset repository_branch
-
-echo "Thank you for using the L4T Megascript!"
-sleep 2
-clear
-echo "Credits:"
-echo "CTRL + CLICK ON A LINK TO OPEN IT"
-echo
-echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev/Benevolent Dictator\e[0m"
-echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
-echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
-echo -e "\e[32mGman - Contributor/Beta Tester\e[0m"
-echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
-#echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
-echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
 
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at [link not public yet] for support.'
