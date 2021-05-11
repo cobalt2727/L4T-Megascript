@@ -52,7 +52,7 @@ conversion() {
       if [[ $gui == "gui" ]]; then
         ids+=($f)
         declare -n current_table=table_$f
-        current_table+=(FALSE $i "$f" "$fn" "$d")
+        current_table+=(FALSE $i "$fn" "$d")
         unset -n current_table
       else
         echo "$i...............$f - $fn - $d"
@@ -112,11 +112,12 @@ while [ $x == 1 ]; do
           zenity \
           --width="1000" \
           --height="500" \
+          --title $CATEGORY \
+          --text "Please Select the Desired Programs to Install" \
           --list \
           --checklist \
           --column "Install" \
           --column "Number" \
-          --column "Category" \
           --column "Program" \
           --column "Details" \
           --ok-label="INSTALL" \
@@ -183,6 +184,7 @@ while [ $x == 1 ]; do
   # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
   # initialize sudo password and extent timeout so we never run out
   IFS=":"
+  if sudo -n true; then
   while true; do
     sleep 60
     sudo -v
@@ -197,6 +199,7 @@ while [ $x == 1 ]; do
 
   done
 done
+fi
 
 if sudo -n true; then
   #create .desktop file for the megascript
