@@ -34,6 +34,8 @@ fn="supertux";;d='A 2D jump and run sidescroller game in a style similar to the 
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="scripts"
 
+fn="ocs-url";;d="Support for the Pling store's Install button";;sn="ocs-url.sh";;f="scripts"
+
 fn="SRB2Kart";;d="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2";;sn="SRB2Kart.sh";;f="scripts"
 
 fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
