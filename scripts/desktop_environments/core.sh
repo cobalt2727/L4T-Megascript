@@ -37,34 +37,34 @@ read -p "Make a selection: " userInput
 echo "you have chosen $userInput"
 
 if [[ $userInput == budgie || $userInput == Budgie ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/budgie.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/budgie.sh)"
   
 elif [[ $userInput == cinnamon || $userInput == Cinnamon ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/cinnamon.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/cinnamon.sh)"
 
 elif [[ $userInput == gnome || $userInput == Gnome ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/gnome.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/gnome.sh)"
 
 elif [[ $userInput == kde || $userInput == KDE || $userInput == kde plasma || $userInput == KDE Plasma || $userInput == plasma || $userInput == Plasma ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/cinnamon.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/cinnamon.sh)"
 
 elif [[ $userInput == lxde || $userInput == LXDE ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/lxde.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/lxde.sh)"
 
 elif [[ $userInput == lxqt || $userInput == LXQT ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/lxqt.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/lxqt.sh)"
 
 elif [[ $userInput == mate || $userInput == MATE ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/mate.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/mate.sh)"
 
 elif [[ $userInput == ukui || $userInput == UKUI ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/ukui.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/ukui.sh)"
 
 elif [[ $userInput == unity || $userInput == Unity ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/unity.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/unity.sh)"
 
 elif [[ $userInput == xfce || $userInput == XFCE ]]; then
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop-environments/xfce.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/xfce.sh)"
 
 else
   echo "Unidentified input detected, throwing you back to the main menu..."

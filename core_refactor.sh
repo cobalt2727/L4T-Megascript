@@ -179,26 +179,26 @@ while [ $x == 1 ]; do
     1) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/update.sh)" ;;
     2) echo "go ping cobalt on discord and yell at me about getting an updater system working" ;;
     3) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/dolphin/main.sh)" ;;
-    4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/minecraft_java_multimc.sh)" ;;
-    5) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/minecraft-bedrock-appimage.sh)" ;;
+    4) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/minecraft_java_multimc.sh)" ;;
+    5) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/minecraft-bedrock-appimage.sh)" ;;
     6) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/moonlight.sh)" ;;
     7) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/discord.sh)" ;;
     8) echo "scripts not ready yet" ;;
     9) echo "scripts not ready yet" ;;
     #10) echo "overscan is your own problem" ;;
-    11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/citra.sh)" ;;
+    11) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)" ;;
     12) echo "empty for some reason" ;;
     13)
       echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here's hoping GitHub restores it!"
       echo "Sending you back to the main menu..."
       ;;
-    14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/SRB2.sh)" ;;
-    15) sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/retropie_auto.sh)" ;;
+    14) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/SRB2.sh)" ;;
+    15) sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh)" ;;
     16) bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh)" ;;
     17) bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)" ;;
-    18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/ST2.sh)" ;;
-    19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/SM64.sh)" ;;
-    20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games-and-emulators/SRB2Kart.sh)" ;;
+    18) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/ST2.sh)" ;;
+    19) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/SM64.sh)" ;;
+    20) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/SRB2Kart.sh)" ;;
     21) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/barrier.sh)" ;;
     22) bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/extras/core_extra.sh)" ;;
 
