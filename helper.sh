@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 repository_username=$3
 repository_branch=$4
