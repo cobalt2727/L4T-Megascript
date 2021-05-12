@@ -86,6 +86,7 @@ while [ $x == 1 ]; do
     for string in "${uniq[@]}"; do
       uniq_selection+=(FALSE $string)
     done
+    uniq_selection[0]=TRUE
     while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
         zenity \
