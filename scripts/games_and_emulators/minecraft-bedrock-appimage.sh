@@ -2,16 +2,19 @@
 
 clear
 
-echo "Installing Minecraft Bedrock then we install the dependencies..."
+echo "Minecraft Bedrock script started!"
+echo "Installing dependencies..."
+sleep 1
+
 cd ~
 sudo apt install curl -y
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
-curl -s https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 mv *.AppImage MC.AppImage
 chmod +x *.AppImage
-curl -s https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 sudo dpkg -i *bionic_arm64.deb
 hash -r
 ail-cli integrate MC.AppImage
