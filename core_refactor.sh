@@ -33,7 +33,7 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-hidden=(2 8 9 10 12 13 22)
+hidden=(2 8 9 10 11 12 13 22)
 
 num=()
 num[0]="Initial Setup"
