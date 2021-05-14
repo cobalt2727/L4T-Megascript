@@ -13,6 +13,7 @@ cd barrier
 git submodule update --init --recursive
 ./clean_build.sh
 cd build
+make -j$(nproc)
 sudo make install
 cd
 rm -rf barrier
