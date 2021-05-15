@@ -27,7 +27,7 @@ if grep -q bionic /etc/os-release; then
   echo "If that means nothing to you, don't worry about it."
   echo "That being said, we need to get you a newer compiler to prevent some bugs."
   #oddly enough the only *known* bug here is that emulated wii remote cursors don't work with GCC 7 builds
-  echo "Adding GCC and G++ 9/10 Repo..."
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt update
   sudo apt install gcc-11 g++-11 -y
