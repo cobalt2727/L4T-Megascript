@@ -20,8 +20,6 @@ fn="Development IDEs";;d='write code on your Switch!';;e='echo "scripts not read
 
 fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
 
-fn="CSE2-Tweaks";;d="An enhanced version of Cave Story. 60 FPS, bug fixes, and alternate soundtrack support";;e='echo "Unfortunately, the repository we use for setting up Cave Story is currently down due to a DMCA. Here is hoping GitHub restores it!"';;f="games_and_emulators"
-
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SFB2.sh";;f="games_and_emulators"
 
 fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;e='sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/games_and_emulators/retropie_auto.sh)"';;f="games_and_emulators"
