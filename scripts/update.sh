@@ -2,10 +2,6 @@
 
 clear
 echo "Updater script successfully started!"
-echo "Running APT updates..."
-sleep 1
-sudo apt update
-sudo apt upgrade -y
 
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
@@ -20,6 +16,12 @@ fi
 
 #######################################################################
 
+
+echo "Running APT updates..."
+sleep 1
+sudo apt update
+sudo apt upgrade -y
+
 echo "Scanning for issues with APT packages..."
 echo "If you receive a yes/no prompt in the following steps,"
 echo "Make sure you carefully read over the"
@@ -27,6 +29,7 @@ echo "packages to be changed before proceeding."
 echo "If not, don't worry about it."
 echo "Purging, cleaning, and autoremoving are NORMALLY"
 echo "fine, but double-check packages to be safe."
+sleep 5
 ##maintenance (not passing with -y to prevent potentially breaking something for a user)
 sudo dpkg --configure -a
 sudo apt autoremove
@@ -49,6 +52,9 @@ sudo npm install -g npm
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
 
+
+
+
 #################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
 
 if [[ $DolphinUserInput == y || $DolphinUserInput == Y || $DolphinUserInput == yes || $DolphinUserInput == Yes ]]; then
@@ -65,7 +71,6 @@ fi
 ##########################################################################
 
 sleep 1
-
 
 echo "Done! Sending you back to the main menu..."
 sleep 4
