@@ -30,8 +30,11 @@ sudo flatpak update -y
 flatpak update -y
 
 echo "Updating NPM (if you have it)..."
-##this updater will fail if the user doesn't have npm installed so there's no harm in adding it, as it's used by some scripts here
+##this updater will fail if the user doesn't have npm installed so there's no harm in adding it
 sudo npm install -g npm
+
+echo "Marking all AppImages under ~/Applications as executable..."
+chmod +x ~/Applications/*.AppImage
 
 echo "Anything you've installed from source will"
 echo "have to be manually recompiled until/unless we"
