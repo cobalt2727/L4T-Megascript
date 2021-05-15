@@ -6,7 +6,7 @@ echo "Installing the aarch64 build of Visual Studio Code directly from Microsoft
 sleep 1
 
 ##need a newer debugger?
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 sudo apt update
 
 ##i'd be surprised if the first two weren't already installed, but...
