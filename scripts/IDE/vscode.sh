@@ -5,8 +5,12 @@ clear
 echo "Installing the aarch64 build of Visual Studio Code directly from Microsoft..."
 sleep 1
 
-##i'd be surprised if these weren't already installed, but...
-sudo apt install wget gpg -y
+##need a newer debugger?
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+
+##i'd be surprised if the first two weren't already installed, but...
+sudo apt install wget gpg gdb -y
 
 ##Thankfully Microsoft has a link that always downloads whatever the latest version is.
 ##the -O parameter lets me choose the filename myself to make the installation lines easier
