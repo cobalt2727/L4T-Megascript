@@ -30,11 +30,11 @@ if grep -q bionic /etc/os-release; then
   echo "Adding GCC and G++ 9/10 Repo..."
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   sudo apt update
-  sudo apt install gcc-10 g++-10 -y
+  sudo apt install gcc-11 g++-11 -y
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
   sleep 10
-  cmake .. -D -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+  cmake .. -D -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
 
 else  
   
