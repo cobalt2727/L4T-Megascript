@@ -7,6 +7,19 @@ sleep 1
 sudo apt update
 sudo apt upgrade -y
 
+############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
+##add more of these later!
+
+#tests if the Dolphin Emulator program exists, then ask to re-run the installer script if it's found, binding the user's response to DolphinUserInput
+if test -f /usr/local/bin/dolphin-emu; then
+        echo "Do you want to update Dolphin?"
+
+        read -p "(y/n) " DolphinUserInput
+fi
+
+
+#######################################################################
+
 echo "Scanning for issues with APT packages..."
 echo "If you receive a yes/no prompt in the following steps,"
 echo "Make sure you carefully read over the"
@@ -36,14 +49,21 @@ sudo npm install -g npm
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
 
-echo "Anything you've installed from source will"
-echo "have to be manually recompiled until/unless we"
-echo "get an automatic updater for those programs running."
-##maybe somehow add a way to automatically re-run scripts for things that were built from source?
+#################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
+
+if [[ $DolphinUserInput == y || $DolphinUserInput == Y || $DolphinUserInput == yes || $DolphinUserInput == Yes ]]; then
+        echo "Updating Dolphin..."
+        echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
+        echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
+        sleep 5
+        bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
+else
+        echo "Skipping Dolphin updates..."
+fi
 
 
-##echo "Placeholder for the RetroPie updater (we NEED to y/n prompt this if we decide to add it)"
-##sudo ~/RetroPie-Setup/retropie_packages.sh setup update_packages
+##########################################################################
+
 sleep 1
 
 
