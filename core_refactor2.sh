@@ -17,6 +17,7 @@ echo -e "\e[4munderline\e[0m"
 echo -e "\e[9mstrikethrough\e[0m"
 echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
+clear
 x=1
 
 #allow developer to set repository username and branch
