@@ -37,7 +37,7 @@ description="Your Choices of Install are:"
 userinput_func "$description" "${table[@]}"
 
 
-if [[ $ouput == "Install Dolphin (use the updater on the main menu to update!)" ]]; then
+if [[ $output == "Install Dolphin (use the updater on the main menu to update!)" ]]; then
   
   
   ##if grep -q bionic /etc/os-release; then
