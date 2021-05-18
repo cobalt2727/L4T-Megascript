@@ -37,6 +37,7 @@ fi
 #functions used by megascript scripts
 function userinput_func {
   unset uniq_selection
+  height=$(( $(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
      for string in "${@:2}"; do
       uniq_selection+=(FALSE "$string")
@@ -63,7 +64,7 @@ function userinput_func {
                 --backtitle "CLI Chooser Helper" \
                 --title "Choices" \
                 --menu "$1" \
-                "15" "120" "$($# - 1)" \
+                "$height" "120" "$($# - 1)" \
                 "${uniq_selection[@]}" \
                 2>&1 >/dev/tty)
   fi

@@ -6,16 +6,14 @@ echo "Updater script successfully started!"
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
 
-#tests if the Dolphin Emulator program exists, then ask to re-run the installer script if it's found, binding the user's response to DolphinUserInput
+#tests if the Dolphin Emulator program exists, then ask to re-run the installer script if it's found, binding the user's response to output
 if test -f /usr/local/bin/dolphin-emu; then
-        echo "Do you want to update Dolphin?"
-
-        read -p "(y/n) " DolphinUserInput
+        description="Do you want to update Dolphin?"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
 fi
 
-
 #######################################################################
-
 
 echo "Running APT updates..."
 sleep 1
@@ -52,12 +50,9 @@ sudo npm install -g npm
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
 
-
-
-
 #################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
 
-if [[ $DolphinUserInput == y || $DolphinUserInput == Y || $DolphinUserInput == yes || $DolphinUserInput == Yes ]]; then
+if [[ $output == "yes" ]]; then
         echo "Updating Dolphin..."
         echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
         echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
@@ -66,7 +61,6 @@ if [[ $DolphinUserInput == y || $DolphinUserInput == Y || $DolphinUserInput == y
 else
         echo "Skipping Dolphin updates..."
 fi
-
 
 ##########################################################################
 
