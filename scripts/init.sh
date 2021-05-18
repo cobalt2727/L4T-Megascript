@@ -18,26 +18,6 @@ if grep -q bionic /etc/os-release; then
   echo
   ##snap store is not preinstalled on 18.04, nothing to do here
 else
-  echo -e "\e[35mDo you want to remove the snap store? If unsure, think of it as\e[0m"
-  echo -e "\e[35mbloatware from Canonical and type 'yes' or 'y' without the quotes.\e[0m"
-  echo "It's controversial for a few reasons:"
-  echo " - the store is closed source, which is a bit weird for a Linux company..."
-  echo " - programs installed from them are in containers,"
-  echo "   which means they won't run as well"
-  echo " - the biggest issue, especially on a weaker device like"
-  echo "   the Tegra hardware you're using right now, is that"
-  echo "   it automatically updates snap packages whenever it wants"
-  echo "   to, with no input from the user - which can obviously"
-  echo "   slow anything you're doing at the moment down."
-  echo "That being said, if you've already been using this device for a while,"
-  echo "You may want to keep it for now since you might have installed stuff"
-  echo "using it. It's recommended by us to switch from snaps to apt, flatpak, and"
-  echo "building from source whenever possible."
-  echo
-  echo "So as you can probably tell, we're extremely biased against"
-  echo "it and would recommend removing it. But the choice is yours:"
-  sleep 5
-  echo
   description="Do you want to remove the snap store? If unsure, think of it as\
   \nbloatware from Canonical\
   \nIt's controversial for a few reasons:\
