@@ -14,8 +14,6 @@ function userinput_func {
      uniq_selection[0]=TRUE
      output=$(
           zenity \
-          --width="1000" \
-          --height="500" \
           --text "$1" \
           --list \
           --radiolist \
