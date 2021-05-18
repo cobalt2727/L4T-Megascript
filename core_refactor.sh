@@ -1,4 +1,4 @@
-gui=$1
+export gui=$1
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
 echo -e "\e[30mBlack Text\e[0m"
 echo -e "\e[31mRed Text\e[0m"
@@ -268,6 +268,7 @@ fi
 
 unset repository_username
 unset repository_branch
+unset gui
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
