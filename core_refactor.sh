@@ -36,6 +36,7 @@ fi
 
 #functions used by megascript scripts
 function userinput_func {
+  unset uniq_selection
   if [[ $gui == "gui" ]]; then
      for string in "${@:2}"; do
       uniq_selection+=(FALSE "$string")
