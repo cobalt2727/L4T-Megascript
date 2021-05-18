@@ -32,6 +32,48 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
+#functions used by megascript scripts
+function userinput_func {
+  if [[ $gui == "yes" ]]; then
+     for string in "${@:2}"; do
+      uniq_selection+=(FALSE "$string")
+     done
+     uniq_selection[0]=TRUE
+     output=$(
+          zenity \
+          --width="1000" \
+          --height="500" \
+          --text "$1" \
+          --list \
+          --radiolist \
+          --column "" \
+          --column "Selection" \
+          --ok-label="OK" \
+          "${uniq_selection[@]}" \
+          --cancel-label "Cancel Choice"
+        )
+  else
+    for string in "${@:2}"; do
+      uniq_selection+=("$string" "")
+    done
+    output=$(dialog --clear \
+                --backtitle "CLI Chooser Helper" \
+                --title "Choices" \
+                --menu "$1" \
+                "15" "120" "$($# - 1)" \
+                "${uniq_selection[@]}" \
+                2>&1 >/dev/tty)
+  fi
+  status=$?
+  if [[ $status = "1" ]]; then
+    clear
+    echo "Canceling Install, Back to the Megascript"
+    exit 1
+  fi
+  clear
+}
+export -f userinput_func
+
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do
     if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
