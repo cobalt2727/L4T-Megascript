@@ -34,9 +34,10 @@ svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/C
 cd
 cd CSE2-tweaks-tweaks
 echo
-read -p "Select the game language (jp/en) " userInput
-echo
-if [[ $userInput == jp || $userInput == JP ]]; then
+description="Select the game language"
+table=("english" "japanese")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "japanese" ]]; then
 echo
 echo "You selected Japanese"
 echo
@@ -44,7 +45,7 @@ sleep 2
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DJAPANESE=ON
 cmake --build build --config Release
 mv game_japanese CSE2-Tweaks
-elif [[ $userInput == en || $userInput == EN ]]; then
+elif [[ $output == "english" ]]; then
 echo
 echo "You selected English"
 echo

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 clear
 echo "Initial setup script started!"
 cd ~
@@ -39,8 +38,27 @@ else
   echo "it and would recommend removing it. But the choice is yours:"
   sleep 5
   echo
-  read -p "(y/n) " userInput
-  if [[ $userInput == y || $userInput == Y || $userInput == yes || $userInput == Yes ]]; then
+  description="Do you want to remove the snap store? If unsure, think of it as\
+  \nbloatware from Canonical\
+  \nIt's controversial for a few reasons:\
+  \n - the store is closed source, which is a bit weird for a Linux company...\
+  \n - programs installed from them are in containers,\
+  \n   which means they won't run as well\
+  \n - the biggest issue, especially on a weaker device like\
+  \n   the Tegra hardware you're using right now, is that\
+  \n   it automatically updates snap packages whenever it wants\
+  \n   to, with no input from the user - which can obviously\
+  \n   slow anything you're doing at the moment down.\
+  \nThat being said, if you've already been using this device for a while,\
+  \nYou may want to keep it for now since you might have installed stuff\
+  \nusing it. It's recommended by us to switch from snaps to apt, flatpak, and\
+  \nbuilding from source whenever possible.\
+  \nSo as you can probably tell, we're extremely biased against\
+  \nit and would recommend removing it. But the choice is yours:\
+  \n \n Do you want to remove the Snap Store?"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
     sudo apt purge snapd unattended-upgrades
   else
@@ -67,7 +85,6 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 #automatically sorts Gnome app layout alphabetically
 gsettings reset org.gnome.shell app-picker-layout
 
-
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
 sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji qt5-style-plugins gnutls-bin -y
 hash -r
@@ -85,7 +102,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
 sudo touch /etc/udev/rules.d/51-gcadapter.rules
-echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules > /dev/null
+echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules >/dev/null
 sudo udevadm control --reload-rules
 sudo systemctl restart udev.service
 cd ~
@@ -109,29 +126,30 @@ clear
 # sleep 1
 
 clear
-echo "Do you want to install configurations that will let you use the joycons as a mouse?"
-read -p "(y/n) " userInput
-if [[ $userInput == y || $userInput == Y ]]; then
-echo "Installing the Joycon Mouse..."
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
-elif [[ $userInput == n || $userInput == N ]]; then
-echo "Going to the next option"
-fi
-sleep 1
-
-clear
-echo "Do you want to build and install SDL2? (Required for many games in the script)"
-read -p "(y/n) " userInput
-if [[ $userInput == y || $userInput == Y ]]; then
-  echo "Building and installing SDL2..."
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
-elif [[ $userInput == n || $userInput == N ]]; then
+description="Do you want to install configurations that will let you use the joycons as a mouse?"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "yes" ]]; then
+  echo "Installing the Joycon Mouse..."
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
+elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 sleep 1
 
 clear
+description="Do you want to build and install SDL2? (Required for many games in the script)"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "yes" ]]; then
+  echo "Building and installing SDL2..."
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+elif [[ $output == "no" ]]; then
+  echo "Going to the next option"
+fi
+sleep 1
 
+clear
 
 ##Placeholder for the overclock script (can someone check my work on this? I feel like I'm gonnna break something
 ##The guide at https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/ says to add the line BEFORE the exit 0 line
@@ -140,15 +158,14 @@ clear
 ##echo 1 > /sys/kernel/tegra_cpufreq/overclock
 ##sleep 1
 
+description="All done! Would you like to restart now?\
+\n Required for some of the init script's components to take effect."
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
 
-echo "All done! Would you like to restart now?"
-echo "Required for some of the init script's components to take effect. (y/n)"
-sleep 1
-read -p "Make a selection: " userInput
-
-if [[ $userInput == y || $userInput == Y ]]; then
-reboot
-elif [[ $userInput == n || $userInput == N ]]; then
-echo "Sending you back to the main menu..."
-sleep 3
+if [[ $output == "yes" ]]; then
+  reboot
+elif [[ $output == "no" ]]; then
+  echo "Sending you back to the main menu..."
+  sleep 3
 fi
