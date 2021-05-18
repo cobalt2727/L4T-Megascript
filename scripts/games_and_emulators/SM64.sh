@@ -19,13 +19,14 @@ svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/S
 cd
 unzip nightly.zip
 cd sm64ex-nightly
-echo "To build this port, you need a Super Mario 64 rom with the extension .z64."
-echo "Due to copyright restrictions, we will not provide the game file ourselves."
-echo "Please legally acquire a copy and put the rom into the repository's root (sm64ex-nightly) and rename it to baserom.VERSION.z64."
-echo "VERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio)"
-sleep 10
-read -p "Do you want to continue? (y/n) " userInput
-if [[ $userInput == n || $userInput == no ]]; then
+description="To build this port, you need a Super Mario 64 rom with the extension .z64.\
+ \nDue to copyright restrictions, we will not provide the game file ourselves.\
+ \nPlease legally acquire a copy and put the rom into the repository's root (sm64ex-nightly) and rename it to baserom.VERSION.z64.\
+ \nVERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio) \
+ \n \n Do you want to continue?"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "no" ]]; then
 echo "Stopping the script..."
 cd ~
 rm -r sm64ex-nightly
@@ -35,24 +36,26 @@ echo
 echo "Sending you back to the main menu..."
 sleep 1
 exit
-elif [[ $userInput == y || $userInput == yes ]]; then
+elif [[ $output == "yes" ]]; then
 echo "Continuing the script..."
 sleep 3
 fi
-read -p "Please select the ROM's region (us/eu/jp) " userInput
-if [[ $userInput == us || $userInput == US ]]; then
+description="Please select the ROM's region (us/eu/jp)"
+table=("us" "eu" "jp")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "us" ]]; then
 make -j$(nproc) BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv us_pc SM64
 cd SM64
 mv sm64.us.f3dex2e sm64
-elif [[ $userInput == eu || $userInput == EU ]]; then
+elif [[ $output == "eu" ]]; then
 make -j$(nproc) VERSION=eu BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv eu_pc SM64
 cd SM64
 mv sm64.eu.f3dex2e sm64
-elif [[ $userInput == jp || $userInput == JP ]]; then
+elif [[ $output == "jp" ]]; then
 make -j$(nproc) VERSION=jp BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1
 cd build
 mv jp_pc SM64
