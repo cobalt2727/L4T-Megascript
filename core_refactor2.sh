@@ -1,4 +1,4 @@
-gui=$1
+export gui=$1
 clear
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
 echo -e "\e[30mBlack Text\e[0m"
@@ -34,7 +34,7 @@ fi
 
 #functions used by megascript scripts
 function userinput_func {
-  if [[ $gui == "yes" ]]; then
+  if [[ $gui == "gui" ]]; then
      for string in "${@:2}"; do
       uniq_selection+=(FALSE "$string")
      done
@@ -258,6 +258,7 @@ else
 fi
 unset repository_username
 unset repository_branch
+unset gui
 
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at [link not public yet] for support.'

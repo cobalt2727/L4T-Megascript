@@ -5,7 +5,7 @@ repository_branch=$4
 
 #functions used by megascript scripts
 function userinput_func {
-  if [[ $gui == "yes" ]]; then
+  if [[ $gui == "gui" ]]; then
      for string in "${@:2}"; do
       uniq_selection+=(FALSE "$string")
      done
