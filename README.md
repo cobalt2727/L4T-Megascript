@@ -16,10 +16,10 @@ DISCLAIMER: in the interest of transparency and security we recommend reading th
 ## Scripts
 Some of our included program install scripts are below: 
 
-- Initial Setup: Installs the swapfile, joycon mouse, 2.0 GHz overclock, SDL2 etc
-- Update: Update your programs (APT, Flatpak, maybe someday automatic source code builds)
+- Initial Setup: Installs the joycon mouse, flapack fix, SDL2 etc
+- Update: Update your programs (APT, Flatpak, dolphin emulator, maybe someday automatic source code builds)
 - Dolphin: Gamecube and Wii emulator, latest development version
-- Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04/20.10 IMAGE)
+- Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04 and is hidden, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04/20.10 IMAGE)
 - Moonlight-qt: stream games from your PC as long as it has an Nvidia (with Gamestream) or AMD (with Sunshine) GPU!
 - Minecraft Bedrock (Android Version) - Android Minecraft Bedrock Version. Ownership of the Android Version Required (controllers function but may cause Minecraft to crash on launch)
 - MultiMC Minecraft Java - Mincraft Java Launcher, Instance, and Mod Manager
@@ -33,7 +33,6 @@ Some of our included program install scripts are below:
  We are planning in adding more scripts and functions to the script in future updates.
  (Check the repo folders for scripts currently in progress but not yet available in the gui/cli)
 ## Planned features:
-- Finish the GUI
 - Finish all the wiki pages 
 - Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft
 - _Possibly_ work on including the manually built scripts here into the updater?
@@ -42,14 +41,15 @@ Some of our included program install scripts are below:
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor
 - Lang Kasempo: Contributor
-- Gman: Contributor
+- theofficialgman: Contributor
 - Fafabis: Contributor
 - Azkali: Advice, part of Switchroot dev team
 - Beta testers in the Discord that put up with Cobalt breaking things every other day
 
 
 ## Do you have a question or an idea about the project?
-You're in luck - we've got a Discord server: [opening soon™!]
+You're in luck - we've got a Discord server: [opening soon™!] <Br>
+Also chekout the discussions tab, make a post there with your ideas!
 
 ## Credits
 - STJr: Developers, SRB2
