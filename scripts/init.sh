@@ -3,8 +3,6 @@
 clear
 echo "Initial setup script started!"
 cd ~
-sleep 2
-
 echo "Checking for updates and installing a few extra recommended packages."
 echo "This might take a while, depending on your internet speed."
 echo "Grab your charger, and pull up a chair!"
@@ -93,9 +91,7 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 
 #fix up an issue with running flatpaks by enabling non-privileged user namespaces
 sudo chmod u+s /usr/libexec/flatpak-bwrap
-sleep 1
 
-clear
 # echo "Do you want to install the swapfile (You need 2 GB. Very important to avoid lag and potential crashes)"
 # read -p "(y/n) " userInput
 # if [[ $userInput == y || $userInput == Y ]]; then
@@ -116,7 +112,6 @@ if [[ $output == "yes" ]]; then
 elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
-sleep 1
 
 clear
 description="Do you want to build and install SDL2? (Required for many games in the script)"
@@ -128,7 +123,28 @@ if [[ $output == "yes" ]]; then
 elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
-sleep 1
+
+clear 
+description="Do you want to build and install htop?\
+\n(A useful command line utility for viewing cpu/thread usage and frequency)"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "yes" ]]; then
+  echo "Building and installing htop 3.0.5 (newer than the package included in bionic)..."
+  cd ~
+  rm -rf htop
+  sudo apt remove htop
+  sudo apt install libncursesw*-dev -y
+  git clone https://github.com/htop-dev/htop.git
+  cd htop
+  git checkout 3.0.5
+  ./autogen.sh && ./configure && make -j4
+  sudo make install
+  cd ~
+  rm -rf htop
+elif [[ $output == "no" ]]; then
+  echo "Going to the next option"
+fi
 
 clear
 
@@ -140,7 +156,8 @@ clear
 ##sleep 1
 
 description="All done! Would you like to restart now?\
-\n Required for some of the init script's components to take effect."
+\n Required for some of the init script's components to take effect.\
+\n Restarting now will cancel the install of any other selected scripts."
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 
