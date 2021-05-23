@@ -14,10 +14,7 @@ if test -f /usr/local/bin/dolphin-emu; then
         description="Do you want to update Dolphin? (May take 5 to 40 minutes)"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
-
-	if [[ $output == "yes" ]]; then
-		DolphinUserInput="yes"
-	fi
+	DolphinUserInput="$output"
 fi
 
 #Same as above, but for RetroPie, using the emulationstation binary as the test
@@ -26,9 +23,7 @@ if test -f /usr/bin/emulationstation; then
         description="Do you want to update RetroPie? MAY TAKE MULTIPLE HOURS"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
-
-        if [[ $output == "yes" ]]; then
-                RetroPieUserInput="yes"
+        RetroPieUserInput="$output"
         fi
 fi
 
