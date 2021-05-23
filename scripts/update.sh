@@ -24,7 +24,6 @@ if test -f /usr/bin/emulationstation; then
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
-        fi
 fi
 
 #######################################################################
