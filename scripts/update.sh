@@ -1,16 +1,35 @@
 #!/bin/bash
 
+
 clear
 echo "Updater script successfully started!"
 
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
 
-#tests if the Dolphin Emulator program exists, then ask to re-run the installer script if it's found, binding the user's response to output
+#tests if the Dolphin Emulator program exists, then asks to re-run the installer script if it's found, binding the user's response to DolphinUserInput
+#reset the variable first to be safe...
+DolphinUserInput="no"
 if test -f /usr/local/bin/dolphin-emu; then
-        description="Do you want to update Dolphin?"
+        description="Do you want to update Dolphin? (May take 5 to 40 minutes)"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
+
+	if [[ $output == "yes" ]]; then
+		DolphinUserInput="yes"
+	fi
+fi
+
+#Same as above, but for RetroPie, using the emulationstation binary as the test
+RetroPieUserInput="no"
+if test -f /usr/bin/emulationstation; then
+        description="Do you want to update RetroPie? MAY TAKE MULTIPLE HOURS"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+
+        if [[ $output == "yes" ]]; then
+                RetroPieUserInput="yes"
+        fi
 fi
 
 #######################################################################
@@ -43,16 +62,16 @@ flatpak repair --user
 sudo flatpak update -y
 flatpak update -y
 
-echo "Updating NPM (if you have it)..."
-##this updater will fail if the user doesn't have npm installed so there's no harm in adding it
-sudo npm install -g npm
+#echo "Updating NPM (if you have it)..."
+##commenting this out until i figure out a better way to replace it with an updater for all NodeJS packages
+#sudo npm install -g npm
 
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
 
 #################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
 
-if [[ $output == "yes" ]]; then
+if [[ $DolphinUserInput == "yes" ]]; then
         echo "Updating Dolphin..."
         echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
         echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
@@ -61,6 +80,19 @@ if [[ $output == "yes" ]]; then
 else
         echo "Skipping Dolphin updates..."
 fi
+
+if [[ $RetroPieUserInput == "yes" ]]; then
+        echo "Updating RetroPie..."
+        echo -e "\e[33mThis can take a VERY long time - possibly multiple hours.\e[0m"
+        echo -e "\e[33mCharge your device & remember you can close this terminal or press\e[0m"
+	echo -e "\e[33mCtrl+C at any time to stop the process.\e[0m"
+        sleep 10
+        cd ~
+	sudo ./RetroPie-Setup/retropie_packages.sh setup update_packages
+else
+        echo "Skipping RetroPie updates..."
+fi
+
 
 ##########################################################################
 
