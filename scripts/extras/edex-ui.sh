@@ -11,7 +11,7 @@ cd edex-ui-appimage
 curl https://api.github.com/repos/GitSquared/edex-ui/releases/latest | grep "browser_download_url.*Linux-arm64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 mv *.AppImage eDEX-UI.AppImage
 chmod +x *.AppImage
-curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -i -
 sudo dpkg -i *bionic_arm64.deb
 hash -r
 ail-cli integrate eDEX-UI.AppImage
