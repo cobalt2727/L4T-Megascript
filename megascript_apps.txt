@@ -54,7 +54,7 @@ fn="Gnome Desktop";;d="GNOME is a free and open-source desktop environment for U
 
 # fn="Mate Desktop";;d="An Argentine user of Arch Linux started the MATE project to fork and continue GNOME 2 in response to the negative reception of GNOME 3, which had replaced its traditional taskbar with GNOME Shell.";;sn="mate.sh";;f="desktop_environments"
 
-# fn="Ukui Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer.";;sn="ukui.sh";;f="desktop_environments"
+fn="Ukui Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer.";;sn="ukui.sh";;f="desktop_environments"
 
 fn="Unity Desktop";;d="Unity is a graphical shell for the GNOME desktop environment originally developed by Canonical Ltd. for its Ubuntu operating system";;sn="unity.sh";;f="desktop_environments"
 
