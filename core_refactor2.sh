@@ -36,34 +36,36 @@ fi
 #functions used by megascript scripts
 function userinput_func {
   unset uniq_selection
-  height=$(( $(echo "$description" | grep -o '\\n' | wc -l) + 8))
+  height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
-     for string in "${@:2}"; do
+    for string in "${@:2}"; do
       uniq_selection+=(FALSE "$string")
-     done
-     uniq_selection[0]=TRUE
-     output=$(
-          zenity \
-          --text "$1" \
-          --list \
-          --radiolist \
-          --column "" \
-          --column "Selection" \
-          --ok-label="OK" \
-          "${uniq_selection[@]}" \
-          --cancel-label "Cancel Choice"
-        )
+    done
+    uniq_selection[0]=TRUE
+    output=$(
+      zenity \
+      --text "$1" \
+      --list \
+      --radiolist \
+      --column "" \
+      --column "Selection" \
+      --ok-label="OK" \
+      "${uniq_selection[@]}" \
+      --cancel-label "Cancel Choice"
+    )
   else
     for string in "${@:2}"; do
       uniq_selection+=("$string" "")
     done
-    output=$(dialog --clear \
-                --backtitle "CLI Chooser Helper" \
-                --title "Choices" \
-                --menu "$1" \
-                "$height" "120" "$($# - 1)" \
-                "${uniq_selection[@]}" \
-                2>&1 >/dev/tty)
+    output=$(
+      dialog --clear \
+      --backtitle "CLI Chooser Helper" \
+      --title "Choices" \
+      --menu "$1" \
+      "$height" "120" "$($# - 1)" \
+      "${uniq_selection[@]}" \
+      2>&1 >/dev/tty
+    )
   fi
   status=$?
   if [[ $status = "1" ]]; then
@@ -83,22 +85,25 @@ conversion() {
       e=""
       f=""
       sn=""
-      eval "$(sed -n $i"p" <"/tmp/megascript_apps.txt" | tr ";" "\n")"
-      scripts[$i]=$sn
-      if [ "$f" = "scripts" ]; then
-        folder[$i]=$f
-      else
-        folder[$i]="scripts/$f"
-      fi
-      execute[$i]=$e
-      if [[ $gui == "gui" ]]; then
-        ids+=($f)
-        declare -n current_table=table_$f
-        current_table+=(FALSE $i "$fn" "$d")
-        unset -n current_table
-        table_all_categories+=(FALSE $i "$fn" "$d")
-      else
-        echo "$i...............$f - $fn - $d"
+      line=$(sed -n $i"p" <"/tmp/megascript_apps.txt")
+      if [[ "$line" != \#* ]];
+        eval "$(echo "$line" | tr ";" "\n")"
+        scripts[$i]=$sn
+        if [ "$f" = "scripts" ]; then
+          folder[$i]=$f
+        else
+          folder[$i]="scripts/$f"
+        fi
+        execute[$i]=$e
+        if [[ $gui == "gui" ]]; then
+          ids+=($f)
+          declare -n current_table=table_$f
+          current_table+=(FALSE $i "$fn" "$d")
+          unset -n current_table
+          table_all_categories+=(FALSE $i "$fn" "$d")
+        else
+          echo "$i...............$f - $fn - $d"
+        fi
       fi
     fi
   done

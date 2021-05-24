@@ -14,11 +14,11 @@ fn="moonlight-qt";;d='stream games from your PC as long as it has an Nvidia GPU!
 
 fn="Discord";;d="Discord Web App";;sn="discord.sh";;f="scripts"
 
-fn="Kodi";;d="media center";;e='echo "scripts not ready yet"';;f="scripts"
+# fn="Kodi";;d="media center";;e='echo "scripts not ready yet"';;f="scripts"
 
-fn="Development IDEs";;d='write code on your Switch!';;e='echo "scripts not ready yet"';;f="scripts"
+# fn="Development IDEs";;d='write code on your Switch!';;e='echo "scripts not ready yet"';;f="scripts"
 
-fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
+# fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SFB2.sh";;f="games_and_emulators"
 
@@ -42,20 +42,20 @@ fn="ALL THE SHOVELWARE";;d="Literally just installs all packages starting with g
 
 fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and elegance";;sn="budgie.sh";;f="desktop_environments"
 
-fn="Cinnamon Desktop";;d="Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions.";;sn="cinnamon.sh";;f="desktop_environments"
+# fn="Cinnamon Desktop";;d="Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions.";;sn="cinnamon.sh";;f="desktop_environments"
 
 fn="Gnome Desktop";;d="GNOME is a free and open-source desktop environment for Unix-like operating systems.";;sn="gnome.sh";;f="desktop_environments"
 
-fn="KDE Plasma";;d="The next generation desktop for Linux";;sn="kde.sh";;f="desktop_environments"
+# fn="KDE Plasma";;d="The next generation desktop for Linux";;sn="kde.sh";;f="desktop_environments"
 
-fn="LXDE";;d="LXDE is a free desktop environment with comparatively low resource requirements";;sn="lxde.sh";;f="desktop_environments"
+# fn="LXDE";;d="LXDE is a free desktop environment with comparatively low resource requirements";;sn="lxde.sh";;f="desktop_environments"
 
-fn="LXQT";;d="LXQt is a free and open source lightweight desktop environment.";;sn="lxqt.sh";;f="desktop_environments"
+# fn="LXQT";;d="LXQt is a free and open source lightweight desktop environment.";;sn="lxqt.sh";;f="desktop_environments"
 
-fn="Mate Desktop";;d="An Argentine user of Arch Linux started the MATE project to fork and continue GNOME 2 in response to the negative reception of GNOME 3, which had replaced its traditional taskbar with GNOME Shell.";;sn="mate.sh";;f="desktop_environments"
+# fn="Mate Desktop";;d="An Argentine user of Arch Linux started the MATE project to fork and continue GNOME 2 in response to the negative reception of GNOME 3, which had replaced its traditional taskbar with GNOME Shell.";;sn="mate.sh";;f="desktop_environments"
 
-fn="Ukui Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer.";;sn="ukui.sh";;f="desktop_environments"
+# fn="Ukui Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer.";;sn="ukui.sh";;f="desktop_environments"
 
 fn="Unity Desktop";;d="Unity is a graphical shell for the GNOME desktop environment originally developed by Canonical Ltd. for its Ubuntu operating system";;sn="unity.sh";;f="desktop_environments"
 
-fn="XFCE";;d="Xfce aims to be fast and lightweight while still being visually appealing and easy to use.";;sn="xfce.sh";;f="desktop_environments"
+# fn="XFCE";;d="Xfce aims to be fast and lightweight while still being visually appealing and easy to use.";;sn="xfce.sh";;f="desktop_environments"
