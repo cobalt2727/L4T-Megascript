@@ -86,7 +86,7 @@ conversion() {
       f=""
       sn=""
       line=$(sed -n $i"p" <"/tmp/megascript_apps.txt")
-      if [[ "$line" != \#* ]];
+      if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
         scripts[$i]=$sn
         if [ "$f" = "scripts" ]; then
