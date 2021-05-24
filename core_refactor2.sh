@@ -96,6 +96,7 @@ conversion() {
         declare -n current_table=table_$f
         current_table+=(FALSE $i "$fn" "$d")
         unset -n current_table
+        table_all_categories+=(FALSE $i "$fn" "$d")
       else
         echo "$i...............$f - $fn - $d"
       fi
@@ -129,6 +130,7 @@ while [ $x == 1 ]; do
     for string in "${uniq[@]}"; do
       uniq_selection+=(FALSE $string)
     done
+    uniq_selection+=(FALSE "all_categories")
     uniq_selection[0]=TRUE
     while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
