@@ -156,6 +156,8 @@ while [ $x == 1 ]; do
         declare -n current_table=table_$CATEGORY
         CHOICE=$(
           zenity \
+          --width="1000" \
+          --height="500" \
           --title $CATEGORY \
           --text "Please Select the Desired Programs to Install" \
           --list \
