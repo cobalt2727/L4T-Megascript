@@ -5,6 +5,8 @@ clear
 echo "Moonlight script started!"
 sleep 1
 curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-l4t/setup.deb.sh' | sudo -E bash
+# replace apt source to bionic as its the only one hosted (allows moonlight to be installed on ubuntu focal, hirsute, etc on switch)
+sudo sed -i 's/ubuntu.*/ubuntu bionic main/' '/etc/apt/sources.list.d/moonlight-game-streaming-moonlight-l4t.list'
 sudo apt install moonlight-qt -y
 
 echo "Done!"
