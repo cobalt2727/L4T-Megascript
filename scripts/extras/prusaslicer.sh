@@ -1,28 +1,22 @@
-#my thanks goes out to kaweksl on github who's script I mostly used
-
-sudo apt install git cmake build-essential
-# Gonna download to home folder
+echo "Started Prusaslicer Build Script"
+echo ""
+echo "Installing dependencies"
+sudo apt install git cmake build-essential curl libwxgtk3.0-dev libboost-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev -y
+echo "Getting the source code"
 cd ~
-git clone --recursive --branch version_2.2.0 https://github.com/prusa3d/PrusaSlicer.git
+git clone https://github.com/prusa3d/PrusaSlicer.git
 cd PrusaSlicer
-# Selecting version (lateset at a time)
-cd deps
-mkdir -p build && cd build
-cmake ..
-# This gonna download and build static libraries
-# you can't move or delete those after compiling, path gonna be hardcoded
-# This gonna take a while
-make
-cd destdir/usr/local
-# cd back to PrusaSlicer main folder
+git pull
+cd cmake/modules
+echo "Patching the source code until fixed in master"
+rm -rf FindTBB.cmake
+wget https://raw.githubusercontent.com/ceres-solver/ceres-solver/master/cmake/FindTBB.cmake
 cd ~/PrusaSlicer
 mkdir -p build && cd build
-
-# change DCMAKE_PREFIX_PATH to path saved above
-cmake .. -DSLIC3R_STATIC=1 -DCMAKE_PREFIX_PATH=~/PrusaSlicer/deps/build/destdir/usr/local
-# This gonna take a while
-make
-
-
-#Test PrusaSlicer
-#~/PrusaSlicer/build/src/prusa-slicer -help
+echo "Running cmake"
+cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3
+echo "Startig compilation with two threads only (due to ram limitations)"
+make -j2
+echo "Now installing"
+sudo make install
+echo "Sending you back to the megascript"

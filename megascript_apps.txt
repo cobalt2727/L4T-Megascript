@@ -40,6 +40,8 @@ fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="
 
 fn="ALL THE SHOVELWARE";;d="Literally just installs all packages starting with games";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
 
+fn="PrusaSlicer";;d="PrusaSlicer is an open-source, feature-rich, frequently updated tool for 3D Printing";;sn="prusaslicer.sh";;f="extras"
+
 fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and elegance";;sn="budgie.sh";;f="desktop_environments"
 
 # fn="Cinnamon Desktop";;d="Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions.";;sn="cinnamon.sh";;f="desktop_environments"
