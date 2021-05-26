@@ -19,4 +19,15 @@ echo "Startig compilation with two threads only (due to ram limitations)"
 make -j2
 echo "Now installing"
 sudo make install
+echo "adding a .desktop file"
+sudo sh -c "cat > /usr/local/share/applications/prusaslicer.desktop << _EOF_
+[Desktop Entry]
+Type=Application
+Exec=prusa-slicer
+Hidden=false
+NoDisplay=false
+Name=PrusaSlicer
+Icon=/usr/local/resources/icons/PrusaSlicer.png
+Categories=GTK;Graphics
+_EOF_"
 echo "Sending you back to the megascript"
