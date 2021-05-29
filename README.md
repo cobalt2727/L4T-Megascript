@@ -19,9 +19,9 @@ Some of our included program install scripts are below:
 - Initial Setup: Installs the joycon mouse, flapack fix, SDL2 etc
 - Update: Update your programs (APT, Flatpak, dolphin emulator, maybe someday automatic source code builds)
 - Dolphin: Gamecube and Wii emulator, latest development version
-- Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04 and is hidden, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04/20.10 IMAGE)
-- Moonlight-qt: stream games from your PC as long as it has an Nvidia (with Gamestream) or AMD (with Sunshine) GPU!
-- Minecraft Bedrock (Android Version) - Android Minecraft Bedrock Version. Ownership of the Android Version Required (controllers function but may cause Minecraft to crash on launch)
+- Citra: 3DS emulator (THE SCRIPT WILL NOT WORK ON 18.04 and is hidden, WAIT FOR SWITCHROOT TO RELEASE A WORKING 20.04+ IMAGE)
+- Moonlight-qt: stream games from your PC as long as it has an Nvidia (with Gamestream https://www.nvidia.com/en-us/support/gamestream/gamestream-pc-setup/) or AMD (with Sunshine https://github.com/loki-47-6F-64/sunshine) GPU!
+- Minecraft Bedrock (Android Version) - Android Minecraft Bedrock Version. Ownership of the Google Play release required (controllers function but may cause a crash if connected on launch until the devs fix it)
 - MultiMC Minecraft Java - Mincraft Java Launcher, Instance, and Mod Manager
 - Discord (Webcord) Webapp - Electron based discord webapp built on the discord browser version.
 - SRB2: A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom
@@ -33,9 +33,9 @@ Some of our included program install scripts are below:
  We are planning in adding more scripts and functions to the script in future updates.
  (Check the repo folders for scripts currently in progress but not yet available in the gui/cli)
 ## Planned features:
-- Finish all the wiki pages 
-- Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft
-- _Possibly_ work on including the manually built scripts here into the updater?
+- Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like the RetroPie documentation)
+- Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost
+- Keep checking around the internet to see if someone can provide prebuilt modern QT packages for 18.04 so that Citra can install for 18.04 users (don't expect good performance even if this happens, though - plus it's more likely that Switchroot releases 20.04 first, eventually)
 - More to come!
 ## Our Team
 - Cobalt: Manager/Lead Dev
