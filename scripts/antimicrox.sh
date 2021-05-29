@@ -17,3 +17,18 @@ mkdir build && cd build
 # Building
 cmake ..
 cmake --build .
+
+# Installing
+sudo mv -f bin/antimicrox /usr/bin/
+
+# Desktop File
+echo "[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/usr/bin/antimicrox
+Name=AntiMicroX
+Icon=/usr/share/applications/antimicrox.png" > antimicrox.desktop
+sudo mv -f antimicrox.desktop /usr/share/applications/
+sudo cp -f ~/antimicrox/src/images/antimicrox.png /usr/share/applications/
