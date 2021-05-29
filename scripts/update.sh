@@ -4,6 +4,14 @@
 clear
 echo "Updater script successfully started!"
 
+description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
+\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+AptFixUserInput="$output"
+
+
+
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
 
@@ -20,7 +28,7 @@ fi
 #Same as above, but for RetroPie, using the emulationstation binary as the test
 RetroPieUserInput="no"
 if test -f /usr/bin/emulationstation; then
-        description="Do you want to update RetroPie? MAY TAKE MULTIPLE HOURS"
+        description="Do you want to update RetroPie? (MAY TAKE MULTIPLE HOURS)"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
@@ -33,26 +41,38 @@ sleep 1
 sudo apt update
 sudo apt upgrade -y
 
-echo "Scanning for issues with APT packages..."
-echo "If you receive a yes/no prompt in the following steps,"
-echo "Make sure you carefully read over the"
-echo "packages to be changed before proceeding."
-echo "If not, don't worry about it."
-echo "Purging, cleaning, and autoremoving are NORMALLY"
-echo "fine, but double-check packages to be safe."
-sleep 5
-##maintenance (not passing with -y to prevent potentially breaking something for a user)
-sudo dpkg --configure -a
-sudo apt autoremove
-sudo apt --fix-broken install
-sudo apt autoclean
-sudo apt autopurge
+##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
+if [[ $AptFixUserInput == "yes" ]]; then
+	echo
+	echo
+	echo
+	echo "Scanning for issues with APT packages..."
+	echo
+	echo "If you receive a yes/no prompt in the following steps,"
+	echo "Make sure you carefully read over the"
+	echo "packages to be changed before proceeding."
+	echo "If not, don't worry about it."
+	echo "Purging, cleaning, and autoremoving are NORMALLY"
+	echo "fine, but double-check packages to be safe."
+	sleep 5
+	##maintenance (not passing with -y to prevent potentially breaking something for a user)
+	sudo dpkg --configure -a
+	sudo apt autoremove
+	sudo apt --fix-broken install
+	sudo apt autoclean
+	sudo apt autopurge
+	
+	echo "Fixing flatpak issues (if any)..."
+	sudo flatpak repair
+	flatpak repair --user
+
+else
+	echo "Skipping apt fixes..."
+fi
+
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
-sudo flatpak repair
-flatpak repair --user
-
 sudo flatpak update -y
 flatpak update -y
 
@@ -86,6 +106,7 @@ if [[ $RetroPieUserInput == "yes" ]]; then
 else
         echo "Skipping RetroPie updates..."
 fi
+
 
 
 ##########################################################################
