@@ -5,8 +5,7 @@ clear
 echo "Updater script successfully started!"
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
-\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support.\
-\nIf you don't have a keyboard set up, just choose no.)"
+\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 AptFixUserInput="$output"
@@ -29,7 +28,7 @@ fi
 #Same as above, but for RetroPie, using the emulationstation binary as the test
 RetroPieUserInput="no"
 if test -f /usr/bin/emulationstation; then
-        description="Do you want to update RetroPie? MAY TAKE MULTIPLE HOURS"
+        description="Do you want to update RetroPie? (MAY TAKE MULTIPLE HOURS)"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
@@ -44,7 +43,11 @@ sudo apt upgrade -y
 
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
 if [[ $AptFixUserInput == "yes" ]]; then
+	echo
+	echo
+	echo
 	echo "Scanning for issues with APT packages..."
+	echo
 	echo "If you receive a yes/no prompt in the following steps,"
 	echo "Make sure you carefully read over the"
 	echo "packages to be changed before proceeding."
