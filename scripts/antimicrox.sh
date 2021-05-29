@@ -33,3 +33,7 @@ Name=AntiMicroX
 Icon=/usr/share/applications/antimicrox.png" > antimicrox.desktop
 sudo mv -f antimicrox.desktop /usr/share/applications/
 sudo cp -f ~/antimicrox/src/images/antimicrox.png /usr/share/applications/
+
+# Removing source
+cd ~
+rm -rf antimicrox
