@@ -10,6 +10,7 @@ sudo apt install -y git gcc cmake extra-cmake-modules \
 
 # Cloning
 cd ~
+rm -rf antimicrox
 git clone https://github.com/AntiMicroX/antimicrox.git
 cd antimicrox
 mkdir build && cd build
