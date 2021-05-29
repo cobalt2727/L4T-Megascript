@@ -6,7 +6,7 @@ echo "a graphical program used to map gamepad keys to keyboard."
 # Dependancies
 sudo apt install -y git gcc cmake extra-cmake-modules \
     qttools5-dev qttools5-dev-tools libsdl2-dev \
-    libx11-dev itstool gettext
+    libxi-dev libxtst-dev libx11-dev itstool gettext
 
 # Cloning
 cd ~
