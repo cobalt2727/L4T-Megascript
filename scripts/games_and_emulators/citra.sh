@@ -38,7 +38,7 @@ sudo apt-get install git ninja-build libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt
 echo "Building Citra..."
 sleep 1
 cd ~
-git clone --recursive https://github.com/citra-emu/citra
+git clone --depth 1 --recursive https://github.com/citra-emu/citra
 cd citra
 mkdir -p build
 cd build
