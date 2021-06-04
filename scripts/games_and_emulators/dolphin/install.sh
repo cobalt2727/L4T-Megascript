@@ -11,7 +11,7 @@ sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-pri
 
 
 echo "Downloading the source..."
-git clone https://github.com/dolphin-emu/dolphin
+git clone --depth 1 https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull
 mkdir -p build
