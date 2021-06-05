@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=L4T Megascript
-Exec=gnome-terminal -e "bash -c 'bash <( curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_refactor.sh ) "gui"'"
+Exec=gnome-terminal -e "bash -c 'bash <( wget -O - https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_refactor.sh ) "gui"'"
 Icon=/usr/share/icons/L4T-Megascript.png
 Type=Application
 Categories=System
