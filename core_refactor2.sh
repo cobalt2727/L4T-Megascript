@@ -20,6 +20,14 @@ echo -e "\x1B[31mHello World\e[0m"
 clear
 x=1
 
+dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
+## Install dependencies if necessary
+if [[ $gui == "gui" ]]; then
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || pkexec sh -c "apt update; apt upgrade -y; apt-get install ${dependencies[@]} -y; hash -r"
+else
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || sudo apt update; sudo apt upgrade -y; sudo apt-get install ${dependencies[@]} -y; hash -r
+fi
+
 #allow developer to set repository username and branch
 #developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
 if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
