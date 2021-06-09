@@ -12,27 +12,27 @@ fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the A
 
 fn="moonlight-qt";;d='stream games from your PC as long as it has an Nvidia GPU!';;sn="moonlight.sh";;f="scripts"
 
-fn="Discord";;d="Discord Web App";;sn="discord.sh";;f="scripts"
+fn="Discord (Webcord)";;d="Discord Web App";;sn="discord.sh";;f="scripts"
 
 # fn="Kodi";;d="media center";;e='echo "scripts not ready yet"';;f="scripts"
 
 # fn="Development IDEs";;d='write code on your Switch!';;e='echo "scripts not ready yet"';;f="scripts"
 
+fn="ocs-url";;d="Support for the Pling store's Install button";;sn="ocs-url.sh";;f="scripts"
+
+fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
+
 # fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SFB2.sh";;f="games_and_emulators"
 
-fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;e='sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/games_and_emulators/retropie_auto.sh)"';;f="games_and_emulators"
+fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;e='sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh)"';;f="games_and_emulators"
 
 fn="Celeste (Pico-8 Port)";;d="A tight platforming game which lead to the development of Celeste";;e='bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh)"';;f="games_and_emulators"
 
 fn="Flappy Bird";;d="A game about a bird flying in between warp pipes";;e='bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"';;f="games_and_emulators"
 
 fn="supertux";;d='A 2D jump and run sidescroller game in a style similar to the original Super Mario games';;sn="ST2.sh";;f="games_and_emulators"
-
-fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
-
-fn="ocs-url";;d="Support for the Pling store's Install button";;sn="ocs-url.sh";;f="scripts"
 
 fn="SRB2Kart";;d="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2";;sn="SRB2Kart.sh";;f="games_and_emulators"
 
