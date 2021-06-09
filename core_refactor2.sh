@@ -106,11 +106,13 @@ conversion() {
         if [[ $gui == "gui" ]]; then
           ids+=($f)
           declare -n current_table=table_$f
+          f="$(echo "$f" | sed -e 's/_/ /g')"
           current_table+=(FALSE $i "$fn" "$d")
           unset -n current_table
-          table_all_categories+=(FALSE $i "$fn" "$d")
+          table_all_categories+=(FALSE $i "$f" "$fn" "$d")
         else
-          echo "$i...............$f - $fn - $d"
+          ff="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
+          echo "$i...............$ff - $fn - $d"
         fi
       fi
     fi
@@ -141,10 +143,10 @@ while [ $x == 1 ]; do
     uniq=($(printf "%s\n" "${ids[@]}" | sort -u))
     echo "${uniq[@]}"
     for string in "${uniq[@]}"; do
-      uniq_selection+=(FALSE $string)
+      pretty_string="$(echo "$string" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
+      uniq_selection+=(FALSE " $pretty_string" "$string")
     done
-    uniq_selection+=(FALSE "all_categories")
-    uniq_selection[0]=TRUE
+    uniq_selection+=(TRUE "All Categories" "all_categories")
     while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
         zenity \
@@ -156,31 +158,58 @@ while [ $x == 1 ]; do
         --radiolist \
         --column "Selection" \
         --column "Category" \
+        --column "Real Folder" \
+        --hide-column=3 \
+        --print-column=3 \
         "${uniq_selection[@]}" \
         --cancel-label "Exit the Megascript" \
         --ok-label "Go to Selection"
       )
       if [ "$?" != 1 ]; then
-        declare -n current_table=table_$CATEGORY
-        CHOICE=$(
-          zenity \
-          --width="1000" \
-          --height="500" \
-          --title $CATEGORY \
-          --text "Please Select the Desired Programs to Install" \
-          --list \
-          --checklist \
-          --column "Install" \
-          --column "Number" \
-          --column "Program" \
-          --column "Details" \
-          --ok-label="INSTALL" \
-          --hide-column=2 \
-          "${current_table[@]}" \
-          --separator=':' \
-          --cancel-label "Exit the Megascript" \
-          --extra-button "Go Back to Categories"
-        )
+        category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
+        declare -n current_table="table_$CATEGORY"
+        if [ "$CATEGORY" == "all_categories" ]; then
+			CHOICE=$(
+			  zenity \
+			  --width="1000" \
+			  --height="500" \
+			  --title "$category_space" \
+			  --text "Please Select the Desired Programs to Install" \
+			  --list \
+			  --checklist \
+			  --column "Install" \
+			  --column "Number" \
+			  --column "Category" \
+			  --column "Program" \
+			  --column "Details" \
+			  --ok-label="INSTALL" \
+			  --hide-column=2 \
+			  "${current_table[@]}" \
+			  --separator=':' \
+			  --cancel-label "Exit the Megascript" \
+			  --extra-button "Go Back to Categories"
+			)
+        else
+			CHOICE=$(
+			  zenity \
+			  --width="1000" \
+			  --height="500" \
+			  --title "$category_space" \
+			  --text "Please Select the Desired Programs to Install" \
+			  --list \
+			  --checklist \
+			  --column "Install" \
+			  --column "Number" \
+			  --column "Program" \
+			  --column "Details" \
+			  --ok-label="INSTALL" \
+			  --hide-column=2 \
+			  "${current_table[@]}" \
+			  --separator=':' \
+			  --cancel-label "Exit the Megascript" \
+			  --extra-button "Go Back to Categories"
+			)
+        fi        
         if [ "$?" != 1 ]; then
           sudo -k
           state="0"
@@ -247,8 +276,8 @@ if sudo -n true; then
   #create .desktop file for the megascript
   sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
   sudo rm -rf /usr/share/icons/L4T-Megascript.png
-  sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png --output /usr/share/icons/L4T-Megascript.png
-  sudo curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop --output /usr/share/applications/L4T-Megascript.desktop
+  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" --output /usr/share/icons/L4T-Megascript.png
+  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" --output /usr/share/applications/L4T-Megascript.desktop
   sudo chmod +x '/usr/share/applications/L4T-Megascript.desktop'
 else
   echo "didn't add the L4T-Megascript.desktop file, sudo timer ran out"
