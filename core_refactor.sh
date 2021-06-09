@@ -22,9 +22,9 @@ x=1
 dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
 ## Install dependencies if necessary
 if [[ $gui == "gui" ]]; then
-  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || pkexec sh -c "apt update; apt upgrade -y; apt-get install bash dialog gnutls-bin curl zenity -y; hash -r"
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}")  -y; hash -r"
 else
-  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || sudo sh -c "apt update; apt upgrade -y; apt-get install bash dialog gnutls-bin curl zenity -y; hash -r"
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}")  -y; hash -r"
 fi
 
 #allow developer to set repository username and branch
