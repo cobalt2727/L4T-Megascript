@@ -17,7 +17,9 @@ if grep -q focal /etc/os-release; then
   sudo apt install python3.9 libpython3.9 -y
 fi
 
-
+if grep -q hirsute /etc/os-release; then
+  sudo apt install python3.10 libpython3.10 -y
+fi
 
 echo "Done!"
 echo "Sending you back to the main menu..."

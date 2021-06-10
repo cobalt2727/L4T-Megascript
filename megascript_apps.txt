@@ -36,6 +36,10 @@ fn="supertux";;d='A 2D jump and run sidescroller game in a style similar to the 
 
 fn="SRB2Kart";;d="A kart racing game based on the 3D Sonic the Hedgehog fangame SRB2";;sn="SRB2Kart.sh";;f="games_and_emulators"
 
+fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="IDE"
+
+fn="VSCode";;d="Source code editor with many features";;sn="vscode.sh";;f="IDE"
+
 fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
 fn="ALL THE SHOVELWARE";;d="Literally just installs all packages starting with games";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
