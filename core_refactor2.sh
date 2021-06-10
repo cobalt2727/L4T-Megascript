@@ -20,14 +20,6 @@ echo -e "\x1B[31mHello World\e[0m"
 clear
 x=1
 
-dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
-## Install dependencies if necessary
-if [[ $gui == "gui" ]]; then
-  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r"
-else
-  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r"
-fi
-
 #allow developer to set repository username and branch
 #developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
 if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
@@ -40,6 +32,37 @@ if [ -v $repository_branch ] || [ $repository_branch == master ]; then
 else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
+
+function add_desktop {
+  #create .desktop file for the megascript
+  sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
+  sudo rm -rf /usr/share/icons/L4T-Megascript.png
+  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" --output /usr/share/icons/L4T-Megascript.png
+  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" --output /usr/share/applications/L4T-Megascript.desktop
+  sudo chmod +x '/usr/share/applications/L4T-Megascript.desktop'
+}
+FUNC=$(declare -f add_desktop)
+
+dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
+## Install dependencies if necessary
+dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
+  pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y;  $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+else
+  sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+fi
+ 
+ function add_desktop_if {        
+test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
+  zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
+  pkexec sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+  clear
+else
+  echo 'Looks like you do not have the L4T-Megascript.desktop file (the applications icon)'
+  echo "Please give your password at the prompt"
+  sudo sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+  clear
+fi
+}
 
 #functions used by megascript scripts
 function userinput_func {
@@ -135,13 +158,13 @@ while [ $x == 1 ]; do
   execute=()
   ids=()
   if [[ $gui == "gui" ]]; then
-    zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program."
-    zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!"
+    zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png
+    zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!" --window-icon=/usr/share/icons/L4T-Megascript.png
+    add_desktop_if
     conversion
     uniq_selection=()
     CHOICE=""
     uniq=($(printf "%s\n" "${ids[@]}" | sort -u))
-    echo "${uniq[@]}"
     for string in "${uniq[@]}"; do
       pretty_string="$(echo "$string" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
       uniq_selection+=(FALSE " $pretty_string" "$string")
@@ -154,6 +177,7 @@ while [ $x == 1 ]; do
         --height="350" \
         --title "Welcome to the L4T-Megascript" \
         --text "Please Choose a Scripts Category" \
+        --window-icon=/usr/share/icons/L4T-Megascript.png \
         --list \
         --radiolist \
         --column "Selection" \
@@ -175,6 +199,7 @@ while [ $x == 1 ]; do
 			  --height="500" \
 			  --title "$category_space" \
 			  --text "Please Select the Desired Programs to Install" \
+			  --window-icon=/usr/share/icons/L4T-Megascript.png \
 			  --list \
 			  --checklist \
 			  --column "Install" \
@@ -196,6 +221,7 @@ while [ $x == 1 ]; do
 			  --height="500" \
 			  --title "$category_space" \
 			  --text "Please Select the Desired Programs to Install" \
+			  --window-icon=/usr/share/icons/L4T-Megascript.png \
 			  --list \
 			  --checklist \
 			  --column "Install" \
@@ -232,9 +258,10 @@ while [ $x == 1 ]; do
 
     echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
     echo
-    echo "Enter a number from the choices below and then press ENTER to configure the specified program."
-    #echo -e "\x1B[31mKeep in mind how much storage you have left on your SD card!\e[0m"
+    add_desktop_if
     echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
+    echo "Enter a number from the choices below and then press ENTER to configure the specified program."
+
     sleep 2
     echo
     conversion
@@ -273,18 +300,13 @@ while [ $x == 1 ]; do
 done
 
 if sudo -n true; then
-  #create .desktop file for the megascript
-  sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
-  sudo rm -rf /usr/share/icons/L4T-Megascript.png
-  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" --output /usr/share/icons/L4T-Megascript.png
-  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" --output /usr/share/applications/L4T-Megascript.desktop
-  sudo chmod +x '/usr/share/applications/L4T-Megascript.desktop'
+  add_desktop
 else
   echo "didn't add the L4T-Megascript.desktop file, sudo timer ran out"
 fi
 
 if [[ $gui == "gui" ]]; then
-  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now" --window-icon=/usr/share/icons/L4T-Megascript.png
   clear
 else
   echo "Thank you for using the L4T Megascript!"
