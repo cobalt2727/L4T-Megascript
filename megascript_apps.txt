@@ -24,7 +24,7 @@ fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)
 
 # fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
 
-fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SFB2.sh";;f="games_and_emulators"
+fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
 fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;e='sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh)"';;f="games_and_emulators"
 
