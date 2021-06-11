@@ -111,7 +111,18 @@ fi
 
 ##########################################################################
 
+cd ~
+if test -f customupdate.sh; then
+	chmod +x customupdate.sh
+	./customupdate.sh
+else
+	echo -e "You can add your own commands to automatically run with this updater"
+	echo -e "by creating a file in \e[34m/home/$USER/\e[0m (this is your default ~ folder) named \e[36mcustomupdate.sh\e[0m"
+	sleep 4
+fi
+
 sleep 1
 
+echo
 echo "Done! Sending you back to the main menu..."
 sleep 4
