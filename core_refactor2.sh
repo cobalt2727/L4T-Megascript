@@ -50,18 +50,18 @@ dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
 else
   sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
 fi
- 
- function add_desktop_if {        
-test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
-  zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
-  pkexec sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
-  clear
-else
-  echo 'Looks like you do not have the L4T-Megascript.desktop file (the applications icon)'
-  echo "Please give your password at the prompt"
-  sudo sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
-  clear
-fi
+
+function add_desktop_if {
+  test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
+    zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
+    pkexec sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+    clear
+  else
+    echo 'Looks like you do not have the L4T-Megascript.desktop file (the applications icon)'
+    echo "Please give your password at the prompt"
+    sudo sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+    clear
+  fi
 }
 
 #functions used by megascript scripts
@@ -75,14 +75,14 @@ function userinput_func {
     uniq_selection[0]=TRUE
     output=$(
       zenity \
-      --text "$1" \
-      --list \
-      --radiolist \
-      --column "" \
-      --column "Selection" \
-      --ok-label="OK" \
-      "${uniq_selection[@]}" \
-      --cancel-label "Cancel Choice"
+        --text "$1" \
+        --list \
+        --radiolist \
+        --column "" \
+        --column "Selection" \
+        --ok-label="OK" \
+        "${uniq_selection[@]}" \
+        --cancel-label "Cancel Choice"
     )
   else
     for string in "${@:2}"; do
@@ -90,12 +90,12 @@ function userinput_func {
     done
     output=$(
       dialog --clear \
-      --backtitle "CLI Chooser Helper" \
-      --title "Choices" \
-      --menu "$1" \
-      "$height" "120" "$($# - 1)" \
-      "${uniq_selection[@]}" \
-      2>&1 >/dev/tty
+        --backtitle "CLI Chooser Helper" \
+        --title "Choices" \
+        --menu "$1" \
+        "$height" "120" "$($# - 1)" \
+        "${uniq_selection[@]}" \
+        2>&1 >/dev/tty
     )
   fi
   status=$?
@@ -129,7 +129,7 @@ conversion() {
         if [[ $gui == "gui" ]]; then
           ids+=($f)
           declare -n current_table=table_$f
-          f="$(echo "$f" |  sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
+          f="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
           current_table+=(FALSE $i "$fn" "$d")
           unset -n current_table
           table_all_categories+=(FALSE $i "$f" "$fn" "$d")
@@ -173,69 +173,69 @@ while [ $x == 1 ]; do
     while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
         zenity \
-        --width="250" \
-        --height="350" \
-        --title "Welcome to the L4T-Megascript" \
-        --text "Please Choose a Scripts Category" \
-        --window-icon=/usr/share/icons/L4T-Megascript.png \
-        --list \
-        --radiolist \
-        --column "Selection" \
-        --column "Category" \
-        --column "Real Folder" \
-        --hide-column=3 \
-        --print-column=3 \
-        "${uniq_selection[@]}" \
-        --cancel-label "Exit the Megascript" \
-        --ok-label "Go to Selection"
+          --width="250" \
+          --height="350" \
+          --title "Welcome to the L4T-Megascript" \
+          --text "Please Choose a Scripts Category" \
+          --window-icon=/usr/share/icons/L4T-Megascript.png \
+          --list \
+          --radiolist \
+          --column "Selection" \
+          --column "Category" \
+          --column "Real Folder" \
+          --hide-column=3 \
+          --print-column=3 \
+          "${uniq_selection[@]}" \
+          --cancel-label "Exit the Megascript" \
+          --ok-label "Go to Selection"
       )
       if [ "$?" != 1 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
         if [ "$CATEGORY" == "all_categories" ]; then
-			CHOICE=$(
-			  zenity \
-			  --width="1000" \
-			  --height="500" \
-			  --title "$category_space" \
-			  --text "Please Select the Desired Programs to Install" \
-			  --window-icon=/usr/share/icons/L4T-Megascript.png \
-			  --list \
-			  --checklist \
-			  --column "Install" \
-			  --column "Number" \
-			  --column "Category" \
-			  --column "Program" \
-			  --column "Details" \
-			  --ok-label="INSTALL" \
-			  --hide-column=2 \
-			  "${current_table[@]}" \
-			  --separator=':' \
-			  --cancel-label "Exit the Megascript" \
-			  --extra-button "Go Back to Categories"
-			)
+          CHOICE=$(
+            zenity \
+              --width="1000" \
+              --height="500" \
+              --title "$category_space" \
+              --text "Please Select the Desired Programs to Install" \
+              --window-icon=/usr/share/icons/L4T-Megascript.png \
+              --list \
+              --checklist \
+              --column "Install" \
+              --column "Number" \
+              --column "Category" \
+              --column "Program" \
+              --column "Details" \
+              --ok-label="INSTALL" \
+              --hide-column=2 \
+              "${current_table[@]}" \
+              --separator=':' \
+              --cancel-label "Exit the Megascript" \
+              --extra-button "Go Back to Categories"
+          )
         else
-			CHOICE=$(
-			  zenity \
-			  --width="1000" \
-			  --height="500" \
-			  --title "$category_space" \
-			  --text "Please Select the Desired Programs to Install" \
-			  --window-icon=/usr/share/icons/L4T-Megascript.png \
-			  --list \
-			  --checklist \
-			  --column "Install" \
-			  --column "Number" \
-			  --column "Program" \
-			  --column "Details" \
-			  --ok-label="INSTALL" \
-			  --hide-column=2 \
-			  "${current_table[@]}" \
-			  --separator=':' \
-			  --cancel-label "Exit the Megascript" \
-			  --extra-button "Go Back to Categories"
-			)
-        fi        
+          CHOICE=$(
+            zenity \
+              --width="1000" \
+              --height="500" \
+              --title "$category_space" \
+              --text "Please Select the Desired Programs to Install" \
+              --window-icon=/usr/share/icons/L4T-Megascript.png \
+              --list \
+              --checklist \
+              --column "Install" \
+              --column "Number" \
+              --column "Program" \
+              --column "Details" \
+              --ok-label="INSTALL" \
+              --hide-column=2 \
+              "${current_table[@]}" \
+              --separator=':' \
+              --cancel-label "Exit the Megascript" \
+              --extra-button "Go Back to Categories"
+          )
+        fi
         if [ "$?" != 1 ]; then
           sudo -k
           state="0"
