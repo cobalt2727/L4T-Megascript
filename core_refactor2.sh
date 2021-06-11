@@ -129,7 +129,7 @@ conversion() {
         if [[ $gui == "gui" ]]; then
           ids+=($f)
           declare -n current_table=table_$f
-          f="$(echo "$f" | sed -e 's/_/ /g')"
+          f="$(echo "$f" |  sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
           current_table+=(FALSE $i "$fn" "$d")
           unset -n current_table
           table_all_categories+=(FALSE $i "$f" "$fn" "$d")
