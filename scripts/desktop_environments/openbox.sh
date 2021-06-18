@@ -31,87 +31,37 @@ Exec=/usr/local/bin/auto-rotate
 OnlyShowIn=cinnamon-session;MATE;LXDE;openbox
 EOF
 
-# overwrite dock-hotplug until new one gets released
-sudo rm -rf /usr/bin/dock-hotplug
-echo | sudo tee /usr/bin/dock-hotplug <<'EOF'
+# add custom dock-hotplug
+sudo rm -rf /etc/dock-hotplug.sh
+echo | sudo tee /etc/dock-hotplug.sh <<'EOF'
 #!/bin/bash
-background_stuff() {
-	export DISPLAY=
-	export DP_SETTINGS=
-	# Read custom WIDTHxHEIGHT from dock-hotplug.conf
-	if [ -e "/etc/dock-hotplug.conf" ]; then
-		export DP_SETTINGS=$(cat /etc/dock-hotplug.conf)
-	fi
-	if [[ -n $DP_SETTINGS ]]; then
-		export DP_SETTINGS="--primary --mode "$DP_SETTINGS" --panning "$DP_SETTINGS"+0+0 --pos 0x0"
-	else
-		export DP_SETTINGS="--primary --auto"
-	fi
-	while [ "$DISPLAY" = "" ]
+export DISPLAY=
+export DP_SETTINGS=
+while [ "$DISPLAY" = "" ]
+do
+	cd /tmp/.X11-unix && for x in X*;
 	do
-		cd /tmp/.X11-unix && for x in X*;
-		do
-			if [ ! -e "$x" ]; then continue; fi
-			export DISPLAY=":${x#X}"
-			if [ "$DISPLAY" = "" ]; then sleep 1; continue; fi
-			USER_NAME=$(who | awk -v vt="$DISPLAY" '$0 ~ vt {print $1}')
-			USER_ID=$(id -u "$USER_NAME")
-			PULSE_SERVER="unix:/run/user/"$USER_ID"/pulse/native"
-			# from https://wiki.archlinux.org/index.php/Acpid#Laptop_Monitor_Power_Off
-			export XAUTHORITY=$(ps -C Xorg -f --no-header | sed -n 's/.*-auth //; s/ -[^ ].*//; p')
-			if [[ "$1" -eq 1 ]]
-			then
-				xrandr --output DP-0 $DP_SETTINGS --output DSI-0 --off
-				xinput disable 6 #disable touch screen
-				sudo -u "$USER_NAME" xrandr --output DP-0 $DP_SETTINGS --output DSI-0 --off
-				sudo -u "$USER_NAME" xinput disable 6 #disable touch screen
-				sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile 1 off
-				sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile 0 output:hdmi-stereo
-			else
-				xrandr --output DSI-0 --mode "720x1280" --primary --rotate left --panning 1280x720+0+0 --pos 0x0 --dpi 237
-				xinput enable 6 #enable touch screen
-				xinput set-prop touchscreen "Coordinate Transformation Matrix" 0, -1, 1, 1, 0, 0, 0, 0, 1
-				sudo -u "$USER_NAME" xrandr --output DSI-0 --mode "720x1280" --primary --rotate left --panning 1280x720+0+0 --pos 0x0 --dpi 237
-				sudo -u "$USER_NAME" xinput enable 6 #enable touch screen
-				sudo -u "$USER_NAME" xinput set-prop touchscreen "Coordinate Transformation Matrix" 0, -1, 1, 1, 0, 0, 0, 0, 1
-				sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile 1 HiFi
-				sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile 0 off
-			fi
-			sleep 1
-		done
-	done
-	# Execute custom dock-hotplug.sh
-	if [ -e "/etc/dock-hotplug.sh" ]; then
-		/bin/bash /etc/dock-hotplug.sh $1
-	fi
-	if [[ "$1" -eq 0 ]]; then
-		gsettings set com.ubuntu.user-interface scale-factor "{'': 8, 'DSI-0': 10, 'DP-0': 8}"
-	fi
-	if grep -q 1 "/var/lib/nvpmodel/auto_profiles"; then 
-		if [[ "$1" -eq 1 ]]; then
-			nvpmodel -m 0
-			nvpmodel -d Console
+		if [ ! -e "$x" ]; then continue; fi
+		export DISPLAY=":${x#X}"
+		if [ "$DISPLAY" = "" ]; then sleep 1; continue; fi
+		USER_NAME=$(who | awk -v vt="$DISPLAY" '$0 ~ vt {print $1}')
+		USER_ID=$(id -u "$USER_NAME")
+		PULSE_SERVER="unix:/run/user/"$USER_ID"/pulse/native"
+		# from https://wiki.archlinux.org/index.php/Acpid#Laptop_Monitor_Power_Off
+		export XAUTHORITY=$(ps -C Xorg -f --no-header | sed -n 's/.*-auth //; s/ -[^ ].*//; p')
+		if [[ "$1" -eq 1 ]]
+		then
+			echo ""
 		else
-			nvpmodel -m 1
-			nvpmodel -d Handheld
+			xinput set-prop touchscreen "Coordinate Transformation Matrix" 0, -1, 1, 1, 0, 0, 0, 0, 1
+			sudo -u "$USER_NAME" xinput set-prop touchscreen "Coordinate Transformation Matrix" 0, -1, 1, 1, 0, 0, 0, 0, 1
 		fi
-	fi
-}
-i=1
-DP_ENABLED=1
-LOOPS=2
-if [[ "$1" -eq 1 ]]; then LOOPS=5; fi
-while [ "$i" -le "$LOOPS" ]; do
-	if grep -q 1 "/sys/class/switch/dp/state"; then DP_ENABLED=1; else DP_ENABLED=0; fi
-	if [[ "$LOOPS" -eq 5 ]]; then
-		background_stuff $DP_ENABLED
-	else
-		background_stuff $DP_ENABLED & disown
-	fi
-	i=$(($i + 1))
+		sleep 1
+	done
 done
+
 EOF
-sudo chmod +x /usr/bin/dock-hotplug
+sudo chmod +x /etc/dock-hotplug.sh
 
 # status bar not included for now
 
