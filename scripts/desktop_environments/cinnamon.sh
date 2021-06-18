@@ -10,7 +10,7 @@ echo "Are you sure you want to continue?"
 sudo apt update
 sudo apt install cinnamon-desktop-environment libappindicator3-1 -y
 
-echo "Adding autorotation script (only active in LXDE)"
+echo "Adding autorotation script"
 
 sudo apt install iio-sensor-proxy libxrandr2 libglib2.0-dev -y
 cd /usr/local/bin
@@ -19,13 +19,13 @@ sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate
 sudo chmod +x auto-rotate
 cd ~
 
-dd of=~/.config/autostart/cinnamon-auto-rotate.desktop  << EOF
+dd of=~/.config/autostart/auto-rotate.desktop  << EOF
 [Desktop Entry]
 Type=Application
 Name=Auto-Rotate
 GenericName=rotation script
 Exec=/usr/local/bin/auto-rotate
-OnlyShowIn=cinnamon-session
+OnlyShowIn=cinnamon-session;MATE;LXDE;openbox
 EOF
 
 # overwrite dock-hotplug until new one gets released
@@ -109,6 +109,14 @@ while [ "$i" -le "$LOOPS" ]; do
 done
 EOF
 sudo chmod +x /usr/bin/dock-hotplug
+# add the nvidia power profile indicator to startup
+sudo dd of=/etc/xdg/autostart/nvpmodel.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Nvpmodel Indicator
+GenericName=Indicator Nvidia
+Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+OnlyShowIn=LXDE;MATE;cinnamon-session
+EOF
 
 echo "Going back to the main menu..."
-sleep 1
