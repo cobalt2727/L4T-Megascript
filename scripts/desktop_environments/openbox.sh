@@ -22,13 +22,13 @@ sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate
 sudo chmod +x auto-rotate
 cd ~
 
-dd of=~/.config/autostart/auto-rotate.desktop  << EOF
+sudo dd of=/etc/xdg/autostart/auto-rotate.desktop  << EOF
 [Desktop Entry]
 Type=Application
 Name=Auto-Rotate
 GenericName=rotation script
 Exec=/usr/local/bin/auto-rotate
-OnlyShowIn=cinnamon-session;MATE;LXDE;openbox
+OnlyShowIn=X-Cinnamon;MATE;LXDE;openbox
 EOF
 
 # add custom dock-hotplug
