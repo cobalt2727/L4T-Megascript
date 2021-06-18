@@ -34,7 +34,7 @@ sudo dd of=/etc/xdg/autostart/auto-rotate.desktop  << EOF
 Type=Application
 Name=Auto-Rotate
 GenericName=rotation script
-Exec=/usr/local/bin/auto-rotate
+Exec=bash -c "pkill auto-rotate; /usr/local/bin/auto-rotate"
 OnlyShowIn=X-Cinnamon;MATE;LXDE;openbox
 EOF
 
