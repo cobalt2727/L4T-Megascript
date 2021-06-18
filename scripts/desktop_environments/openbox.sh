@@ -12,7 +12,6 @@ echo "Openbox Startup Script (bottom dock and autorotation script"
 sudo dd of=/etc/xdg/openbox/autostart  << EOF
 sh ~/.fehbg &
 xcompmgr &cairo-dock -o &
-/usr/local/bin/auto-rotate &
 EOF
 sudo chmod +x /etc/xdg/openbox/autostart
 
@@ -23,7 +22,14 @@ sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate
 sudo chmod +x auto-rotate
 cd ~
 
-
+dd of=~/.config/autostart/auto-rotate.desktop  << EOF
+[Desktop Entry]
+Type=Application
+Name=Auto-Rotate
+GenericName=rotation script
+Exec=/usr/local/bin/auto-rotate
+OnlyShowIn=cinnamon-session;MATE;LXDE;openbox
+EOF
 
 # overwrite dock-hotplug until new one gets released
 sudo rm -rf /usr/bin/dock-hotplug

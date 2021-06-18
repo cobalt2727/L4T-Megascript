@@ -119,5 +119,7 @@ Type=Application
 Name=Nvpmodel Indicator
 GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
-OnlyShowIn=LXDE;MATE
+OnlyShowIn=LXDE;MATE;cinnamon-session
 EOF
+
+echo "Going back to the main menu..."

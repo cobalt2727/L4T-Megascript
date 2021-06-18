@@ -20,7 +20,7 @@ Exec=compton --backend glx -b
 OnlyShowIn=LXDE
 EOF
 
-echo "Adding autorotation script (only active in LXDE)"
+echo "Adding autorotation script"
 
 sudo apt install iio-sensor-proxy libxrandr2 libglib2.0-dev -y
 cd /usr/local/bin
@@ -35,7 +35,7 @@ Type=Application
 Name=Auto-Rotate
 GenericName=rotation script
 Exec=/usr/local/bin/auto-rotate
-OnlyShowIn=LXDE
+OnlyShowIn=cinnamon-session;MATE;LXDE;openbox
 EOF
 
 # overwrite dock-hotplug until new one gets released
@@ -133,16 +133,13 @@ EOF
 sudo chmod +x /usr/bin/dock-hotplug
 
 # add the nvidia power profile indicator to startup
-sudo dd of=/etc/xdg/autostart/lxde-nvpmodel.desktop << EOF
+sudo dd of=/etc/xdg/autostart/nvpmodel.desktop << EOF
 [Desktop Entry]
 Type=Application
 Name=Nvpmodel Indicator
 GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
-OnlyShowIn=LXDE
+OnlyShowIn=LXDE;MATE;cinnamon-session
 EOF
-
-# Also, put a LXTerminal shortcut on the desktop
-cp lxterminal.desktop ~/Desktop/lxterminal.desktop
 
 echo "Going back to the main menu..."
