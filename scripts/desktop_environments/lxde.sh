@@ -130,6 +130,7 @@ while [ "$i" -le "$LOOPS" ]; do
 	i=$(($i + 1))
 done
 EOF
+sudo chmod +x /usr/bin/dock-hotplug
 
 # add the nvidia power profile indicator to startup
 sudo dd of=/etc/xdg/autostart/lxde-nvpmodel.desktop << EOF
