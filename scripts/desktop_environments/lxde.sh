@@ -20,6 +20,15 @@ Exec=compton --backend glx -b
 OnlyShowIn=LXDE
 EOF
 
+echo "Adding autorotation script (only active in LXDE)"
+
+sudo apt install iio-sensor-proxy libxrandr2 libglib2.0-dev -y
+cd /usr/local/bin
+sudo rm -rf auto-rotate
+sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate/blob/master/auto-rotate?raw=true
+sudo chmod +x auto-rotate
+cd ~
+
 dd of=~/.config/autostart/auto-rotate.desktop  << EOF
 [Desktop Entry]
 Type=Application
@@ -30,7 +39,7 @@ OnlyShowIn=LXDE
 EOF
 
 # overwrite dock-hotplug until new one gets released
-
+sudo rm -rf /usr/bin/dock-hotplug
 echo | sudo tee /usr/bin/dock-hotplug <<'EOF'
 #!/bin/bash
 
@@ -120,6 +129,16 @@ while [ "$i" -le "$LOOPS" ]; do
 	fi
 	i=$(($i + 1))
 done
+EOF
+
+# add the nvidia power profile indicator to startup
+sudo dd of=/etc/xdg/autostart/lxde-nvpmodel.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Nvpmodel Indicator
+GenericName=Indicator Nvidia
+Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+OnlyShowIn=LXDE
 EOF
 
 # Also, put a LXTerminal shortcut on the desktop
