@@ -46,9 +46,9 @@ FUNC=$(declare -f add_desktop)
 dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
 ## Install dependencies if necessary
 dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
-  pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y;  $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+  pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
 else
-  sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
+  sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
 fi
 
 function add_desktop_if {
