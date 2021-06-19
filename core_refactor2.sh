@@ -307,7 +307,7 @@ else
 fi
 
 if [[ $gui == "gui" ]]; then
-  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\nGman - Contributor/RetroPie script/Celeste native port\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now" --window-icon=/usr/share/icons/L4T-Megascript.png
+  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Devloper/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now" --window-icon=/usr/share/icons/L4T-Megascript.png
   clear
 else
   echo "Thank you for using the L4T Megascript!"
@@ -317,9 +317,10 @@ else
   echo "CTRL + CLICK ON A LINK TO OPEN IT"
   echo
   echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev/Benevolent Dictator\e[0m"
+  echo -e "\e[32mGman - Devloper/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m" 
   echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
   echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
-  echo -e "\e[32mGman - Contributor/Beta Tester\e[0m"
+
   echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
   #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
   echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
