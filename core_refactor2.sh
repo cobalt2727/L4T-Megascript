@@ -141,7 +141,8 @@ conversion() {
     fi
   done
 }
-
+# force reload programs list
+hash -r
 hidden=()
 rm -rf /tmp/megascript_apps.txt
 wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt -O /tmp/megascript_apps.txt
