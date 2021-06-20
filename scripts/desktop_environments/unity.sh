@@ -9,9 +9,4 @@ echo "Are you sure you want to continue?"
 sudo apt update
 sudo apt install ubuntu-unity-desktop --install-suggests -y
 
-echo "If your screen goes black, don't panic, that's normal. Give it a minute..."
-sleep 5
-
-sudo systemctl restart gdm
 echo "Going back to the main menu..."
-sleep 1
