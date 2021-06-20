@@ -58,7 +58,7 @@ if grep -q focal /etc/os-release; then
 fi
 
 #updates whee
-sudo apt update && sudo apt upgrade -y
+sudo apt upgrade -y
 
 #automatically sorts Gnome app layout alphabetically
 gsettings reset org.gnome.shell app-picker-layout

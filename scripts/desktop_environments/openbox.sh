@@ -4,7 +4,6 @@
 
 clear
 echo "Installing the Openbox desktop environment."
-sudo apt update
 sudo apt install openbox obconf feh xcompmgr cairo-dock libappindicator3-1 -y
 
 echo "Openbox Startup Script (bottom dock and autorotation script"

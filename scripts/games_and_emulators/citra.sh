@@ -8,7 +8,6 @@ sleep 3
 
 echo "Running updates..."
 sleep 1
-sudo apt update -y
 
 if grep -q bionic /etc/os-release; then
   echo "          -------UBUNTU 18.04 DETECTED-------"

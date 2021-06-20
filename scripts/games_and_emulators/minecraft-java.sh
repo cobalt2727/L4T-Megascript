@@ -20,7 +20,6 @@ mv MCSwitchTools/ ~
 cd ~
 sudo rm -rf minecraft-temp/
 echo "Starting up initialization..."
-sudo apt update
 sudo apt install openjdk-11-jdk openjdk-8-jdk -y
 ./MCSwitchTools/tools.sh init
 ##shoutouts to Luke for telling me how to restart a terminal entirely automated

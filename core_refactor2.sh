@@ -289,6 +289,7 @@ while [ $x == 1 ]; do
       sudo -v
       kill -0 "$$" 2>/dev/null || exit
     done &
+    sudo apt update
     for word in $CHOICE; do
       if [ -z ${execute[$word]} ]; then
         bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
