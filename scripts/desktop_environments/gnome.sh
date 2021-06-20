@@ -2,7 +2,6 @@
 clear
 echo "Installing the GNOME desktop environment."
 
-sudo apt update
 sudo apt install gnome-session gnome-tweaks gnome-tweak-tool curl wget jq unzip chrome-gnome-shell -y
 
 echo "Installing Some Common Extensions"

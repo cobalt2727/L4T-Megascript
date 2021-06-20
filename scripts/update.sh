@@ -38,7 +38,6 @@ fi
 
 echo "Running APT updates..."
 sleep 1
-sudo apt update
 sudo apt upgrade -y
 
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else

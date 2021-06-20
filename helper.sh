@@ -55,7 +55,7 @@ if [ -v $repository_branch ] || [ $repository_branch == master ]; then
 else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
-
+sudo apt update
 $2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)"
 
 

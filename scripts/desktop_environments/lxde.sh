@@ -4,7 +4,6 @@
 
 clear
 echo "Installing the LXDE desktop environment."
-sudo apt update
 sudo apt install lxde compton libappindicator3-1 -y
 
 

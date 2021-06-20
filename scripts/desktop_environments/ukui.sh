@@ -7,7 +7,6 @@ echo "Under most cases this shouldn't break anything and install alongside of yo
 echo "Are you sure you want to continue?"
 
 ##prompt yes/no
-sudo apt update
 sudo apt install ukui-desktop-environment -y
 
 echo "Going back to the main menu..."
