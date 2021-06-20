@@ -1,14 +1,19 @@
 #!/bin/bash
-
-
 clear
-echo "You are about to install the GNOME desktop environment."
-echo "Under most cases this shouldn't break anything and install alongside of your existing one, but just to be sure..."
-echo "Are you sure you want to continue?"
+echo "Installing the GNOME desktop environment."
 
-##prompt yes/no
 sudo apt update
-sudo apt install gnome-session gnome-tweaks gnome-tweak-tool -y
+sudo apt install gnome-session gnome-tweaks gnome-tweak-tool curl wget jq unzip chrome-gnome-shell -y
+
+echo "Installing Some Common Extensions"
+
+cd ~
+rm -f ./install-gnome-extensions.sh
+wget -N -q "https://raw.githubusercontent.com/cyfrost/install-gnome-extensions/master/install-gnome-extensions.sh" -O ./install-gnome-extensions.sh
+chmod +x install-gnome-extensions.sh
+# use this helpful script to install some desired extensions from command line
+# 615 is AppIndicator and KStatusNotifyerItem Support
+./install-gnome-extensions.sh --enable 615 -o
 
 #automatically sorts Gnome app layout alphabetically
 gsettings reset org.gnome.shell app-picker-layout
