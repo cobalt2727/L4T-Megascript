@@ -2,13 +2,13 @@
 clear
 echo "Installing the GNOME desktop environment."
 
-sudo apt install gnome-session gnome-tweaks gnome-tweak-tool curl wget jq unzip chrome-gnome-shell -y
+sudo apt install gnome-session gnome-tweaks gnome-tweak-tool chrome-gnome-shell wget curl jq unzip tput sed egrep gnome-shell-extension-tool sed awk cut basename -y
 
 echo "Installing Some Common Extensions"
 
 cd ~
 rm -f ./install-gnome-extensions.sh
-wget -N -q "https://raw.githubusercontent.com/cyfrost/install-gnome-extensions/master/install-gnome-extensions.sh" -O ./install-gnome-extensions.sh
+wget -N -q "https://raw.githubusercontent.com/cyfrost/install-gnome-extensions/7ea5327e36c35e732c6c97887c08fe3596506727/install-gnome-extensions.sh" -O ./install-gnome-extensions.sh
 chmod +x install-gnome-extensions.sh
 # use this helpful script to install some desired extensions from command line
 # 615 is AppIndicator and KStatusNotifyerItem Support
