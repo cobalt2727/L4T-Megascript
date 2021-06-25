@@ -134,7 +134,7 @@ if [[ $output == "yes" ]]; then
   cd ~
   rm -rf htop
   sudo apt remove htop -y
-  sudo apt install libncursesw*-dev -y
+  sudo apt install libncursesw*-dev dh-autoreconf -y
   git clone https://github.com/htop-dev/htop.git
   cd htop
   git checkout 3.0.5
