@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 echo "Swapfile script started!"
 sleep 1
 cd ~

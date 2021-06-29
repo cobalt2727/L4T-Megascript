@@ -1,4 +1,4 @@
-clear
+clear -x
 cd ~
 echo "eDEX-UI script started!"
 sleep 1

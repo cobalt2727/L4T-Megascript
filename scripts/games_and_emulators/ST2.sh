@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "SuperTux2 script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3

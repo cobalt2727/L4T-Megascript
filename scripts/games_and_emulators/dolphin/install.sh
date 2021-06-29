@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 echo "Dolphin script started!"
 sleep 1
 cd ~

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 sleep 1
 echo "Updating sources..."
 sleep 1

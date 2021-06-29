@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
-clear
+clear -x
 
 #allow developer to set repository username and branch
 if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
@@ -74,7 +74,7 @@ zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for u
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
-clear
+clear -x
 echo "Credits:"
 echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo

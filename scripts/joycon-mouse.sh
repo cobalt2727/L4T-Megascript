@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "Joycon mouse script started!"
 sleep 1
 cd ~

@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+clear -x
 echo "Installing the GNOME desktop environment."
 
 # version function

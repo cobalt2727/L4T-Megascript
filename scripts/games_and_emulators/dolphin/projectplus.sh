@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 echo "Project+ script started!"
 echo "This has only been tested for building,"
 echo "not performance or actual netplay sessions."

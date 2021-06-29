@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 echo "Initial setup script started!"
 cd ~
 echo "Checking for updates and installing a few extra recommended packages."
@@ -104,7 +104,7 @@ sudo chmod u+s /usr/libexec/flatpak-bwrap
 # fi
 # sleep 1
 
-clear
+clear -x
 description="Do you want to install configurations that will let you use the joycons as a mouse?"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
@@ -115,7 +115,7 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
-clear
+clear -x
 description="Do you want to build and install SDL2? (Required for many games in the script)"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
@@ -126,7 +126,7 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
-clear 
+clear -x 
 description="Do you want to build and install htop?\
 \n(A useful command line utility for viewing cpu/thread usage and frequency)"
 table=("yes" "no")
@@ -148,7 +148,7 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
-clear
+clear -x
 
 ##Placeholder for the overclock script (can someone check my work on this? I feel like I'm gonnna break something
 ##The guide at https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/ says to add the line BEFORE the exit 0 line

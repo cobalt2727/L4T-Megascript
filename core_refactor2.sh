@@ -1,5 +1,5 @@
 export gui=$1
-clear
+clear -x
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
 echo -e "\e[30mBlack Text\e[0m"
 echo -e "\e[31mRed Text\e[0m"
@@ -17,7 +17,7 @@ echo -e "\e[4munderline\e[0m"
 echo -e "\e[9mstrikethrough\e[0m"
 echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
-clear
+clear -x
 x=1
 
 #allow developer to set repository username and branch
@@ -55,12 +55,12 @@ function add_desktop_if {
   test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
     pkexec sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
-    clear
+    clear -x
   else
     echo 'Looks like you do not have the L4T-Megascript.desktop file (the applications icon)'
     echo "Please give your password at the prompt"
     sudo sh -c "$FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
-    clear
+    clear -x
   fi
 }
 
@@ -100,11 +100,11 @@ function userinput_func {
   fi
   status=$?
   if [[ $status = "1" ]]; then
-    clear
+    clear -x
     echo "Canceling Install, Back to the Megascript"
     exit 1
   fi
-  clear
+  clear -x
 }
 export -f userinput_func
 
@@ -152,7 +152,7 @@ length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
 while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
-  clear
+  clear -x
   table=()
   scripts=()
   folder=()
@@ -309,11 +309,11 @@ fi
 
 if [[ $gui == "gui" ]]; then
   zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now" --window-icon=/usr/share/icons/L4T-Megascript.png
-  clear
+  clear -x
 else
   echo "Thank you for using the L4T Megascript!"
   sleep 2
-  clear
+  clear -x
   echo "Credits:"
   echo "CTRL + CLICK ON A LINK TO OPEN IT"
   echo

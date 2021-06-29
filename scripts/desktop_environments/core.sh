@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "On this page we've got a lineup of most of the major desktops used across Linux distributions."
 echo "Tired of how your default homescreen looks? You're in the right place!"
 echo "Before proceeding it's recommended to do some research on the Linux desktop environments below."
