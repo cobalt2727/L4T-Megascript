@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "Installing the aarch64 build of Visual Studio Code directly from Microsoft..."
 sleep 1
 

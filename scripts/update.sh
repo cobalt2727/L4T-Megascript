@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "Updater script successfully started!"
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\

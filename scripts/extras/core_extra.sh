@@ -1,4 +1,4 @@
-clear
+clear -x
 
 echo "Ah, looks like someone's read the source code."
 echo "Or maybe someone else just told you this was a thing."

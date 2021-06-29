@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+clear -x
 echo "You are about to install the Cinnamon desktop environment."
 sudo apt install cinnamon-desktop-environment libappindicator3-1 -y
 

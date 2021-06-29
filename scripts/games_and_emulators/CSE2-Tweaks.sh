@@ -12,7 +12,7 @@
 #- Cobalt
 
 cd
-clear
+clear -x
 echo "CSE2-Tweaks script started!"
 echo "Downloading the files and installing needed dependencies..."
 sleep 3

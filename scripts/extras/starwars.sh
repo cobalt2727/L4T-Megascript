@@ -1,5 +1,5 @@
 sudo apt install telnet -y
-clear
+clear -x
 echo "get some popcorn"
 echo "http://www.blinkenlights.nl/thereg/"
 echo "http://www.asciimation.co.nz/"

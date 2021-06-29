@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 echo "ocs-url script started!"
 echo 'This will allow you to actually USE that fancy "Install"'
 echo "button on the Pling website and any of its derivatives."

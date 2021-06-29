@@ -2,7 +2,7 @@
 # all credits go out to https://www.lifewire.com/install-openbox-using-ubuntu-4051832
 # there are custom changes in this script
 
-clear
+clear -x
 echo "Installing the Openbox desktop environment."
 sudo apt install openbox obconf feh xcompmgr cairo-dock libappindicator3-1 -y
 

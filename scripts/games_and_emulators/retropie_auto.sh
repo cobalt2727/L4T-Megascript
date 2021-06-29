@@ -5,7 +5,7 @@ function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$
 if [ -z "$SUDO_USER" ]; then
   echo "RetroPie install failed, please run script as sudo"
 else
-  clear
+  clear -x
   echo "Your username is"
   echo $SUDO_USER
   

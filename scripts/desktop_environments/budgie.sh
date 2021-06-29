@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+clear -x
 echo "You are about to install the Budgie desktop environment."
 sudo apt install budgie-core budgie-desktop budgie-indicator-applet -y
 

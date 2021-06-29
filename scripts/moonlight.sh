@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd
-clear
+clear -x
 echo "Moonlight script started!"
 sleep 1
 # remove old moonlight name and repo

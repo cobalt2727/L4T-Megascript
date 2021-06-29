@@ -37,11 +37,11 @@ function userinput_func {
   fi
   status=$?
   if [[ $status = "1" ]]; then
-    clear
+    clear -x
     echo "Canceling Install, Back to the Megascript"
     exit 1
   fi
-  clear
+  clear -x
 }
 export -f userinput_func
 

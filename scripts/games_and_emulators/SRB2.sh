@@ -2,7 +2,7 @@
 #Fun fact, the original version of this script had an aprox 50 more lines of code
 
 cd
-clear
+clear -x
 echo "SRB2 script started!"
 echo "Downloading the files, removing old files and installing needed dependencies..." 
 sleep 2

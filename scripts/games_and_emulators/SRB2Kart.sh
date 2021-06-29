@@ -2,7 +2,7 @@
 
 
 cd ~
-clear
+clear -x
 echo "SRB2 Kart script started!"
 echo "Downloading the files, and installing needed dependencies..." 
 sleep 2

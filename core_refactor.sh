@@ -16,7 +16,7 @@ echo -e "\e[4munderline\e[0m"
 echo -e "\e[9mstrikethrough\e[0m"
 echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
-clear
+clear -x
 x=1
 
 dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
@@ -74,11 +74,11 @@ function userinput_func {
   fi
   status=$?
   if [[ $status = "1" ]]; then
-    clear
+    clear -x
     echo "Canceling Install, Back to the Megascript"
     exit 1
   fi
-  clear
+  clear -x
 }
 export -f userinput_func
 
@@ -139,7 +139,7 @@ t[22]="hidden stuff"
 while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
-  clear
+  clear -x
 
   if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program."
@@ -278,7 +278,7 @@ unset gui
 
 echo "Thank you for using the L4T Megascript!"
 sleep 2
-clear
+clear -x
 echo "Credits:"
 echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo

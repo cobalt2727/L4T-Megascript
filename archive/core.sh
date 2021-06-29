@@ -1,4 +1,4 @@
-clear
+clear -x
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
 echo -e "\e[30mBlack Text\e[0m"
 echo -e "\e[31mRed Text\e[0m"
@@ -30,7 +30,7 @@ while true
 do
 cd ~
 available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
-clear
+clear -x
 
 #allow developer to set repository username and branch
 #developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
@@ -97,7 +97,7 @@ elif [[ $userInput == 1 || $userInput == update ]]; then
 
 elif [[ $userInput == 2 ]]; then
   sudo apt install subversion
-  clear
+  clear -x
   echo "asset downloading probably going to be handled by individual scripts"
   echo "go ping cobalt on discord and yell at me about getting an updater system working"
   #something something svn
@@ -149,7 +149,7 @@ elif [[ $userInput == extra || $userInput == secret ]]; then
 elif [[ $userInput == x || $userInput == X || $userInput == exit || $userInput == Exit ]]; then
 echo "Thanks for using the L4T Megascript!"
 sleep 2
-clear
+clear -x
 echo "Credits:"
 echo "CTRL + CLICK ON A LINK TO OPEN IT"
 echo

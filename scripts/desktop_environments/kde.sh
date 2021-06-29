@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-clear
+clear -x
 echo "You are about to install the KDE Plasma desktop environment."
 echo "You'll be prompted to choose a display manager during the install, uh, can someone tell me which one's supposed to be used with the Switch and/or update this script?"
 echo "Under most cases this shouldn't break anything and install alongside of your existing desktop, but just to be sure..."

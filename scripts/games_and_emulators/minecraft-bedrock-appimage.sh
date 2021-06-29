@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+clear -x
 
 echo "Minecraft Bedrock script started!"
 echo "Installing dependencies..."

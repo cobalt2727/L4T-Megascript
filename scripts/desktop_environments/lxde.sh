@@ -2,7 +2,7 @@
 # all credits go out to https://github.com/jetsonhacks/installLXDE and the blogpost along with it
 # there are custom changes in this script
 
-clear
+clear -x
 echo "Installing the LXDE desktop environment."
 sudo apt install lxde compton libappindicator3-1 -y
 
