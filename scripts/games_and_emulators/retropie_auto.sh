@@ -257,23 +257,5 @@ EOF
 
   chmod 755 /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
 
-  sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
-  sdlv=${sdlv/+/.}
-  if [ $(version $sdlv) -ge $(version "2.0.10.5") ]; then
-    echo ""
-    echo "Already Installed Newest SDL2 Version"
-    sleep 3
-  else
-    cd /tmp
-    sudo -u "$SUDO_USER" wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.0.10%2B5_arm64.deb
-    sudo -u "$SUDO_USER" wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.10%2B5_arm64.deb
-    sudo -u "$SUDO_USER" wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.10%2B5_arm64.deb
-
-    dpkg -i libsdl2-dev_2.0.10+5_arm64.deb libsdl2-dbg_2.0.10+5_arm64.deb libsdl2-2.0-0_2.0.10+5_arm64.deb
-    apt install -fy
-    rm -rf libsdl2-dev_2.0.10+5_arm64.deb libsdl2-dbg_2.0.10+5_arm64.deb libsdl2-2.0-0_2.0.10+5_arm64.deb
-    echo ""
-    echo "Successfully Installed Newest SDL2 Version"
-    sleep 3
-  fi
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 fi

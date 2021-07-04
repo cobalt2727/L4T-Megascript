@@ -28,7 +28,7 @@ fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified
 
 fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;e='sudo bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh)"';;f="games_and_emulators"
 
-fn="Celeste (Pico-8 Port)";;d="A tight platforming game which lead to the development of Celeste";;e='bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/ccleste/upstream_edits/celeste_install.sh)"';;f="games_and_emulators"
+fn="Celeste (Pico-8 Port)";;d="A tight platforming game which lead to the development of Celeste";;sn="celeste_install.sh";;f="games_and_emulators"
 
 fn="Flappy Bird";;d="A game about a bird flying in between warp pipes";;e='bash -c "$(curl -s https://raw.githubusercontent.com/theofficialgman/flappy/master/flappy_install.sh)"';;f="games_and_emulators"
 
