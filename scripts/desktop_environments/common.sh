@@ -22,7 +22,7 @@ EOF
 
 # add custom dock-hotplug
 sudo rm -rf /etc/dock-hotplug.sh
-echo | sudo tee /etc/dock-hotplug.sh <<'EOF'
+sudo tee /etc/dock-hotplug.sh <<'EOF'
 #!/bin/bash
 
 # Thanks CTC for the convenient and workable user grab
