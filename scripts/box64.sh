@@ -4,6 +4,7 @@ cd
 git clone https://github.com/ptitSeb/box64 --depth=1
 cd box64
 git pull --depth=1
+rm -rf build
 mkdir build
 cd build
 # obtain the cpu info
