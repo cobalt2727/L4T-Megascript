@@ -104,10 +104,10 @@ if [[ $RetroPieUserInput == "Yes (Everything)" ]]; then
 	echo -e "\e[33mCharge your device & remember you can close this terminal or press\e[0m"
 	echo -e "\e[33mCtrl+C at any time to stop the process.\e[0m"
 	sleep 10
-	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo bash -s "update_cores"
+	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo -E bash -s "update_cores"
 elif [[ $RetroPieUserInput == "Helper Scripts Only" ]]; then
 	echo "Updating RetroPie Helper Scripts Only..."
-	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo bash -s "update_scripts"
+	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo -E bash -s "update_scripts"
 else
 	echo "Skipping RetroPie updates..."
 fi
