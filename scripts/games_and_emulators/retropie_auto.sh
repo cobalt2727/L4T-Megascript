@@ -88,6 +88,7 @@ _EOF_"
 param=("/usr/share/applications/" "$HOME/.local/share/applications/" "$HOME/.local/share/flatpack/exports/share/applications/" "/usr/local/share/applications/")
 mkdir ~/RetroPie/roms/ports
 cd ~/RetroPie/roms/ports
+cp list.txt list_old.txt
 rm -rf list.txt
 for (( j=0; j< "${#param[@]}"; j++));
 do
@@ -130,6 +131,11 @@ do
 		fi
 	done
 done
+
+grep -Fxv -f  list.txt list_old.txt > delete.txt
+for f in $(cat delete.txt) ; do    rm "$f.sh"; done
+rm -rf delete.txt
+rm -rf list_old.txt
 
 rm -rf retropie.sh
 EOF
