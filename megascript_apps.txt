@@ -14,6 +14,8 @@ fn="Discord (Webcord)";;d="Discord Web App";;sn="discord.sh";;f="scripts"
 
 fn="ocs-url";;d="Support for the Pling store's Install button";;sn="ocs-url.sh";;f="scripts"
 
+fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems";;sn="box64.sh";;f="scripts"
+
 fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dolphin/main.sh";;f="games_and_emulators"
 
 fn="MultiMC (Minecraft Java)";;d="Mincraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"

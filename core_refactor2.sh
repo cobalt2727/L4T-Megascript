@@ -65,6 +65,30 @@ function add_desktop_if {
 }
 
 #functions used by megascript scripts
+function get_system {
+  # architecture is the native cpu architecture (aarch64, x86_64, etc)
+  architecture="$(uname -m)"
+  # jetson codename is the name reported in the DTS filename
+  jetson_codename=""
+  # jetson model is the friendly name that we assign
+  jetson_model=""
+  local __platform=""
+  if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
+      jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
+      jetson_codename=$(echo ${jetson_codename#*"/hardware/nvidia/platform/"} | tr '/' '\n' | head -2 | tail -1 )
+      case "$jetson_codename" in
+          icosa*) __platform="nintendo-switch" ;;
+          *2180*) __platform="tx1" ;;
+          P3310*|P3489-0080*|P3489*) __platform="tx2" ;;
+          P2888-0006*|P2888-0001*|P2888-0004*|P2888*|P3668-0001*|P3668*) __platform="xavier" ;;
+          P3448-0002*|P3448*) __platform="nano" ;;
+      esac
+      jetson_model="$__platform"
+  fi
+  unset __platform
+}
+export -f get_system
+
 function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
