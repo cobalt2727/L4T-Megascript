@@ -26,10 +26,12 @@ if test -f /usr/local/bin/dolphin-emu; then
 fi
 
 #Same as above, but for RetroPie, using the emulationstation binary as the test
-RetroPieUserInput="no"
+RetroPieUserInput="No"
 if test -f /usr/bin/emulationstation; then
-        description="Do you want to update RetroPie? (MAY TAKE MULTIPLE HOURS)"
-        table=("yes" "no")
+        description="Do you want to update parts of RetroPie?\
+		\nThe Helper Scripts should always but updated and only take a few seconds\
+		\nUpdating the cores (Everything), could TAKE MULTIPLE HOURS"
+        table=("Helper Scripts Only" "Yes (Everything)" "No")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
 fi
@@ -87,25 +89,27 @@ chmod +x ~/Applications/*.AppImage
 #################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
 
 if [[ $DolphinUserInput == "yes" ]]; then
-        echo "Updating Dolphin..."
-        echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
-        echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
-        sleep 5
-        bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
+	echo "Updating Dolphin..."
+	echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
+	echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
+	sleep 5
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
 else
-        echo "Skipping Dolphin updates..."
+	echo "Skipping Dolphin updates..."
 fi
 
-if [[ $RetroPieUserInput == "yes" ]]; then
-        echo "Updating RetroPie..."
-        echo -e "\e[33mThis can take a VERY long time - possibly multiple hours.\e[0m"
-        echo -e "\e[33mCharge your device & remember you can close this terminal or press\e[0m"
+if [[ $RetroPieUserInput == "Yes (Everything)" ]]; then
+	echo "Updating RetroPie..."
+	echo -e "\e[33mThis can take a VERY long time - possibly multiple hours.\e[0m"
+	echo -e "\e[33mCharge your device & remember you can close this terminal or press\e[0m"
 	echo -e "\e[33mCtrl+C at any time to stop the process.\e[0m"
-        sleep 10
-        cd ~
-	sudo ./RetroPie-Setup/retropie_packages.sh setup update_packages
+	sleep 10
+	bash <( wget -O - https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh ) "update_cores"
+elif [[ $RetroPieUserInput == "Helper Scripts Only" ]]; then
+	echo "Updating RetroPie Helper Scripts Only..."
+	bash <( wget -O - https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh ) "update_scripts"
 else
-        echo "Skipping RetroPie updates..."
+	echo "Skipping RetroPie updates..."
 fi
 
 
