@@ -38,7 +38,7 @@ Exec=bash -c '/usr/local/bin/box64 "$(zenity --file-selection)"'
 Name=Box64
 Icon=/usr/share/box64/icon.png
 Terminal=true
-Categories=Game
+Categories=Game;System
 EOF
 
 echo "Box64 successfully installed"
