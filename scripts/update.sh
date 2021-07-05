@@ -107,7 +107,7 @@ if [[ $RetroPieUserInput == "Yes (Everything)" ]]; then
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo bash -s "update_cores"
 elif [[ $RetroPieUserInput == "Helper Scripts Only" ]]; then
 	echo "Updating RetroPie Helper Scripts Only..."
-	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh )| sudo bash -s "update_scripts"
+	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo bash -s "update_scripts"
 else
 	echo "Skipping RetroPie updates..."
 fi
