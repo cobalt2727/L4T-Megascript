@@ -83,15 +83,15 @@ _EOF_"
   sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts
   sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts/quit
   rm -rf /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
-  sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
-
+  sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh -O /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
   chmod 755 /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
-  sudo -u "$SUDO_USER" /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
 
   echo "Addding the Python .desktop image finder script"
-  sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
-
+  sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py -O /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
   chmod 755 /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
+
+  echo "Running the auto game detection script"
+  sudo -u "$SUDO_USER" /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
 
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 fi
