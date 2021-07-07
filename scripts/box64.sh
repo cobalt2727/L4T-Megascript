@@ -41,6 +41,17 @@ Terminal=hidden
 Categories=Game;System
 EOF
 
+echo "Adding box64 application helper to list"
+sudo tee /usr/share/applications/box64_helper.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Exec=bash -c 'bash <( wget -O - https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/Box64/box64_program_helper.sh )'
+Name=Box64 Application Helper
+Icon=/usr/share/box64/icon.png
+Terminal=hidden
+Categories=System
+EOF
+
 echo "Box64 successfully installed"
 echo ""
 echo "Start box64 from the applications list and select the x86_64 program or"
