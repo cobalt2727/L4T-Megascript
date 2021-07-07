@@ -51,6 +51,14 @@ else
   sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
 fi
 
+function install_post_depends {
+  ## Check SDL2 version
+  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0) lt 2.0.14); then
+    echo "Installing SDL2 from binary..."
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+  fi
+}
+
 function add_desktop_if {
   test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
@@ -314,6 +322,7 @@ while [ $x == 1 ]; do
       kill -0 "$$" 2>/dev/null || exit
     done &
     sudo apt update
+    install_post_depends
     for word in $CHOICE; do
       if [ -z ${execute[$word]} ]; then
         bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"

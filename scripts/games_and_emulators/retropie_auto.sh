@@ -91,7 +91,7 @@ function update_scripts {
     echo "Running the auto game detection script"
     sudo -u "$SUDO_USER" /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
 
-    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+    sudo -E -u "$SUDO_USER" bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 }
 
 function update_cores {
