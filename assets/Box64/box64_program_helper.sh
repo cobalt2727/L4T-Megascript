@@ -24,7 +24,7 @@ zenity \
     --cancel-label "Cancel Helper" \
 )
 if [ $? -eq 0 ]; then
-sudo tee "$HOME/.local/share/applications/$name.desktop" <<EOF
+tee "$HOME/.local/share/applications/$name.desktop" <<EOF
 [Desktop Entry]
 Name=$name
 Exec=box64 "$program_path"
