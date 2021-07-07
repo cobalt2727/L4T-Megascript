@@ -16,10 +16,10 @@ rm SRB2_retropie.sh
 cd
 
 if grep -q bionic /etc/os-release; then
-     sudo add-apt-repository ppa:fabcien/cmake -y
+    sudo add-apt-repository ppa:fabcien/cmake -y
+    sudo apt update
 fi
 
-sudo apt update
 sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev -y
 wget https://github.com/STJr/SRB2/archive/master.zip
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
