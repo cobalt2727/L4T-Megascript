@@ -9,19 +9,19 @@ function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$
 
 sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
 sdlv=${sdlv/+/.}
-if [ $(version $sdlv) -ge $(version "2.0.10.5") ]; then
+if [ $(version $sdlv) -ge $(version "2.0.14.0") ]; then
     echo ""
     echo "Already Installed Newest SDL2 Version"
     sleep 1
 else
     cd /tmp
-    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.0.10%2B5_arm64.deb
-    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.10%2B5_arm64.deb
-    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.10%2B5_arm64.deb
+    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.0.14%2B5_arm64.deb
+    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.14%2B5_arm64.deb
+    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.14%2B5_arm64.deb
 
-    sudo dpkg -i libsdl2-dev_2.0.10+5_arm64.deb libsdl2-dbg_2.0.10+5_arm64.deb libsdl2-2.0-0_2.0.10+5_arm64.deb
+    sudo dpkg -i libsdl2-dev_2.0.14+5_arm64.deb libsdl2-dbg_2.0.14+5_arm64.deb libsdl2-2.0-0_2.0.14+5_arm64.deb
     sudo apt install -fy
-    sudo rm -rf libsdl2-dev_2.0.10+5_arm64.deb libsdl2-dbg_2.0.10+5_arm64.deb libsdl2-2.0-0_2.0.10+5_arm64.deb
+    sudo rm -rf libsdl2-dev_2.0.14+5_arm64.deb libsdl2-dbg_2.0.14+5_arm64.deb libsdl2-2.0-0_2.0.14+5_arm64.deb
 
     # keep this old code for compiling SDL2 if its ever needed
 
