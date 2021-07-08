@@ -116,6 +116,25 @@ elif [[ $output == "no" ]]; then
 fi
 
 clear -x
+description="Do you want to add a Application/Program/Game Helper? \n\This will assist you in adding program binaries you download to your applications"
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "yes" ]]; then
+  echo "Installing the generic program helper..."
+  sudo tee /usr/share/applications/generic_helper.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Exec=bash -c 'bash <( wget -O - https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/generic/generic_program_helper.sh )'
+Name=Generic Application Helper
+Icon=/usr/share/icons/L4T-Megascript.png
+Terminal=hidden
+Categories=System
+EOF
+elif [[ $output == "no" ]]; then
+  echo "Going to the next option"
+fi
+
+clear -x
 description="Do you want to build and install SDL2? (Required for many games in the script)"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"

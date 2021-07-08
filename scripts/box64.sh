@@ -1,3 +1,5 @@
+clear -x
+
 echo "Box64 script started!"
 
 echo "Installing Dependencies"
