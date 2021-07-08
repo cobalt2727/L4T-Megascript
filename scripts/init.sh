@@ -116,7 +116,8 @@ elif [[ $output == "no" ]]; then
 fi
 
 clear -x
-description="Do you want to add a Application/Program/Game Helper? \n\This will assist you in adding program binaries you download to your applications"
+description="Do you want to add a Application/Program/Game Helper? \
+n\This will assist you in adding program binaries you download to your applications list"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "yes" ]]; then
