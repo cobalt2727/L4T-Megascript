@@ -34,4 +34,17 @@ Type=Application
 Categories=$category
 Terminal=hidden
 EOF
+working=$(zenity --width 750 --question \
+--title="Application .desktop file created" \
+--text="Please test out your application ($name) NOW to make sure it is working \n\Box64 can take a while to a launch your application so wait a minute or two for it to launch. \n\If the application launches, then answer 'IT WORKED' and if it didn't then select 'ITS BROKEN' and the .desktop file will be deleated." \
+--ok-label "IT WORKED" \
+--cancel-label "ITS BROKEN")
+if [[ $? -ne 0 ]]; then
+    rm "$HOME/.local/share/applications/$name.desktop"
+    zenity --info --width="500" --height="250" --title "Removal Success" \
+    --text "$HOME/.local/share/applications/$name.desktop has been removed\n\ \n\Please test your program using 'box64 /path/to/my/program.exe' or similar before attempting to use this helper"
+else
+    zenity --info --width="500" --height="250" --title "Application Success" \
+    --text "$HOME/.local/share/applications/$name.desktop has successfully added"
+fi
 fi
