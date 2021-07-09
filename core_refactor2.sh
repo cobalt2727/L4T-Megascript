@@ -71,8 +71,12 @@ function add_desktop_if {
     clear -x
   fi
 }
+#####################################################################################
 
 #functions used by megascript scripts
+
+#####################################################################################
+
 function get_system {
   # architecture is the native cpu architecture (aarch64, x86_64, etc)
   architecture="$(uname -m)"
@@ -101,34 +105,55 @@ function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
-    for string in "${@:2}"; do
-      uniq_selection+=(FALSE "$string")
-    done
-    uniq_selection[0]=TRUE
-    output=$(
-      zenity \
-        --text "$1" \
-        --list \
-        --radiolist \
-        --column "" \
-        --column "Selection" \
-        --ok-label="OK" \
-        "${uniq_selection[@]}" \
-        --cancel-label "Cancel Choice"
-    )
+    if [[ "${#@}" == "3" ]];then
+      zenity --width 500 --question \
+      --text="$1" \
+      --ok-label "$2" \
+      --cancel-label "$3"
+      if [[ $? -ne 0 ]]; then
+        output="$3"
+      else
+        output="$2"
+      fi
+    else
+      for string in "${@:2}"; do
+        uniq_selection+=(FALSE "$string")
+      done
+      uniq_selection[0]=TRUE
+      output=$(
+        zenity \
+          --text "$1" \
+          --list \
+          --radiolist \
+          --column "" \
+          --column "Selection" \
+          --ok-label="OK" \
+          "${uniq_selection[@]}" \
+          --cancel-label "Cancel Choice"
+      )
+    fi
   else
-    for string in "${@:2}"; do
-      uniq_selection+=("$string" "")
-    done
-    output=$(
-      dialog --clear \
-        --backtitle "CLI Chooser Helper" \
-        --title "Choices" \
-        --menu "$1" \
-        "$height" "120" "$($# - 1)" \
-        "${uniq_selection[@]}" \
-        2>&1 >/dev/tty
-    )
+    if [[ "${#@}" == "3" ]];then
+      dialog --clear --yes-label "$2" --no-label "$3" --yesno "$1" "$height" "120"
+      if [[ $? -ne 0 ]]; then
+        output="$3"
+      else
+        output="$2"
+      fi
+    else
+      for string in "${@:2}"; do
+        uniq_selection+=("$string" "")
+      done
+      output=$(
+        dialog --clear \
+          --backtitle "CLI Chooser Helper" \
+          --title "Choices" \
+          --menu "$1" \
+          "$height" "120" "$($# - 1)" \
+          "${uniq_selection[@]}" \
+          2>&1 >/dev/tty
+      )
+    fi
   fi
   status=$?
   if [[ $status = "1" ]]; then
@@ -139,6 +164,12 @@ function userinput_func {
   clear -x
 }
 export -f userinput_func
+
+#####################################################################################
+
+#end of functions used by megascript scripts
+
+#####################################################################################
 
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do

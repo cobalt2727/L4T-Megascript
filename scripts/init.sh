@@ -117,7 +117,7 @@ fi
 
 clear -x
 description="Do you want to add a Application/Program/Game Helper? \
-n\This will assist you in adding program binaries you download to your applications list"
+\nThis will assist you in adding program binaries you download to your applications list"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "yes" ]]; then
@@ -169,23 +169,3 @@ elif [[ $output == "no" ]]; then
 fi
 
 clear -x
-
-##Placeholder for the overclock script (can someone check my work on this? I feel like I'm gonnna break something
-##The guide at https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/ says to add the line BEFORE the exit 0 line
-##I'm not sure how to automate that
-##grep -qxF 'echo 1 > /sys/kernel/tegra_cpufreq/overclock' /etc/rc.local || echo 'echo 1 > /sys/kernel/tegra_cpufreq/overclock' | sudo tee --append /etc/rc.local
-##echo 1 > /sys/kernel/tegra_cpufreq/overclock
-##sleep 1
-
-description="All done! Would you like to restart now?\
-\n Required for some of the init script's components to take effect.\
-\n Restarting now will cancel the install of any other selected scripts."
-table=("yes" "no")
-userinput_func "$description" "${table[@]}"
-
-if [[ $output == "yes" ]]; then
-  reboot
-elif [[ $output == "no" ]]; then
-  echo "Sending you back to the main menu..."
-  sleep 3
-fi
