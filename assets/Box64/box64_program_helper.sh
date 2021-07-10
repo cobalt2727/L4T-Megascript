@@ -33,7 +33,7 @@ Path=$path
 Icon=$image_path
 Type=Application
 Categories=$category
-Terminal=hidden
+Terminal=false
 EOF
 working=$(zenity --width 750 --question \
 --title="Application .desktop file created" \
