@@ -10,6 +10,7 @@ echo
 echo "Downloading the game"
 git clone https://github.com/lemon32767/ccleste.git --depth=1
 cd ccleste
+rm -rf gamecontrollerdb.txt
 make -j4
 wget https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
 
