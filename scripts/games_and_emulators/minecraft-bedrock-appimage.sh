@@ -11,11 +11,20 @@ sudo apt install curl -y
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
-curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-arm_aarch64" | cut -d : -f 2,3 | tr -d \" | wget -i -
+# get architecture using function
+get_system
+case "$architecture" in
+    "aarch64") type="arm_aarch64";type2="arm64";;
+    "armhf") type="arm";type2="armhf";;
+    "i386") type="i386";type2="$type1";;
+    "x86_64") type="x86_64";type2="amd64";;
+    *) echo "Error: your cpu architecture ($architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+esac
+curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-$type" | cut -d : -f 2,3 | tr -d \" | wget -i -
 mv *.AppImage MC.AppImage
 chmod +x *.AppImage
-curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_arm64" | cut -d : -f 2,3 | tr -d \" | wget -i -
-sudo dpkg -i *bionic_arm64.deb
+curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_$type2" | cut -d : -f 2,3 | tr -d \" | wget -i -
+sudo dpkg -i *bionic_*.deb
 hash -r
 ail-cli integrate MC.AppImage
 cd ~

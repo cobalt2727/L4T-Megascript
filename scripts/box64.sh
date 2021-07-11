@@ -20,7 +20,7 @@ case "$architecture" in
         esac
         ;;
     "x86_64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "x86_64 based system" ;;
-    *) echo "Error: your cpu architecture ($architecture) is not supporeted by box64 and will fail to compile" ;;
+    *) echo "Error: your cpu architecture ($architecture) is not supporeted by box64 and will fail to compile"; rm -rf ~/box64; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
 echo "Building Box64"
