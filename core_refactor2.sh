@@ -101,6 +101,9 @@ function get_system {
 }
 export -f get_system
 
+# run get_system function for the refactor to use
+get_system
+
 function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
@@ -223,7 +226,8 @@ while [ $x == 1 ]; do
   ids=()
   if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png
-    zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much!" --window-icon=/usr/share/icons/L4T-Megascript.png
+    zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
+    \n\n\You are running an $architecture $jetson_model system." --window-icon=/usr/share/icons/L4T-Megascript.png
     add_desktop_if
     conversion
     uniq_selection=()
@@ -324,6 +328,8 @@ while [ $x == 1 ]; do
     echo
     add_desktop_if
     echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
+    echo "You are running an $architecture $jetson_model system."
+    echo ""
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 
     sleep 2
