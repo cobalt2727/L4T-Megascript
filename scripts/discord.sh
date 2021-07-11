@@ -1,4 +1,4 @@
-echo "Discord aarch64 script started!"
+echo "Discord $(uname -m) script started!"
 echo "CREDITS: https://github.com/SpacingBat3/electron-discord-webapp"
 sleep 2
 
