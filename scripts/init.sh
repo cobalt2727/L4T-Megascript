@@ -47,9 +47,14 @@ else
   fi
 fi
 
-#bionic's flatpak package is out of date
 if grep -q bionic /etc/os-release; then
+  #bionic's flatpak package is out of date
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
+  #bionic cmake is very old
+  sudo add-apt-repository ppa:rncbc/libs-bionic -y
+  #remove manually installed cmake versions (as instructed by theofficialgman)
+  sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+  hash -r
 fi
 
 #focal's flatpak package is also out of date (I get LTS is supposed to put stability above all else, but seriously?)

@@ -16,7 +16,10 @@ rm SRB2_retropie.sh
 cd
 
 if grep -q bionic /etc/os-release; then
-    sudo add-apt-repository ppa:fabcien/cmake -y
+    sudo add-apt-repository ppa:rncbc/libs-bionic -y
+    #remove manually installed cmake versions (as instructed by theofficialgman)
+    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+    hash -r
     sudo apt update
 fi
 
