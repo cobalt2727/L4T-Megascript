@@ -8,6 +8,12 @@ cd
 git clone https://github.com/ptitSeb/box64 --depth=1
 cd box64
 git pull --depth=1
+if [[ $? -ne 0 ]]; then
+    cd ~
+    rm -rf box64
+    git clone https://github.com/ptitSeb/box64 --depth=1
+    cd box64
+fi
 rm -rf build
 mkdir build
 cd build
