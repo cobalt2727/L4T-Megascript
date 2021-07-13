@@ -71,7 +71,7 @@ sudo apt install switch-multimedia -y
 gsettings reset org.gnome.shell app-picker-layout
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install joycond subversion unclutter wget flatpak gnome-software-plugin-flatpak qt5-style-plugins gnutls-bin -y
+sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak qt5-style-plugins gnutls-bin -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 hash -r
 
