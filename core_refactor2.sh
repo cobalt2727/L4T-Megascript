@@ -19,6 +19,12 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
+num_log = 0
+while [ -f "/tmp/megascript_log$num_log.txt" ]
+do
+  num_log=$((num_log + 1))
+done
+script "/tmp/megascript_log$num_log.txt"
 megascript_start_time=$(date +%s)
 
 #allow developer to set repository username and branch
@@ -419,3 +425,6 @@ unset gui
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at [link not public yet] for support.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
+
+#stop logging
+exit
