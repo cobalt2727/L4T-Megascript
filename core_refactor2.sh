@@ -19,6 +19,7 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
+megascript_start_time=$(date +%s)
 
 #allow developer to set repository username and branch
 #developers use export repository_username= and export repository_branch= for your own github username and branch of the L4T-Megascript
@@ -360,13 +361,22 @@ while [ $x == 1 ]; do
     done &
     sudo apt update
     install_post_depends
+    rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do
+      time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+        time_script_stop=$(date +%s)
+        time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
+        time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
+        echo "${scripts[$word]} took $time_elapsed_friendly" >> /tmp/megascript_times.txt        
       else
         eval "${execute[$word]}"
+        time_script_stop=$(date +%s)
+        time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
+        time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
+        echo "${execute[$word]} took $time_elapsed_friendly" >> /tmp/megascript_times.txt  
       fi
-
     done
   fi
 done
@@ -377,8 +387,12 @@ else
   echo "didn't add the L4T-Megascript.desktop file, sudo timer ran out"
 fi
 
+megascript_end_time=$(date +%s)
+megascript_elapsed=$(echo "$megascript_end_time - $megascript_start_time" | bc)
+megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
+
 if [[ $gui == "gui" ]]; then
-  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now" --window-icon=/usr/share/icons/L4T-Megascript.png
+  zenity --info --width="500" --height="250" --title "Bye" --text "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" --window-icon=/usr/share/icons/L4T-Megascript.png
   clear -x
 else
   echo "Thank you for using the L4T Megascript!"
@@ -395,6 +409,8 @@ else
   echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
   #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
   echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+  echo ""
+  echo "The Megascript ran for $megascript_elapsed_friendly"
 fi
 unset repository_username
 unset repository_branch
