@@ -165,7 +165,7 @@ if [[ $output == "yes" ]]; then
   git clone https://github.com/htop-dev/htop.git
   cd htop
   git checkout 3.0.5
-  ./autogen.sh && ./configure && make -j4
+  ./autogen.sh && ./configure && make -j$(nproc)
   sudo make install
   cd ~
   rm -rf htop

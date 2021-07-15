@@ -15,8 +15,13 @@ cd ~/PrusaSlicer
 mkdir -p build && cd build
 echo "Running cmake"
 cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3
-echo "Startig compilation with two threads only (due to ram limitations)"
-make -j2
+memtotal=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
+if [[ $memtotal < 7500000 ]]; then
+    echo "Startig compilation with two threads only (due to ram limitations)"
+    make -j2
+else
+    make -j$(nproc)
+fi
 echo "Now installing"
 sudo make install
 echo "adding a .desktop file"

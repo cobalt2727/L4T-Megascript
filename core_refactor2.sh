@@ -236,6 +236,13 @@ while [ $x == 1 ]; do
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png
     zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\You are running an $architecture $jetson_model system." --window-icon=/usr/share/icons/L4T-Megascript.png
+    free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
+    divisor="1024000"
+    free=$(echo "scale=2 ; $free / $divisor" | bc)
+    if [[ $free < 2 ]]; then
+      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free GB of free ram! \
+      \n\n\Please consider closing out of any unnecessary programs before starting the megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
+    fi
     add_desktop_if
     conversion
     uniq_selection=()
@@ -331,7 +338,14 @@ while [ $x == 1 ]; do
     done
     x=0
   else
-
+    free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
+    divisor="1024000"
+    free=$(echo "scale=2 ; $free / $divisor" | bc)
+    if [[ $free < 2 ]]; then
+      echo "You have only $free GB of free ram!"
+      echo "Please consider closing out of any unnecessary programs before starting the megascript."
+      sleep 4
+    fi
     echo "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually!"
     echo
     add_desktop_if
