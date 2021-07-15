@@ -267,6 +267,9 @@ while [ $x == 1 ]; do
       if [ "$?" != 1 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
+        if [[ "$CATEGORY" == "all_categories" || "$CATEGORY" == "scripts" ]]; then
+          current_table[0]="TRUE"
+        fi
         if [ "$CATEGORY" == "all_categories" ]; then
           CHOICE=$(
             zenity \
