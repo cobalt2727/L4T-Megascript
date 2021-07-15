@@ -189,6 +189,7 @@ conversion() {
       e=""
       f=""
       sn=""
+      selected="FALSE"
       line=$(sed -n $i"p" <"/tmp/megascript_apps.txt")
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
@@ -203,9 +204,9 @@ conversion() {
           ids+=($f)
           declare -n current_table=table_$f
           f="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
-          current_table+=(FALSE $i "$fn" "$d")
+          current_table+=($selected $i "$fn" "$d")
           unset -n current_table
-          table_all_categories+=(FALSE $i "$f" "$fn" "$d")
+          table_all_categories+=($selected $i "$f" "$fn" "$d")
         else
           ff="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
           echo "$i...............$ff - $fn - $d"
@@ -267,9 +268,6 @@ while [ $x == 1 ]; do
       if [ "$?" != 1 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
-        if [[ "$CATEGORY" == "all_categories" || "$CATEGORY" == "scripts" ]]; then
-          current_table[0]="TRUE"
-        fi
         if [ "$CATEGORY" == "all_categories" ]; then
           CHOICE=$(
             zenity \
