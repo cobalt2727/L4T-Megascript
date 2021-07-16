@@ -382,10 +382,12 @@ while [ $x == 1 ]; do
     done &
     sudo apt update
     if [[ $? -ne 0 ]]; then
-      # potential fix for error
+      # fix for error (for some reason was never pulled into bionic...)
+      # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
       # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
       # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
-      sudo apt-get install --reinstall libappstream4 -y
+      sudo sed -i 's%/dev/null;%/dev/null \| true;%g' /etc/apt/apt.conf.d/50appstream
+      sudo apt update
     fi
     install_post_depends
     rm -rf /tmp/megascript_times.txt
