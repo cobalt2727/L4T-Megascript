@@ -88,8 +88,8 @@ export QT_QPA_PLATFORMTHEME=gtk2
 
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
-sudo touch /etc/udev/rules.d/51-gcadapter.rules
-echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules >/dev/null
+sudo rm -f /etc/udev/rules.d/51-usb-devices.rules
+sudo wget https://raw.githubusercontent.com/dolphin-emu/dolphin/master/Data/51-usb-device.rules -O /etc/udev/rules.d/51-usb-devices.rules
 sudo udevadm control --reload-rules
 sudo systemctl restart udev.service
 cd ~
