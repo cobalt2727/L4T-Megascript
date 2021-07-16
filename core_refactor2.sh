@@ -238,9 +238,9 @@ while [ $x == 1 ]; do
     \n\n\You are running an $architecture $jetson_model system." --window-icon=/usr/share/icons/L4T-Megascript.png
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
-    free=$(echo "scale=2 ; $free / $divisor" | bc)
-    if [[ $free < 2 ]]; then
-      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free GB of free ram! \
+    free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
+    if [[ $free -lt 2048000 ]]; then
+      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
       \n\n\Please consider closing out of any unnecessary programs before starting the megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
     fi
     add_desktop_if
@@ -340,9 +340,9 @@ while [ $x == 1 ]; do
   else
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
-    free=$(echo "scale=2 ; $free / $divisor" | bc)
-    if [[ $free < 2 ]]; then
-      echo "You have only $free GB of free ram!"
+    free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
+    if [[ $free -lt 2048000 ]]; then
+      echo "You have only $free_gb GB of free ram!"
       echo "Please consider closing out of any unnecessary programs before starting the megascript."
       sleep 4
     fi
