@@ -18,6 +18,9 @@ case $arch in
     sudo sh -c "cat > /etc/apt/sources.list.d/vscode.list << _EOF_
 deb [arch=$arch] http://packages.microsoft.com/repos/code stable main
 _EOF_"
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+    rm -rf packages.microsoft.gpg
     sudo apt update
     sudo apt install code -y
     echo "Done! You can now launch VS Code from your app list or by typing 'code' into a terminal."
