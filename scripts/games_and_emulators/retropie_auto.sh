@@ -23,9 +23,9 @@ function install {
     # manually install all of the required and good stuff
 
     sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
-    $SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_setup.sh
-    $SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh
-    _EOF_"
+$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_setup.sh
+$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh
+_EOF_"
 
     ./retropie_packages.sh retroarch
     ./retropie_packages.sh emulationstation-dev
