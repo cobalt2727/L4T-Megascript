@@ -12,7 +12,7 @@ function install {
     apt install git dialog unzip xmlstarlet lsb-release crudini -y
     apt install joycond -y
 
-    cd /home/$SUDO_USER
+    cd "/home/$SUDO_USER"
     sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 
     #auto install retropie with most important emulators (which don't take up much space)
@@ -23,8 +23,8 @@ function install {
     # manually install all of the required and good stuff
 
     sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
-$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_setup.sh
-$SUDO_USER ALL = NOPASSWD: /home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh
+"$SUDO_USER" ALL = NOPASSWD: "/home/$SUDO_USER/RetroPie-Setup/retropie_setup.sh"
+"$SUDO_USER" ALL = NOPASSWD: "/home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh"
 _EOF_"
 
     ./retropie_packages.sh retroarch
@@ -78,24 +78,37 @@ _EOF_"
 function update_scripts {
     crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
     echo "Finding all games installed and adding them to the Ports menu"
-    sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts
-    sudo -u "$SUDO_USER" mkdir /home/$SUDO_USER/.emulationstation/scripts/quit
-    rm -rf /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
-    sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh -O /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
-    chmod 755 /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
+    sudo -u "$SUDO_USER" mkdir "/home/$SUDO_USER/.emulationstation/scripts"
+    sudo -u "$SUDO_USER" mkdir "/home/$SUDO_USER/.emulationstation/scripts/quit"
+    rm -rf "/home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh"
+    sudo -u "$SUDO_USER" wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh" -O "/home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh"
+    chmod 755 "/home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh"
 
     echo "Addding the Python .desktop image finder script"
-    sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py -O /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
-    chmod 755 /home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py
+    sudo -u "$SUDO_USER" wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py" -O "/home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py"
+    chmod 755 "/home/$SUDO_USER/RetroPie/roms/ports/get-icon-path.py"
 
     echo "Running the auto game detection script"
-    sudo -u "$SUDO_USER" /home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh
+    sudo -u "$SUDO_USER" "/home/$SUDO_USER/.emulationstation/scripts/quit/add_games.sh"
+
+    if command -v dolphin-emu-nogui &> /dev/null; then
+        echo "Adding dolphin standalone to retropie"
+        sudo -u "$SUDO_USER" mkdir /opt/retropie/configs/gc
+        sudo -u "$SUDO_USER" mkdir /opt/retropie/configs/wii
+        sudo -u "$SUDO_USER" mkdir "/home/$SUDO_USER/RetroPie/roms/gc"
+        sudo -u "$SUDO_USER" mkdir "/home/$SUDO_USER/RetroPie/roms/wii"
+        LINE='dolphin-standalone = "dolphin-emu-nogui -e %ROM%"'
+        FILE='/opt/retropie/configs/gc/emulators.cfg'
+        FILE2='/opt/retropie/configs/wii/emulators.cfg'
+        sudo -u "$SUDO_USER" grep -qFs -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+        sudo -u "$SUDO_USER" grep -qFs -- "$LINE" "$FILE2" || echo "$LINE" >> "$FILE2"
+    fi
 
     sudo -E -u "$SUDO_USER" bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 }
 
 function update_cores {
-    cd /home/$SUDO_USER/RetroPie-Setup
+    cd "/home/$SUDO_USER/RetroPie-Setup"
     ./retropie_packages.sh setup update_packages
 
     update_scripts
@@ -106,7 +119,7 @@ if [ -z "$SUDO_USER" ]; then
 else    
     clear -x
     echo "Your username is"
-    echo $SUDO_USER
+    echo "$SUDO_USER"
     if [[ $1 == "update_scripts" ]]; then
         update_scripts
     elif [[ $1 == "update_cores" ]]; then
