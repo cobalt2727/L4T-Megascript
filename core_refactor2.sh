@@ -381,6 +381,12 @@ while [ $x == 1 ]; do
       kill -0 "$$" 2>/dev/null || exit
     done &
     sudo apt update
+    if [[ $? -ne 0 ]]; then
+      # potential fix for error
+      # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
+      # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
+      sudo apt-get install --reinstall libappstream4 -y
+    fi
     install_post_depends
     rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do

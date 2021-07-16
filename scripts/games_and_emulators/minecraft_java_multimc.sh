@@ -14,7 +14,14 @@ git pull
 cd ..
 # configure the project
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src
+# obtain the cpu info
+get_system
+case "$architecture" in
+    "aarch64") cmake -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64"|"i386") cmake -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+esac
+
 # build & install (use -j with the number of cores your CPU has)
 make -j$(nproc) install
 cd
