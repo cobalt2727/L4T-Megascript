@@ -20,7 +20,7 @@ else
         sudo apt update
         sudo apt install flatpak -y
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        flatpak install flathub com.moonlight_stream.Moonlight
+        flatpak install flathub com.moonlight_stream.Moonlight -y
     else
         echo "Error: your cpu architecture ($architecture) is not supporeted by Moonlight (or we don't know how to install) and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $?
     fi

@@ -11,7 +11,8 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-sw
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 echo "  https://flatpak.org/setup/"
 sleep 10
-
+# obtain the cpu info
+get_system
 if grep -q bionic /etc/os-release; then
   echo
   ##snap store is not preinstalled on 18.04, nothing to do here
@@ -96,8 +97,10 @@ cd ~
 #kinda hard to install flatpaks without flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-#fix up an issue with running flatpaks by enabling non-privileged user namespaces
-sudo chmod u+s /usr/libexec/flatpak-bwrap
+if [[ $jetson_model ]]; then
+  #fix up an issue with running flatpaks by enabling non-privileged user namespaces
+  sudo chmod u+s /usr/libexec/flatpak-bwrap
+fi
 
 # echo "Do you want to install the swapfile (You need 2 GB. Very important to avoid lag and potential crashes)"
 # read -p "(y/n) " userInput
