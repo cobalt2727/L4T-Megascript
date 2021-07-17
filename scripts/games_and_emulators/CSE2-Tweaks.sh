@@ -25,8 +25,7 @@ sudo rm CSE2-Tweaks.desktop
 cd ~/RetroPie/roms/ports
 rm CSE2-Tweaks.sh
 cd 
-sudo apt install wget snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
-sudo snap install cmake --classic
+sudo apt install cmake wget snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
 hash -r
 wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
 unzip tweaks.zip
