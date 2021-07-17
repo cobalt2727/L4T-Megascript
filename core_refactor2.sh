@@ -190,6 +190,7 @@ conversion() {
       f=""
       sn=""
       selected="FALSE"
+      is_root=""
       line=$(sed -n $i"p" <"/tmp/megascript_apps.txt")
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
@@ -200,6 +201,7 @@ conversion() {
           folder[$i]="scripts/$f"
         fi
         execute[$i]=$e
+        root[$i]=$is_root
         if [[ $gui == "gui" ]]; then
           ids+=($f)
           declare -n current_table=table_$f
@@ -394,12 +396,17 @@ while [ $x == 1 ]; do
     for word in $CHOICE; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
-        bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+        if [ -z ${root[$word]} ]; then
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+        else
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+        fi
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
         time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
         echo "${scripts[$word]} took $time_elapsed_friendly" >> /tmp/megascript_times.txt        
       else
+        # this is legacy use, no current scripts use this function
         eval "${execute[$word]}"
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
