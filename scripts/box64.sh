@@ -21,7 +21,7 @@ cd build
 get_system
 case "$architecture" in
     "aarch64") case "$jetson_model" in
-        "nintendo-switch"|"tx1"|"nano") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Tegra X1 based system" ;;
+        "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Tegra X1 based system" ;;
         *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Universal aarch64 system";;
         esac
         ;;

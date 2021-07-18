@@ -53,8 +53,10 @@ if grep -q bionic /etc/os-release; then
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
   #bionic cmake is very old
   sudo add-apt-repository ppa:rncbc/libs-bionic -y
-  #remove manually installed cmake versions (as instructed by theofficialgman)
-  sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+  if [[ -f "/usr/bin/cmake" ]]; then
+    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+  fi
   hash -r
 fi
 
@@ -62,37 +64,6 @@ fi
 if grep -q focal /etc/os-release; then
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
 fi
-
-#updates whee
-sudo apt upgrade -y
-#this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
-sudo apt install switch-multimedia -y
-
-#automatically sorts Gnome app layout alphabetically
-gsettings reset org.gnome.shell app-picker-layout
-
-#install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak qt5-style-plugins gnutls-bin -y
-# fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
-hash -r
-
-#it's a very very bad idea to have this on Tegra hardware
-sudo apt remove unattended-upgrades -y
-
-#automatically sets QT applications to follow the system theme
-grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
-#and now i (attempt to) force it on anyway so that the user doesn't have to reboot to see the effect
-#i'm not entirely positive this works, they still might have to reboot or log out and log back in
-#oh well
-export QT_QPA_PLATFORMTHEME=gtk2
-
-echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
-sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
-sudo rm -f /etc/udev/rules.d/51-usb-devices.rules
-sudo wget https://raw.githubusercontent.com/dolphin-emu/dolphin/master/Data/51-usb-device.rules -O /etc/udev/rules.d/51-usb-devices.rules
-sudo udevadm control --reload-rules
-sudo systemctl restart udev.service
-cd ~
 
 #kinda hard to install flatpaks without flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -102,15 +73,23 @@ if [[ $jetson_model ]]; then
   sudo chmod u+s /usr/libexec/flatpak-bwrap
 fi
 
-# echo "Do you want to install the swapfile (You need 2 GB. Very important to avoid lag and potential crashes)"
-# read -p "(y/n) " userInput
-# if [[ $userInput == y || $userInput == Y ]]; then
-# echo "Installing the swapfile..."
-# bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/swapfile.sh)"
-# elif [[ $userInput == n || $userInput == N ]]; then
-# echo "Skipping swapfile setup..."
-# fi
-# sleep 1
+#updates whee
+sudo apt upgrade -y
+#this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
+sudo apt install switch-multimedia -y
+
+
+#install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
+sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak qt5-style-plugins gnutls-bin -y
+# fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
+hash -r
+
+#automatically sets QT applications to follow the system theme
+grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
+#and now i (attempt to) force it on anyway so that the user doesn't have to reboot to see the effect
+#i'm not entirely positive this works, they still might have to reboot or log out and log back in
+#oh well
+export QT_QPA_PLATFORMTHEME=gtk2
 
 clear -x
 description="Do you want to install configurations that will let you use the joycons as a mouse?"

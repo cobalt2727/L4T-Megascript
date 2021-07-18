@@ -92,16 +92,43 @@ function get_system {
   # jetson model is the friendly name that we assign
   jetson_model=""
   local __platform=""
-  if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
-      jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
-      jetson_codename=$(echo ${jetson_codename#*"/hardware/nvidia/platform/"} | tr '/' '\n' | head -2 | tail -1 )
-      case "$jetson_codename" in
-          icosa*) __platform="nintendo-switch" ;;
-          *2180*) __platform="tx1" ;;
-          P3310*|P3489-0080*|P3489*) __platform="tx2" ;;
-          P2888-0006*|P2888-0001*|P2888-0004*|P2888*|P3668-0001*|P3668*) __platform="xavier" ;;
-          P3448-0002*|P3448*) __platform="nano" ;;
-      esac
+  # if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
+  #     jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
+  #     jetson_codename=$(echo ${jetson_codename#*"/hardware/nvidia/platform/"} | tr '/' '\n' | head -2 | tail -1 )
+  #     case "$jetson_codename" in
+  #         icosa*) __platform="nintendo-switch" ;;
+  #         *2180*) __platform="tx1" ;;
+  #         P3310*|P3489-0080*|P3489*) __platform="tx2" ;;
+  #         P2888-0006*|P2888-0001*|P2888-0004*|P2888*|P3668-0001*|P3668*) __platform="xavier" ;;
+  #         P3448-0002*|P3448*) __platform="nano" ;;
+  #     esac
+  #     jetson_model="$__platform"
+  # fi
+  if [[ -e "/proc/device-tree/compatible" ]]; then
+      CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
+      if [[ ${CHIP} =~ "tegra186" ]]; then
+          __platform="tegra-x2"
+      elif [[ ${CHIP} =~ "tegra210" ]]; then
+          __platform="tegra-x1"
+      elif [[ ${CHIP} =~ "tegra194" ]]; then
+          __platform="xavier"
+      fi
+      jetson_model="$__platform"
+  elif [[ -e "/sys/devices/soc0/family" ]]; then
+      CHIP="$(tr -d '\0' < /sys/devices/soc0/family)"
+      if [[ ${CHIP} =~ "tegra20" ]]; then
+          __platform="tegra-2"
+      elif [[ ${CHIP} =~ "tegra30" ]]; then
+          __platform="tegra-3"
+      elif [[ ${CHIP} =~ "tegra114" ]]; then
+          __platform="tegra-4"
+      elif [[ ${CHIP} =~ "tegra124" ]]; then
+          __platform="tegra-k1-32"
+      elif [[ ${CHIP} =~ "tegra132" ]]; then
+          __platform="tegra-k1-64"
+      elif [[ ${CHIP} =~ "tegra210" ]]; then
+          __platform="tegra-x1"
+      fi
       jetson_model="$__platform"
   fi
   unset __platform

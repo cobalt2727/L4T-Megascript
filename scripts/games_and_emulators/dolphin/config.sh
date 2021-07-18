@@ -25,3 +25,11 @@ mv * ..
 cd ..
 rm -rf Dolphin/
 cd ~
+
+##Enable Switch/Wii U Gamecube adpater use
+echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
+sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
+sudo rm -f /etc/udev/rules.d/51-usb-devices.rules
+sudo wget https://raw.githubusercontent.com/dolphin-emu/dolphin/master/Data/51-usb-device.rules -O /etc/udev/rules.d/51-usb-devices.rules
+sudo udevadm control --reload-rules
+sudo systemctl restart udev.service
