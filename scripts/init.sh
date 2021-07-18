@@ -80,8 +80,14 @@ sudo apt install switch-multimedia -y
 
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install joycond subversion wget flatpak gnome-software-plugin-flatpak qt5-style-plugins gnutls-bin -y
+sudo apt install joycond subversion wget flatpak qt5-style-plugins gnutls-bin -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
+
+# installing the flatpak plugin for Gnome Software on 20.04 and up will install a duplicate store app entirely for... some reason?
+if grep -q bionic /etc/os-release; then
+  sudo apt install gnome-software-plugin-flatpak -y
+fi
+
 hash -r
 
 #automatically sets QT applications to follow the system theme
@@ -130,7 +136,7 @@ if [[ $output == "yes" ]]; then
   echo "Building and installing SDL2..."
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $output == "no" ]]; then
-  echo "Going to the next option"
+  echo "Going to the next option..."
 fi
 
 clear -x 
