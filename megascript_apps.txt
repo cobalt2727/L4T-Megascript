@@ -46,7 +46,7 @@ fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mo
 
 fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
-fn="ALL THE SHOVELWARE";;d="Literally just installs all packages starting with games (WARNING: THIS IS LIKE 19 GB)";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
+fn="ALL THE SHOVELWARE";;d="(WARNING: THIS IS LIKE 19 GB) Literally just installs all packages starting with games";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
 
 fn="PrusaSlicer";;d="PrusaSlicer is an open-source, feature-rich, frequently updated tool for 3D Printing";;sn="prusaslicer.sh";;f="extras"
 

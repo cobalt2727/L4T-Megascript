@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear -x
 echo "This script will install AntiMicroX, an updated fork of AntiMicro and"
 echo "a graphical program used to map gamepad keys to keyboard."
 
@@ -11,31 +12,16 @@ sudo apt install -y git gcc cmake extra-cmake-modules \
 # Cloning
 cd ~
 rm -rf antimicrox
-git clone https://github.com/AntiMicroX/antimicrox.git
+git clone https://github.com/AntiMicroX/antimicrox.git --depth=1
 cd antimicrox
 mkdir build && cd build
 
 # Building
 cmake ..
-cmake --build .
+make -j$(nproc)
 
 # Installing
-sudo mv -f bin/antimicrox /usr/bin/
-
-# Desktop File
-sudo tee /usr/share/applications/antimicrox.desktop <<'EOF'
-[Desktop Entry]
-Encoding=UTF-8
-Version=1.0
-Type=Application
-Terminal=false
-Exec=/usr/bin/antimicrox
-Name=AntiMicroX
-Icon=/usr/share/applications/antimicrox.png
-Categories=System
-EOF
-
-sudo cp -f ~/antimicrox/src/images/antimicrox.png /usr/share/applications/
+sudo make install
 
 # Removing source
 cd ~
