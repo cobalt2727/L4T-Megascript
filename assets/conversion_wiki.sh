@@ -28,4 +28,5 @@ conversion() {
     fi
   done
 }
+clear
 conversion
