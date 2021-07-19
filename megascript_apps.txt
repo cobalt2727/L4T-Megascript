@@ -42,6 +42,8 @@ fn="Thonny Python IDE";;d="Thonny is an integrated development environment for P
 
 fn="VSCode";;d="Source code editor with many features";;sn="vscode.sh";;f="IDE"
 
+fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mouse, scripts and macros.";;sn="antimicrox.sh";;f="extras"
+
 fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
 fn="ALL THE SHOVELWARE";;d="Literally just installs all packages starting with games (WARNING: THIS IS LIKE 19 GB)";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
