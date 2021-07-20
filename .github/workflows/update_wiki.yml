@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Update_Wiki_Scripts
 
 # Controls when the workflow will run
 on:
@@ -23,14 +23,26 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Say hello
-        run: echo Updating the Wiki Page
-
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
+          chmod +x $GITHUB_WORKSPACE/assets/conversion_wiki.sh
           cd $GITHUB_WORKSPACE
-          cd assets
-          chmod +x conversion_wiki.sh
-          ./conversion_wiki.sh
+          mkdir wikioutput
+          cd wikioutput
+          $GITHUB_WORKSPACE/assets/conversion_wiki.sh
+          cat Home.md
+          
+      - name: "Set environmental variables"
+        run: |
+          echo "ACTION_MAIL=$GITHUB_ACTOR@users.noreply.github.com" >> $GITHUB_ENV
+          echo "ACTION_NAME=$GITHUB_ACTOR" >> $GITHUB_ENV
+          echo "OWNER=$GITHUB_ACTOR" >> $GITHUB_ENV
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+      
+      - name: Upload scripts page to wiki
+        uses: docker://decathlon/wiki-page-creator-action:latest
+        env:
+          GH_PAT: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          MD_FOLDER: "/github/workspace/wikioutput"          
+
