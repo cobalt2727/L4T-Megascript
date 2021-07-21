@@ -76,6 +76,8 @@ _EOF_"
 }
 
 function update_scripts {
+    cd "/home/$SUDO_USER/RetroPie-Setup"
+    sudo -u "$SUDO_USER" git pull --depth=1
     crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
     echo "Finding all games installed and adding them to the Ports menu"
     sudo -u "$SUDO_USER" mkdir "/home/$SUDO_USER/.emulationstation/scripts"
@@ -109,6 +111,7 @@ function update_scripts {
 
 function update_cores {
     cd "/home/$SUDO_USER/RetroPie-Setup"
+    sudo -u "$SUDO_USER" git pull --depth=1
     ./retropie_packages.sh setup update_packages
 
     update_scripts
