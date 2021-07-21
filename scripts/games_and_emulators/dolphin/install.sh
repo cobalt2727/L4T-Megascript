@@ -13,6 +13,11 @@ echo "Downloading the source..."
 git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull
+
+#needed as of July 21, 2021 for the integrated mGBA
+#https://dolphin-emu.org/blog/2021/07/21/integrated-gba/
+git submodule update --init
+
 mkdir -p build
 cd build
 echo "Building..."
