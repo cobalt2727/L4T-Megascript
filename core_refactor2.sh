@@ -202,6 +202,21 @@ function userinput_func {
 }
 export -f userinput_func
 
+function ppa_installer {
+  local ppa_grep="$ppa_name"
+  [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep "$ppa_grep" | wc -l)
+  if [[ $ppa_added -eq "1" ]]; then
+    echo "Skipping $ppa_name PPA, already added"
+  else
+    echo "Adding $ppa_name PPA"
+    sudo add-apt-repository "ppa:$ppa_name" -y
+    sudo apt update
+  fi
+  unset ppa_name
+}
+export -f ppa_installer
+
 #####################################################################################
 
 #end of functions used by megascript scripts

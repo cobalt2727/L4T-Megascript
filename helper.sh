@@ -60,12 +60,15 @@ function get_system {
 }
 export -f get_system
 
+# run get_system function for the refactor to use
+get_system
+
 function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "3" ]];then
-      zenity --width 300 --question \
+      zenity --width 500 --question \
       --text="$1" \
       --ok-label "$2" \
       --cancel-label "$3"
@@ -123,6 +126,21 @@ function userinput_func {
   clear -x
 }
 export -f userinput_func
+
+function ppa_installer {
+  local ppa_grep="$ppa_name"
+  [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep "$ppa_grep" | wc -l)
+  if [[ $ppa_added -eq "1" ]]; then
+    echo "Skipping $ppa_name PPA, already added"
+  else
+    echo "Adding $ppa_name PPA"
+    sudo add-apt-repository "ppa:$ppa_name" -y
+    sudo apt update
+  fi
+  unset ppa_name
+}
+export -f ppa_installer
 
 #####################################################################################
 

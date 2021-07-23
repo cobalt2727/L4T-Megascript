@@ -6,8 +6,7 @@ echo "Updating sources..."
 sleep 1
 echo "Double-checking to see that Flatpak is installed and Flathub added..."
 sleep 1
-sudo add-apt-repository ppa:alexlarsson/flatpak -y
-sudo apt update
+ppa_name="alexlarsson/flatpak" && ppa_installer
 sudo apt install pulseaudio glibc-source flatpak libcanberra-gtk-module -y
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

@@ -6,8 +6,7 @@ if grep -E 'bionic|focal|groovy' /etc/os-release > /dev/null; then
         echo "Skipping OpenJDK PPA, already added"
     else
         echo "Adding OpenJDK PPA, needed for Minecraft 1.17+"
-        sudo add-apt-repository ppa:openjdk-r/ppa -y
-        sudo apt update
+        ppa_name="openjdk-r/ppa" && ppa_installer
     fi
 fi
 sudo apt install cmake curl zlib1g-dev openjdk-8-jdk openjdk-11-jdk openjdk-16-jdk qtbase5-dev -y

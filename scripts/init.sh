@@ -58,9 +58,9 @@ fi
 
 if grep -q bionic /etc/os-release; then
   #bionic's flatpak package is out of date
-  sudo add-apt-repository ppa:alexlarsson/flatpak -y
+  ppa_name="alexlarsson/flatpak" && ppa_installer
   #bionic cmake is very old
-  sudo add-apt-repository ppa:rncbc/libs-bionic -y
+  ppa_name="rncbc/libs-bionic" && ppa_installer
   if [[ -f "/usr/bin/cmake" ]]; then
     #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
     sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
@@ -70,7 +70,7 @@ fi
 
 #focal's flatpak package is also out of date (I get LTS is supposed to put stability above all else, but seriously?)
 if grep -q focal /etc/os-release; then
-  sudo add-apt-repository ppa:alexlarsson/flatpak -y
+  ppa_name="alexlarsson/flatpak" && ppa_installer
 fi
 
 #kinda hard to install flatpaks without flathub
@@ -84,11 +84,13 @@ fi
 #updates whee
 sudo apt upgrade -y
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
-sudo apt install switch-multimedia -y
+if [[ $jetson_model ]]; then
+  sudo apt install switch-multimedia -y
+fi
 
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install joycond subversion wget flatpak qt5-style-plugins gnutls-bin -y
+sudo apt install subversion wget flatpak qt5-style-plugins gnutls-bin -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 
 # installing the flatpak plugin for Gnome Software on 20.04 and up will install a duplicate store app entirely for... some reason?

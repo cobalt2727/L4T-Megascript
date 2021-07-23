@@ -16,11 +16,12 @@ rm SRB2_retropie.sh
 cd
 
 if grep -q bionic /etc/os-release; then
-    sudo add-apt-repository ppa:rncbc/libs-bionic -y
-    #remove manually installed cmake versions (as instructed by theofficialgman)
-    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-    hash -r
-    sudo apt update
+    ppa_name="rncbc/libs-bionic" && ppa_installer
+    if [[ -f "/usr/bin/cmake" ]]; then
+        #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+        sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+        hash -r
+    fi
 fi
 
 sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev -y
