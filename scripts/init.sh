@@ -48,6 +48,14 @@ else
   fi
 fi
 
+# check for bad machine-id from 3.0.0 L4T Ubuntu image and fix if necessary
+# also generate if user has somehow deleted their machine-id as well
+if [[ $(cat /var/lib/dbus/machine-id) == "52e66c64e2624539b94b31f8412c6a7d" ]]; then
+  sudo rm /var/lib/dbus/machine-id && dbus-uuidgen | sudo tee /var/lib/dbus/machine-id
+elif [[ ! -f /var/lib/dbus/machine-id ]]; then
+  dbus-uuidgen | sudo tee /var/lib/dbus/machine-id
+fi
+
 if grep -q bionic /etc/os-release; then
   #bionic's flatpak package is out of date
   sudo add-apt-repository ppa:alexlarsson/flatpak -y
