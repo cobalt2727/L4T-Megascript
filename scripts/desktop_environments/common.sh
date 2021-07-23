@@ -55,3 +55,19 @@ GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
 OnlyShowIn=LXDE;MATE;X-Cinnamon
 EOF
+
+# start onboard with more DEs list
+sudo dd of=/etc/xdg/autostart/onboard-autostart.desktop << EOF
+[Desktop Entry]
+Name=Onboard
+GenericName=Onboard onscreen keyboard
+Comment=Flexible onscreen keyboard
+Exec=onboard --not-show-in=GNOME,GNOME-Classic:GNOME --startup-delay=3.0
+Icon=onboard
+Type=Application
+NoDisplay=true
+X-Ubuntu-Gettext-Domain=onboard
+AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
+X-GNOME-AutoRestart=true
+OnlyShowIn=Unity;MATE;Budgie;X-Cinnamon;LXDE;openbox
+EOF
