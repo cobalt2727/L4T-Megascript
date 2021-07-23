@@ -3,8 +3,7 @@
 
 echo "Thonny script started!"
 echo "Adding Ubuntu Toolchain PPA..."
-sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa -y
-sudo apt update
+ppa_name="ubuntu-toolchain-r/ppa" && ppa_installer
 
 echo "Installing dependencies..."
 sudo apt install python2 python2.7 python3 python3-pip thonny -y

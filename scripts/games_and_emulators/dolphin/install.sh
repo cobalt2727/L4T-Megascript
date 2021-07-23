@@ -31,8 +31,7 @@ if grep -q bionic /etc/os-release; then
   echo "That being said, we need to get you a newer compiler to prevent some bugs."
   #oddly enough the only *known* bug here is that emulated wii remote cursors don't work with GCC 7 builds
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  sudo apt update
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install gcc-11 g++-11 -y
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"

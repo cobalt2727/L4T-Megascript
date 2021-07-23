@@ -16,8 +16,7 @@ if [[ $jetson_model ]]; then
     sudo apt install moonlight-qt -y
 else
     if [[ $architecture == "x86_64" ]]; then
-        sudo add-apt-repository ppa:alexlarsson/flatpak -y
-        sudo apt update
+        ppa_name="alexlarsson/flatpak" && ppa_installer
         sudo apt install flatpak -y
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         flatpak install flathub com.moonlight_stream.Moonlight -y

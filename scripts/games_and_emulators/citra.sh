@@ -23,8 +23,7 @@ if grep -q bionic /etc/os-release; then
   echo "laying groundwork for gman to do his QT5 wizardry later:"
   
   echo "Adding GCC and G++ 9/10 Repo..."
-  sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  sudo apt update
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install gcc-10 g++-10 -y
   
   exit
