@@ -15,7 +15,7 @@ cd dolphin
 git pull
 
 #https://dolphin-emu.org/blog/2021/07/21/integrated-gba/
-git submodule update --init #mgba
+git submodule update --init Externals/mGBA
 
 mkdir -p build
 cd build
