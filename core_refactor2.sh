@@ -279,6 +279,7 @@ if [ -f /etc/switchroot_version.conf ]; then
       \n\n\Please update as soon as you can.\nThe instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page. \
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
       x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup#installrun-the-megascript" > /dev/null 2>&1 &
+      disown
     else
       echo "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
       echo "Please update as soon as you can."
