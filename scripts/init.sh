@@ -90,7 +90,7 @@ fi
 
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install subversion wget flatpak qt5-style-plugins gnutls-bin -y
+sudo apt install subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 
 # installing the flatpak plugin for Gnome Software on 20.04 and up will install a duplicate store app entirely for... some reason?
