@@ -7,12 +7,15 @@ libavahi-compat-libdnssd-dev libssl-dev libx11-dev \
 libqt4-dev qtbase5-dev -y
 
 ##Build Barrier From Source
-cd
+cd /tmp
+rm -rf barrier
 git clone https://github.com/debauchee/barrier.git
 cd barrier
 git submodule update --init --recursive
-./clean_build.sh
+mkdir build
 cd build
+cmake ..
+make -j$(nproc)
 sudo make install
-cd
+cd /tmp
 rm -rf barrier
