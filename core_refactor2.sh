@@ -267,6 +267,28 @@ wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repo
 sed -i '/^$/d' /tmp/megascript_apps.txt
 length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
 
+# get switchroot version
+if [ -f /etc/switchroot_version.conf ]; then
+  clear -x
+  swr_ver=$(cat /etc/switchroot_version.conf)
+  swr_ver_current="3.4.0"
+  function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
+  if [ $(version $swr_ver) -lt $(version $swr_ver_current) ]; then
+    if [[ $gui == "gui" ]]; then
+      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
+      \n\n\Please update as soon as you can.\nThe instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page. \
+      \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
+      x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup#installrun-the-megascript" > /dev/null 2>&1 &
+    else
+      echo "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
+      echo "Please update as soon as you can."
+      echo "The instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page."
+      echo ""
+      read  -n 1 -p "Press any key to continue" mainmenuinput
+    fi
+  fi
+fi
+
 while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
