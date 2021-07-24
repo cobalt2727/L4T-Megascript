@@ -53,7 +53,7 @@ Type=Application
 Name=Nvpmodel Indicator
 GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
-OnlyShowIn=LXDE;MATE;X-Cinnamon
+OnlyShowIn=LXDE;MATE
 EOF
 
 # start onboard with more DEs list
