@@ -46,14 +46,14 @@ fi
 EOF
 sudo chmod +x /etc/dock-hotplug.sh
 
-# add the nvidia power profile indicator to startup
+# add the nvidia power profile indicator to startup for megascript DEs
 sudo dd of=/etc/xdg/autostart/nvpmodel.desktop << EOF
 [Desktop Entry]
 Type=Application
 Name=Nvpmodel Indicator
 GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
-OnlyShowIn=LXDE;MATE
+OnlyShowIn=LXDE;MATE;UKUI
 EOF
 
 # start onboard with more DEs list
@@ -69,5 +69,5 @@ NoDisplay=true
 X-Ubuntu-Gettext-Domain=onboard
 AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
 X-GNOME-AutoRestart=true
-OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox
+OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox;UKUI
 EOF
