@@ -69,5 +69,5 @@ NoDisplay=true
 X-Ubuntu-Gettext-Domain=onboard
 AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
 X-GNOME-AutoRestart=true
-OnlyShowIn=Unity;MATE;Budgie;X-Cinnamon;LXDE;openbox
+OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox
 EOF
