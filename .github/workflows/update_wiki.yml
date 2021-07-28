@@ -35,9 +35,9 @@ jobs:
           
       - name: "Set environmental variables"
         run: |
-          echo "ACTION_MAIL=$GITHUB_ACTOR@users.noreply.github.com" >> $GITHUB_ENV
-          echo "ACTION_NAME=$GITHUB_ACTOR" >> $GITHUB_ENV
-          echo "OWNER=$GITHUB_ACTOR" >> $GITHUB_ENV
+          echo "ACTION_MAIL=cobalt2727@users.noreply.github.com" >> $GITHUB_ENV
+          echo "ACTION_NAME=cobalt2727" >> $GITHUB_ENV
+          echo "OWNER=cobalt2727" >> $GITHUB_ENV
           echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       
       - name: Upload scripts page to wiki
