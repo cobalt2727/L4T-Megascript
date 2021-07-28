@@ -46,7 +46,7 @@ function add_desktop {
   sudo rm -rf /usr/share/icons/L4T-Megascript.png
   sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" --output /usr/share/icons/L4T-Megascript.png
   sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" --output /usr/share/applications/L4T-Megascript.desktop
-  sudo chmod +x '/usr/share/applications/L4T-Megascript.desktop'
+  sudo chmod 644 '/usr/share/applications/L4T-Megascript.desktop'
 }
 FUNC=$(declare -f add_desktop)
 
