@@ -45,6 +45,6 @@ Exec=/home/$USER/MultiMC/install/MultiMC
 Hidden=false
 NoDisplay=false
 Name=MutiMC
-Icon=/home/$USER/MultiMC/src/application/resources/multimc/scalable/multimc.svg
+Icon=/home/$USER/MultiMC/src/launcher/resources/multimc/scalable/multimc.svg
 Categories=Game
 _EOF_"
