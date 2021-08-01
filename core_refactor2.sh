@@ -91,6 +91,7 @@ function get_system {
   jetson_codename=""
   # jetson model is the friendly name that we assign
   jetson_model=""
+  model_name="$(/sys/firmware/devicetree/base/model)"
   local __platform=""
   # if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
   #     jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
@@ -301,7 +302,7 @@ while [ $x == 1 ]; do
   if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png
     zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
-    \n\n\You are running an $architecture $jetson_model system." --window-icon=/usr/share/icons/L4T-Megascript.png
+    \n\n\You are running an $architecture $jetson_model $model_name system." --window-icon=/usr/share/icons/L4T-Megascript.png
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
@@ -416,7 +417,7 @@ while [ $x == 1 ]; do
     echo
     add_desktop_if
     echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
-    echo "You are running an $architecture $jetson_model system."
+    echo "You are running an $architecture $jetson_model $model_name system."
     echo ""
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 
