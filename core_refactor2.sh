@@ -91,7 +91,7 @@ function get_system {
   jetson_codename=""
   # jetson model is the friendly name that we assign
   jetson_model=""
-  model_name="$(/sys/firmware/devicetree/base/model)"
+  read model_name < /sys/firmware/devicetree/base/model
   local __platform=""
   # if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
   #     jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
