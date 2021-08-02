@@ -42,10 +42,10 @@ fi
 
 function add_desktop {
   #create .desktop file for the megascript
-  sudo rm -rf /usr/share/applications/L4T-Megascript.desktop
-  sudo rm -rf /usr/share/icons/L4T-Megascript.png
-  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" --output /usr/share/icons/L4T-Megascript.png
-  sudo curl "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" --output /usr/share/applications/L4T-Megascript.desktop
+  sudo rm -rf /tmp/L4T-Megascript.desktop
+  sudo rm -rf /tmp/L4T-Megascript.png
+  sudo wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T_Megascript-logo-transparent.png" -O /tmp/L4T-Megascript.png && sudo rm -rf /usr/share/icons/L4T-Megascript.png && sudo mv /tmp/L4T-Megascript.png /usr/share/icons/L4T-Megascript.png
+  sudo wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/L4T-Megascript.desktop" -O /tmp/L4T-Megascript.desktop && sudo rm -rf /usr/share/applications/L4T-Megascript.desktop && sudo mv /tmp/L4T-Megascript.desktop /usr/share/applications/L4T-Megascript.desktop
   sudo chmod 644 '/usr/share/applications/L4T-Megascript.desktop'
 }
 FUNC=$(declare -f add_desktop)
