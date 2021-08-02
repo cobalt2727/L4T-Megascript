@@ -1,4 +1,4 @@
-fn="Initial Setup";;d="Installs the joycon mouse, flatpack repo, SDL2 etc";;sn="init.sh";;f="scripts";;selected="TRUE"
+fn="Initial Setup";;d="Installs the joycon mouse, flatpak repo, SDL2 etc";;sn="init.sh";;f="scripts";;selected="TRUE"
 
 fn="Auto Updater";;d="download and install updates from the repos (check this at least once daily!)";;sn="update.sh";;f="scripts";;selected="TRUE"
 
