@@ -122,6 +122,7 @@ function update_cores {
 
 function install_binaries {
 	if [[ $jetson_model == "tegra-x1" ]]; then
+		mkdir -p /opt/retropie/libretrocores
 		rm -rf "/tmp/Retropie-Binaries"
 		sudo -u "$SUDO_USER" mkdir -p "/tmp/Retropie-Binaries"
 		cd "/tmp/Retropie-Binaries"
