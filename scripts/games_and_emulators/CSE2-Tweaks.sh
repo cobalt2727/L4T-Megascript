@@ -9,6 +9,8 @@
 #Oh yeah by the way - it's still totally possible to install Cave Story on your Switch here, we just haven't given it its own script.
 #...since it's really only one line (assuming you have flatpak set up, which we can automate for you with the initial setup script)
 #run this in your terminal: flatpak install flathub com.gitlab.coringao.cavestory-nx
+#bear in mind that TEGRA DOES NOT HAVE HARDWARE ACCELERATION FOR FLATPAK
+#so you're probably better off installing it from RetroPie: https://retropie.org.uk/docs/Cave-Story/
 #- Cobalt
 
 cd
