@@ -39,7 +39,7 @@ _EOF_"
     ./retropie_packages.sh lr-beetle-pce-fast
     ./retropie_packages.sh lr-beetle-supergrafx
     # ./retropie_packages.sh lr-beetle-saturn
-    ./retropie_packages.sh lr-bsnes
+
     ./retropie_packages.sh lr-desmume
     # ./retropie_packages.sh lr-desmume2015
     ./retropie_packages.sh lr-fbneo
@@ -64,15 +64,18 @@ _EOF_"
     ./retropie_packages.sh lr-vba-next
     ./retropie_packages.sh lr-vecx
     ./retropie_packages.sh lr-tgbdual
-    ./retropie_packages.sh lr-snes9x
+
     # ./retropie_packages.sh lr-yabasanshiro
     ./retropie_packages.sh lr-yabause
     ./retropie_packages.sh lzdoom
     # ./retropie_packages.sh scraper
     # ./retropie_packages.sh skyscraper
     # ./retropie_packages.sh usbromservice
-
-    update_scripts
+	if [[ $jetson_model != "tegra-x1" ]]; then
+	# install packages which will get installed as binaries on tegra-x1
+	./retropie_packages.sh lr-bsnes
+    ./retropie_packages.sh lr-snes9x	
+	fi
 }
 
 function update_scripts {
@@ -117,6 +120,33 @@ function update_cores {
     update_scripts
 }
 
+function install_binaries {
+	if [[ $jetson_model == "tegra-x1" ]]; then
+		rm -rf "/tmp/Retropie-Binaries"
+		sudo -u "$SUDO_USER" mkdir -p "/tmp/Retropie-Binaries"
+		cd "/tmp/Retropie-Binaries"
+		echo "Downloading Precompiled Binaries from the Megascript"
+		echo "This could take a few seconds depending on the speed of your internet connection"
+		sudo -E -u "$SUDO_USER" svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model
+		echo "Download Done"
+		cd $jetson_model
+		cd libretrocores
+		cat ./*.tar.gz | tar zxvf - -i
+		rm -rf ./*.tar.gz
+		rm -rf ./*.pkg
+		cp -R ./* /opt/retropie/libretrocores
+		install_options=($(echo *))
+		for install_selected in "${install_options[@]}"; do
+			cd /home/$SUDO_USER/RetroPie-Setup
+			/home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh $install_selected depends
+			/home/$SUDO_USER/RetroPie-Setup/retropie_packages.sh $install_selected configure
+		done
+		rm -rf "/tmp/Retropie-Binaries"
+	else
+		echo "We don't host binaries for your platform, sorry!"
+	fi
+}
+
 if [ -z "$SUDO_USER" ]; then
     echo "RetroPie install failed, please run script as sudo"
 else    
@@ -127,7 +157,11 @@ else
         update_scripts
     elif [[ $1 == "update_cores" ]]; then
         update_cores
+    elif [[ $1 == "install_binaries" ]]; then
+        install_binaries
     else
         install
+        install_binaries
+        update_scripts
     fi
 fi
