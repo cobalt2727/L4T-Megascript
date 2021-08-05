@@ -31,7 +31,7 @@ if test -f /usr/bin/emulationstation; then
         description="Do you want to update parts of RetroPie?\
 		\nThe Helper Scripts should always but updated and only take a few seconds\
 		\nUpdating the cores (Everything), could TAKE MULTIPLE HOURS"
-        table=("Helper Scripts Only" "Yes (Everything)" "No")
+        table=("Helper Scripts Only" "Binaries Only" "Yes (Everything)" "No")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
 fi
@@ -108,6 +108,9 @@ if [[ $RetroPieUserInput == "Yes (Everything)" ]]; then
 elif [[ $RetroPieUserInput == "Helper Scripts Only" ]]; then
 	echo "Updating RetroPie Helper Scripts Only..."
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo -E bash -s "update_scripts"
+elif [[ $RetroPieUserInput == "Binaries Only" ]]; then
+	echo "Updating RetroPie Binaries Only..."
+	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | sudo -E bash -s "install_binaries"
 else
 	echo "Skipping RetroPie updates..."
 fi
