@@ -7,7 +7,8 @@ function install {
     echo
     echo "Downloading the files and installing needed dependencies..."
     sleep 3
-
+    # get system info
+    get_system
     #download git
     apt install git dialog unzip xmlstarlet lsb-release crudini -y
     apt install joycond -y
@@ -123,6 +124,8 @@ function update_cores {
 }
 
 function install_binaries {
+    # get system info
+    get_system
 	if [[ $jetson_model == "tegra-x1" ]]; then
 		mkdir -p /opt/retropie/libretrocores
 		rm -rf "/tmp/Retropie-Binaries"
