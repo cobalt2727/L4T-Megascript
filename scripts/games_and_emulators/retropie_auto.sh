@@ -32,6 +32,7 @@ _EOF_"
     sudo ./retropie_packages.sh emulationstation-dev
     sudo ./retropie_packages.sh retropiemenu
     sudo ./retropie_packages.sh runcommand
+    sudo ./retropie_packages.sh joy2key
     #sudo ./retropie_packages.sh ports-enable configure
     sudo ./retropie_packages.sh mupen64plus
     sudo ./retropie_packages.sh lr-duckstation
