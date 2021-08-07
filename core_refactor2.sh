@@ -494,7 +494,7 @@ megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((
 
 if [[ $gui == "gui" ]]; then
   zenity  --height="250" --title "Bye" --question \
-  "Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
+  --text="Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
   --window-icon=/usr/share/icons/L4T-Megascript.png \
   --ok-label "Exit the L4T-Megascript" \
   --cancel-label "Open the L4T-Megascript Wiki Page"
