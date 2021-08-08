@@ -5,13 +5,13 @@ echo "Box64 script started!"
 echo "Installing Dependencies"
 sudo apt install zenity -y
 cd
-git clone https://github.com/ptitSeb/box64 --depth=1
+git clone https://github.com/ptitSeb/box64
 cd box64
-git pull --depth=1
+git pull
 if [[ $? -ne 0 ]]; then
     cd ~
     rm -rf box64
-    git clone https://github.com/ptitSeb/box64 --depth=1
+    git clone https://github.com/ptitSeb/box64
     cd box64
 fi
 rm -rf build
