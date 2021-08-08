@@ -42,43 +42,17 @@ _EOF_"
     # sudo ./retropie_packages.sh usbromservice
     if [[ $jetson_model != "tegra-x1" ]]; then
         # only build from source on non-tegra-x1 systems
-        sudo ./retropie_packages.sh lr-atari800
-        sudo ./retropie_packages.sh lr-beetle-ngp
-        sudo ./retropie_packages.sh lr-beetle-pce-fast
-        sudo ./retropie_packages.sh lr-beetle-supergrafx
-        sudo ./retropie_packages.sh lr-bsnes
-        sudo ./retropie_packages.sh lr-caprice32
-        sudo ./retropie_packages.sh lr-desmume
-        sudo ./retropie_packages.sh lr-fbneo
-        sudo ./retropie_packages.sh lr-fceumm
-        sudo ./retropie_packages.sh lr-fuse
-        sudo ./retropie_packages.sh lr-flycast
-        sudo ./retropie_packages.sh lr-gambatte
-        sudo ./retropie_packages.sh lr-genesis-plus-gx
-        sudo ./retropie_packages.sh lr-gpsp
-        sudo ./retropie_packages.sh lr-handy
-        sudo ./retropie_packages.sh lr-mame
-        sudo ./retropie_packages.sh lr-mame2003
-        sudo ./retropie_packages.sh lr-mame2010
-        sudo ./retropie_packages.sh lr-mame2016
-        sudo ./retropie_packages.sh lr-mesen
-        sudo ./retropie_packages.sh lr-mgba
-        sudo ./retropie_packages.sh lr-mupen64plus-next
-        sudo ./retropie_packages.sh lr-nestopia
-        sudo ./retropie_packages.sh lr-parallel-n64
-        sudo ./retropie_packages.sh lr-pcsx-rearmed
-        sudo ./retropie_packages.sh lr-ppsspp
-        sudo ./retropie_packages.sh lr-prosystem
-        sudo ./retropie_packages.sh lr-quicknes
-        sudo ./retropie_packages.sh lr-smsplus-gx
-        sudo ./retropie_packages.sh lr-snes9x
-        sudo ./retropie_packages.sh lr-snes9x2005
-        sudo ./retropie_packages.sh lr-snes9x2010
-        sudo ./retropie_packages.sh lr-stella2014
-        sudo ./retropie_packages.sh lr-tgbdual
-        sudo ./retropie_packages.sh lr-vba-next
-        sudo ./retropie_packages.sh lr-vecx
-        sudo ./retropie_packages.sh lr-yabause	
+        # if executed on the PI, this shoud still install binaries for those systems
+        package_list=( lr-atari800 lr-beetle-ngp lr-beetle-supergrafx lr-bsnes \
+lr-caprice32 lr-desmume lr-fbneo lr-fceumm lr-flycast lr-fuse \
+lr-gambatte lr-genesis-plus-gx lr-gpsp lr-handy lr-mame lr-mame2003 \
+lr-mame2010 lr-mame2016 lr-mesen lr-mgba lr-mupen64plus-next lr-nestopia \
+lr-pcsx-rearmed lr-ppsspp lr-prosystem lr-quicknes lr-smsplus-gx \
+lr-stella2014 lr-snes9x lr-snes9x2005 lr-snes9x2010 lr-vba-next lr-vecx \
+lr-tgbdual lr-yabause )
+        for package in ${package_list[@]}; do
+            sudo ./retropie_packages.sh $package
+        done
     fi
 }
 
@@ -120,8 +94,6 @@ function update_cores {
     cd "/home/$USER/RetroPie-Setup"
     git pull --depth=1
     sudo ./retropie_packages.sh setup update_packages
-
-    update_scripts
 }
 
 function install_binaries {
@@ -162,8 +134,10 @@ if [ -z "$SUDO_USER" ]; then
         update_scripts
     elif [[ $1 == "update_cores" ]]; then
         update_cores
+        update_scripts
     elif [[ $1 == "install_binaries" ]]; then
         install_binaries
+        update_scripts
     else
         install
         install_binaries
