@@ -35,7 +35,7 @@ mkdir -p SRB2-DT
 mv SRB2-Data.zip -t ~/SRB2-DT
 cd ~/SRB2-DT
 unzip SRB2-Data.zip
-rm SRB2-Data.zip
+rm SRB2-Data.zip*
 cd ~/SRB2-master/assets
 mkdir -p installer
 cd ..
@@ -48,7 +48,7 @@ mv config.cfg -t ~/.srb2
 mv SRB2.sh SRB2Icon.png -t ~/SRB2
 sudo mv "Sonic Robo Blast 2.desktop" -t /usr/share/applications 
 cd ~
-rm master.zip
+rm master.zip*
 rm -r SRB2-A
 cd ~/SRB2-DT
 mv music.dta patch.pk3 patch_music.pk3 player.dta srb2.pk3 zones.pk3 -t ~/SRB2-master/assets/installer
