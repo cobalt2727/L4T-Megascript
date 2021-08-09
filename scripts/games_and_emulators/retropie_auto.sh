@@ -61,14 +61,15 @@ function update_scripts {
     git pull --depth=1
     sudo crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
     echo "Finding all games installed and adding them to the Ports menu"
-    mkdir "/home/$USER/.emulationstation/scripts"
-    mkdir "/home/$USER/.emulationstation/scripts/quit"
-    sudo rm -rf "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
-    wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh" -O "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
+    mkdir -p "/home/$USER/.emulationstation/scripts/quit"
+    rm -rf /tmp/add_games.sh
+    wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh" -O /tmp/add_games.sh && sudo rm -rf  "/home/$USER/.emulationstation/scripts/quit/add_games.sh" && mv  /tmp/add_games.sh "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
     sudo chmod 755 "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
 
     echo "Addding the Python .desktop image finder script"
-    wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py" -O "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
+    rm -rf /tmp/get-icon-path.py
+    mkdir -p "/home/$USER/RetroPie/roms/ports"
+    wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py" -O /tmp/get-icon-path.py && sudo rm -rf "/home/$USER/RetroPie/roms/ports/get-icon-path.py" && mv /tmp/get-icon-path.py "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
     sudo chmod 755 "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
 
     echo "Running the auto game detection script"
