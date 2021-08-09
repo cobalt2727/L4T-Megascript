@@ -8,7 +8,7 @@ echo "Downloading the files, and installing needed dependencies..."
 sleep 2
 sudo rm -r /usr/share/SRB2Kart
 cd ~/.srb2kart
-rm kartconfig.cfg 
+#rm kartconfig.cfg
 cd /usr/share/applications
 sudo rm "SRB2 Kart.desktop"
 cd
@@ -49,7 +49,7 @@ mv assets -t ~/SRB2Kart
 cd ~/Kart-Public-master/build
 mv bin -t ~/SRB2Kart
 cd ~
-rm master.zip
+rm master.zip*
 rm -r Kart-Public-master
 sudo mv SRB2Kart -t /usr/share
 echo
