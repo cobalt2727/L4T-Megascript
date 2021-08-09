@@ -14,12 +14,17 @@ function install {
     sudo apt install joycond -y
 
     cd ~
-    git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
+    git clone https://github.com/RetroPie/RetroPie-Setup.git
 
-    #auto install retropie with most important emulators (which don't take up much space)
     cd RetroPie-Setup
-    #pull latest version if already cloned
-    git pull --depth=1
+    # pull latest version if already cloned
+    git pull
+    if [[ $? -ne 0 ]]; then
+        cd ~
+        rm -rf RetroPie-Setup
+        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        cd ~/RetroPie-Setup
+    fi
     # unfortunatly I can't use this this not all main packages work ... sudo ./retropie_packages.sh setup basic_install
     # manually install all of the required and good stuff
 
@@ -28,6 +33,7 @@ function install {
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 _EOF_"
 
+    #auto install retropie with most important emulators (which don't take up much space)
     sudo ./retropie_packages.sh retroarch
     sudo ./retropie_packages.sh emulationstation-dev
     sudo ./retropie_packages.sh retropiemenu
@@ -58,7 +64,13 @@ lr-tgbdual lr-yabause )
 
 function update_scripts {
     cd "/home/$USER/RetroPie-Setup"
-    git pull --depth=1
+    git pull
+    if [[ $? -ne 0 ]]; then
+        cd ~
+        rm -rf RetroPie-Setup
+        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        cd ~/RetroPie-Setup
+    fi
     sudo crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
     echo "Finding all games installed and adding them to the Ports menu"
     mkdir -p "/home/$USER/.emulationstation/scripts/quit"
@@ -93,7 +105,13 @@ function update_scripts {
 
 function update_cores {
     cd "/home/$USER/RetroPie-Setup"
-    git pull --depth=1
+    git pull
+    if [[ $? -ne 0 ]]; then
+        cd ~
+        rm -rf RetroPie-Setup
+        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        cd ~/RetroPie-Setup
+    fi
     sudo ./retropie_packages.sh setup update_packages
 }
 
