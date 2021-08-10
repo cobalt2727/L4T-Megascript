@@ -12,7 +12,7 @@ fn="Discord (Webcord)";;d="Discord Web App";;sn="discord.sh";;f="scripts"
 
 # fn="Development IDEs";;d='write code on your Switch!';;e='echo "scripts not ready yet"';;f="scripts"
 
-fn="ocs-url";;d="Support for the Pling store's Install button";;sn="ocs-url.sh";;f="scripts"
+fn="Install desktop themes";;d="Script to compile ocs-url to enable the Install button on the Pling website";;sn="ocs-url.sh";;f="scripts"
 
 fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems";;sn="box64.sh";;f="scripts"
 
