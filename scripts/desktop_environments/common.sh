@@ -2,16 +2,21 @@
 
 #common scripts used by all DEs without autorotation
 
-echo "Adding autorotation script"
+# get system info
+get_system
 
-sudo apt install iio-sensor-proxy libxrandr2 libglib2.0-dev -y
-cd /usr/local/bin
-sudo rm -rf auto-rotate
-sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate/blob/master/auto-rotate?raw=true
-sudo chmod +x auto-rotate
-cd ~
+# only run on nintendo switch systems (previously named icosa or icosa_emmc but now named Nintendo Switch (20XX))
+if echo "$model_name" | grep -q [Ss]witch || echo "$model_name" | grep -q [Ii]cosa; then
+	echo "Adding autorotation script"
 
-sudo dd of=/etc/xdg/autostart/auto-rotate.desktop  << EOF
+	sudo apt install iio-sensor-proxy libxrandr2 libglib2.0-dev -y
+	cd /usr/local/bin
+	sudo rm -rf auto-rotate
+	sudo wget -O auto-rotate https://github.com/theofficialgman/yoga-900-auto-rotate/blob/master/auto-rotate?raw=true
+	sudo chmod +x auto-rotate
+	cd ~
+
+	sudo dd of=/etc/xdg/autostart/auto-rotate.desktop  << EOF
 [Desktop Entry]
 Type=Application
 Name=Auto-Rotate
@@ -20,9 +25,9 @@ Exec=bash -c "pkill auto-rotate; /usr/local/bin/auto-rotate"
 OnlyShowIn=X-Cinnamon;MATE;LXDE;openbox
 EOF
 
-# add custom dock-hotplug
-sudo rm -rf /etc/dock-hotplug.sh
-sudo tee /etc/dock-hotplug.sh <<'EOF'
+	# add custom dock-hotplug
+	sudo rm -rf /etc/dock-hotplug.sh
+	sudo tee /etc/dock-hotplug.sh <<'EOF'
 #!/bin/bash
 
 # Thanks CTC for the convenient and workable user grab
@@ -44,10 +49,13 @@ else
 	sudo -u "$DH_USER_NAME" xinput set-prop touchscreen "Coordinate Transformation Matrix" 0, -1, 1, 1, 0, 0, 0, 0, 1
 fi
 EOF
-sudo chmod +x /etc/dock-hotplug.sh
+	sudo chmod +x /etc/dock-hotplug.sh
+fi
 
-# add the nvidia power profile indicator to startup for megascript DEs
-sudo dd of=/etc/xdg/autostart/nvpmodel.desktop << EOF
+# only run on nvidia jetsons
+if [[ $jetson_model ]]; then
+	# add the nvidia power profile indicator to startup for megascript DEs
+	sudo dd of=/etc/xdg/autostart/nvpmodel.desktop << EOF
 [Desktop Entry]
 Type=Application
 Name=Nvpmodel Indicator
@@ -55,6 +63,7 @@ GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
 OnlyShowIn=LXDE;MATE;UKUI
 EOF
+fi
 
 # start onboard with more DEs list
 sudo dd of=/etc/xdg/autostart/onboard-autostart.desktop << EOF
