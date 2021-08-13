@@ -44,6 +44,27 @@ sudo apt upgrade -y
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
 sudo apt install switch-multimedia -y
 
+if grep -q bionic /etc/os-release; then
+
+    if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28);then
+        echo "Continuing the installs"
+    else
+        echo "Force downgrading libc and related packages"
+		echo "libc 2.28 was previously required for the minecraft bedrock install"
+		echo "this is no longer the case so the hack is removed"
+		echo ""
+        echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
+		sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
+		sudo rm -rf /etc/apt/preferences.d/zorinos*
+		sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
+		sudo rm -rf /etc/apt/preferences.d/freetype*
+
+		sudo apt update
+		sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
+    fi
+
+fi
+
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
 if [[ $AptFixUserInput == "yes" ]]; then
 	echo

@@ -34,6 +34,14 @@ echo "Install Dependencies..."
 cd ~
 
 if grep -q bionic /etc/os-release; then
+
+    if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28);then
+        echo "Continuing the install"
+    else
+        echo "Force Downgrading libc and related packages"
+        echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
+    fi
+
     sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
     sudo rm -rf /etc/apt/preferences.d/zorinos*
     sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
