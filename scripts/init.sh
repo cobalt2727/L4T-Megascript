@@ -73,14 +73,6 @@ if grep -q focal /etc/os-release; then
   ppa_name="alexlarsson/flatpak" && ppa_installer
 fi
 
-#kinda hard to install flatpaks without flathub
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-if [[ $jetson_model ]]; then
-  #fix up an issue with running flatpaks by enabling non-privileged user namespaces
-  sudo chmod u+s /usr/libexec/flatpak-bwrap
-fi
-
 #updates whee
 sudo apt upgrade -y
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
@@ -88,10 +80,18 @@ if [[ $jetson_model ]]; then
   sudo apt install switch-multimedia -y
 fi
 
-
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
 sudo apt install subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
+
+if [[ $jetson_model ]]; then
+  # fix up an issue with running flatpaks by enabling non-privileged user namespaces
+  # this is enabled in the kernel defconfig... no clue why it doesn't work
+  sudo chmod u+s /usr/libexec/flatpak-bwrap
+fi
+
+#kinda hard to install flatpaks without flathub
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # installing the flatpak plugin for Gnome Software on 20.04 and up will install a duplicate store app entirely for... some reason?
 if grep -q bionic /etc/os-release; then
