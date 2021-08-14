@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:24:08-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/libretro-handy.git"
+pkg_repo_branch="master"
+pkg_repo_commit="39a84f93e839f22a8c1f5ea35b80e910183476ce"
+pkg_repo_date="2021-07-30T11:36:10+02:00"
+pkg_repo_extra=""

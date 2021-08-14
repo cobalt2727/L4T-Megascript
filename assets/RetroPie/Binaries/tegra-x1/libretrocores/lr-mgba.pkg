@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:24:21-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/mgba.git"
+pkg_repo_branch="master"
+pkg_repo_commit="2443619b558a05013395c4f714322e100ae85b7e"
+pkg_repo_date="2021-08-09T16:06:23+02:00"
+pkg_repo_extra=""

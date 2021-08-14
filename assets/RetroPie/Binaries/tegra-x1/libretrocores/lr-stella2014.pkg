@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:26:07-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/stella2014-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="9db2effe298ef79d9a7908f0fcf808e661fc0811"
+pkg_repo_date="2021-08-02T14:19:30+02:00"
+pkg_repo_extra=""

@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:23:10-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/fuse-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="5f331e9772d305ba5209db0910b1963b9d0974c0"
+pkg_repo_date="2021-08-03T13:49:14+02:00"
+pkg_repo_extra=""

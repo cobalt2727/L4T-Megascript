@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:22:08-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/FBNeo.git"
+pkg_repo_branch="master"
+pkg_repo_commit="052cc573aae85327e27f5ddaa7bd85e9b280f061"
+pkg_repo_date="2021-08-13T23:45:41+02:00"
+pkg_repo_extra=""

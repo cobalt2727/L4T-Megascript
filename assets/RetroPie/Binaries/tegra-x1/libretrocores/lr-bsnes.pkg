@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:21:08-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/bsnes.git"
+pkg_repo_branch="master"
+pkg_repo_commit="4ea6208ad05de7698c321db6fffea9273efc7dee"
+pkg_repo_date="2021-03-30T19:33:19+02:00"
+pkg_repo_extra=""

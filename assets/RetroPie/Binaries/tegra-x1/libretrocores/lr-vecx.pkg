@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:33:00-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/libretro-vecx.git"
+pkg_repo_branch="master"
+pkg_repo_commit="ead14d0f9a82fb533d020fb038b353f7d343e20a"
+pkg_repo_date="2021-08-06T15:29:06+02:00"
+pkg_repo_extra=""

@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:33:13-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/tgbdual-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="1e0c4f931d8c5e859e6d3255d67247d7a2987434"
+pkg_repo_date="2021-06-06T20:37:37+02:00"
+pkg_repo_extra=""

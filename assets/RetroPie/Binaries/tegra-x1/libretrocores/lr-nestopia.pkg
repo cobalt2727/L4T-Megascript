@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:24:59-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/nestopia.git"
+pkg_repo_branch="master"
+pkg_repo_commit="c924b9d2cf8918b42fa1fa7db073a07a04e0c8cc"
+pkg_repo_date="2021-06-19T17:22:29+02:00"
+pkg_repo_extra=""

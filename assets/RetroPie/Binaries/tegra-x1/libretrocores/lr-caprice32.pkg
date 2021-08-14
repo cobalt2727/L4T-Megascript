@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:21:31-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/libretro-cap32.git"
+pkg_repo_branch="master"
+pkg_repo_commit="23a0e5940528e377c2c735ca9e41382acc9a0ea2"
+pkg_repo_date="2021-08-12T15:30:21+02:00"
+pkg_repo_extra=""

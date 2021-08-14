@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:21:54-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/desmume.git"
+pkg_repo_branch="master"
+pkg_repo_commit="0bc055a126a3a5c2a9d0be3181edcc571dcb8ca6"
+pkg_repo_date="2021-05-14T17:45:26+02:00"
+pkg_repo_extra=""

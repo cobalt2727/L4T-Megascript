@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-13T21:32:36-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/vba-next.git"
+pkg_repo_branch="master"
+pkg_repo_commit="6e4bd9108eb92c240a9c308eca9dd8440e9e23d8"
+pkg_repo_date="2021-07-04T19:36:30+02:00"
+pkg_repo_extra=""
