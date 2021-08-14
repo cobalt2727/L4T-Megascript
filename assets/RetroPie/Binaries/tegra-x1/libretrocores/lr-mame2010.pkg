@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-14T12:17:09-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/mame2010-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="932e6f2c4f13b67b29ab33428a4037dee9a236a8"
+pkg_repo_date="2021-04-12T17:24:29+02:00"
+pkg_repo_extra=""
