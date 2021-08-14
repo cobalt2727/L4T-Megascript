@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-14T04:30:13-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/Mesen.git"
+pkg_repo_branch="master"
+pkg_repo_commit="cec4911d01f315ba6119bb20416db8a8a2e63e88"
+pkg_repo_date="2021-06-04T13:30:42+02:00"
+pkg_repo_extra=""
