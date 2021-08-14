@@ -21,7 +21,7 @@ function install {
     git pull
     if [[ $? -ne 0 ]]; then
         cd ~
-        rm -rf RetroPie-Setup
+        sudo rm -rf RetroPie-Setup
         git clone https://github.com/RetroPie/RetroPie-Setup.git
         cd ~/RetroPie-Setup
     fi
@@ -31,6 +31,7 @@ function install {
     sudo sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
+"$USER" ALL = NOPASSWD: "/sbin/shutdown"
 _EOF_"
 
     #auto install retropie with most important emulators (which don't take up much space)
@@ -108,7 +109,7 @@ function update_cores {
     git pull
     if [[ $? -ne 0 ]]; then
         cd ~
-        rm -rf RetroPie-Setup
+        sudo rm -rf RetroPie-Setup
         git clone https://github.com/RetroPie/RetroPie-Setup.git
         cd ~/RetroPie-Setup
     fi
