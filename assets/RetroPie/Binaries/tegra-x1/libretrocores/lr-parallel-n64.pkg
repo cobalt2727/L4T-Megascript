@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-14T12:45:53-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/RetroPie/parallel-n64.git"
+pkg_repo_branch="retropie"
+pkg_repo_commit="86db5df118860533c7c40e54326da45dcaba2084"
+pkg_repo_date="2021-06-23T04:02:48+01:00"
+pkg_repo_extra=""

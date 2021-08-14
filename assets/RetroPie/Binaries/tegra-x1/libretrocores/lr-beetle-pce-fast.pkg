@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-14T12:34:26-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/beetle-pce-fast-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="5800ae3dc255ad16a3f4212d3eaf948562195f86"
+pkg_repo_date="2021-08-02T14:19:02+02:00"
+pkg_repo_extra=""
