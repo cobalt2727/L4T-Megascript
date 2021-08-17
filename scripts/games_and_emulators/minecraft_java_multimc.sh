@@ -30,8 +30,9 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64'  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
-    "x86_64"|"i386") cmake -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
