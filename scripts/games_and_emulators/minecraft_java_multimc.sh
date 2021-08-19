@@ -30,9 +30,9 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
-    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
