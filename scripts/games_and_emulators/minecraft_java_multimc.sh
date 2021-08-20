@@ -10,7 +10,7 @@ if grep -E 'bionic|focal|groovy' /etc/os-release > /dev/null; then
         ppa_name="openjdk-r/ppa" && ppa_installer
     fi
 fi
-sudo apt install cmake curl zlib1g-dev openjdk-8-jdk openjdk-11-jdk openjdk-16-jdk qtbase5-dev -y
+sudo apt install cmake curl zlib1g-dev openjdk-8-jdk openjdk-11-jre openjdk-16-jre qtbase5-dev -y
 # make all the folders
 cd
 mkdir -p ~/MultiMC
@@ -31,9 +31,9 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
-    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
