@@ -88,6 +88,7 @@ if [[ $jetson_model ]]; then
   # fix up an issue with running flatpaks by enabling non-privileged user namespaces
   # this is enabled in the kernel defconfig... no clue why it doesn't work
   sudo chmod u+s /usr/libexec/flatpak-bwrap
+  sudo chown -R $USER ~/.local/share/flatpak
 fi
 
 #kinda hard to install flatpaks without flathub
@@ -113,7 +114,7 @@ table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "yes" ]]; then
   echo "Installing the Joycon Mouse..."
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
+  bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
 elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
@@ -144,7 +145,7 @@ table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "yes" ]]; then
   echo "Building and installing SDL2..."
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+  bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $output == "no" ]]; then
   echo "Going to the next option..."
 fi
