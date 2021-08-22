@@ -6,6 +6,8 @@ echo 'This will allow you to actually USE that fancy "Install"'
 echo "button on the Pling website and any of its derivatives."
 sleep 3
 
+sudo apt install git qt5-qmake make qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
+
 cd ~
 rm -rf ocs-url/
 ##using my fork temporarily until the original maintainer merges my changes to fix manual builds
@@ -18,6 +20,8 @@ git checkout patch-1
 
 ./scripts/prepare
 
+#this line is broken on Debian 10, but with the proper PREFIX path (that I don't remember currently) this script WILL run correctly
+#version detection may be needed if Debian 11 hasn't fixed the qmake setup, but I haven't checked that -Cobalt
 qmake PREFIX=/usr
 
 make -j$(nproc)
