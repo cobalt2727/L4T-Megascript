@@ -6,7 +6,7 @@ echo 'This will allow you to actually USE that fancy "Install"'
 echo "button on the Pling website and any of its derivatives."
 sleep 3
 
-sudo apt install git qt5-qmake make qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
+sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
 
 cd ~
 rm -rf ocs-url/
