@@ -6,7 +6,7 @@ prev_f=""
 conversion() {
   echo "### Welcome to the L4T Megascript wiki! Use the sidebar on your right to navigate through here."
   echo "### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )"
-  echo ""
+  echo "### Below is a list of supported Megascript install scripts with a short description and link to the source."
 
   for ((i = 1; i <= ${length}; i++)); do
     if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
