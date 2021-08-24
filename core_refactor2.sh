@@ -50,7 +50,7 @@ function add_desktop {
 }
 FUNC=$(declare -f add_desktop)
 
-dependencies=("bash" "dialog" "gnutls-bin" "curl" "zenity")
+dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity")
 ## Install dependencies if necessary
 dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
   pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; hash -r"
@@ -144,10 +144,10 @@ function userinput_func {
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "3" ]];then
-      zenity --width 500 --question \
+      yad --center --width 500 --image "dialog-question" \
       --text="$1" \
-      --ok-label "$2" \
-      --cancel-label "$3"
+      --button="$2":0 \
+      --button="$3":1
       if [[ $? -ne 0 ]]; then
         output="$3"
       else
@@ -159,15 +159,16 @@ function userinput_func {
       done
       uniq_selection[0]=TRUE
       output=$(
-        zenity \
+        yad --center \
           --text "$1" \
           --list \
           --radiolist \
           --column "" \
           --column "Selection" \
-          --ok-label="OK" \
-          "${uniq_selection[@]}" \
-          --cancel-label "Cancel Choice"
+          --print-column=2 \
+          --separator='' \
+          --button="Ok":0 \
+          "${uniq_selection[@]}"
       )
     fi
   else
@@ -276,7 +277,7 @@ if [ -f /etc/switchroot_version.conf ]; then
   function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
   if [ $(version $swr_ver) -lt $(version $swr_ver_current) ]; then
     if [[ $gui == "gui" ]]; then
-      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
+      yad --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
       \n\n\Please update as soon as you can.\nThe instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page. \
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
       setsid x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup#installrun-the-megascript" > /dev/null 2>&1 &
@@ -300,14 +301,14 @@ while [ $x == 1 ]; do
   execute=()
   ids=()
   if [[ $gui == "gui" ]]; then
-    zenity --info --width="500" --height="250" --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png
-    zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
-    \n\n\You are running an $architecture $jetson_model $model_name system." --window-icon=/usr/share/icons/L4T-Megascript.png
+    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER. This isn't quite finished yet - we'll be ready eventually! \n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
+    \n\n\You are running an $architecture $jetson_model $model_name system." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
     if [[ $free -lt 2048000 ]]; then
-      zenity --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
+      yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
       \n\n\Please consider closing out of any unnecessary programs before starting the megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
     fi
     add_desktop_if
@@ -322,7 +323,7 @@ while [ $x == 1 ]; do
     uniq_selection+=(TRUE "All Categories" "all_categories")
     while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
-        zenity \
+        yad --center \
           --width="250" \
           --height="350" \
           --title "Welcome to the L4T-Megascript" \
@@ -330,21 +331,22 @@ while [ $x == 1 ]; do
           --window-icon=/usr/share/icons/L4T-Megascript.png \
           --list \
           --radiolist \
+          --separator='' \
           --column "Selection" \
           --column "Category" \
           --column "Real Folder" \
           --hide-column=3 \
           --print-column=3 \
           "${uniq_selection[@]}" \
-          --cancel-label "Exit the Megascript" \
-          --ok-label "Go to Selection"
+          --button="Exit the Megascript":1 \
+          --button="Go to Selection":0
       )
       if [ "$?" != 1 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
         if [ "$CATEGORY" == "all_categories" ]; then
           CHOICE=$(
-            zenity \
+            yad --center \
               --width="1000" \
               --height="500" \
               --title "$category_space" \
@@ -359,14 +361,16 @@ while [ $x == 1 ]; do
               --column "Details" \
               --ok-label="INSTALL" \
               --hide-column=2 \
+              --print-column=2 \
               "${current_table[@]}" \
               --separator=':' \
-              --cancel-label "Exit the Megascript" \
-              --extra-button "Go Back to Categories"
+              --button="Exit the Megascript":1 \
+              --button="Install Items":0 \
+              --button="Go Back to Categories":2
           )
         else
           CHOICE=$(
-            zenity \
+            yad --center \
               --width="1000" \
               --height="500" \
               --title "$category_space" \
@@ -380,21 +384,24 @@ while [ $x == 1 ]; do
               --column "Details" \
               --ok-label="INSTALL" \
               --hide-column=2 \
+              --print-column=2 \
               "${current_table[@]}" \
               --separator=':' \
-              --cancel-label "Exit the Megascript" \
-              --extra-button "Go Back to Categories"
+              --button="Exit the Megascript":1 \
+              --button="Install Items":0 \
+              --button="Go Back to Categories":2
           )
         fi
-        if [ "$?" != 1 ]; then
+        output="$?"
+        if [[ "$output" == "0" ]]; then
           sudo -k
           state="0"
-          while [ "$state" == "0" ]; do
+          while [[ "$state" == "0" ]]; do
             zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
             state=$?
           done
-        elif [ "$CHOICE" == "Go Back to Categories" ]; then
-          echo ""
+        elif [[ "$output" == "2" ]]; then
+          CHOICE="Go Back to Categories"
         else
           CHOICE="exit"
         fi
@@ -493,11 +500,11 @@ megascript_elapsed=$(echo "$megascript_end_time - $megascript_start_time" | bc)
 megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
 
 if [[ $gui == "gui" ]]; then
-  zenity --question --width="500" --height="250" --title "Bye"\
+  yad --center --image "dialog-information" --width="500" --height="300" --borders="20" --title "Bye"\
   --text="Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
   --window-icon=/usr/share/icons/L4T-Megascript.png \
-  --ok-label "Exit the L4T-Megascript" \
-  --cancel-label "Open the L4T-Megascript Wiki Page"
+  --button="Open the L4T-Megascript Wiki Page":1 \
+  --button="Exit the L4T-Megascript":0
   if [[ $? -ne 0 ]]; then
     # spawn a web browser with the wiki
     setsid x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki" > /dev/null 2>&1 &

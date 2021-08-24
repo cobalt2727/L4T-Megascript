@@ -69,10 +69,10 @@ function userinput_func {
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "3" ]];then
-      zenity --width 500 --question \
+      yad --center --width 500 --image "dialog-question" \
       --text="$1" \
-      --ok-label "$2" \
-      --cancel-label "$3"
+      --button="$2":0 \
+      --button="$3":1
       if [[ $? -ne 0 ]]; then
         output="$3"
       else
@@ -84,15 +84,16 @@ function userinput_func {
       done
       uniq_selection[0]=TRUE
       output=$(
-        zenity \
+        yad --center \
           --text "$1" \
           --list \
           --radiolist \
           --column "" \
           --column "Selection" \
-          --ok-label="OK" \
-          "${uniq_selection[@]}" \
-          --cancel-label "Cancel Choice"
+          --print-column=2 \
+          --separator='' \
+          --button="Ok":0 \
+          "${uniq_selection[@]}"
       )
     fi
   else
