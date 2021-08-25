@@ -132,14 +132,27 @@ function install_binaries {
 		cd libretrocores
 		cat ./*.tar.gz | tar zxvf - -i
 		rm -rf ./*.tar.gz
-		rm -rf ./*.pkg
-		sudo cp -R ./* /opt/retropie/libretrocores
-		install_options=($(echo *))
-		for install_selected in "${install_options[@]}"; do
-			cd /home/$USER/RetroPie-Setup
-			sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $install_selected depends
-			sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $install_selected configure
-		done
+        package_list=($(echo *.pkg))
+        for package in ${package_list[@]}; do
+            package=$(echo "${package%.pkg}")
+            repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+            repo_binary_date=$(date -d $repo_binary_date +%s)
+            local_binary_date=$(cat /opt/retropie/libretrocores/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+            local_binary_date=$(date -d $local_binary_date +%s)
+            if [[ $repo_binary_date -gt $local_binary_date ]]; then
+                echo "The compiled binary for $package is newer, updating local binary"
+                sudo cp -R ./$package /opt/retropie/libretrocores
+                current_dir="$(pwd)"
+                cd /home/$USER/RetroPie-Setup
+			    sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package depends
+			    sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package configure
+                cd "$current_dir"
+            else
+                echo "nothing to be done, local version is newer than megascript or the same version"
+            fi
+            rm -rf ./$package.pkg
+            rm -rf ./$package
+        done
 		sudo rm -rf "/tmp/Retropie-Binaries"
 	else
 		echo "We don't host binaries for your platform, sorry!"
