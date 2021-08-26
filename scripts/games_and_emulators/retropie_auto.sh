@@ -131,12 +131,14 @@ function install_binaries {
         mkdir libretrocores
         cd libretrocores
         package_list=()
+        package_url_list=()
         for package in ${repo_files[@]}; do
             if [[ $package == *.pkg ]]; then
-                wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package
+                package_url_list+=(https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package)
                 package_list+=($package)
             fi
         done
+        wget ${package_url_list[@]}
         echo "Downloading Precompiled Binaries from the Megascript if newer than local"
         echo "This could take a few seconds depending on the speed of your internet connection"
         for package in ${package_list[@]}; do
