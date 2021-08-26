@@ -133,7 +133,7 @@ function install_binaries {
         package_list=()
         for package in ${repo_files[@]}; do
             if [[ $package == *.pkg ]]; then
-                svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package
+                wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package
                 package_list+=($package)
             fi
         done
@@ -147,7 +147,7 @@ function install_binaries {
             local_binary_date=$(date -d $local_binary_date +%s)
             if [[ $repo_binary_date -gt $local_binary_date ]]; then
                 # only download and extract package if it is newer than local version
-                svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package.tar.gz
+                wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package.tar.gz
                 cat ./$package.tar.gz | tar zxvf - -i
                 echo "The compiled binary for $package is newer, updating local binary"
                 sudo cp -R ./$package /opt/retropie/libretrocores
