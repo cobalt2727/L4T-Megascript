@@ -7,6 +7,12 @@ echo "button on the Pling website and any of its derivatives."
 sleep 3
 
 sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
+if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
+        sudo apt install unity-tweak-tool hud -y
+else
+        echo "Not using Unity as the current desktop, skipping theme manager install..."
+fi
+
 
 cd ~
 rm -rf ocs-url/
@@ -39,6 +45,12 @@ if [[ $DISPLAY ]]; then
         
         #open up the default web browser
         xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
+        if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
+                unity-tweak-tool
+        else
+                echo "Not using Unity as the current desktop, not launching tweak tool..."
+        fi
+
 
 else
         echo "Open up https://www.pling.com on your device"
