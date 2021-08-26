@@ -130,8 +130,6 @@ function install_binaries {
 		echo "Download Done"
 		cd $jetson_model
 		cd libretrocores
-		cat ./*.tar.gz | tar zxvf - -i
-		rm -rf ./*.tar.gz
         package_list=($(echo *.pkg))
         for package in ${package_list[@]}; do
             package=$(echo "${package%.pkg}")
@@ -140,6 +138,8 @@ function install_binaries {
             local_binary_date=$(cat /opt/retropie/libretrocores/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
             local_binary_date=$(date -d $local_binary_date +%s)
             if [[ $repo_binary_date -gt $local_binary_date ]]; then
+                # only extract package if it is newer
+                cat ./$package.tar.gz | tar zxvf - -i
                 echo "The compiled binary for $package is newer, updating local binary"
                 sudo cp -R ./$package /opt/retropie/libretrocores
                 current_dir="$(pwd)"
@@ -150,6 +150,7 @@ function install_binaries {
             else
                 echo "nothing to be done, local version is newer than megascript or the same version"
             fi
+            rm -rf ./$package.tar.gz
             rm -rf ./$package.pkg
             rm -rf ./$package
         done
