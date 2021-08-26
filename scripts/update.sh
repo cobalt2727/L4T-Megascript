@@ -29,9 +29,10 @@ fi
 RetroPieUserInput="No"
 if test -f /usr/bin/emulationstation; then
         description="Do you want to update parts of RetroPie?\
-		\nThe Helper Scripts should always but updated and only take a few seconds\
-		\nUpdating the cores (Everything), could TAKE MULTIPLE HOURS"
-        table=("Helper Scripts Only" "Binaries Only" "Yes (Everything)" "No")
+		\nBinaries should always be updated but may take a minute or two depending on the speed of your internet\
+		\nUpdate RetroPie Setup Script and Megascript RetroPie Scripts\
+		\nUpdate Everything from Source, could TAKE MULTIPLE HOURS, Not Recommended, builds all installed cores from source"
+        table=("Binaries Only" "Update Scripts Only" "Update From Source" "No")
         userinput_func "$description" "${table[@]}"
         RetroPieUserInput="$output"
 fi
@@ -119,15 +120,15 @@ else
 	echo "Skipping Dolphin updates..."
 fi
 
-if [[ $RetroPieUserInput == "Yes (Everything)" ]]; then
-	echo "Updating RetroPie..."
+if [[ $RetroPieUserInput == "Update From Source" ]]; then
+	echo "Updating RetroPie Cores from Source..."
 	echo -e "\e[33mThis can take a VERY long time - possibly multiple hours.\e[0m"
 	echo -e "\e[33mCharge your device & remember you can close this terminal or press\e[0m"
 	echo -e "\e[33mCtrl+C at any time to stop the process.\e[0m"
 	sleep 10
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "update_cores"
-elif [[ $RetroPieUserInput == "Helper Scripts Only" ]]; then
-	echo "Updating RetroPie Helper Scripts Only..."
+elif [[ $RetroPieUserInput == "Update Scripts Only" ]]; then
+	echo "Updating RetroPie Setup Script and Megascript Scripts Only..."
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "update_scripts"
 elif [[ $RetroPieUserInput == "Binaries Only" ]]; then
 	echo "Updating RetroPie Binaries Only..."
