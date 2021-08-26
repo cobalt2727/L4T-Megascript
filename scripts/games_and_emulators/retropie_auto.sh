@@ -120,50 +120,56 @@ function install_binaries {
     # get system info
     get_system
 	if [[ $jetson_model == "tegra-x1" ]]; then
-		sudo mkdir -p /opt/retropie/libretrocores
 		sudo rm -rf "/tmp/Retropie-Binaries"
 		mkdir -p "/tmp/Retropie-Binaries"
 		cd "/tmp/Retropie-Binaries"
-        echo "Downloading Precompiled Binaries version info from Megascript"
-        repo_files=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/ ))
         mkdir $jetson_model
         cd $jetson_model
-        mkdir libretrocores
-        cd libretrocores
-        package_list=()
-        package_url_list=()
-        for package in ${repo_files[@]}; do
-            if [[ $package == *.pkg ]]; then
-                package_url_list+=(https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package)
-                package_list+=($package)
+        repo_folders=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/ ))
+        for folder in ${repo_folders[@]}; do
+            if [[ $folder == */ ]]; then
+                folder=${folder::-1}
+                echo "Downloading Precompiled Binaries version info from Megascript for $folder"
+                repo_files=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/$folder/ ))
+                mkdir $folder
+                cd $folder
+                sudo mkdir -p /opt/retropie/$folder
+                package_list=()
+                package_url_list=()
+                for package in ${repo_files[@]}; do
+                    if [[ $package == *.pkg ]]; then
+                        package_url_list+=(https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/$folder/$package)
+                        package_list+=($package)
+                    fi
+                done
+                wget ${package_url_list[@]}
+                echo "Downloading Precompiled Binaries from the Megascript if newer than local for $folder"
+                echo "This could take a few seconds depending on the speed of your internet connection"
+                for package in ${package_list[@]}; do
+                    package=$(echo "${package%.pkg}")
+                    repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+                    repo_binary_date=$(date -d $repo_binary_date +%s)
+                    local_binary_date=$(cat /opt/retropie/$folder/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+                    local_binary_date=$(date -d $local_binary_date +%s)
+                    if [[ $repo_binary_date -gt $local_binary_date ]]; then
+                        # only download and extract package if it is newer than local version
+                        wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/$folder/$package.tar.gz
+                        cat ./$package.tar.gz | tar zxvf - -i
+                        echo "The compiled binary for $package is newer, updating local binary"
+                        sudo cp -R ./$package /opt/retropie/$folder
+                        current_dir="$(pwd)"
+                        cd /home/$USER/RetroPie-Setup
+                        sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package depends
+                        sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package configure
+                        cd "$current_dir"
+                    else
+                        echo "nothing to be done, local version of $package is newer or the same version as the megascript package"
+                    fi
+                    rm -rf ./$package.tar.gz
+                    rm -rf ./$package.pkg
+                    rm -rf ./$package
+                done
             fi
-        done
-        wget ${package_url_list[@]}
-        echo "Downloading Precompiled Binaries from the Megascript if newer than local"
-        echo "This could take a few seconds depending on the speed of your internet connection"
-        for package in ${package_list[@]}; do
-            package=$(echo "${package%.pkg}")
-            repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
-            repo_binary_date=$(date -d $repo_binary_date +%s)
-            local_binary_date=$(cat /opt/retropie/libretrocores/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
-            local_binary_date=$(date -d $local_binary_date +%s)
-            if [[ $repo_binary_date -gt $local_binary_date ]]; then
-                # only download and extract package if it is newer than local version
-                wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package.tar.gz
-                cat ./$package.tar.gz | tar zxvf - -i
-                echo "The compiled binary for $package is newer, updating local binary"
-                sudo cp -R ./$package /opt/retropie/libretrocores
-                current_dir="$(pwd)"
-                cd /home/$USER/RetroPie-Setup
-			    sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package depends
-			    sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package configure
-                cd "$current_dir"
-            else
-                echo "nothing to be done, local version of $package is newer or the same version as the megascript package"
-            fi
-            rm -rf ./$package.tar.gz
-            rm -rf ./$package.pkg
-            rm -rf ./$package
         done
         cd ~
 		sudo rm -rf "/tmp/Retropie-Binaries"
