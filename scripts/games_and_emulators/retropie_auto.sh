@@ -124,13 +124,21 @@ function install_binaries {
 		sudo rm -rf "/tmp/Retropie-Binaries"
 		mkdir -p "/tmp/Retropie-Binaries"
 		cd "/tmp/Retropie-Binaries"
-		echo "Downloading Precompiled Binaries from the Megascript"
-		echo "This could take a few seconds depending on the speed of your internet connection"
-		svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model
-		echo "Download Done"
-		cd $jetson_model
-		cd libretrocores
-        package_list=($(echo *.pkg))
+        echo "Downloading Precompiled Binaries version info from Megascript"
+        repo_files=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/ ))
+        mkdir $jetson_model
+        cd $jetson_model
+        mkdir libretrocores
+        cd libretrocores
+        package_list=()
+        for package in ${repo_files[@]}; do
+            if [[ $package == *.pkg ]]; then
+                svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package
+                package_list+=($package)
+            fi
+        fi
+        echo "Downloading Precompiled Binaries from the Megascript if newer than local"
+        echo "This could take a few seconds depending on the speed of your internet connection"
         for package in ${package_list[@]}; do
             package=$(echo "${package%.pkg}")
             repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
@@ -138,7 +146,8 @@ function install_binaries {
             local_binary_date=$(cat /opt/retropie/libretrocores/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
             local_binary_date=$(date -d $local_binary_date +%s)
             if [[ $repo_binary_date -gt $local_binary_date ]]; then
-                # only extract package if it is newer
+                # only download and extract package if it is newer than local version
+                svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package.tar.gz
                 cat ./$package.tar.gz | tar zxvf - -i
                 echo "The compiled binary for $package is newer, updating local binary"
                 sudo cp -R ./$package /opt/retropie/libretrocores
@@ -148,12 +157,13 @@ function install_binaries {
 			    sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package configure
                 cd "$current_dir"
             else
-                echo "nothing to be done, local version is newer than megascript or the same version"
+                echo "nothing to be done, local version of $package is newer or the same version as the megascript package"
             fi
             rm -rf ./$package.tar.gz
             rm -rf ./$package.pkg
             rm -rf ./$package
         done
+        cd ~
 		sudo rm -rf "/tmp/Retropie-Binaries"
 	else
 		echo "We don't host binaries for your platform, sorry!"
