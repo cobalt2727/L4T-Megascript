@@ -136,7 +136,7 @@ function install_binaries {
                 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/libretrocores/$package
                 package_list+=($package)
             fi
-        fi
+        done
         echo "Downloading Precompiled Binaries from the Megascript if newer than local"
         echo "This could take a few seconds depending on the speed of your internet connection"
         for package in ${package_list[@]}; do
