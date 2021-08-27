@@ -8,17 +8,18 @@
 The L4T Megascript is an open source multipurpose script for easily installing and updating a diverse collection of programs in L4T Ubuntu, with the purpose of helping new users to install programs and games in just a few steps. Currently designed with 18.04 in mind, but almost everything should be ready for when L4T updates to 20.04. Credit to the Switchroot L4T Ubuntu team (https://switchroot.org/) for making this possible. This project still is in a pretty early stage, but it's more than usable already for most of what's included. Give it a try, and send us feedback!
 
 ## Install/run the script
-### The script itself doesn't actually get installed, even though it does install a lot of other programs and features. It all runs directly off of this GitHub page so you don't have to worry about updating the script! Get started at the link below:
+### The script itself doesn't actually get installed, even though it does install a lot of other programs and features. It all runs directly off of this GitHub page so you don't have to worry about updating things on your end! Get started at the link below:
 https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 
-DISCLAIMER: in the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the source code. NEVER RUN LINUX SCRIPTS YOU DON'T TRUST!
+## DISCLAIMER: in the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the source code. NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST! (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to hop in the Discord server using the link below and ask about it - we're happy to help!)
 
-## Scripts
+## All scripts
 Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki/All-Scripts-(Listed-and-Linked)) for the most updated information!
 ## Planned features:
 - Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/)
 - Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost
 - Keep checking around the internet to see if someone can provide prebuilt modern QT packages for 18.04 so that Citra can install for 18.04 users (don't expect good performance even if this happens, though - plus it's more likely that Switchroot releases 20.04 first, eventually)
+- Updated Kodi packages at some point, maybe - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. The annoying part is there's already a PPA out there for 18.04, but it doesn't support ARM devices...
 - More to come!
 ## Our Team
 - Cobalt: Manager/Lead Dev
