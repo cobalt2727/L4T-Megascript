@@ -15,7 +15,6 @@ You're in luck - we've got a Discord server: <Br>
 [Click to join](https://discord.gg/abgW2AG87Z) <Br>
 
 ### Below is a list of supported Megascript install scripts with a short description and link to the source.
-## Scripts
 EOF
 
   for ((i = 1; i <= ${length}; i++)); do
