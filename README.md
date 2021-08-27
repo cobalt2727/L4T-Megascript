@@ -30,9 +30,9 @@ Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/w
 - Beta testers in the Discord that put up with Cobalt breaking things every other day
 
 
-## Do you have a question or an idea about the project?
-You're in luck - we've got a Discord server: [opening soon™!] <Br>
-Also chekout the discussions tab, make a post there with your ideas!
+## Need some help or want to contribute?
+You're in luck - we've got a Discord server: [![Discord invite](https://discord.com/assets/ff41b628a47ef3141164bfedb04fb220.png)](https://discord.gg/abgW2AG87Z "Discord server invite link") <Br>
+[Click to join](https://discord.gg/abgW2AG87Z) <Br>
 
 ## Credits
 - STJr: Developers, SRB2
