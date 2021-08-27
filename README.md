@@ -16,18 +16,18 @@ DISCLAIMER: in the interest of transparency and security we recommend reading th
 ## Scripts
 Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki/All-Scripts-(Listed-and-Linked)) for the most updated information!
 ## Planned features:
-- Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like the RetroPie documentation)
-- Add the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost
+- Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/)
+- Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost
 - Keep checking around the internet to see if someone can provide prebuilt modern QT packages for 18.04 so that Citra can install for 18.04 users (don't expect good performance even if this happens, though - plus it's more likely that Switchroot releases 20.04 first, eventually)
 - More to come!
 ## Our Team
 - Cobalt: Manager/Lead Dev
 - Lugsole: Contributor
 - Lang Kasempo: Contributor
-- theofficialgman: Contributor
+- theofficialgman: Contributor, UI designer
 - Fafabis: Contributor
-- Azkali: Advice, part of Switchroot dev team
-- Beta testers in the Discord that put up with Cobalt breaking things every other day
+- Azkali: Advice/part of Switchroot dev team
+- All the users that put up with Cobalt breaking things every other day
 
 
 ## Need some help or want to contribute?
