@@ -501,7 +501,7 @@ megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((
 
 if [[ $gui == "gui" ]]; then
   yad --center --image "dialog-information" --width="500" --height="300" --borders="20" --title "Bye"\
-  --text="Thank you for using the L4T Megascript!\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
+  --text="Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\n The Megascript ran for $megascript_elapsed_friendly" \
   --window-icon=/usr/share/icons/L4T-Megascript.png \
   --button="Open the L4T-Megascript Wiki Page":1 \
   --button="Exit the L4T-Megascript":0
@@ -533,7 +533,7 @@ unset repository_branch
 unset gui
 
 echo ""
-echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at [link not public yet] for support.'
+echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://discord.gg/abgW2AG87Z for support.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
 
 # #stop logging
