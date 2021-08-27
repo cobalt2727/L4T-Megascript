@@ -4,9 +4,19 @@ sed -i '/^$/d' /tmp/megascript_apps.txt
 length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
 prev_f=""
 conversion() {
-  echo "### Welcome to the L4T Megascript wiki! Use the sidebar on your right to navigate through here."
-  echo "### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )"
-  echo "### Below is a list of supported Megascript install scripts with a short description and link to the source."
+
+  cat << EOF 
+## Welcome to the L4T Megascript wiki! Use the sidebar on your right to navigate through here.
+### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )
+
+### Need some help or want to contribute?
+You're in luck - we've got a Discord server: <Br>
+[![Discord invite](https://discord.com/assets/ff41b628a47ef3141164bfedb04fb220.png)](https://discord.gg/abgW2AG87Z "Discord server invite link") <Br>
+[Click to join](https://discord.gg/abgW2AG87Z) <Br>
+
+### Below is a list of supported Megascript install scripts with a short description and link to the source.
+## Scripts
+EOF
 
   for ((i = 1; i <= ${length}; i++)); do
     if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
