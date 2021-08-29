@@ -20,46 +20,22 @@ echo -e "\e[1;33mPlease close down ALL OTHER PROGRAMS while installing Dolphin t
 echo
 echo
 sleep 2
-# echo "1...............Install Dolphin (use the updater on the main menu to update!)"
-# echo "2...............Run the RiiConnect24 Patcher"
 # ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 # #echo "5...............Install Project+ (builds correctly, performance untested, PROBABLY SLOW)"
-# echo "any other key...Close the Dolphin script and return to the main menu"
-# echo
-# echo
-
-# read -p "Make a selection: " userInput
-
-# echo "you have chosen $userInput"
 
 table=("Install Dolphin (use the updater on the main menu to update!)" "Run the RiiConnect24 Patcher")
-description="Your Choices of Install are:"
+description="What would you like to do?\
+\nNote that a FIRST-TIME install of Dolphin can take up to 40-60 minutes on a Switch.\
+\n\nConnecting your Switch to a charger is recommended.\
+\n\nYour Choices of Install are:"
 userinput_func "$description" "${table[@]}"
 
 
 if [[ $output == "Install Dolphin (use the updater on the main menu to update!)" ]]; then
-  
-  
-  ##if grep -q bionic /etc/os-release; then
-	##echo "Ubuntu 18.04 detected, using the PPA..."
-    
-    	##echo "Making sure software-properties-common is installed..."
-	##sudo apt install software-properties-common -y
-
-	##echo "Making sure the Dolphin PPA is installed..."
-	##sudo apt-add-repository ppa:dolphin-emu/ppa -y
-
-	##sudo apt update
-	##sudo apt install dolphin-emu-master -y
-
-  ##else
 	echo "Building from source with device-specific optimizations..."
-	
 	cd ~
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
-  ##fi
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)"
-
 
 elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
   sudo apt install xdelta3 -y
@@ -71,22 +47,16 @@ elif [[ $userInput == 3 ]]; then
   sleep 3
   ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/primehack.sh)"
 
-
 elif [[ $userInput == 4 ]]; then
   echo "not ready yet"
   sleep 3
   ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/slippi.sh)"
 
-
 elif [[ $userInput == 5 ]]; then
   echo "Loading Project+ script..."
   sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)"
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)"  
 
-
-else
-  echo ""
-  
 fi
 
 echo "Sending you back to the main menu..."

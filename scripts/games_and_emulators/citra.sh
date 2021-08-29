@@ -36,8 +36,9 @@ sudo apt-get install git ninja-build libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt
 echo "Building Citra..."
 sleep 1
 cd ~
-git clone --depth 1 --recursive https://github.com/citra-emu/citra
+git clone --recursive https://github.com/citra-emu/citra
 cd citra
+git pull --recursive
 mkdir -p build
 cd build
 cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native

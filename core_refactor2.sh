@@ -19,12 +19,6 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
-# num_log = 0
-# while [ -f "/tmp/megascript_log$num_log.txt" ]
-# do
-#   num_log=$((num_log + 1))
-# done
-# script "/tmp/megascript_log$num_log.txt"
 megascript_start_time=$(date +%s)
 
 #allow developer to set repository username and branch
@@ -93,18 +87,6 @@ function get_system {
   jetson_model=""
   read model_name < /sys/firmware/devicetree/base/model
   local __platform=""
-  # if [ -f /proc/device-tree/nvidia,dtsfilename ]; then
-  #     jetson_codename=$(tr -d '\0' < /proc/device-tree/nvidia,dtsfilename)
-  #     jetson_codename=$(echo ${jetson_codename#*"/hardware/nvidia/platform/"} | tr '/' '\n' | head -2 | tail -1 )
-  #     case "$jetson_codename" in
-  #         icosa*) __platform="nintendo-switch" ;;
-  #         *2180*) __platform="tx1" ;;
-  #         P3310*|P3489-0080*|P3489*) __platform="tx2" ;;
-  #         P2888-0006*|P2888-0001*|P2888-0004*|P2888*|P3668-0001*|P3668*) __platform="xavier" ;;
-  #         P3448-0002*|P3448*) __platform="nano" ;;
-  #     esac
-  #     jetson_model="$__platform"
-  # fi
   if [[ -e "/proc/device-tree/compatible" ]]; then
       CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
       if [[ ${CHIP} =~ "tegra186" ]]; then
@@ -535,6 +517,3 @@ unset gui
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://discord.gg/abgW2AG87Z for support.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
-
-# #stop logging
-# exit
