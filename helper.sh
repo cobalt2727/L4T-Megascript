@@ -173,8 +173,6 @@ function online_check {
     #and now we let it loop
     done
 }
-#run the online check function for the first time on the off chance that internet was lost in the milliseconds that the other functions were defined
-online_check
 
 #####################################################################################
 
