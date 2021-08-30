@@ -21,6 +21,27 @@ mkdir -p install
 git clone --recursive https://github.com/MultiMC/MultiMC5.git src # You can clone from MultiMC's main repo, no need to use a fork.
 cd src
 git pull --recurse-submodules
+
+# add secrets files
+mkdir -p secrets
+tee secrets/Secrets.h <<'EOF'
+#include <QString>
+
+namespace Secrets {
+    QString getMSAClientID(char data_in){
+        return "0d742867-f14f-4ad9-9d0b-13692c38dc3a";
+    }
+}
+EOF
+tee secrets/CMakeLists.txt <<'EOF'
+add_library(secrets STATIC
+    Secrets.h
+)
+
+target_link_libraries(secrets Qt5::Core)
+target_include_directories(secrets PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+EOF
+
 cd ..
 # configure the project
 cd build
@@ -31,9 +52,9 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
-    "x86_64") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_MSA_CLIENT_ID="0d742867-f14f-4ad9-9d0b-13692c38dc3a" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
