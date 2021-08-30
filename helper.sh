@@ -132,6 +132,50 @@ function ppa_installer {
 }
 export -f ppa_installer
 
+function online_check {
+    while : ; do
+    clear -x
+    date
+    echo "Checking internet connectivity..."
+    #silently check connection to github AND githubusercontent, we had an edge case where a guy was getting githubusercontent blocked by his ISP
+    wget -q --spider https://github.com && wget -q --spider https://raw.githubusercontent.com/
+
+    #read whether or not it was successful
+    #the $? reads the exit code of the previous command, 0 meaning everything works
+    if [ $? == 0 ]
+    then
+	echo -e "\e[32mInternet OK\e[0m"
+        break
+    fi
+    #tell people to fix their internet
+    echo "You're offline and/or can't reach GitHub."
+    echo "We can't run the script without this..."
+    echo "You'll need to connect to WiFi or allow GitHub in your firewall."
+    echo "(you can close this window at any time.)"
+    echo "Retrying the connection in..."
+    ########## bootleg progress bar time ##########
+    echo -e "\e[31m5\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[33m4\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[32m3\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[34m2\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[35m1\e[0m"
+    printf '\a'
+    echo "Trying again..."
+    sleep 1
+    #and now we let it loop
+    done
+}
+#run the online check function for the first time on the off chance that internet was lost in the milliseconds that the other functions were defined
+online_check
+
 #####################################################################################
 
 #end of functions used by megascript scripts
