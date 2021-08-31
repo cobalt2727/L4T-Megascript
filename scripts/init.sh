@@ -100,11 +100,6 @@ fi
 #kinda hard to install flatpaks without flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# installing the flatpak plugin for Gnome Software on 20.04 and up will install a duplicate store app entirely for... some reason?
-if grep -q bionic /etc/os-release; then
-  sudo apt install gnome-software-plugin-flatpak -y
-fi
-
 hash -r
 
 #automatically sets QT applications to follow the system theme
