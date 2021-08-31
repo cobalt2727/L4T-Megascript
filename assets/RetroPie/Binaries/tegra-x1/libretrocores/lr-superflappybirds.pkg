@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-08-30T22:14:21-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/IgniparousTempest/libretro-superflappybirds.git"
+pkg_repo_branch="master"
+pkg_repo_commit="0ba0e188cae44c8900a2f5a04577de85dc8c4410"
+pkg_repo_date="2019-02-18T17:16:18+02:00"
+pkg_repo_extra=""
