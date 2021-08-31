@@ -231,7 +231,7 @@ export -f userinput_func
 function ppa_installer {
   local ppa_grep="$ppa_name"
   [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
-  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep "$ppa_grep" | wc -l)
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
   if [[ $ppa_added -eq "1" ]]; then
     echo "Skipping $ppa_name PPA, already added"
   else
@@ -242,6 +242,66 @@ function ppa_installer {
   unset ppa_name
 }
 export -f ppa_installer
+
+function ppa_purger {
+  local ppa_grep="$ppa_name"
+  [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
+  echo "$ppa_url"
+  if [[ $ppa_added -eq "1" ]]; then
+    echo "Removing $ppa_name PPA"
+    sudo apt-get install ppa-purge -y
+    sudo ppa-purge "ppa:$ppa_name" -y
+    sudo apt update
+  else
+    echo "$ppa_name PPA does not exist, skipping removal"
+  fi
+  unset ppa_name
+}
+export -f ppa_purger
+
+function online_check {
+    while : ; do
+    clear -x
+    date
+    echo "Checking internet connectivity..."
+    #silently check connection to github AND githubusercontent, we had an edge case where a guy was getting githubusercontent blocked by his ISP
+    wget -q --spider https://github.com && wget -q --spider https://raw.githubusercontent.com/
+
+    #read whether or not it was successful
+    #the $? reads the exit code of the previous command, 0 meaning everything works
+    if [ $? == 0 ]
+    then
+	echo -e "\e[32mInternet OK\e[0m"
+        break
+    fi
+    #tell people to fix their internet
+    echo "You're offline and/or can't reach GitHub."
+    echo "We can't run the script without this..."
+    echo "You'll need to connect to WiFi or allow GitHub in your firewall."
+    echo "(you can close this window at any time.)"
+    echo "Retrying the connection in..."
+    ########## bootleg progress bar time ##########
+    echo -e "\e[31m5\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[33m4\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[32m3\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[34m2\e[0m"
+    printf '\a'
+    sleep 1
+    echo -e "\e[35m1\e[0m"
+    printf '\a'
+    echo "Trying again..."
+    sleep 1
+    #and now we let it loop
+    done
+}
+export -f online_check
 
 #####################################################################################
 
