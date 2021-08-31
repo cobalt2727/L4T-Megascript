@@ -120,7 +120,7 @@ export -f userinput_func
 function ppa_installer {
   local ppa_grep="$ppa_name"
   [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
-  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep "$ppa_grep" | wc -l)
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
   if [[ $ppa_added -eq "1" ]]; then
     echo "Skipping $ppa_name PPA, already added"
   else
@@ -131,6 +131,23 @@ function ppa_installer {
   unset ppa_name
 }
 export -f ppa_installer
+
+function ppa_purger {
+  local ppa_grep="$ppa_name"
+  [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
+  echo "$ppa_url"
+  if [[ $ppa_added -eq "1" ]]; then
+    echo "Removing $ppa_name PPA"
+    sudo apt-get install ppa-purge -y
+    sudo ppa-purge "ppa:$ppa_name" -y
+    sudo apt update
+  else
+    echo "$ppa_name PPA does not exist, skipping removal"
+  fi
+  unset ppa_name
+}
+export -f ppa_purger
 
 function online_check {
     while : ; do
@@ -173,6 +190,7 @@ function online_check {
     #and now we let it loop
     done
 }
+export -f online_check
 
 #####################################################################################
 
