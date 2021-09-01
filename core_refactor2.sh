@@ -564,9 +564,9 @@ while [ $x == 1 ]; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
-          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} | sed 's#^#runCmd #g')"
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
         else
-          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} | sed 's#^#runCmd #g')"
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
         fi
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)

@@ -220,7 +220,7 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 sudo apt update
-$2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1  | sed 's#^#runCmd #g')"
+$2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)"
 
 
 ##DOCUMENTATION
