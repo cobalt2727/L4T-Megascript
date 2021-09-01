@@ -192,6 +192,17 @@ function online_check {
 }
 export -f online_check
 
+function runCmd() {
+    local ret
+    "$@"
+    ret=$?
+    if [[ "$ret" -ne 0 ]]; then
+        echo "$1 reported an error running '$*' - returned $ret" >> /tmp/megascript_errors.txt
+    fi
+    return $ret
+}
+export -f runCmd
+
 #####################################################################################
 
 #end of functions used by megascript scripts
@@ -209,7 +220,7 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 sudo apt update
-$2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)"
+$2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1  | sed 's#^#runCmd #g')"
 
 
 ##DOCUMENTATION

@@ -303,6 +303,17 @@ function online_check {
 }
 export -f online_check
 
+function runCmd() {
+    local ret
+    "$@"
+    ret=$?
+    if [[ "$ret" -ne 0 ]]; then
+        echo "${scripts[$word]} reported an error running '$*' - returned $ret" >> /tmp/megascript_errors.txt
+    fi
+    return $ret
+}
+export -f runCmd
+
 #####################################################################################
 
 #end of functions used by megascript scripts
@@ -553,9 +564,9 @@ while [ $x == 1 ]; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
-          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} | sed 's#^#runCmd #g')"
         else
-          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} | sed 's#^#runCmd #g')"
         fi
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
