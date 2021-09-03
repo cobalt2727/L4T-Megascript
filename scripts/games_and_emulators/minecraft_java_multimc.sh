@@ -29,7 +29,7 @@ tee secrets/Secrets.h <<'EOF'
 
 namespace Secrets {
     QString getMSAClientID(char data_in){
-        return "0d742867-f14f-4ad9-9d0b-13692c38dc3a";
+        return "41b2c9ae-45a2-4d9c-936a-38faa15d3845";
     }
 }
 EOF
