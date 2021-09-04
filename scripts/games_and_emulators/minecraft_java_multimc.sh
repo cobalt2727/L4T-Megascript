@@ -17,6 +17,49 @@ mkdir -p ~/MultiMC
 cd ~/MultiMC
 mkdir -p build
 mkdir -p install
+mkdir -p scripts
+
+# install modmanager python script
+sudo apt install python3.8 -y
+python3.8 -m pip install --upgrade pip setuptools wheel minecraft-mod-manager
+
+# creating mod updater script
+tee scripts/pre-launch.sh <<'EOF' >>/dev/null
+#!/bin/bash
+# Download and install Mods compatible with minecraft version
+
+wget -q --spider https://github.com && wget -q --spider https://raw.githubusercontent.com/
+
+# only run update/install script if the user has an active internet connection
+if [ $? == 0 ]
+then
+    cd "$INST_DIR"
+    mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
+    mkdir -p .minecraft
+    cd .minecraft
+    mkdir -p mods
+    cd mods
+    megascript_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/megascript-mods.txt")
+    user_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/user-mods.txt")
+    minecraft-mod-manager -v "$mc_version" --beta --alpha install $megascript_mods $user_mods
+fi
+echo "Mod script finished or skipped"
+EOF
+
+# fabric mods installed by default
+# mods are disabled by default until the user uses the "Install Fabric" button in MultiMC
+echo "Setting list of mods installed by the megascript by default"
+echo "Make sure to click the Install Fabric button within MultiMC to enable these mods"
+echo ""
+tee scripts/megascript-mods.txt <<'EOF'
+sodium
+lithium
+phosphor
+hydrogen
+lambdacontrols
+fabric-api
+EOF
+
 # clone the complete source
 git clone --recursive https://github.com/MultiMC/MultiMC5.git src # You can clone from MultiMC's main repo, no need to use a fork.
 cd src
@@ -24,7 +67,7 @@ git pull --recurse-submodules
 
 # add secrets files
 mkdir -p secrets
-tee secrets/Secrets.h <<'EOF'
+tee secrets/Secrets.h <<'EOF' >>/dev/null
 #include <QString>
 
 namespace Secrets {
@@ -33,7 +76,7 @@ namespace Secrets {
     }
 }
 EOF
-tee secrets/CMakeLists.txt <<'EOF'
+tee secrets/CMakeLists.txt <<'EOF' >>/dev/null
 add_library(secrets STATIC
     Secrets.h
 )
@@ -60,6 +103,15 @@ esac
 
 # build & install (use -j with the number of cores your CPU has)
 make -j$(nproc) install
+
+# enable pre-launch script
+cd ..
+if cat install/multimc.cfg | grep -q "PreLaunchCommand="; then
+    sed -i "s/PreLaunchCommand=.*/PreLaunchCommand=\/home\/$USER\/MultiMC\/scripts\/pre-launch.sh/" install/multimc.cfg
+else
+    echo "PreLaunchCommand=/home/$USER/MultiMC/scripts/pre-launch.sh" >> install/multimc.cfg
+fi
+
 cd
 sudo sh -c "cat > /usr/local/share/applications/MultiMC.desktop << _EOF_
 [Desktop Entry]
