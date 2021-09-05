@@ -73,21 +73,39 @@ git pull --recurse-submodules
 # add secrets files
 mkdir -p secrets
 tee secrets/Secrets.h <<'EOF' >>/dev/null
+#pragma once
 #include <QString>
+#include <cstdint>
 
 namespace Secrets {
-    QString getMSAClientID(char data_in){
-        return "41b2c9ae-45a2-4d9c-936a-38faa15d3845";
-    }
+bool hasMSAClientID();
+QString getMSAClientID(uint8_t separator);
 }
 EOF
-tee secrets/CMakeLists.txt <<'EOF' >>/dev/null
-add_library(secrets STATIC
-    Secrets.h
-)
 
+tee secrets/Secrets.cpp <<'EOF' >>/dev/null
+#include "Secrets.h"
+
+#include <array>
+#include <cstdio>
+
+namespace Secrets {
+bool hasMSAClientID() {
+    return true;
+}
+
+QString getMSAClientID(uint8_t separator) {
+    return "41b2c9ae-45a2-4d9c-936a-38faa15d3845";
+}
+}
+EOF
+
+tee secrets/CMakeLists.txt <<'EOF' >>/dev/null
+add_library(secrets STATIC Secrets.cpp Secrets.h)
 target_link_libraries(secrets Qt5::Core)
-target_include_directories(secrets PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_compile_definitions(secrets PUBLIC -DEMBED_SECRETS)
+target_include_directories(secrets PUBLIC .)
+
 EOF
 
 cd ..
@@ -100,9 +118,9 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
-    "x86_64") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DCMAKE_CXX_FLAGS="-DEMBED_SECRETS=TRUE" -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model_name" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master/index.json" ../src ;;
+    "x86_64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; rm -rf ~/MultiMC; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 
