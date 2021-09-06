@@ -20,7 +20,8 @@ mkdir -p install
 mkdir -p scripts
 
 # install modmanager python script
-sudo apt install python3.8 -y
+sudo apt install python3.8 python3-pip jq -y
+hash -r
 python3.8 -m pip install --upgrade pip setuptools wheel minecraft-mod-manager
 
 # creating mod updater script
@@ -50,6 +51,8 @@ then
 fi
 echo "Mod script finished or skipped"
 EOF
+
+chmod +x scripts/pre-launch.sh
 
 # fabric mods installed by default
 # mods are disabled by default until the user uses the "Install Fabric" button in MultiMC
