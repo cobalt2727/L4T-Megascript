@@ -35,9 +35,9 @@ Red
 
 /* Every widget */
 QWidget {
-	background-color: transparent;
-	color: #e6e6e6;
-	alternate-background-color: #3d3d3d;
+	background-color: #333333;
+        color: #e6e6e6;
+        alternate-background-color: #3d3d3d;
 }
 
 /* Mouse tooltips */
@@ -130,8 +130,8 @@ QTabBar::tab {
 	border: 0.05em solid #444;
 	border-bottom-style: none;
 	background-color: #333333;
-	padding-left: 1em;
-	padding-right: 1em;
+	padding-left: 0.400em;
+	padding-right: 0.400em;
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
 	margin-right: -0.2em;
@@ -202,7 +202,7 @@ QRadioButton::indicator::disabled {
 /* Combo Boxes */
 QComboBox {
 	background-color: #404040;
-	color: #fff;
+        color: #fff;
 	border: 0.05em solid #1e1e1e;
 	border-radius: 0.15em;
 	padding-bottom: 0.2em;
@@ -210,7 +210,7 @@ QComboBox {
 }
 QComboBox::disabled {
 	background-color: #828790;
-	color: #fff;
+        color: #fff;
 }
 
 /* Spin Boxes */
