@@ -9,8 +9,12 @@ sleep 3
 sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
         sudo apt install unity-tweak-tool hud -y
+elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
+        sudo apt install gnome-tweaks -y
+#elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
+#        sudo apt install mate-tweak -y
 else
-        echo "Not using Unity as the current desktop, skipping theme manager install..."
+        echo "Not using a DE with a known theme manager, skipping theme manager install..."
 fi
 
 
@@ -47,8 +51,13 @@ if [[ $DISPLAY ]]; then
         xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
         if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
                 unity-tweak-tool
+        elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
+                gnome-tweaks
+        #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
+        #        mate-tweak -y
+        #note to self: figure out the command to open up the theme chooser on KDE Plasma
         else
-                echo "Not using Unity as the current desktop, not launching tweak tool..."
+                echo "Not using a DE with a known theme manager, not launching tweak tool..."
         fi
 
 
