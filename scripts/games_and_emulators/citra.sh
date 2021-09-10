@@ -3,7 +3,7 @@
 
 clear -x
 echo "Citra script successfully started!"
-echo "Credits: i literally just took https://citra-emu.org/wiki/building-for-linux/ and made it run by itself"
+echo "Credits: https://citra-emu.org/wiki/building-for-linux/"
 sleep 3
 
 echo "Running updates..."
@@ -31,17 +31,17 @@ fi
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt-get install git ninja-build libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev -y
+sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev -y
 
 echo "Building Citra..."
 sleep 1
 cd ~
-git clone --recursive https://github.com/citra-emu/citra
+git clone --recurse-submodules -j$(nproc)  https://github.com/citra-emu/citra
 cd citra
-#note to self this needs to be fixed https://stackoverflow.com/questions/1030169/easy-way-to-pull-latest-of-all-git-submodules
-git pull --recursive
+git pull --recurse-submodules -j$(nproc)
 mkdir -p build
 cd build
+#LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
 cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 make -j$(nproc)
 sudo make install
