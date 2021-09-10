@@ -38,6 +38,7 @@ sleep 1
 cd ~
 git clone --recursive https://github.com/citra-emu/citra
 cd citra
+#note to self this needs to be fixed https://stackoverflow.com/questions/1030169/easy-way-to-pull-latest-of-all-git-submodules
 git pull --recursive
 mkdir -p build
 cd build
