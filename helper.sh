@@ -16,7 +16,36 @@ function get_system {
   jetson_codename=""
   # jetson model is the friendly name that we assign
   jetson_model=""
-  read model_name < /sys/firmware/devicetree/base/model
+  # get model name
+  # https://github.com/dylanaraps/neofetch/blob/77f2afc37239d9494ce0f5d0f71f690f8b4d34e3/neofetch#L1232
+  if [[ -d /system/app/ && -d /system/priv-app ]]; then
+      model="$(getprop ro.product.brand) $(getprop ro.product.model)"
+
+  elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
+          -f /sys/devices/virtual/dmi/id/product_version ]]; then
+      model=$(< /sys/devices/virtual/dmi/id/product_name)
+      model+=" $(< /sys/devices/virtual/dmi/id/product_version)"
+
+  elif [[ -f /sys/firmware/devicetree/base/model ]]; then
+      model=$(< /sys/firmware/devicetree/base/model)
+
+  elif [[ -f /tmp/sysinfo/model ]]; then
+      model=$(< /tmp/sysinfo/model)
+  fi
+  # Remove dummy OEM info.
+  model=${model//To be filled by O.E.M.}
+  model=${model//To Be Filled*}
+  model=${model//OEM*}
+  model=${model//Not Applicable}
+  model=${model//System Product Name}
+  model=${model//System Version}
+  model=${model//Undefined}
+  model=${model//Default string}
+  model=${model//Not Specified}
+  model=${model//Type1ProductConfigId}
+  model=${model//INVALID}
+  model=${model//All Series}
+  model=${model//�}
   local __platform=""
   if [[ -e "/proc/device-tree/compatible" ]]; then
       CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
@@ -197,7 +226,7 @@ function runCmd() {
     "$@"
     ret=$?
     if [[ "$ret" -ne 0 ]]; then
-        echo "$1 reported an error running '$*' - returned $ret" >> /tmp/megascript_errors.txt
+        echo "${scripts[$word]} reported an error running '$*' - returned $ret" >> /tmp/megascript_errors.txt
     fi
     return $ret
 }

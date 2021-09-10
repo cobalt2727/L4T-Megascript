@@ -127,7 +127,36 @@ function get_system {
   jetson_codename=""
   # jetson model is the friendly name that we assign
   jetson_model=""
-  read model_name < /sys/firmware/devicetree/base/model
+  # get model name
+  # https://github.com/dylanaraps/neofetch/blob/77f2afc37239d9494ce0f5d0f71f690f8b4d34e3/neofetch#L1232
+  if [[ -d /system/app/ && -d /system/priv-app ]]; then
+      model="$(getprop ro.product.brand) $(getprop ro.product.model)"
+
+  elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
+          -f /sys/devices/virtual/dmi/id/product_version ]]; then
+      model=$(< /sys/devices/virtual/dmi/id/product_name)
+      model+=" $(< /sys/devices/virtual/dmi/id/product_version)"
+
+  elif [[ -f /sys/firmware/devicetree/base/model ]]; then
+      model=$(< /sys/firmware/devicetree/base/model)
+
+  elif [[ -f /tmp/sysinfo/model ]]; then
+      model=$(< /tmp/sysinfo/model)
+  fi
+  # Remove dummy OEM info.
+  model=${model//To be filled by O.E.M.}
+  model=${model//To Be Filled*}
+  model=${model//OEM*}
+  model=${model//Not Applicable}
+  model=${model//System Product Name}
+  model=${model//System Version}
+  model=${model//Undefined}
+  model=${model//Default string}
+  model=${model//Not Specified}
+  model=${model//Type1ProductConfigId}
+  model=${model//INVALID}
+  model=${model//All Series}
+  model=${model//�}
   local __platform=""
   if [[ -e "/proc/device-tree/compatible" ]]; then
       CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
@@ -398,7 +427,7 @@ while [ $x == 1 ]; do
   if [[ $gui == "gui" ]]; then
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
-    \n\n\You are running an $architecture $jetson_model $model_name system." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    \n\n\You are running an $architecture $jetson_model $model system." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
@@ -519,7 +548,7 @@ while [ $x == 1 ]; do
     echo
     add_desktop_if
     echo -e "\x1B[31mYou have about $available_space of space left on your Linux installation! Make sure you don't use too much!\e[0m"
-    echo "You are running an $architecture $jetson_model $model_name system."
+    echo "You are running an $architecture $jetson_model $model system."
     echo ""
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
 
