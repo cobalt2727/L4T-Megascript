@@ -157,7 +157,7 @@ Type=Application
 Exec=/home/$USER/MultiMC/install/MultiMC
 Hidden=false
 NoDisplay=false
-Name=MutiMC
+Name=MultiMC
 Icon=/home/$USER/MultiMC/src/launcher/resources/multimc/scalable/multimc.svg
 Categories=Game
 _EOF_"
