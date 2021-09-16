@@ -99,6 +99,36 @@ function update_scripts {
         FILE2='/opt/retropie/configs/wii/emulators.cfg'
         grep -qFs -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
         grep -qFs -- "$LINE" "$FILE2" || echo "$LINE" >> "$FILE2"
+
+        config="/etc/emulationstation/es_systems.cfg"
+        if [[ ! -f "$config" ]]; then
+            echo "<systemList />" | sudo tee "$config"
+        fi
+        homedir=~
+        if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='gc'])" "$config") -eq 0 ]]; then
+        sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
+                    -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
+                    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
+                    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
+                    -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
+                    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
+                    -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
+                    -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
+                    "$config"
+        fi
+        
+        if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='wii'])" "$config") -eq 0 ]]; then
+        sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
+                    -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
+                    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
+                    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
+                    -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
+                    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
+                    -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
+                    -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
+                    "$config"
+        fi
+
     fi
 
     bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
