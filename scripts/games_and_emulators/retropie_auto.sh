@@ -97,8 +97,8 @@ function update_scripts {
         LINE='dolphin-standalone = "dolphin-emu-nogui -e %ROM%"'
         FILE='/opt/retropie/configs/gc/emulators.cfg'
         FILE2='/opt/retropie/configs/wii/emulators.cfg'
-        grep -qFs -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
-        grep -qFs -- "$LINE" "$FILE2" || echo "$LINE" >> "$FILE2"
+        grep -qFs -- "$LINE" "$FILE" || echo "$LINE" | sudo tee -a "$FILE"
+        grep -qFs -- "$LINE" "$FILE2" || echo "$LINE" | sudo tee -a "$FILE2"
     fi
 
     bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
