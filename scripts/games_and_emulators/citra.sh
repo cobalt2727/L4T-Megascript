@@ -12,21 +12,14 @@ sleep 1
 if grep -q bionic /etc/os-release; then
   echo "          -------UBUNTU 18.04 DETECTED-------"
   echo
-  echo "This message will close in 30 seconds and kick you back to the main menu."
-  echo "If you want more time to read this, press Ctrl + C at any point to stop the script entirely."
-  echo "This script will not work, as you need a newer version of QT installed."
-  echo "We'll either add a script to build THAT from source later, or you can wait for Switchroot to release an upgrade to 20.04."
-  echo "If you just so happen to already have that set up on your Switch, make a PR on the GitHub to get your build method incorporated into this script!"
-  echo "Note that trying to upgrade L4T Ubuntu from within your existing installation is not supported and WILL BREAK YOUR LINUX INSTALL!"
-  echo "When 20.04 launches you'll have to reinstall completely to upgrade."
-  sleep 30
-  echo "laying groundwork for gman to do his QT5 wizardry later:"
+  echo "theofficialgman has done his PPA Qt5 wizardry"
+  echo "enjoy Citra on Ubuntu Bionic, Focal, Hirsute, and beyond"
   
-  echo "Adding GCC and G++ 9/10 Repo..."
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  sudo apt install gcc-10 g++-10 -y
-  
-  exit
+  # echo "Adding GCC and G++ 9/10 Repo..."
+  # ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  # sudo apt install gcc-10 g++-10 -y
+  ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
+  sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y
 fi
 
 echo "Installing dependencies..."
@@ -42,7 +35,11 @@ git pull --recurse-submodules -j$(nproc)
 mkdir -p build
 cd build
 #LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
-cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
+if grep -q bionic /etc/os-release; then
+  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+else
+  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
+fi
 make -j$(nproc)
 sudo make install
 
