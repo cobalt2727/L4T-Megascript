@@ -37,6 +37,16 @@ if test -f /usr/bin/emulationstation; then
         RetroPieUserInput="$output"
 fi
 
+#and so on and so forth.
+CitraUserInput="no"
+if test -f /usr/local/bin/citra-qt; then
+        description="Do you want to update Citra? (May take 5 to 40 minutes)"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+	CitraUserInput="$output"
+fi
+
+
 #######################################################################
 
 echo "Running APT updates..."
@@ -140,6 +150,14 @@ elif [[ $RetroPieUserInput == "Binaries Only" ]]; then
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "install_binaries"
 else
 	echo "Skipping RetroPie updates..."
+fi
+
+if [[ $CitraUserInput == "yes" ]]; then
+	echo "Updating Citra..."
+	sleep 5
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)"
+else
+	echo "Skipping Citra updates..."
 fi
 
 
