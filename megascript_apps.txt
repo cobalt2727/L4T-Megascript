@@ -22,7 +22,9 @@ fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the A
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
-# fn="Citra";;d="3DS emulator, currently confirmed broken on 18.04, should work when 20.04 releases!";;sn="citra.sh";;f="games_and_emulators"
+fn="Citra";;d="3DS emulator, now works on Bionic (18.04) and up!";;sn="citra.sh";;f="games_and_emulators"
+
+fn="MelonDS";;d="DS emulator which aims at providing fast and accurate Nintendo DS emulation. Now works on Bionic (18.04) and up!";;sn="melonDS.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
