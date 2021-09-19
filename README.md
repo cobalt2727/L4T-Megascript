@@ -17,8 +17,10 @@ https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki/All-Scripts-(Listed-and-Linked)) for the most updated information!
 ## Planned features:
 - Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/)
-- Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost
-- Keep checking around the internet to see if someone can provide prebuilt modern QT packages for 18.04 so that Citra can install for 18.04 users (don't expect good performance even if this happens, though - plus it's more likely that Switchroot releases 20.04 first, eventually)
+- ~~Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost~~ <Br>
+Done: Make sure to click the "Install Fabric" button within the Minecraft instance, otherwise the mods won't be loaded
+- ~~Keep checking around the internet to see if someone can provide prebuilt modern QT packages for 18.04 so that Citra can install for 18.04 users (don't expect good performance even if this happens, though - plus it's more likely that Switchroot releases 20.04 first, eventually)~~ <Br>
+Done: A custom ppa is added for 18.04 users giving them QT 5.12 in the /opt folder, allowing Citra GUI to work
 - Updated Kodi packages at some point, maybe - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. The annoying part is there's already a PPA out there for 18.04, but it doesn't support ARM devices...
 - More to come!
 ## Our Team
