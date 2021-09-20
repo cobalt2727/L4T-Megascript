@@ -88,6 +88,12 @@ function update_scripts {
     echo "Running the auto game detection script"
     "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
 
+    # hotfix for switch/jetsons emulationstation crash and vlc player broken
+    get_system
+    if [[ $jetson_model ]]; then
+        sudo mv /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so.old
+    fi    
+
     if command -v dolphin-emu-nogui &> /dev/null; then
         echo "Adding dolphin standalone to retropie"
         mkdir /opt/retropie/configs/gc
