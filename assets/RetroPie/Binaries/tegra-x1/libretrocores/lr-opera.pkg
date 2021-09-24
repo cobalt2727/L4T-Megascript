@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-09-23T23:42:27-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/opera-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="5a1c58b0117f6db96a9c8656f2cae30b54dc5aae"
+pkg_repo_date="2021-09-22T00:01:37+02:00"
+pkg_repo_extra=""

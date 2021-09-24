@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-09-24T00:00:19-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/vice-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="50e30a48f261b592af5c63ef0e0a93edcad2a9c7"
+pkg_repo_date="2021-09-13T02:26:01+03:00"
+pkg_repo_extra=""

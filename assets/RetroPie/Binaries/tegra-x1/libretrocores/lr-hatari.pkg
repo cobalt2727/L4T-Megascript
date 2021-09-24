@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-09-23T23:34:57-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/hatari.git"
+pkg_repo_branch="master"
+pkg_repo_commit="cea06eebf695b078fadc0e78bb0f2b2baaca799f"
+pkg_repo_date="2021-03-17T14:17:57+01:00"
+pkg_repo_extra=""

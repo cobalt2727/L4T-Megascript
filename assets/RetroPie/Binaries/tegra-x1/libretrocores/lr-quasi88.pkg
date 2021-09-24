@@ -1,0 +1,8 @@
+pkg_origin="source"
+pkg_date="2021-09-23T23:51:18-04:00"
+pkg_repo_type="git"
+pkg_repo_url="https://github.com/libretro/quasi88-libretro.git"
+pkg_repo_branch="master"
+pkg_repo_commit="328c47aa50ed1b9e84f452bd520df586cbca0d72"
+pkg_repo_date="2021-09-08T14:02:03+02:00"
+pkg_repo_extra=""
