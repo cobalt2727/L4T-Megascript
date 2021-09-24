@@ -23,7 +23,7 @@ sleep 2
 # ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 # #echo "5...............Install Project+ (builds correctly, performance untested, PROBABLY SLOW)"
 
-table=("Install Dolphin (use the updater on the main menu to update!)" "Run the RiiConnect24 Patcher")
+table=('Install Dolphin (use the updater on the main menu to update!)' "Run the RiiConnect24 Patcher")
 description="What would you like to do?\
 \nNote that a FIRST-TIME install of Dolphin can take up to 40-60 minutes on a Switch.\
 \n\nConnecting your Switch to a charger is recommended.\
@@ -31,7 +31,7 @@ description="What would you like to do?\
 userinput_func "$description" "${table[@]}"
 
 
-if [[ $output == "Install Dolphin (use the updater on the main menu to update!)" ]]; then
+if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)' ]]; then
 	echo "Building from source with device-specific optimizations..."
 	cd ~
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
