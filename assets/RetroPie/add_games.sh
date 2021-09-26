@@ -1,7 +1,7 @@
 #!/bin/bash
 
 total_start_time=$(date +%s.%3N)
-param=("/usr/share/applications/" "$HOME/.local/share/applications/" "$HOME/.local/share/flatpack/exports/share/applications/" "/usr/local/share/applications/")
+param=("/usr/share/applications/" "$HOME/.local/share/applications/" "$HOME/.local/share/flatpak/exports/share/applications/" "/usr/local/share/applications/")
 mkdir -p ~/RetroPie/roms/ports
 mkdir -p "$HOME/.emulationstation/gamelists/ports"
 cd ~/RetroPie/roms/ports
