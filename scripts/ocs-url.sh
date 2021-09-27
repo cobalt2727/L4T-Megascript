@@ -6,7 +6,7 @@ echo 'This will allow you to actually USE that fancy "Install"'
 echo "button on the Pling website and any of its derivatives."
 sleep 3
 
-sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal -y
+sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils -y
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
         sudo apt install unity-tweak-tool hud -y
 elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
