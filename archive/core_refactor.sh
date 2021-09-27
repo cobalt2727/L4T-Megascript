@@ -112,7 +112,7 @@ num[22]="extra"
 length=${#num[@]}
 
 t=()
-t[0]="Installs the joycon mouse, flatpack repo, SDL2 etc"
+t[0]="Installs the joycon mouse, flatpak repo, SDL2 etc"
 t[1]="download and install updates from the repos (check this at least once daily!)"
 t[2]="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)"
 t[3]="Gamecube and Wii emulator, latest development version"
