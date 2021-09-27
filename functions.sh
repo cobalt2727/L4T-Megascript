@@ -20,14 +20,14 @@ function get_system {
 
   elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
           -f /sys/devices/virtual/dmi/id/product_version ]]; then
-      model=$(< /sys/devices/virtual/dmi/id/product_name)
-      model+=" $(< /sys/devices/virtual/dmi/id/product_version)"
+      model="$(tr -d '\0' < /sys/devices/virtual/dmi/id/product_name)"
+      model+=" $(tr -d '\0' < /sys/devices/virtual/dmi/id/product_version)"
 
   elif [[ -f /sys/firmware/devicetree/base/model ]]; then
-      model=$(< /sys/firmware/devicetree/base/model)
+      model="$(tr -d '\0' < /sys/firmware/devicetree/base/model)"
 
   elif [[ -f /tmp/sysinfo/model ]]; then
-      model=$(< /tmp/sysinfo/model)
+      model="$(tr -d '\0' < /tmp/sysinfo/model)"
   fi
   # Remove dummy OEM info.
   model=${model//To be filled by O.E.M.}
