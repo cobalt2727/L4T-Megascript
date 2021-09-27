@@ -103,6 +103,8 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	sudo apt autopurge
 	
 	echo "Fixing flatpak issues (if any)..."
+	sudo flatpak remove --unused
+	flatpak remove --unused
 	sudo flatpak repair
 	flatpak repair --user
 
