@@ -162,6 +162,7 @@ phosphor
 hydrogen
 lambdacontrols
 fabric-api
+modmenu
 EOF
 
 # clone the complete source
