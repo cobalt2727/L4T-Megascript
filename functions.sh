@@ -233,6 +233,20 @@ function runCmd() {
 }
 export -f runCmd
 
+warning() { #yellow text
+  echo -e "\e[93m\e[5m 🔺\e[25m WARNING: $1\e[0m"
+}
+export -f warning
+
+status() { #cyan text to indicate what is happening
+  echo -e "\e[96m$1\e[0m"
+}
+export -f status
+
+status_green() { #announce the success of a major action
+  echo -e "\e[92m$1\e[0m"
+}
+export -f status_green
 #####################################################################################
 
 #end of functions used by megascript scripts
