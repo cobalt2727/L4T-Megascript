@@ -228,11 +228,34 @@ esac
 make -j$(nproc) install
 
 # enable pre-launch script
+# this can always be overwritten by the user after the first installation
 cd ..
 if cat install/multimc.cfg | grep -q "PreLaunchCommand="; then
-    sed -i "s/PreLaunchCommand=.*/PreLaunchCommand=\/home\/$USER\/MultiMC\/scripts\/pre-launch.sh/" install/multimc.cfg
+    if cat install/multimc.cfg | grep -q "PreLaunchCommand=."; then
+        warning "Skipping Adding a Prelaunch Script as there is already one specified by the user or a previous installation"
+        status "The current Prelaunch Sript is set to: $(cat install/multimc.cfg | grep "PreLaunchCommand=")"
+    else
+        status "Adding a Prelaunch Script to handle automatic mod installation"
+        sed -i "s/PreLaunchCommand=.*/PreLaunchCommand=\/home\/$USER\/MultiMC\/scripts\/pre-launch.sh/g" install/multimc.cfg
+    fi
 else
+    status "Adding a Prelaunch Script to handle automatic mod installation"
     echo "PreLaunchCommand=/home/$USER/MultiMC/scripts/pre-launch.sh" >> install/multimc.cfg
+fi
+
+# add Jvm Arguments for increased performance
+# these can always be overwritten by the user after the first installation
+if cat install/multimc.cfg | grep -q "JvmArgs="; then
+    if cat install/multimc.cfg | grep -q "JvmArgs=."; then
+        warning "Skipping Adding JvmArgs as they are already populated by the user or a previous installation"
+        status "The current JvmArgs are set to: $(cat install/multimc.cfg | grep "JvmArgs=")"
+    else
+        status "Adding JvmArgs which help with performance overall in all minecraft versions"
+        sed -i "s/JvmArgs=.*/JvmArgs=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1/g" install/multimc.cfg
+    fi
+else
+    status "Adding JvmArgs which help with performance overall in all minecraft versions"
+    echo "JvmArgs=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1" >> install/multimc.cfg
 fi
 
 cd
