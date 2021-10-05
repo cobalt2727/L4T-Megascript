@@ -84,6 +84,8 @@ function userinput_func {
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "3" ]];then
       yad --center --width 500 --image "dialog-question" \
+      --borders="20" \
+      --window-icon=/usr/share/icons/L4T-Megascript.png \
       --text="$1" \
       --button="$2":0 \
       --button="$3":1
@@ -99,6 +101,8 @@ function userinput_func {
       uniq_selection[0]=TRUE
       output=$(
         yad --center \
+          --borders="20" \
+          --window-icon=/usr/share/icons/L4T-Megascript.png \
           --text "$1" \
           --list \
           --radiolist \

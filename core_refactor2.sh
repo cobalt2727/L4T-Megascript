@@ -227,6 +227,7 @@ while [ $x == 1 ]; do
           --height="350" \
           --title "Welcome to the L4T-Megascript" \
           --text "Please Choose a Scripts Category" \
+          --borders="20" \
           --window-icon=/usr/share/icons/L4T-Megascript.png \
           --list \
           --radiolist \
@@ -250,6 +251,7 @@ while [ $x == 1 ]; do
               --height="500" \
               --title "$category_space" \
               --text "Please Select the Desired Programs to Install" \
+              --borders="20" \
               --window-icon=/usr/share/icons/L4T-Megascript.png \
               --list \
               --checklist \
@@ -274,6 +276,7 @@ while [ $x == 1 ]; do
               --height="500" \
               --title "$category_space" \
               --text "Please Select the Desired Programs to Install" \
+              --borders="20" \
               --window-icon=/usr/share/icons/L4T-Megascript.png \
               --list \
               --checklist \
