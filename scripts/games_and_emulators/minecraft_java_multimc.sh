@@ -3,6 +3,7 @@
 
 function error {
   echo -e "\\e[91m$1\\e[39m"
+  sleep 3
   exit 1
 }
 
@@ -20,14 +21,15 @@ __os_codename="${os[3]}"
 get_system
 case "$architecture" in
     "aarch64"|"x86_64"|"i386"|"armv6l"|"armv7l") ;;
-    *) echo "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile"; echo ""; echo "Exiting the script"; sleep 3; exit 1 ;;
+    *) error "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile" ;;
 esac
 
+status "Installing Necessary Dependencies"
 case "$__os_id" in
     Raspbian|Debian)
         case "$__os_codename" in
             bullseye|buster|stretch|jessie)
-               sudo apt install wget apt-transport-https gnupg -y
+                sudo apt install wget apt-transport-https gnupg -y || error "Could not install dependencies"
                 cd /tmp
                 rm -rf public
                 rm -rf adoptopenjdk-keyring.gpg
@@ -50,16 +52,22 @@ case "$__os_id" in
         # https://bugs.launchpad.net/raspbian/+bug/1944774
         # https://github.com/adoptium/adoptium-support/issues/368
 
+        # download java 8 from adoptium github tar.gz as a workaround
         case  "$architecture" in
             "aarch64"|"x86_64"|"i386")
-                sudo apt install git gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jre adoptopenjdk-16-hotspot-jre qtbase5-dev -y
+                sudo apt install libopenal1 x11-xserver-utils git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
                 ;;
             "armv6l"|"armv7l")
-                sudo apt install subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jre adoptopenjdk-16-hotspot-jre qtbase5-dev -y
-                mkdir -p ~/MultiMC/install/java/java-8-openjdk-armhf || exit 1
-                cd ~/MultiMC/install/java/java-8-openjdk-armhf && svn checkout https://github.com/gl91306/lunar/trunk/jre
+                sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                mkdir -p ~/MultiMC/install/java || exit 1
+                cd ~/MultiMC/install/java && wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u302-b08/OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz && tar -xzf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
+                mv jdk8u302-b08-aarch32-20210726 java-8-temurin-armhf
+                rm -rf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
+                # check if java is working and remove if broken
+                ./java-8-temurin-armhf/bin/java -version || ( warning "The downloaded java 8 version does not work, removing it now..." && warning "It is up to you to download and install a working java 8 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 8" && rm -rf java-8-temurin-armhf )
                 cd ~
                 ;;
+            *) error "Failed to detect OS CPU architecture! Something is very wrong." ;;
         esac
         ;;
     LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary)
@@ -70,16 +78,16 @@ case "$__os_id" in
             bionic|focal|groovy)
                 ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep openjdk-r | wc -l)
                 if [[ $ppa_added -eq "1" ]]; then
-                    echo "Skipping OpenJDK PPA, already added"
+                    status "Skipping OpenJDK PPA, already added"
                 else
-                    echo "Adding OpenJDK PPA, needed for Minecraft 1.17+"
+                    status "Adding OpenJDK PPA, needed for Minecraft 1.17+"
                     ppa_name="openjdk-r/ppa" && ppa_installer
                 fi
                 ;;
             *)
                 requiredver="18.04"
                 if printf '%s\n' "$requiredver" "$DISTRIB_RELEASE" | sort -CV; then
-                    echo "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-16 in the default repositories"
+                    status "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-16 in the default repositories"
                 else
                     error "$DISTRIB_CODENAME appears to be too old to run/compile MultiMC5"
                 fi
@@ -87,14 +95,7 @@ case "$__os_id" in
 
         esac
         # install dependencies
-        case  "$architecture" in
-            "aarch64"|"x86_64"|"i386")
-                sudo apt install git gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jre openjdk-16-jre qtbase5-dev -y
-                ;;
-            "armv6l"|"armv7l")
-                sudo apt install git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jre openjdk-16-jre qtbase5-dev -y
-                ;;
-        esac
+        sudo apt install libopenal1 x11-xserver-utils git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
         ;;
     *)
         error "$__os_id appears to be an unsupported OS"
@@ -218,14 +219,19 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$architecture" in
-    "aarch64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
-    "armv6l"|"armv7l") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
-    "x86_64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-8-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/MultiMC/MultiMC5/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "aarch64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
+    "armv6l"|"armv7l") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
+    "x86_64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
 esac
 
+warning "MultiMC5 does not give support for custom builds"
+warning "Only bugs that can be reproduced on official MultiMC5 builds should be posted to https://github.com/MultiMC/MultiMC5/issues"
+warning "Bugs which only appear on this build should be posted to https://github.com/Botspot/pi-apps/issues"
+
 # build & install (use -j with the number of cores your CPU has)
-make -j$(nproc) install
+status "Starting Compilation"
+make -j$(nproc) install || error "Make install failed"
 
 # enable pre-launch script
 # this can always be overwritten by the user after the first installation
