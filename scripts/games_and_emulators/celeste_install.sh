@@ -1,3 +1,11 @@
+#!/bin/bash
+
+function error {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 3
+  exit 1
+}
+
 clear -x
 cd /tmp
 echo "Celeste Pico 8 script started!"
@@ -8,13 +16,13 @@ sudo apt install --assume-yes libsndio*
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 echo
 echo "Downloading the game"
-git clone https://github.com/lemon32767/ccleste.git --depth=1
+sudo rm -rf /tmp/ccleste
+git clone https://github.com/lemon32767/ccleste.git --depth=1 || error "Could Not Pull Latest Source Code"
 cd ccleste
 rm -rf gamecontrollerdb.txt
-make -j$(nproc)
-wget https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
-
 echo "Compiling the game"
+make -j$(nproc) || error "Compilation failed"
+wget https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
 
 path="/usr/share/celeste"
 

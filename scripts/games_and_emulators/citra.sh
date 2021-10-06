@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function error {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 3
+  exit 1
+}
 
 clear -x
 echo "Citra script successfully started!"
@@ -31,7 +36,7 @@ sleep 1
 cd ~
 git clone --recurse-submodules -j$(nproc)  https://github.com/citra-emu/citra
 cd citra
-git pull --recurse-submodules -j$(nproc)
+git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 mkdir -p build
 cd build
 #LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
@@ -40,8 +45,8 @@ if grep -q bionic /etc/os-release; then
 else
   cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 fi
-make -j$(nproc)
-sudo make install
+make -j$(nproc) || error "Compilation failed"
+sudo make install || error "Make install failed"
 
 ##echo "Removing build files..."
 ##sleep 1

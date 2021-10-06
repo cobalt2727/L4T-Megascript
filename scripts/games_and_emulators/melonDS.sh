@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function error {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 3
+  exit 1
+}
 
 clear -x
 echo "MelonDS script successfully started!"
@@ -32,7 +37,7 @@ sleep 1
 cd ~
 git clone https://github.com/Arisotura/melonDS.git
 cd melonDS
-git pull
+git pull || error "Could Not Pull Latest MelonDS Source Code, verify your ~/melonDS directory hasn't been modified. You can detete the ~/melonDS folder to attempt to fix this error."
 mkdir -p build
 cd build
 if grep -q bionic /etc/os-release; then
@@ -40,8 +45,8 @@ if grep -q bionic /etc/os-release; then
 else
   cmake .. -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 fi
-make -j$(nproc)
-sudo make install
+make -j$(nproc) || error "Compilation failed"
+sudo make install || error "Make install failed"
 
 ##echo "Removing build files..."
 ##sleep 1
