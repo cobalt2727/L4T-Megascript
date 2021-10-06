@@ -372,8 +372,30 @@ while [ $x == 1 ]; do
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
           bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          if [ "$?" != 0 ]; then
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+\nPlease view the log in terminal to find the cause of the error\
+\nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
+\n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
+            table=("Continue" "Exit")
+            userinput_func "$description" "${table[@]}"
+            if [ "$output" == "Exit" ]; then
+              exit
+            fi
+          fi
         else
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          if [ "$?" != 0 ]; then
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+\nPlease view the log in terminal to find the cause of the error\
+\nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
+\n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
+            table=("Continue" "Exit")
+            userinput_func "$description" "${table[@]}"
+            if [ "$output" == "Exit" ]; then
+              exit
+            fi
+          fi
         fi
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
