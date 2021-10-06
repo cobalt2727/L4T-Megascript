@@ -12,7 +12,7 @@ if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
 elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
         sudo apt install gnome-tweaks -y
 #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
-#        sudo apt install mate-tweak -y
+#        sudo apt install mate-control-center -y
 else
         echo "Not using a DE with a known theme manager, skipping theme manager install..."
 fi
@@ -47,17 +47,25 @@ if [[ $DISPLAY ]]; then
         echo "Find a theme you like and install it - enjoy!"
         sleep 3
         
-        #open up the default web browser
-        xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
+
         if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
                 unity-tweak-tool
         elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
                 gnome-tweaks
+                xdg-open 'https://www.gnome-look.org/browse?ord=rating'
         #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
-        #        mate-appearance-properties -y
-        #note to self: figure out the command to open up the theme chooser on KDE Plasma
+                #mate-appearance-properties -y
+                #xdg-open 'https://www.mate-look.org/browse?ord=rating'
+        #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for xfce'; then
+                #command for theme chooser
+                #xdg-open 'https://www.xfce-look.org/browse?ord=rating'
+        #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for xfce'; then
+                #command for theme chooser
+                #xdg-open 'https://www.xfce-look.org/browse?ord=rating'
         else
                 echo "Not using a DE with a known theme manager, not launching tweak tool..."
+                #open up the default web browser
+                xdg-open 'https://www.pling.com/browse/cat/381/ord/rating/'
         fi
 
 
