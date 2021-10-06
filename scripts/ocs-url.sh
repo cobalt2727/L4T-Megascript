@@ -54,7 +54,7 @@ if [[ $DISPLAY ]]; then
         elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
                 gnome-tweaks
         #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
-        #        mate-tweak -y
+        #        mate-appearance-properties -y
         #note to self: figure out the command to open up the theme chooser on KDE Plasma
         else
                 echo "Not using a DE with a known theme manager, not launching tweak tool..."
