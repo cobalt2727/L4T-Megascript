@@ -167,9 +167,10 @@ modmenu
 EOF
 
 # clone the complete source
+status "Downloading the MultiMC5 Source Code"
 git clone --recursive https://github.com/MultiMC/MultiMC5.git src # You can clone from MultiMC's main repo, no need to use a fork.
 cd src
-git pull --recurse-submodules
+git pull --recurse-submodules || error "Could Not Pull Latest MultiMC Source Code, verify your ~/MultiMC/src directory hasn't been modified. You can detete the  ~/MultiMC/src folder to attempt to fix this error."
 
 # add secrets files
 mkdir -p secrets
