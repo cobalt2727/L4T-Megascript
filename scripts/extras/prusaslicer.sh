@@ -1,7 +1,10 @@
 echo "Started Prusaslicer Build Script"
 echo ""
-echo "Installing dependencies"
-sudo apt install git cmake build-essential curl libwxgtk3.0-dev libboost-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev -y
+echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
+ppa_name="ubuntu-toolchain-r/test" && ppa_installer 
+
+echo "Installing dependencies"  
+sudo apt install gcc-11 g++-11 git cmake build-essential curl libwxgtk3.0-dev libboost-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev -y
 echo "Getting the source code"
 cd ~
 git clone https://github.com/prusa3d/PrusaSlicer.git
@@ -16,7 +19,8 @@ wget https://raw.githubusercontent.com/ceres-solver/ceres-solver/master/cmake/Fi
 cd ~/PrusaSlicer
 mkdir -p build && cd build
 echo "Running cmake"
-cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3
+rm -rf CMakeCache.txt
+cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
 memtotal=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 if [[ $memtotal < 7500000 ]]; then
     echo "Startig compilation with two threads only (due to ram limitations)"
