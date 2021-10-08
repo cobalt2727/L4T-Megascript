@@ -6,6 +6,8 @@ echo "Getting the source code"
 cd ~
 git clone https://github.com/prusa3d/PrusaSlicer.git
 cd PrusaSlicer
+# hard reset to remove any modifications made
+git reset --hard
 git pull
 cd cmake/modules
 echo "Patching the source code until fixed in master"
