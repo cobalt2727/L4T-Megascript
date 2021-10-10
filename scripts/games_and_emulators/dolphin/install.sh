@@ -51,7 +51,7 @@ fi
 
 make -j$(nproc)
 echo "Installing..."
-sudo make install
+sudo make install || error "Make install failed"
 cd ~
 #commenting out the below line since the first build takes way too long to do on weak hardware like the Switch
 #leaving the source folder there will make future builds faster

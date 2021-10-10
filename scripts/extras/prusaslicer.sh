@@ -29,7 +29,7 @@ else
     make -j$(nproc)
 fi
 echo "Now installing"
-sudo make install
+sudo make install || error "Make install failed"
 echo "adding a .desktop file"
 sudo sh -c "cat > /usr/local/share/applications/prusaslicer.desktop << _EOF_
 [Desktop Entry]

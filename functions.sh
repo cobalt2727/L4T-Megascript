@@ -247,6 +247,13 @@ status_green() { #announce the success of a major action
   echo -e "\e[92m$1\e[0m"
 }
 export -f status_green
+
+function error {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 3
+  exit 1
+}
+export -f error
 #####################################################################################
 
 #end of functions used by megascript scripts

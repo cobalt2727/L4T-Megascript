@@ -30,7 +30,7 @@ echo
 echo "Game compiled!"
 sleep 1
 echo "Installing game...."
-sudo make install
+sudo make install || error "Make install failed"
 echo "Erasing temporary build files to save space..."
 sleep 2
 echo

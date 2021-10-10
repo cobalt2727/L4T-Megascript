@@ -32,7 +32,7 @@ esac
 echo "Building Box64"
 
 make -j$(nproc)
-sudo make install
+sudo make install || error "Make install failed"
 sudo systemctl restart systemd-binfmt
 sudo mkdir /usr/share/box64
 cd ..
