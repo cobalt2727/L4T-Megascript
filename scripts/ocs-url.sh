@@ -36,7 +36,7 @@ qmake PREFIX=/usr
 
 make -j$(nproc)
 
-sudo make install
+sudo make install || error "Make install failed"
 
 cd ~
 rm -rf ocs-url/

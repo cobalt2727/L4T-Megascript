@@ -21,7 +21,7 @@ cmake ..
 make -j$(nproc)
 
 # Installing
-sudo make install
+sudo make install || error "Make install failed"
 
 # Removing source
 cd ~

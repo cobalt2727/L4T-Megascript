@@ -14,6 +14,6 @@ mkdir build
 cd build
 cmake ..
 make -j$(nproc)
-sudo make install
+sudo make install || error "Make install failed"
 cd /tmp
 rm -rf barrier

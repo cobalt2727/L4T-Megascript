@@ -27,7 +27,7 @@ if [[ $available_space > 3670016 ]]; then
     echo "Game compiled!"
     echo "Installing game...."
     echo
-    sudo make install
+    sudo make install || error "Make install failed"
     echo
     echo "Erasing temporary build files to save space..."
     cd ~

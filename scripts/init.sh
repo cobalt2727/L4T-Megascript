@@ -166,7 +166,7 @@ if [[ $output == "yes" ]]; then
   cd htop
   git checkout 3.0.5
   ./autogen.sh && ./configure && make -j$(nproc)
-  sudo make install
+  sudo make install || error "Make install failed"
   cd ~
   rm -rf htop
 elif [[ $output == "no" ]]; then
