@@ -7,8 +7,10 @@
 #####################################################################################
 
 function get_system {
-  # architecture is the native cpu architecture (aarch64, x86_64, etc)
+  # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
+  # dpkg_architecture is the default userspace cpu architecture (arm64, amd64, armhf, i386, etc)
+  dpkg_architecture="$(dpkg --print-architecture)"
   # jetson codename is the name reported in the DTS filename
   jetson_codename=""
   # jetson model is the friendly name that we assign
