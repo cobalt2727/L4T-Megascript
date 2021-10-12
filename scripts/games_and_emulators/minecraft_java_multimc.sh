@@ -19,9 +19,9 @@ __os_codename="${os[3]}"
 
 # obtain the cpu info
 get_system
-case "$architecture" in
-    "aarch64"|"x86_64"|"i386"|"armv6l"|"armv7l") ;;
-    *) error "Error: your cpu architecture ($architecture) is not supporeted by MultiMC and will fail to compile" ;;
+case "$dpkg_architecture" in
+    "arm64"|"amd64"|"i386"|"armhf") ;;
+    *) error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by MultiMC and will fail to compile" ;;
 esac
 
 status "Installing Necessary Dependencies"
@@ -53,14 +53,32 @@ case "$__os_id" in
         # https://github.com/adoptium/adoptium-support/issues/368
 
         # download java 8 from adoptium github tar.gz as a workaround
-        case  "$architecture" in
-            "aarch64"|"x86_64"|"i386")
-                sudo apt install libopenal1 x11-xserver-utils git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+        case  "$dpkg_architecture" in
+            "amd64"|"i386")
+                sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev adoptopenjdk-8-hotspot-jre openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
                 ;;
-            "armv6l"|"armv7l")
+            "arm64")
                 sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
                 mkdir -p ~/MultiMC/install/java || exit 1
-                cd ~/MultiMC/install/java && wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u302-b08/OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz && tar -xzf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
+                cd ~/MultiMC/install/java || exit 1
+                rm -rf jdk8u302-b08
+                rm -rf java-8-temurin-aarch64
+                rm -rf OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz
+                wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u302-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz && tar -xzf OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz
+                mv jdk8u302-b08 java-8-temurin-aarch64
+                rm -rf OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz
+                # check if java is working and remove if broken
+                ./java-8-temurin-aarch64/bin/java -version || ( warning "The downloaded java 8 version does not work, removing it now..." && warning "It is up to you to download and install a working java 8 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 8" && rm -rf java-8-temurin-aarch64 )
+                cd ~
+                ;;
+            "armhf")
+                sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                mkdir -p ~/MultiMC/install/java || exit 1
+                cd ~/MultiMC/install/java || exit 1
+                rm -rf jdk8u302-b08-aarch32-20210726
+                rm -rf java-8-temurin-armhf
+                rm -rf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
+                wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u302-b08/OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz && tar -xzf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
                 mv jdk8u302-b08-aarch32-20210726 java-8-temurin-armhf
                 rm -rf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
                 # check if java is working and remove if broken
@@ -219,10 +237,10 @@ get_system
 # https://github.com/MultiMC/MultiMC5/issues/3949
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
-case "$architecture" in
-    "aarch64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
-    "armv6l"|"armv7l") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
-    "x86_64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+case "$dpkg_architecture" in
+    "arm64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
+    "armhf") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
+    "amd64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
     "i386") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
 esac
 
