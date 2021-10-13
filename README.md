@@ -14,7 +14,7 @@ https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 ## DISCLAIMER: in the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the source code. NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST! (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to hop in the Discord server using the link below and ask about it - we're happy to help!)
 
 ## All scripts
-Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki/All-Scripts-(Listed-and-Linked)) for the most updated information!
+Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki) for the most updated information!
 ## Planned features:
 - Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/)
 - ~~Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost~~ <Br>
