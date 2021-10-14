@@ -41,6 +41,7 @@ case "$__os_id" in
                 sudo mv adoptopenjdk-archive-keyring.gpg /usr/share/keyrings
                 cd ~
                 echo "deb [signed-by=/usr/share/keyrings/adoptopenjdk-archive-keyring.gpg] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb $__os_codename main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
+                sudo apt update
                 ;;
             *)
                 error "Debian version ($__os_codename) is too old, update to debian Jessie or newer"
