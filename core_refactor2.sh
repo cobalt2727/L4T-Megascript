@@ -376,7 +376,7 @@ while [ $x == 1 ]; do
     for word in $CHOICE; do
       #shamelessly take (and adapt) from Pi-Apps https://github.com/Botspot/pi-apps/blob/20378324ce92ca1e7634db77adc747a18ab214b2/manage#L221
       #determine path for log file to be created
-      logfile="~/L4T-Megascript/logs/install-incomplete-${friendly[$word]}.log"
+      logfile="$HOME/L4T-Megascript/logs/install-incomplete-${friendly[$word]}.log"
       if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ];then
         #append a number to logfile's file-extension if the original filename already exists
         i=1
