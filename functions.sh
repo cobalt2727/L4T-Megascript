@@ -256,6 +256,15 @@ function error {
   exit 1
 }
 export -f error
+
+format_logfile() { #remove ANSI escape sequences from a given file, and add OS information to beginning of file
+  [ -z "$1" ] && error "format_logfile: no filename given!"
+  [ ! -f "$1" ] && error "format_logfile: given filename ($1) does not exist or is not a file!"
+  
+  echo -e "$model\n\nBEGINNING OF LOG FILE:\n-----------------------\n\n$(cat "$1" | tr '\r' '\n' | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x1b\[[0-9;]*//g' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | grep -vF '.......... .......... .......... .......... ..........')" > "$1"
+  
+}
+export -f format_logfile
 #####################################################################################
 
 #end of functions used by megascript scripts
