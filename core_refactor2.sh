@@ -208,7 +208,7 @@ while [ $x == 1 ]; do
   if [[ $gui == "gui" ]]; then
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
-    \n\n\You are running an $architecture $jetson_model $model system." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    \n\n\Device Info:\n\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
