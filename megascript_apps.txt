@@ -4,7 +4,7 @@ fn="Auto Updater";;d="Update RetroPie (now with binary installs), Apt Packages, 
 
 # fn="Auto Config Updater";;d="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)";;e='echo "go ping cobalt on discord and yell at me about getting an updater system working"';;f="scripts"
 
-fn="moonlight-qt";;d='stream games from your PC as long as it has an Nvidia GPU!';;sn="moonlight.sh";;f="scripts"
+fn="moonlight-qt";;d='stream games from your PC (NVIDIA GPUS use Geforce Experience on Windows (or Sunshine on Linux) AMD GPUS use Sunshine on Windows/Linux)!';;sn="moonlight.sh";;f="scripts"
 
 fn="Discord (Webcord)";;d="Discord Web App";;sn="discord.sh";;f="scripts"
 
