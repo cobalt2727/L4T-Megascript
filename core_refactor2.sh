@@ -397,6 +397,12 @@ while [ $x == 1 ]; do
         if [ -z ${root[$word]} ]; then
           bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
           if [ "$?" != 0 ]; then
+            echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
+\e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
+Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
+Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
+            # format_logfile "$logfile" #remove escape sequences from logfile
+            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
 \nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
@@ -415,6 +421,12 @@ while [ $x == 1 ]; do
         else
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
           if [ "$?" != 0 ]; then
+            echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
+\e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
+Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
+Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
+            # format_logfile "$logfile" #remove escape sequences from logfile
+            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
 \nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
