@@ -138,6 +138,7 @@ conversion() {
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
         scripts[$i]=$sn
+        friendly[$i]=$fn
         if [ "$f" = "scripts" ]; then
           folder[$i]=$f
         else
@@ -190,12 +191,17 @@ if [ -f /etc/switchroot_version.conf ]; then
   fi
 fi
 
+#remove week-old logfiles
+mkdir -p ~/L4T-Megascript/logs
+find "~/L4T-Megascript/logs" -type f -mtime +7 -exec rm -f {} \; &>/dev/null &
+
 while [ $x == 1 ]; do
   cd ~
   available_space=$(df -PH . | awk 'NR==2 {print $4"B"}')
   clear -x
   table=()
   scripts=()
+  friendly=()
   folder=()
   execute=()
   ids=()
@@ -368,10 +374,28 @@ while [ $x == 1 ]; do
     install_post_depends
     rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do
+      #shamelessly take (and adapt) from Pi-Apps https://github.com/Botspot/pi-apps/blob/20378324ce92ca1e7634db77adc747a18ab214b2/manage#L221
+      #determine path for log file to be created
+      logfile="~/L4T-Megascript/logs/install-incomplete-${friendly[$word]}.log"
+      if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ];then
+        #append a number to logfile's file-extension if the original filename already exists
+        i=1
+        while true;do
+          #if variable $i is 2, then example newlogfile value: /path/to/install-Discord.log2
+          newlogfile="$logfile$i"
+          if [ ! -f "$newlogfile" ] && [ ! -f "$(echo "$newlogfile" | sed 's+/-incomplete-+-success-+g')" ] && [ ! -f "$(echo "$newlogfile" | sed 's+-incomplete-+-fail-+g')" ];then
+            logfile="${newlogfile}"
+            break
+          fi
+          i=$((i+1))
+        done
+        unset i
+      fi
+
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
-          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
           if [ "$?" != 0 ]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
@@ -382,9 +406,13 @@ while [ $x == 1 ]; do
             if [ "$output" == "Exit" ]; then
               exit
             fi
+          else
+            status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
+            format_logfile "$logfile" #remove escape sequences from logfile
+            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
         else
-          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})"
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
           if [ "$?" != 0 ]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
@@ -395,6 +423,10 @@ while [ $x == 1 ]; do
             if [ "$output" == "Exit" ]; then
               exit
             fi
+          else
+            status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
+            format_logfile "$logfile" #remove escape sequences from logfile
+            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
         fi
         time_script_stop=$(date +%s)
