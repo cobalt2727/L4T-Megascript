@@ -408,7 +408,8 @@ while [ $x == 1 ]; do
             fi
           else
             status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            format_logfile "$logfile" #remove escape sequences from logfile
+            echo "logfile name is $logfile"
+            # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
         else
@@ -425,7 +426,8 @@ while [ $x == 1 ]; do
             fi
           else
             status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            format_logfile "$logfile" #remove escape sequences from logfile
+            echo "logfile name is $logfile"
+            # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
         fi
