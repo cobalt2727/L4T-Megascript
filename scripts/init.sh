@@ -173,4 +173,24 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
+clear -x 
+description="Do you want to build and install neofetch?\
+\n\nNeofetch displays information about your operating system,\
+\nsoftware and hardware in an aesthetic and visually pleasing way."
+table=("yes" "no")
+userinput_func "$description" "${table[@]}"
+if [[ $output == "yes" ]]; then
+  echo "Building and installing neofetch from theofficialgman fork (newer than the package included in bionic)..."
+  cd /tmp
+  rm -rf neofetch
+  sudo apt install pciutils mesa-utils -y
+  git clone --branch merged-branch https://github.com/theofficialgman/neofetch.git
+  cd neofetch && sudo make install || error "Make install failed"
+  cd ~
+  rm -rf /tmp/neofetch
+elif [[ $output == "no" ]]; then
+  echo "Going to the next option"
+fi
+
+
 clear -x
