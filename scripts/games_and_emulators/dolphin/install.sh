@@ -38,6 +38,22 @@ if grep -q bionic /etc/os-release; then
   sleep 10
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
 
+elif grep -q xenial /etc/os-release; then
+
+  #there really is no use case for this, is there
+  echo "Ubuntu 16.04 detected... good luck, you'll need it"
+  sleep 2
+  echo "Adding Cmake 3.12 PPA..."
+  ppa_name="janisozaur/cmake-update" && ppa_installer
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 9..."
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  sudo apt install cmake gcc-9 g++-9 -y
+  echo "Alright, NOW we can start the building process."
+  echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
+  sleep 10
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+
+
 else  
   
   echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
