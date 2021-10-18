@@ -8,4 +8,4 @@ fi
 
 ppa_name="saiarcot895/chromium-beta" && ppa_installer
 
-sudo apt install chromium-browser vdpau-video
+sudo apt install chromium-browser
