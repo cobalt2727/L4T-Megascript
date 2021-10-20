@@ -286,11 +286,11 @@ fi
 
 cd
 sudo rm -rf /usr/local/share/applications/MultiMC.desktop
-sudo rm -rf /tmp/icon-64.png
+sudo rm -rf /tmp/icon-512.png
 mkdir -p ~/.local/share/applications
 mkdir -p  ~/.local/share/icons/MultiMC
 cd ~/.local/share/icons/MultiMC
-wget "https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/MultiMC/icon-64.png" -O /tmp/icon-64.png && sudo rm -rf "$HOME/.local/share/icons/MultiMC/icon-64.png" && mv /tmp/icon-64.png "$HOME/.local/share/icons/MultiMC/icon-64.png"
+wget "https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/MultiMC/icon-512.png" -O /tmp/icon-512.png && sudo rm -rf "$HOME/.local/share/icons/MultiMC/icon-512.png" && mv /tmp/icon-512.png "$HOME/.local/share/icons/MultiMC/icon-512.png"
 cd 
 # detect if script is running on RPi and if so override MESA GL Version
 if grep -iE 'raspberry' <<< $model > /dev/null; then
@@ -303,7 +303,7 @@ Exec=env MESA_GL_VERSION_OVERRIDE=3.3 QT_AUTO_SCREEN_SCALE_FACTOR=0 $HOME/MultiM
 Hidden=false
 NoDisplay=false
 Name=MultiMC
-Icon=$HOME/.local/share/icons/MultiMC/icon-64.png
+Icon=$HOME/.local/share/icons/MultiMC/icon-512.png
 Categories=Game
 _EOF_"
 else
@@ -314,7 +314,7 @@ Exec=$HOME/MultiMC/install/MultiMC
 Hidden=false
 NoDisplay=false
 Name=MultiMC
-Icon=$HOME/.local/share/icons/MultiMC/icon-64.png
+Icon=$HOME/.local/share/icons/MultiMC/icon-512.png
 Categories=Game
 _EOF_"
 fi
