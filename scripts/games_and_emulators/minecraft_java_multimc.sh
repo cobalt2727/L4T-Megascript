@@ -285,30 +285,36 @@ else
 fi
 
 cd
-
-sudo mkdir -p /usr/local/share/applications
+sudo rm -rf /usr/local/share/applications/MultiMC.desktop
+sudo rm -rf /tmp/icon-64.png
+mkdir -p ~/.local/share/applications
+mkdir -p  ~/.local/share/icons/MultiMC
+cd ~/.local/share/icons/MultiMC
+wget "https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/MultiMC/icon-64.png" -O /tmp/icon-64.png && sudo rm -rf "$HOME/.local/share/icons/MultiMC/icon-64.png" && mv /tmp/icon-64.png "$HOME/.local/share/icons/MultiMC/icon-64.png"
+cd 
 # detect if script is running on RPi and if so override MESA GL Version
 if grep -iE 'raspberry' <<< $model > /dev/null; then
-    sudo sh -c "cat > /usr/local/share/applications/MultiMC.desktop << _EOF_
+    warning "You are running a Raspberry Pi, note that OpenGL 3.3 is not fully supported but it necessary to run Minecraft 1.17+."
+    warning "Vannilla 1.17.1 and 1.17 have been tested to work but there is no guarantee that future versions and rendering mods will continute to work"
+    sh -c "cat > ~/.local/share/applications/MultiMC.desktop << _EOF_
 [Desktop Entry]
 Type=Application
-Exec=env MESA_GL_VERSION_OVERRIDE=3.3 /home/$USER/MultiMC/install/MultiMC
+Exec=env MESA_GL_VERSION_OVERRIDE=3.3 QT_AUTO_SCREEN_SCALE_FACTOR=0 $HOME/MultiMC/install/MultiMC
 Hidden=false
 NoDisplay=false
 Name=MultiMC
-Icon=/home/$USER/MultiMC/src/launcher/resources/multimc/scalable/multimc.svg
+Icon=$HOME/.local/share/icons/MultiMC/icon-64.png
 Categories=Game
 _EOF_"
 else
-    sudo sh -c "cat > /usr/local/share/applications/MultiMC.desktop << _EOF_
+    sh -c "cat > ~/.local/share/applications/MultiMC.desktop << _EOF_
 [Desktop Entry]
 Type=Application
-Exec=/home/$USER/MultiMC/install/MultiMC
+Exec=$HOME/MultiMC/install/MultiMC
 Hidden=false
 NoDisplay=false
 Name=MultiMC
-Icon=/home/$USER/MultiMC/src/launcher/resources/multimc/scalable/multimc.svg
+Icon=$HOME/.local/share/icons/MultiMC/icon-64.png
 Categories=Game
 _EOF_"
 fi
-
