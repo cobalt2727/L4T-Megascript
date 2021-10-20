@@ -2,7 +2,13 @@ clear -x
 
 echo "Box64 script started!"
 
-echo "Installing Dependencies"
+case "$dpkg_architecture" in
+    "arm64"|"amd64")
+        echo "Installing Dependencies";;
+    *)
+        error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
+esac
+
 sudo apt install zenity -y
 cd
 git clone https://github.com/ptitSeb/box64
@@ -19,14 +25,14 @@ mkdir build
 cd build
 # obtain the cpu info
 get_system
-case "$architecture" in
-    "aarch64") case "$jetson_model" in
+case "$dpkg_architecture" in
+    "arm64") case "$jetson_model" in
         "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Tegra X1 based system" ;;
         *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Universal aarch64 system";;
         esac
         ;;
-    "x86_64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "x86_64 based system" ;;
-    *) echo "Error: your cpu architecture ($architecture) is not supporeted by box64 and will fail to compile"; rm -rf ~/box64; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+    "amd64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "x86_64 based system" ;;
+    *) error "Something is very wrong... how did you get past the first check?" ;;
 esac
 
 echo "Building Box64"

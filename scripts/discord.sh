@@ -27,7 +27,7 @@ sudo dpkg -r electron-discord-webapp
 # rm -rf discord-tmp/
 
 wget -qO- http://download.tuxfamily.org/webcordapt/add-repo.sh | sudo bash
-sudo apt install webcord -y
+sudo apt install webcord -y || error "Webcord install failed"
 
 echo "Done!"
 echo "Sending you back to the menu..."
