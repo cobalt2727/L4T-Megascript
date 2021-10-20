@@ -18,7 +18,7 @@ fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dol
 
 fn="MultiMC (Minecraft Java)";;d="Mincraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
 
-fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the Android Version Required";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
+fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the Android Version Required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
