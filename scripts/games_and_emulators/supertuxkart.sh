@@ -1,10 +1,10 @@
 #!/bin/bash
 
 clear -x
-echo "SuperTuxKart script started!"
+status "SuperTuxKart script started!"
 available_space=$(df . | awk 'NR==2 {print $4}')
 if [[ $available_space > 3670016 ]]; then
-    echo "Downloading the files and installing needed dependencies..."
+    status "Downloading the files and installing needed dependencies..."
     sleep 3
     cd ~
     sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 \
@@ -12,7 +12,7 @@ if [[ $available_space > 3670016 ]]; then
     cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion \
     libbluetooth-dev libenet-dev libfreetype6-dev libharfbuzz-dev \
     libjpeg-dev libpng-dev \
-    libssl-dev nettle-dev pkg-config zlib1g-dev -y
+    libssl-dev nettle-dev pkg-config zlib1g-dev -y || error "Dependency installs failed"
     mkdir -p supertuxkart
     cd supertuxkart
     git clone https://github.com/supertuxkart/stk-code stk-code --depth=1 || (cd stk-code && git pull --depth=1 ; cd ..)
@@ -20,24 +20,19 @@ if [[ $available_space > 3670016 ]]; then
     cd stk-code
     mkdir build
     cd build
-    echo "Compiling the game..."
+    status "Compiling the game..."
     cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
-    make -j$(nproc)
-    echo
-    echo "Game compiled!"
-    echo "Installing game...."
-    echo
+    make -j$(nproc) || error "Compilation failed"
+    status_green "Game compiled!"
+    status "Installing game...."
     sudo make install || error "Make install failed"
-    echo
-    echo "Erasing temporary build files to save space..."
+    status "Erasing temporary build files to save space..."
     cd ~
     rm -rf supertuxkart
     echo
-    echo "Game installed!"
+    status_green "Game installed!"
 else
-    echo "Not enough free space to comepile/install SuperTuxKart"
-    echo "you need at least 3.5GB free"
-    sleep 10
+    error "Not enough free space to comepile/install SuperTuxKart. You need at least 3.5GB free"
 fi
-echo "Sending you back to the main menu..."
+status "Sending you back to the main menu..."
 

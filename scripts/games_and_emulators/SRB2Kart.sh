@@ -3,8 +3,8 @@
 
 cd ~
 clear -x
-echo "SRB2 Kart script started!"
-echo "Downloading the files, and installing needed dependencies..." 
+status "SRB2 Kart script started!"
+status "Downloading the files, and installing needed dependencies..." 
 sleep 2
 sudo rm -r /usr/share/SRB2Kart
 cd ~/.srb2kart
@@ -12,7 +12,7 @@ cd ~/.srb2kart
 cd /usr/share/applications
 sudo rm "SRB2 Kart.desktop"
 cd
-sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y
+sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y || error "Dependency installs failed"
 wget https://github.com/STJr/Kart-Public/archive/master.zip
 unzip master.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2Kart
@@ -25,19 +25,12 @@ cd ~/SRB2Kart-Data
 mv chars.kart bonuschars.kart gfx.kart maps.kart patch.kart music.kart sounds.kart srb2.srb textures.kart -t ~/Kart-Public-master/assets/installer
 cd ~/Kart-Public-master
 mkdir -p build && cd build
-echo
-echo "Compiling the game..."
-sleep 1
-echo
+status "Compiling the game..."
 cmake ..
-make -j$(nproc)
-echo
-echo "Game compiled!"
-sleep 1
+make -j$(nproc) || error "Compilation failed"
+status_green "Game compiled!"
 cd ~ 
-echo "Erasing temporary build files to save space, installing the direct access and configuration files....."
-sleep 5
-echo
+status "Erasing temporary build files to save space, installing the direct access and configuration files....."
 mkdir -p .srb2kart
 rm -r SRB2Kart-Data
 cd SRB2Kart
@@ -53,15 +46,11 @@ rm master.zip*
 rm -r Kart-Public-master
 sudo mv SRB2Kart -t /usr/share
 echo
-echo "Game Installed!"
-echo
-echo
-echo "[NOTE] Remember NOT to move the SRB2Kart folder or any file inside it or the game will stop working."
-echo "If the game icon doesn't appear inmediately, restart the system."
-echo "This message will close in 10 seconds."
+status_green "Game Installed!"
+warning "[NOTE] Remember NOT to move the SRB2Kart folder or any file inside it or the game will stop working."
+warning "If the game icon doesn't appear inmediately, restart the system."
+status "This message will close in 10 seconds."
 sleep 10
-echo
-echo "Sending you back to the main menu..."
-sleep 1
+status "Sending you back to the main menu..."
 
 

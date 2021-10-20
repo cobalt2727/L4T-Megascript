@@ -3,14 +3,14 @@ cd /tmp
 echo "Flappy Bird script started!"
 echo "Installing Dependencies"
 echo
-sudo apt install --assume-yes subversion subversion libsdl1.2-dev libsdl2-mixer-dev libsdl2-dev libsdl-mixer1.2-dev libsdl2-image-dev
-sudo apt install --assume-yes libsndio*
+sudo apt install --assume-yes subversion subversion libsdl1.2-dev libsdl2-mixer-dev libsdl2-dev libsdl-mixer1.2-dev libsdl2-image-dev || error "Dependency installs failed"
+sudo apt install --assume-yes libsndio* || error "Dependency installs failed"
 echo
-echo "Downloading and compiling the game"
+status "Downloading and compiling the game"
 rm -rf flappy
-git clone https://github.com/theofficialgman/flappy.git --depth=1
+git clone https://github.com/theofficialgman/flappy.git --depth=1 || error "Could not download the source code"
 cd flappy
-make 5c_1
+make 5c_1 || error "Compilation failed"
 echo
 echo "Erasing files to save space..."
 echo
@@ -26,7 +26,7 @@ sudo mv flappy.desktop -t /usr/share/applications
 cd /tmp
 sudo rm -rf /usr/share/flappy
 sudo mv flappy -t /usr/share
-echo "Game installed!"
+status_green "Game installed!"
 sleep 2
 echo
 echo "Sending you back to the main menu..."
