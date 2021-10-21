@@ -249,7 +249,7 @@ cd build
 # obtain the cpu info
 get_system
 # temporary hotfix to build with java 11 (build currently fails on java 16 autodetection)
-# https://github.com/MultiMC/MultiMC5/issues/3949
+# https://github.com/MultiMC/Launcher/issues/3949
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$dpkg_architecture" in
