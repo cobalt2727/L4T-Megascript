@@ -2,6 +2,8 @@ clear -x
 
 echo "Box64 script started!"
 
+# obtain the cpu info
+get_system
 case "$dpkg_architecture" in
     "arm64"|"amd64")
         echo "Installing Dependencies";;
@@ -23,8 +25,7 @@ fi
 rm -rf build
 mkdir build
 cd build
-# obtain the cpu info
-get_system
+
 case "$dpkg_architecture" in
     "arm64") case "$jetson_model" in
         "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Tegra X1 based system" ;;
