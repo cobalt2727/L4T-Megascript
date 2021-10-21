@@ -187,8 +187,9 @@ EOF
 
 # clone the complete source
 status "Downloading the MultiMC5 Source Code"
-git clone --recursive https://github.com/MultiMC/MultiMC5.git src # You can clone from MultiMC's main repo, no need to use a fork.
+git clone --recursive https://github.com/MultiMC/Launcher.git src # You can clone from MultiMC's main repo, no need to use a fork.
 cd src
+git remote set-url origin https://github.com/MultiMC/Launcher.git
 git pull --recurse-submodules || error "Could Not Pull Latest MultiMC Source Code, verify your ~/MultiMC/src directory hasn't been modified. You can detete the  ~/MultiMC/src folder to attempt to fix this error."
 
 # add secrets files
@@ -227,6 +228,19 @@ target_link_libraries(secrets Qt5::Core)
 target_compile_definitions(secrets PUBLIC -DEMBED_SECRETS)
 target_include_directories(secrets PUBLIC .)
 
+set(Launcher_CommonName "MultiMC")
+
+set(Launcher_Copyright "MultiMC Contributors" PARENT_SCOPE)
+set(Launcher_Domain "multimc.org" PARENT_SCOPE)
+set(Launcher_Name "${Launcher_CommonName}" PARENT_SCOPE)
+set(Launcher_DisplayName "${Launcher_CommonName} 5" PARENT_SCOPE)
+set(Launcher_UserAgent "${Launcher_CommonName}/5.0" PARENT_SCOPE)
+set(Launcher_ConfigFile "multimc.cfg" PARENT_SCOPE)
+set(Launcher_Git "https://github.com/MultiMC/Launcher" PARENT_SCOPE)
+
+set(Launcher_Branding_ICNS "notsecrets/Launcher.icns" PARENT_SCOPE)
+set(Launcher_Branding_WindowsRC "notsecrets/launcher.rc" PARENT_SCOPE)
+set(Launcher_Branding_LogoQRC "notsecrets/logo.qrc" PARENT_SCOPE)
 EOF
 
 cd ..
@@ -239,15 +253,15 @@ get_system
 # remove cmake cache until bug is fixed
 rm -rf CMakeCache.txt
 case "$dpkg_architecture" in
-    "arm64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
-    "armhf") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DMultiMC_BUILD_PLATFORM="$model" -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DMultiMC_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
-    "amd64") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
-    "i386") cmake -DMultiMC_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DMultiMC_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DMultiMC_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DMultiMC_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "arm64") cmake -DLauncher_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-arm64' -DLauncher_BUILD_PLATFORM="$model" -DLauncher_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DLauncher_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DLauncher_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DLauncher_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean/index.json" ../src ;;
+    "armhf") cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DLauncher_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-armhf' -DLauncher_BUILD_PLATFORM="$model" -DLauncher_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DLauncher_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DLauncher_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install -DLauncher_META_URL:STRING="https://raw.githubusercontent.com/theofficialgman/meta-multimc/master-clean-arm32/index.json" ../src ;;
+    "amd64") cmake -DLauncher_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' -DLauncher_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DLauncher_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DLauncher_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
+    "i386") cmake -DLauncher_EMBED_SECRETS=ON -DJAVA_HOME='/usr/lib/jvm/java-11-openjdk-i386' -DLauncher_BUG_TRACKER_URL="https://github.com/cobalt2727/L4T-Megascript/issues" -DLauncher_SUBREDDIT_URL="https://www.reddit.com/r/MultiMC/" -DLauncher_DISCORD_URL="https://discord.gg/multimc"  -DCMAKE_INSTALL_PREFIX=../install ../src ;;
 esac
 
 warning "MultiMC5 does not give support for custom builds"
 warning "Only bugs that can be reproduced on official MultiMC5 builds should be posted to https://github.com/MultiMC/MultiMC5/issues"
-warning "Bugs which only appear on this build should be posted to https://github.com/Botspot/pi-apps/issues"
+warning "Bugs which only appear on this build should be posted to https://github.com/cobalt2727/L4T-Megascript/issues"
 
 # build & install (use -j with the number of cores your CPU has)
 status "Starting Compilation"
