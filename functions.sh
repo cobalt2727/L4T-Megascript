@@ -84,9 +84,15 @@ function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
   if [[ $gui == "gui" ]]; then
-    if [[ "${#@}" == "3" ]];then
-      yad --center --width 500 --image "dialog-question" \
-      --borders="20" \
+    if [[ "${#@}" == "2" ]];then
+      echo -e "$1" |  yad --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
+      --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+      --show-uri  --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --button="$2":0
+      output="$2"
+    elif [[ "${#@}" == "3" ]];then
+      yad --image "dialog-question" \
+      --borders="20" --height="200" --center --fixed\
       --window-icon=/usr/share/icons/L4T-Megascript.png \
       --text="$1" \
       --button="$2":0 \
