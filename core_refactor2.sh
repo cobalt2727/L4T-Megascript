@@ -121,6 +121,7 @@ function error_fatal {
   exit 1
 }
 
+#load functions from github source
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 type get_system &>/dev/null && echo "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
 
@@ -134,7 +135,7 @@ conversion() {
       sn=""
       selected="FALSE"
       is_root=""
-      line=$(sed -n $i"p" <"/tmp/megascript_apps.txt")
+      line=$(echo "$apps" | sed -n $i"p")
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
         scripts[$i]=$sn
@@ -164,10 +165,19 @@ conversion() {
 # force reload programs list
 hash -r
 hidden=()
-rm -rf /tmp/megascript_apps.txt
-wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt -O /tmp/megascript_apps.txt
-sed -i '/^$/d' /tmp/megascript_apps.txt
-length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
+
+apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt)
+apps=$(echo "$apps" | sed '/^$/d')
+length=$(echo "$apps" | wc -l | awk '{ print $1 }')
+
+if [[ "$apps" == "" ]]; then
+  description="OH NO! The we couldn't download the apps list!\
+\nPlease make sure you are still connected to the internet.\
+\n\nIf you need help, copy the log and create a github issue or ask for help on our Discord!"
+  table=("Exit")
+  userinput_func "$description" "${table[@]}"
+  exit
+fi
 
 # get switchroot version
 if [ -f /etc/switchroot_version.conf ]; then
