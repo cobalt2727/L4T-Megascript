@@ -59,8 +59,8 @@ fi
 if grep -q bionic /etc/os-release; then
   #bionic's flatpak package is out of date
   ppa_name="alexlarsson/flatpak" && ppa_installer
-  #bionic cmake is very old
-  ppa_name="rncbc/libs-bionic" && ppa_installer
+  #bionic cmake is very old, use theofficialgman ppa for cmake
+  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
   if [[ -f "/usr/bin/cmake" ]]; then
     #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
     sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
