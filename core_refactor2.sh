@@ -413,6 +413,7 @@ Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/is
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
             # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
+            echo "logfile name is $(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
 \nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
@@ -424,7 +425,6 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
             fi
           else
             status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            echo "logfile name is $logfile"
             # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
@@ -437,6 +437,7 @@ Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/is
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
             # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
+            echo "logfile name is $(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
 \nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
@@ -448,7 +449,6 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
             fi
           else
             status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            echo "logfile name is $logfile"
             # format_logfile "$logfile" #remove escape sequences from logfile
             mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
           fi
