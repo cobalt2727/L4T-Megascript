@@ -163,6 +163,8 @@ function ppa_installer {
     echo "Skipping $ppa_name PPA, already added"
   else
     echo "Adding $ppa_name PPA"
+    sudo apt install software-properties-common -y || error "Failed to install ppa_installer dependencies"
+    hash -r
     sudo add-apt-repository "ppa:$ppa_name" -y
     sudo apt update
   fi
