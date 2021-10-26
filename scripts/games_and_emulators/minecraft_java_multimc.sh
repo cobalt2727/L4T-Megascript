@@ -30,6 +30,7 @@ case "$__os_id" in
         case "$__os_codename" in
             bullseye|buster|stretch|jessie)
                 sudo apt install wget apt-transport-https gnupg -y || error "Could not install dependencies"
+                hash -r
                 cd /tmp
                 rm -rf public
                 rm -rf adoptopenjdk-keyring.gpg
@@ -57,9 +58,11 @@ case "$__os_id" in
         case  "$dpkg_architecture" in
             "amd64"|"i386")
                 sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev adoptopenjdk-8-hotspot-jre openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                hash -r
                 ;;
             "arm64")
                 sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
                 rm -rf jdk8u302-b08
@@ -74,6 +77,7 @@ case "$__os_id" in
                 ;;
             "armhf")
                 sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
                 rm -rf jdk8u302-b08-aarch32-20210726
@@ -115,6 +119,7 @@ case "$__os_id" in
         esac
         # install dependencies
         sudo apt install libopenal1 x11-xserver-utils git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
+        hash -r
         ;;
     *)
         error "$__os_id appears to be an unsupported OS"
@@ -124,7 +129,7 @@ esac
 # make all the folders
 cd
 mkdir -p ~/MultiMC
-cd ~/MultiMC
+cd ~/MultiMC || exit 1
 mkdir -p build
 mkdir -p install
 mkdir -p scripts
@@ -190,6 +195,7 @@ status "Downloading the MultiMC5 Source Code"
 git clone --recursive https://github.com/MultiMC/Launcher.git src # You can clone from MultiMC's main repo, no need to use a fork.
 cd src
 git remote set-url origin https://github.com/MultiMC/Launcher.git
+git checkout --recurse-submodules develop || error "Could not checkout develop branch"
 git pull --recurse-submodules || error "Could Not Pull Latest MultiMC Source Code, verify your ~/MultiMC/src directory hasn't been modified. You can detete the  ~/MultiMC/src folder to attempt to fix this error."
 
 # add secrets files
@@ -332,3 +338,12 @@ Icon=$HOME/.local/share/icons/MultiMC/icon-512.png
 Categories=Game
 _EOF_"
 fi
+
+status_green 'Installation is now done! You can open the launcher by going to Menu > Games > MultiMC'
+
+warning "MultiMC5 does not give support for custom builds"
+warning "Only bugs that can be reproduced on official MultiMC5 builds should be posted to https://github.com/MultiMC/MultiMC5/issues"
+warning "Bugs which only appear on this build should be posted to https://github.com/cobalt2727/L4T-Megascript/issues or ask for help in the Discord Server"
+
+status "Make sure to visit the MultiMC5 wiki if this is your first time using the launcher: https://github.com/MultiMC/MultiMC5/wiki"
+status "If you need help installing Optifine: https://github.com/MultiMC/MultiMC5/wiki/MultiMC-and-OptiFine"
