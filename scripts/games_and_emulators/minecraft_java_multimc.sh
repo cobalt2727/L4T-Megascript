@@ -61,7 +61,7 @@ case "$__os_id" in
                 hash -r
                 ;;
             "arm64")
-                sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                sudo apt install build-essential libopenal1 x11-xserver-utils subversion git clang cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
                 hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
@@ -76,7 +76,7 @@ case "$__os_id" in
                 cd ~
                 ;;
             "armhf")
-                sudo apt install libopenal1 x11-xserver-utils subversion git clang gcc g++ cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
+                sudo apt install build-essential libopenal1 x11-xserver-utils subversion git clang cmake curl zlib1g-dev openjdk-11-jdk adoptopenjdk-16-hotspot-jre qtbase5-dev -y || error "Could not install dependencies"
                 hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
@@ -118,7 +118,7 @@ case "$__os_id" in
 
         esac
         # install dependencies
-        sudo apt install libopenal1 x11-xserver-utils git clang gcc g++ cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
+        sudo apt install build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
         hash -r
         ;;
     *)
