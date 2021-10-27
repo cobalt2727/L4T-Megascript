@@ -39,6 +39,7 @@ cd citra
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 mkdir -p build
 cd build
+rm -rf CMakeCache.txt
 #LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
 if grep -q bionic /etc/os-release; then
   cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
