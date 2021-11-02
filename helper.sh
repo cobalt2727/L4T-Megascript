@@ -24,7 +24,7 @@ source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Mega
 type get_system &>/dev/null && echo "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
 
 mkdir -p "$HOME/L4T-Megascript/logs"
-logfile="$HOME/L4T-Megascript/logs/install-incomplete-${i////-}.log"
+logfile="$HOME/L4T-Megascript/logs/install-incomplete-${1////-}.log"
 if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ];then
   #append a number to logfile's file-extension if the original filename already exists
   i=1
