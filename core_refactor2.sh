@@ -123,7 +123,7 @@ function error_fatal {
 
 #load functions from github source
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
-type get_system &>/dev/null && echo "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
+type get_system &>/dev/null && echo "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do
@@ -171,9 +171,9 @@ apps=$(echo "$apps" | sed '/^$/d')
 length=$(echo "$apps" | wc -l | awk '{ print $1 }')
 
 if [[ "$apps" == "" ]]; then
-  description="OH NO! The we couldn't download the apps list!\
+  description="...Uh oh. We couldn't download the app list!\
 \nPlease make sure you are still connected to the internet.\
-\n\nIf you need help, copy the log and create a github issue or ask for help on our Discord!"
+\n\nIf you need help, copy the log and create a GitHub issue or ask for help on our Discord!"
   table=("Exit")
   userinput_func "$description" "${table[@]}"
   exit
@@ -187,14 +187,14 @@ if [ -f /etc/switchroot_version.conf ]; then
   function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
   if [ $(version $swr_ver) -lt $(version $swr_ver_current) ]; then
     if [[ $gui == "gui" ]]; then
-      yad --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
-      \n\n\Please update as soon as you can.\nThe instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page. \
+      yad --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
+      \n\n\Please update as soon as you can.\nThe instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide. \
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
-      setsid x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup#installrun-the-megascript" > /dev/null 2>&1 &
+      setsid x-www-browser "https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide" > /dev/null 2>&1 &
     else
       echo "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
       echo "Please update as soon as you can."
-      echo "The instructions are at wiki.switchroot.org, the GBATemp L4T Ubuntu page, and the L4T Megascript Initial Setup page."
+      echo "The instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide."
       echo ""
       read  -n 1 -p "Press any key to continue" mainmenuinput
     fi
@@ -216,7 +216,7 @@ while [ $x == 1 ]; do
   execute=()
   ids=()
   if [[ $gui == "gui" ]]; then
-    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nDISCLAIMER: We will *anonymously* collect and upload log files from your device to our Discord server any time a script fails.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\Device Info:\n\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
@@ -224,7 +224,7 @@ while [ $x == 1 ]; do
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
     if [[ $free -lt 2048000 ]]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
-      \n\n\Please consider closing out of any unnecessary programs before starting the megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
+      \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
     fi
     add_desktop_if
     conversion
@@ -236,13 +236,13 @@ while [ $x == 1 ]; do
       uniq_selection+=(FALSE " $pretty_string" "$string")
     done
     uniq_selection+=(TRUE "All Categories" "all_categories")
-    while [ "$CHOICE" == "Go Back to Categories" -o "$CHOICE" == "" ]; do
+    while [ "$CHOICE" == "Go back to categories" -o "$CHOICE" == "" ]; do
       CATEGORY=$(
         yad --center \
           --width="250" \
           --height="350" \
-          --title "Welcome to the L4T-Megascript" \
-          --text "Please Choose a Scripts Category" \
+          --title "Welcome to the L4T Megascript" \
+          --text "Please choose a scripts category" \
           --borders="20" \
           --window-icon=/usr/share/icons/L4T-Megascript.png \
           --list \
@@ -255,7 +255,7 @@ while [ $x == 1 ]; do
           --print-column=3 \
           "${uniq_selection[@]}" \
           --button="Exit the Megascript":1 \
-          --button="Go to Selection":0
+          --button="Go to selection":0
       )
       if [ "$?" != 1 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
@@ -266,7 +266,7 @@ while [ $x == 1 ]; do
               --width="1000" \
               --height="500" \
               --title "$category_space" \
-              --text "Please Select the Desired Programs to Install" \
+              --text "Please select the desired Programs to install" \
               --borders="20" \
               --window-icon=/usr/share/icons/L4T-Megascript.png \
               --list \
@@ -282,8 +282,8 @@ while [ $x == 1 ]; do
               "${current_table[@]}" \
               --separator=':' \
               --button="Exit the Megascript":1 \
-              --button="Install Items":0 \
-              --button="Go Back to Categories":2
+              --button="Install items":0 \
+              --button="Go back to categories":2
           )
         else
           CHOICE=$(
@@ -291,7 +291,7 @@ while [ $x == 1 ]; do
               --width="1000" \
               --height="500" \
               --title "$category_space" \
-              --text "Please Select the Desired Programs to Install" \
+              --text "Please select the desired programs to install" \
               --borders="20" \
               --window-icon=/usr/share/icons/L4T-Megascript.png \
               --list \
@@ -345,6 +345,7 @@ while [ $x == 1 ]; do
     echo "You are running an $architecture $jetson_model $model system."
     echo ""
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
+    echo -e "\e[31mDISCLAIMER: We will *anonymously* collect and upload log files from your device to our Discord server any time a script fails.\e[0m"
 
     sleep 2
     echo
@@ -415,7 +416,7 @@ while [ $x == 1 ]; do
         if [ "$script_exit_code" != 0 ]; then
           echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
 \e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
-Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
+Please ask on GitHub: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
           # format_logfile "$logfile" #remove escape sequences from logfile
           mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
@@ -423,8 +424,8 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           echo "logfile name is $logfile"
           description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
-\nIf you need help, send the error report to us via the button below to our Discord or create a github issue!\
-\n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
+\nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
           table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
           userinput_func "$description" "${table[@]}"
           case "$output" in
