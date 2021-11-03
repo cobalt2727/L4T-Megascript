@@ -20,12 +20,13 @@ if grep -q bionic /etc/os-release; then
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy MelonDS on Ubuntu Bionic, Focal, Hirsute, and beyond"
   
-  # echo "Adding GCC and G++ 9/10 Repo..."
-  # ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  # sudo apt install gcc-10 g++-10 -y
   ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
   ppa_name="theofficialgman/melonds-depends" && ppa_installer
-  sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
+
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+
+  sudo apt install gcc-11 g++-11 qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
 fi
 
 echo "Installing dependencies..."
@@ -40,8 +41,9 @@ cd melonDS
 git pull || error "Could Not Pull Latest MelonDS Source Code, verify your ~/melonDS directory hasn't been modified. You can detete the ~/melonDS folder to attempt to fix this error."
 mkdir -p build
 cd build
+rm -rf CMakeCache.txt
 if grep -q bionic /etc/os-release; then
-  cmake .. -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+  cmake .. -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
 else
   cmake .. -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
 fi
