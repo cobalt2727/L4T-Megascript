@@ -20,7 +20,7 @@ unzip nightly.zip
 cd sm64ex-nightly || error "Could not find folder"
 description="To build this port, you need a Super Mario 64 rom with the extension .z64.\
  \nDue to copyright restrictions, we will not provide the game file ourselves.\
- \nPlease legally acquire a copy and put the rom into the repository's root (sm64ex-nightly) and rename it to baserom.version.z64.\
+ \nPlease legally acquire a copy and put the rom into the repository's root (/tmp/sm64ex-nightly) and rename it to baserom.version.z64.\
  \nVERSION can be us, jp, or eu (We recommend US, because EU has some issues such as broken audio) \
  \n \n Do you want to continue?"
 table=("yes" "no")
@@ -39,7 +39,7 @@ elif [[ $output == "yes" ]]; then
     echo "Continuing the script..."
 fi
 description="Please select the ROM's region (us/eu/jp) \
- \nThe rom needs to be in the repository's root directory (sm64ex-nightly) and renamed to baserom.version.z64 (all lowercase)"
+ \nThe rom needs to be in the repository's root directory (/tmp/sm64ex-nightly) and renamed to baserom.version.z64 (all lowercase)"
 table=("us" "eu" "jp")
 userinput_func "$description" "${table[@]}"
 
