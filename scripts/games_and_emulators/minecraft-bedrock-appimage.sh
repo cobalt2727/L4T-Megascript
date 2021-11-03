@@ -7,7 +7,7 @@ echo "Installing dependencies..."
 sleep 1
 
 cd ~
-sudo apt install curl -y
+sudo apt install curl -y || error "Could not install dependencies"
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
@@ -40,15 +40,14 @@ if grep -q bionic /etc/os-release; then
     else
         echo "Force Downgrading libc and related packages"
         echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
+        sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
+        sudo rm -rf /etc/apt/preferences.d/zorinos*
+        sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
+        sudo rm -rf /etc/apt/preferences.d/freetype*
+
+        sudo apt update
+        sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades        
     fi
-
-    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
-    sudo rm -rf /etc/apt/preferences.d/zorinos*
-    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
-    sudo rm -rf /etc/apt/preferences.d/freetype*
-
-    sudo apt update
-    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
 fi
 
 echo "Please Reboot before launching!"

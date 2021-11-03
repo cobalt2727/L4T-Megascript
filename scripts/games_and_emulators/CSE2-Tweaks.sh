@@ -4,7 +4,7 @@
 #was taken down with a false DMCA claim. This most likely because Cave Story +, a remaster of the original game with updgraded graphics and one or two new things
 #And that is basically all the story, Nicalis never answered back, and the project ended dying with some user only sharing the saved files between them
 #In case you wonder, no, its not posible to upload the files. This put us in risk of getting a DMCA ourselves. So, unless something happens, this file would stay archived forever
-#- Lang 
+#- Lang
 
 #Oh yeah by the way - it's still totally possible to install Cave Story on your Switch here, we just haven't given it its own script.
 #...since it's really only one line (assuming you have flatpak set up, which we can automate for you with the initial setup script)
@@ -26,34 +26,34 @@ cd /usr/share/applications
 sudo rm CSE2-Tweaks.desktop
 cd ~/RetroPie/roms/ports
 rm CSE2-Tweaks.sh
-cd 
-sudo apt install cmake wget snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y
+cd
+sudo apt install cmake wget snapd g++ subversion x11proto-dev libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libopengl0 libglvnd-dev mesa-common-dev libgles2-mesa-dev libsdl2-dev libfreetype6-dev libglfw3-dev -y || error "Could not install dependencies"
 hash -r
 wget https://github.com/calvarado194/CSE2-tweaks/archive/tweaks.zip
 unzip tweaks.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/CSE2-Tweaks
 cd
-cd CSE2-tweaks-tweaks
+cd CSE2-tweaks-tweaks || error "Could not find source folder"
 echo
 description="Select the game language"
 table=("english" "japanese")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "japanese" ]]; then
-echo
-echo "You selected Japanese"
-echo
-sleep 2
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DJAPANESE=ON
-cmake --build build --config Release
-mv game_japanese CSE2-Tweaks
+    echo
+    echo "You selected Japanese"
+    echo
+    sleep 2
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DJAPANESE=ON || error "Compilation failed"
+    cmake --build build --config Release || error "Compilation failed"
+    mv game_japanese CSE2-Tweaks
 elif [[ $output == "english" ]]; then
-echo
-echo "You selected English"
-echo
-sleep 2
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
-mv game_english CSE2-Tweaks
+    echo
+    echo "You selected English"
+    echo
+    sleep 2
+    cmake -B build -DCMAKE_BUILD_TYPE=Release || error "Compilation failed"
+    cmake --build build --config Release || error "Compilation failed"
+    mv game_english CSE2-Tweaks
 fi
 echo
 echo "Game compiled!"
@@ -87,5 +87,3 @@ sleep 10
 echo
 echo "Sending you back to the main menu..."
 sleep 1
-
-

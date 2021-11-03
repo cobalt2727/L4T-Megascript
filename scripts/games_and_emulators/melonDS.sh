@@ -25,12 +25,12 @@ if grep -q bionic /etc/os-release; then
   # sudo apt install gcc-10 g++-10 -y
   ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
   ppa_name="theofficialgman/melonds-depends" && ppa_installer
-  sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y
+  sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
 fi
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt install cmake libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev qt5-default libslirp-dev libarchive-dev libepoxy-dev -y
+sudo apt install cmake libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev qt5-default libslirp-dev libarchive-dev libepoxy-dev -y || error "Could not install dependencies"
 
 echo "Building MelonDS..."
 sleep 1

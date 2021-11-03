@@ -10,7 +10,7 @@ function install {
     # get system info
     get_system
     #download git
-    sudo apt install git dialog unzip xmlstarlet lsb-release crudini -y
+    sudo apt install git dialog unzip xmlstarlet lsb-release crudini -y || error "Could not install dependencies"
     sudo apt install joycond -y
 
     cd ~
@@ -22,7 +22,7 @@ function install {
     if [[ $? -ne 0 ]]; then
         cd ~
         sudo rm -rf RetroPie-Setup
-        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        git clone https://github.com/RetroPie/RetroPie-Setup.git || error "Could Not Pull Latest Source Code"
         cd ~/RetroPie-Setup
     fi
     # unfortunatly I can't use this this not all main packages work ... sudo ./retropie_packages.sh setup basic_install
@@ -69,7 +69,7 @@ function update_scripts {
     if [[ $? -ne 0 ]]; then
         cd ~
         rm -rf RetroPie-Setup
-        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        git clone https://github.com/RetroPie/RetroPie-Setup.git || error "Could Not Pull Latest Source Code"
         cd ~/RetroPie-Setup
     fi
     sudo crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
@@ -146,7 +146,7 @@ function update_cores {
     if [[ $? -ne 0 ]]; then
         cd ~
         sudo rm -rf RetroPie-Setup
-        git clone https://github.com/RetroPie/RetroPie-Setup.git
+        git clone https://github.com/RetroPie/RetroPie-Setup.git || error "Could Not Pull Latest Source Code"
         cd ~/RetroPie-Setup
     fi
     sudo ./retropie_packages.sh setup update_packages
