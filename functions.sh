@@ -273,6 +273,11 @@ format_logfile() { #remove ANSI escape sequences from a given file, and add OS i
   
 }
 export -f format_logfile
+
+send_error() {
+  curl -F "file=@\"$1\";filename=\"$(basename $1)\"" "https://discord.com/api/webhooks/905317525246586910/TPrRX5oFWE5PqhbYPrXA0g9BFwFgTcizvRuWbLBVGBhBcH10mL26ZDbMXcBW3C-xhEWg"
+}
+export -f send_error
 #####################################################################################
 
 #end of functions used by megascript scripts

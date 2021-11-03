@@ -406,53 +406,47 @@ while [ $x == 1 ]; do
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
           bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
-          if [ "$?" != 0 ]; then
-            echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
-\e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
-Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
-Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
-            # format_logfile "$logfile" #remove escape sequences from logfile
-            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
-            echo "logfile name is $(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nPlease view the log in terminal to find the cause of the error\
-\nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
-\n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
-            table=("Continue" "Exit")
-            userinput_func "$description" "${table[@]}"
-            if [ "$output" == "Exit" ]; then
-              exit
-            fi
-          else
-            status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            # format_logfile "$logfile" #remove escape sequences from logfile
-            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
-          fi
+          script_exit_code="$?"
         else
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]})" &> >(tee -a "$logfile")
-          if [ "$?" != 0 ]; then
-            echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
+          script_exit_code="$?"
+        fi
+
+        if [ "$script_exit_code" != 0 ]; then
+          echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
 \e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
 Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
-            # format_logfile "$logfile" #remove escape sequences from logfile
-            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
-            echo "logfile name is $(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+          # format_logfile "$logfile" #remove escape sequences from logfile
+          mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
+          logfile="$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
+          echo "logfile name is $logfile"
+          description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
-\nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
+\nIf you need help, send the error report to us via the button below to our Discord or create a github issue!\
 \n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
-            table=("Continue" "Exit")
-            userinput_func "$description" "${table[@]}"
-            if [ "$output" == "Exit" ]; then
+          table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
+          userinput_func "$description" "${table[@]}"
+          case "$output" in
+            "Exit")
               exit
-            fi
-          else
-            status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
-            # format_logfile "$logfile" #remove escape sequences from logfile
-            mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
-          fi
+              ;;
+            "Continue and Send Error")
+              send_error "$logfile" > /dev/null
+              ;;
+            "Exit and Send Error")
+              send_error "$logfile" > /dev/null
+              exit
+              ;;
+          esac
+        else
+          status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
+          # format_logfile "$logfile" #remove escape sequences from logfile
+          mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
+          logfile="$(echo "$logfile" | sed 's+-incomplete-+-success-+g')"
         fi
+        unset script_exit_code
+
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
         time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
