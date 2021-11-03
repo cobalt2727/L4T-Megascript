@@ -11,7 +11,7 @@ case "$dpkg_architecture" in
         error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
 esac
 
-sudo apt install zenity -y
+sudo apt install zenity -y  || error "Could not install dependencies"
 cd
 git clone https://github.com/ptitSeb/box64
 cd box64
@@ -19,7 +19,7 @@ git pull
 if [[ $? -ne 0 ]]; then
     cd ~
     rm -rf box64
-    git clone https://github.com/ptitSeb/box64
+    git clone https://github.com/ptitSeb/box64 || error "Could Not Pull Latest Source Code"
     cd box64
 fi
 rm -rf build
@@ -38,7 +38,7 @@ esac
 
 echo "Building Box64"
 
-make -j$(nproc)
+make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
 sudo systemctl restart systemd-binfmt
 sudo mkdir /usr/share/box64
