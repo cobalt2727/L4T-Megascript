@@ -12,7 +12,7 @@ cd ~/.local/share/supertux2
 mv profile1 -t ~/
 cd 
 git clone --recursive https://github.com/SuperTux/supertux
-sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion -y
+sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev libglm-dev subversion -y
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/ST2
 cd
 cd ~/supertux/data/images/engine/menu
