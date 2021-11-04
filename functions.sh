@@ -278,6 +278,15 @@ send_error() {
   curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "https://discord.com/api/webhooks/905317525246586910/TPrRX5oFWE5PqhbYPrXA0g9BFwFgTcizvRuWbLBVGBhBcH10mL26ZDbMXcBW3C-xhEWg"
 }
 export -f send_error
+
+# https://github.com/Botspot/pi-apps/blob/a53271dd59a1946cc1eac0acdcefc3405f672f39/api#L111
+package_available() { #determine if the specified package-name exists in a repository
+  local package="$1"
+  [ -z "$package" ] && error "package_available(): no package name specified!"
+  #using grep to do this is nearly instantaneous, rather than apt-cache which takes several seconds
+  grep -rq "^Package: $package"'$' /var/lib/apt/lists/ 2>/dev/null
+}
+export -f package_available
 #####################################################################################
 
 #end of functions used by megascript scripts
