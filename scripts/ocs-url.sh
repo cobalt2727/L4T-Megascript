@@ -7,8 +7,9 @@ echo "button on the Pling website and any of its derivatives."
 sleep 3
 
 sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils -y
-if grep -q bionic /etc/os-release; then
-sudo apt install qt5-default -y
+package_available qt5-default
+if [[ $? == "0" ]]; then
+  sudo apt install -y qt5-default || error "Failed to install dependencies"
 fi
 
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
