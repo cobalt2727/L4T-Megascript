@@ -141,11 +141,11 @@ elif [[ $output == "no" ]]; then
 fi
 
 clear -x
-description="Do you want to build and install SDL2? (Required for many games in the script)"
+description="Do you want to install updated SDL2 from Megascript binaries? (Required for many games, BOX64, etc)"
 table=("yes" "no")
 userinput_func "$description" "${table[@]}"
 if [[ $output == "yes" ]]; then
-  echo "Building and installing SDL2..."
+  echo "Installing SDL2..."
   bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 elif [[ $output == "no" ]]; then
   echo "Going to the next option..."
