@@ -189,6 +189,10 @@ hydrogen
 lambdacontrols
 fabric-api
 modmenu
+lazydfu
+ferrite-core
+better-beds
+chunk-pregenerator-fabric
 EOF
 
 # clone the complete source
