@@ -1,8 +1,7 @@
 #!/bin/bash
 
-cd
 #make sure this is updated
-#note that this is an apt package in the Switchroot repository
+#note that this is an apt package in the Switchroot repository, its ok for it to fail on other devices
 sudo apt install joycond -y
 
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
@@ -15,15 +14,16 @@ if [ $(version $sdlv) -ge $(version "2.0.14.0") ]; then
     sleep 1
 else
     get_system
-    if [[ "$architecture" == "aarch64" ]]; then
-        cd /tmp
+    if [[ "$dpkg_architecture" == "arm64" ]]; then
+        mkdir -p /tmp/sdl2
+        cd /tmp/sdl2 || error "Could not change directory"
+        rm -rf ./*
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.0.14%2B5_arm64.deb
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.14%2B5_arm64.deb
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.14%2B5_arm64.deb
 
-        sudo dpkg -i libsdl2-dev_2.0.14+5_arm64.deb libsdl2-dbg_2.0.14+5_arm64.deb libsdl2-2.0-0_2.0.14+5_arm64.deb
-        sudo apt install -fy
-        sudo rm -rf libsdl2-dev_2.0.14+5_arm64.deb libsdl2-dbg_2.0.14+5_arm64.deb libsdl2-2.0-0_2.0.14+5_arm64.deb
+        sudo apt install ./* -y || error "SDL2 Packages Failed to install"
+        rm -rf ./*
 
         # keep this old code for compiling SDL2 if its ever needed
 
@@ -55,7 +55,7 @@ else
         echo "Successfully Installed Newest SDL2 Version"
         sleep 3
     else
-        echo "Sorry we don't host binaries on the megascript for non-aarch64 architectures"
+        echo "Sorry we don't host binaries on the megascript for non-arm64 architectures"
         echo "Skipping updated SDL2 install"
     fi
 fi
