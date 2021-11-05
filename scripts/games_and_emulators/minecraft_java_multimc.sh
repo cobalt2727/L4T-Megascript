@@ -168,7 +168,8 @@ then
     cd mods
     megascript_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/megascript-mods.txt")
     user_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/user-mods.txt")
-    minecraft-mod-manager -v "$mc_version" --beta --alpha install $megascript_mods $user_mods
+    minecraft-mod-manager -v "$mc_version" --mod-loader fabric --beta --alpha install $megascript_mods $user_mods
+    minecraft-mod-manager -v "$mc_version" --mod-loader fabric --beta --alpha update $megascript_mods $user_mods
 fi
 echo "Mod script finished or skipped"
 EOF
