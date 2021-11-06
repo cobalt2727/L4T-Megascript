@@ -36,7 +36,7 @@ _EOF_"
 
     #auto install retropie with most important emulators (which don't take up much space)
     sudo ./retropie_packages.sh retroarch
-    sudo ./retropie_packages.sh emulationstation-dev
+    sudo ./retropie_packages.sh emulationstation
     sudo ./retropie_packages.sh retropiemenu
     sudo ./retropie_packages.sh runcommand
     sudo ./retropie_packages.sh joy2key
