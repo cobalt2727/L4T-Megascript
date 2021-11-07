@@ -124,7 +124,7 @@ function userinput_func {
     fi
   else
     if [[ "${#@}" == "3" ]];then
-      dialog --clear --yes-label "$2" --no-label "$3" --yesno "$1" "$height" "120"
+      dialog  --stdout --clear --yes-label "$2" --no-label "$3" --yesno "$1" "$height" "120"
       if [[ $? -ne 0 ]]; then
         output="$3"
       else
@@ -135,7 +135,7 @@ function userinput_func {
         uniq_selection+=("$string" "")
       done
       output=$(
-        dialog --clear \
+        dialog --stdout --clear \
           --backtitle "CLI Chooser Helper" \
           --title "Choices" \
           --menu "$1" \
