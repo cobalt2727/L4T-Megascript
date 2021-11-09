@@ -22,7 +22,7 @@ else
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.14%2B5_arm64.deb
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.14%2B5_arm64.deb
 
-        sudo apt install ./* -y || error "SDL2 Packages Failed to install"
+        sudo apt install ./* -y --allow-change-held-packages || error "SDL2 Packages Failed to install"
         rm -rf ./*
 
         # keep this old code for compiling SDL2 if its ever needed
