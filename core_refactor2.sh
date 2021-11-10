@@ -406,10 +406,10 @@ while [ $x == 1 ]; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
-          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script to install ${friendly[$word]}"')" &> >(tee -a "$logfile")
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         else
-          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script to install ${friendly[$word]}"')" &> >(tee -a "$logfile")
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         fi
 
