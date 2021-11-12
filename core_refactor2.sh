@@ -122,8 +122,9 @@ function error_fatal {
 }
 
 #load functions from github source
+unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
-type get_system &>/dev/null && echo "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
+[[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do
@@ -318,6 +319,7 @@ while [ $x == 1 ]; do
             zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
             state=$?
           done
+          add_english
         elif [[ "$output" == "2" ]]; then
           CHOICE="Go Back to Categories"
         else
@@ -359,6 +361,7 @@ while [ $x == 1 ]; do
       continue
     else
       sudo -S echo ""
+      add_english
     fi
 
     echo "you have chosen $CHOICE"
