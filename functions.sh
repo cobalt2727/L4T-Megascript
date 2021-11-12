@@ -5,6 +5,7 @@
 #functions used by megascript scripts
 
 #####################################################################################
+unset functions_downloaded
 
 function get_system {
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
@@ -287,6 +288,29 @@ package_available() { #determine if the specified package-name exists in a repos
   grep -rq "^Package: $package"'$' /var/lib/apt/lists/ 2>/dev/null
 }
 export -f package_available
+
+add_english() {  # add en_US locale for more accurate error 
+  if [ "$(cat /usr/share/i18n/SUPPORTED | grep -o 'en_US.UTF-8' )" == "en_US.UTF-8" ]; then 
+    locale=$(locale -a | grep -oF 'en_US.utf8')
+    if [ "$locale" != 'en_US.utf8' ]; then
+      status "Adding en_US locale for better logging... "
+      sudo sed -i '/en_US.UTF-8/s/^#[ ]//g' /etc/locale.gen
+      sudo locale-gen
+    fi
+  else
+      warning "en_US locale is not available on your system. This may cause bad logging experience."
+  fi
+  export LANG="en_US.UTF-8"
+  export LANGUAGE="en_US.UTF-8"
+  export LC_ALL="en_US.UTF-8"
+}
+export -f add_english
+
+
+#####################################################################################
+# don't remove this line
+# it is used to verify that the entire functions file was sourced
+export functions_downloaded="success"
 #####################################################################################
 
 #end of functions used by megascript scripts
