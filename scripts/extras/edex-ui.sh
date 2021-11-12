@@ -31,7 +31,7 @@ echo "Install Dependencies..."
 cd ~
 echo "THIS DEPENDENCY LIST IS PROBABLY MISSING STUFF"
 echo "PLEASE FILE A GITHUB ISSUE LOGGING ANY ERRORS YOU RECEIVE WHEN RUNNING EDEX-UI"
-sudo apt-get install libssl1.* -y
+sudo apt-get install libssl1.1 -y
 
 echo "Done!"
 echo "Sending you back to the main menu...
