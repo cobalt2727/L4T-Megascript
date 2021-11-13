@@ -8,7 +8,7 @@ fn="moonlight-qt";;d='Stream games from your PC (NVIDIA GPUs use GeForce Experie
 
 fn="Discord (Webcord)";;d="Discord Web App made in Electron";;sn="discord.sh";;f="scripts"
 
-# fn="Kodi";;d="Free & open source media player";;e='echo "scripts not ready yet"';;f="scripts"
+# fn="Kodi";;d="Free and open source media player";;e='echo "scripts not ready yet"';;f="scripts"
 
 fn="Install desktop themes";;d="Script to compile ocs-url to enable the Install button on the Pling websites";;sn="ocs-url.sh";;f="scripts"
 
@@ -42,7 +42,7 @@ fn="SuperTuxKart";;d='SuperTuxKart is a free kart racing game. It focuses on fun
 
 fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="IDE"
 
-fn="VSCode";;d="Code editor redefined & optimized for building/debugging modern web + cloud applications";;sn="vscode.sh";;f="IDE"
+fn="VSCode";;d="Code editor redefined and optimized for building/debugging modern web + cloud applications";;sn="vscode.sh";;f="IDE"
 
 fn="Sublime Text";;d="Sublime Text is a sophisticated text editor for code, markup and prose";;sn="sublime-text.sh";;f="IDE"
 
