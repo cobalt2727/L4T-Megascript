@@ -237,7 +237,7 @@ while [ $x == 1 ]; do
       uniq_selection+=(FALSE " $pretty_string" "$string")
     done
     uniq_selection+=(TRUE "All Categories" "all_categories")
-    while [ "$CHOICE" == "Go back to categories" -o "$CHOICE" == "" ]; do
+    while [ "$CHOICE" == "" ]; do
       CATEGORY=$(
         yad --center \
           --width="250" \
@@ -321,7 +321,7 @@ while [ $x == 1 ]; do
           done
           add_english
         elif [[ "$output" == "2" ]]; then
-          CHOICE="Go Back to Categories"
+          CHOICE=""
         else
           CHOICE="exit"
         fi
