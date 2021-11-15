@@ -42,14 +42,25 @@ else
     sudo apt purge snapd unattended-upgrades
     sudo apt autoremove
     sudo apt --fix-broken install
-    if grep -q bionic /etc/os-release; then   #18.04
+
+    #the lines of code that follow are a massive mess and should not be used as a reference for anything. ever.
+    if grep -q xenial /etc/os-release; then     #please update your system what are you doing
+      echo "what"
+    elif grep -q bionic /etc/os-release; then   #18.04
       echo "No replacement PPAs needed for browsers, skipping setup..."
-    elif grep -q focal /etc/os-release; then  #20.04
+    elif grep -q focal /etc/os-release; then    #20.04
       bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-    else                                      #everything else
+    elif grep -q hirsute /etc/os-release; then  #21.04
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+    elif grep -q impish /etc/os-release; then   #21.10
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+    elif grep -q ubuntu /etc/os-release; then   #all other (newer) versions of Ubuntu
       bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
       bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
+    else  #let's avoid trying to set up PPAs on Debian...
+      echo "Not on any recognized version of Ubuntu, skipping PPA installation"
     fi
+
   else
     echo "Decided to keep the Snap store..."
     echo "If you ever change your mind, type:"
@@ -80,6 +91,11 @@ fi
 
 #focal's flatpak package is also out of date (I get LTS is supposed to put stability above all else, but seriously?)
 if grep -q focal /etc/os-release; then
+  ppa_name="alexlarsson/flatpak" && ppa_installer
+fi
+
+#this takes two seconds to add so why not
+if grep -q xenial /etc/os-release; then
   ppa_name="alexlarsson/flatpak" && ppa_installer
 fi
 
