@@ -39,9 +39,6 @@ else
   userinput_func "$description" "${table[@]}"
   if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
-    sudo apt purge snapd unattended-upgrades
-    sudo apt autoremove
-    sudo apt --fix-broken install
 
     #the lines of code that follow are a massive mess and should not be used as a reference for anything. ever.
     if grep -q xenial /etc/os-release; then     #please update your system what are you doing
@@ -60,6 +57,13 @@ else
     else  #let's avoid trying to set up PPAs on Debian...
       echo "Not on any recognized version of Ubuntu, skipping PPA installation"
     fi
+
+    echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
+    sleep 5
+    sudo apt purge snapd unattended-upgrades
+    sudo apt autoremove
+    sudo apt --fix-broken install
+
 
   else
     echo "Decided to keep the Snap store..."
