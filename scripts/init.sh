@@ -40,6 +40,11 @@ else
   if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
     sudo apt purge snapd unattended-upgrades
+    sudo apt autoremove
+    sudo apt --fix-broken install
+    #note to self, add yes/no prompts here to set up chromium/firefox PPAs
+    #https://github.com/cobalt2727/L4T-Megascript/blob/master/scripts/snapless-chromium.sh
+    #https://github.com/cobalt2727/L4T-Megascript/blob/master/scripts/snapless-firefox.sh
   else
     echo "Decided to keep the Snap store..."
     echo "If you ever change your mind, type:"
@@ -75,6 +80,8 @@ fi
 
 #updates whee
 sudo apt upgrade -y
+sudo apt --fix-broken install
+
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
 if [[ $jetson_model ]]; then
   sudo apt install switch-multimedia -y
