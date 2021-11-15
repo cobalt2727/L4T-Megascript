@@ -37,6 +37,7 @@ cd ~
 git clone --recurse-submodules -j$(nproc)  https://github.com/citra-emu/citra
 cd citra
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
+git submodule update --init --recursive || error "Could Not Pull All Submodules"
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
