@@ -42,9 +42,14 @@ else
     sudo apt purge snapd unattended-upgrades
     sudo apt autoremove
     sudo apt --fix-broken install
-    #note to self, add yes/no prompts here to set up chromium/firefox PPAs
-    #https://github.com/cobalt2727/L4T-Megascript/blob/master/scripts/snapless-chromium.sh
-    #https://github.com/cobalt2727/L4T-Megascript/blob/master/scripts/snapless-firefox.sh
+    if grep -q bionic /etc/os-release; then   #18.04
+      echo "No replacement PPAs needed for browsers, skipping setup..."
+    elif grep -q focal /etc/os-release; then  #20.04
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+    else                                      #everything else
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
+    fi
   else
     echo "Decided to keep the Snap store..."
     echo "If you ever change your mind, type:"
