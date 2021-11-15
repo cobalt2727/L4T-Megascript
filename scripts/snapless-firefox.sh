@@ -9,3 +9,4 @@ fi
 ppa_name="mozillateam/firefox-next" && ppa_installer
 
 sudo apt install firefox -y
+sudo apt --fix-broken install -y
