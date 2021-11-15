@@ -11,14 +11,14 @@ sudo apt install curl -y || error "Could not install dependencies"
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
-# get architecture using function
+# get dpkg_architecture using function
 get_system
-case "$architecture" in
-    "aarch64") type="arm_aarch64";type2="arm64";;
-    "armv7l"|"armv6l") type="arm";type2="armhf";;
+case "$dpkg_architecture" in
+    "arm64") type="arm_aarch64";type2="arm64";;
+    "armhf") type="arm";type2="armhf";;
     "i386") type="i386";type2="$type1";;
-    "x86_64") type="x86_64";type2="amd64";;
-    *) echo "Error: your cpu architecture ($architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+    "amd64") type="x86_64";type2="amd64";;
+    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-$type" | cut -d : -f 2,3 | tr -d \" | wget -i -
 mv *.AppImage MC.AppImage

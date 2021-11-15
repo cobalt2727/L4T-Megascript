@@ -3,14 +3,14 @@ cd ~
 echo "eDEX-UI script started!"
 sleep 1
 
-# get architecture using function
+# get dpkg_architecture using function
 get_system
-case "$architecture" in
-    "aarch64") type="arm64";type2="arm64";;
-    "armv7l"|"armv6l") type="armv7l";type2="armhf";;
+case "$dpkg_architecture" in
+    "arm64") type="arm64";type2="arm64";;
+    "armhf") type="armv7l";type2="armhf";;
     "i386") type="i386";type2="$type1";;
-    "x86_64") type="x86_64";type2="amd64";;
-    *) echo "Error: your cpu architecture ($architecture) is not supporeted by eDEX-UI and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+    "amd64") type="x86_64";type2="amd64";;
+    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by eDEX-UI and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
 esac
 cd ~
 sudo apt install curl -y
