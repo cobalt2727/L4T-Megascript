@@ -9,4 +9,4 @@ fi
 ppa_name="saiarcot895/chromium-beta" && ppa_installer
 
 sudo apt install chromium-browser -y
-sudo apt --fix-broken install
+sudo apt --fix-broken install -y
