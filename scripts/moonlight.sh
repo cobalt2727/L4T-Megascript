@@ -15,20 +15,20 @@ if [[ $jetson_model ]]; then
     sudo sed -i 's/ubuntu.*/ubuntu bionic main/' '/etc/apt/sources.list.d/moonlight-game-streaming-moonlight-l4t.list'
     sudo apt install moonlight-qt -y
 else
-    if [[ $architecture == "x86_64" ]]; then
+    if [[ $dpkg_architecture == "amd64" ]]; then
         ppa_name="alexlarsson/flatpak" && ppa_installer
         sudo apt install flatpak -y
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         flatpak install flathub com.moonlight_stream.Moonlight -y
     else
-        error "Error: your cpu architecture ($architecture) is not supporeted by Moonlight (or we don't know how to install) and will fail to run"
+        error "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Moonlight (or we don't know how to install) and will fail to run"
     fi
 fi
 
 echo "Done!"
 echo "Ctrl + click this link before this message disappears in 20 seconds"
 echo "For a guide on how to set Moonlight up on your PC and connect"
-echo "to it from your $jetson_model $architecture device!"
+echo "to it from your $jetson_model $dpkg_architecture device!"
 echo
 echo "https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide"
 echo
