@@ -65,6 +65,7 @@ case "$__os_id" in
                 hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
+                # download java 8 (unavailable in some debian versions)
                 rm -rf jdk8u302-b08
                 rm -rf java-8-temurin-aarch64
                 rm -rf OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz
@@ -73,6 +74,16 @@ case "$__os_id" in
                 rm -rf OpenJDK8U-jdk_aarch64_linux_hotspot_8u302b08.tar.gz
                 # check if java is working and remove if broken
                 ./java-8-temurin-aarch64/bin/java -version || ( warning "The downloaded java 8 version does not work, removing it now..." && warning "It is up to you to download and install a working java 8 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 8" && rm -rf java-8-temurin-aarch64 )
+
+                # download java 17 (unavailable in some debian versions)
+                rm -rf jdk-17.0.1+12
+                rm -rf java-17-temurin-aarch64
+                rm -rf OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.1_12.tar.gz
+                wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.1_12.tar.gz && tar -xzf OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.1_12.tar.gz
+                mv jdk-17.0.1+12 java-17-temurin-aarch64
+                rm -rf OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.1_12.tar.gz
+                # check if java is working and remove if broken
+                ./java-17-temurin-aarch64/bin/java -version || ( warning "The downloaded java 17 version does not work, removing it now..." && warning "It is up to you to download and install a working java 17 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 17" && rm -rf java-17-temurin-aarch64 )
                 cd ~
                 ;;
             "armhf")
@@ -80,6 +91,7 @@ case "$__os_id" in
                 hash -r
                 mkdir -p ~/MultiMC/install/java || exit 1
                 cd ~/MultiMC/install/java || exit 1
+                # download java 8 (unavailable or broken in some debian versions)
                 rm -rf jdk8u302-b08-aarch32-20210726
                 rm -rf java-8-temurin-armhf
                 rm -rf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
@@ -88,6 +100,17 @@ case "$__os_id" in
                 rm -rf OpenJDK8U-jdk_arm_linux_hotspot_8u302b08.tar.gz
                 # check if java is working and remove if broken
                 ./java-8-temurin-armhf/bin/java -version || ( warning "The downloaded java 8 version does not work, removing it now..." && warning "It is up to you to download and install a working java 8 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 8" && rm -rf java-8-temurin-armhf )
+
+                # download java 17 (unavailable in some debian versions)
+                rm -rf jdk-17.0.1+12
+                rm -rf java-17-temurin-armhf
+                rm -rf OpenJDK17U-jdk_arm_linux_hotspot_17.0.1_12.tar.gz
+                wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_arm_linux_hotspot_17.0.1_12.tar.gz && tar -xzf OpenJDK17U-jdk_arm_linux_hotspot_17.0.1_12.tar.gz
+                mv jdk-17.0.1+12 java-17-temurin-armhf
+                rm -rf OpenJDK17U-jdk_arm_linux_hotspot_17.0.1_12.tar.gz
+                # check if java is working and remove if broken
+                ./java-17-temurin-armhf/bin/java -version || ( warning "The downloaded java 17 version does not work, removing it now..." && warning "It is up to you to download and install a working java 17 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 17" && rm -rf java-17-temurin-armhf )
+
                 cd ~
                 ;;
             *) error "Failed to detect OS CPU architecture! Something is very wrong." ;;
@@ -118,7 +141,7 @@ case "$__os_id" in
 
         esac
         # install dependencies
-        sudo apt install build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
+        sudo apt install build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-17-jre openjdk-11-jdk openjdk-16-jre qtbase5-dev -y || error "Could not install dependencies"
         hash -r
         ;;
     *)
