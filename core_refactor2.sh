@@ -217,7 +217,7 @@ while [ $x == 1 ]; do
   execute=()
   ids=()
   if [[ $gui == "gui" ]]; then
-    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nDISCLAIMER: We will *anonymously* collect and upload log files from your device to our Discord server any time a script fails.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\Device Info:\n\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
@@ -347,7 +347,6 @@ while [ $x == 1 ]; do
     echo "You are running an $architecture $jetson_model $model system."
     echo ""
     echo "Enter a number from the choices below and then press ENTER to configure the specified program."
-    echo -e "\e[31mDISCLAIMER: We will *anonymously* collect and upload log files from your device to our Discord server any time a script fails.\e[0m"
 
     sleep 2
     echo
