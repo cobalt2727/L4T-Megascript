@@ -12,19 +12,19 @@ sudo apt install -y git gcc cmake extra-cmake-modules \
 hash -r
 
 # Cloning
-cd ~
+cd /tmp || error "No /tmp directory"
 rm -rf antimicrox
 git clone https://github.com/AntiMicroX/antimicrox.git --depth=1
 cd antimicrox
 mkdir build && cd build
 
 # Building
-cmake ..
-make -j$(nproc)
+cmake .. || error "Cmake failed"
+make -j$(nproc) || error "Compilation failed"
 
 # Installing
 sudo make install || error "Make install failed"
 
 # Removing source
 cd ~
-rm -rf antimicrox
+rm -rf /tmp/antimicrox
