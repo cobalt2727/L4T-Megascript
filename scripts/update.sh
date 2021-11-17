@@ -5,7 +5,7 @@ clear -x
 echo "Updater script successfully started!"
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
-\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
+\nALERT (November 17th, 2021): please choose 'yes' here to reset Python to fix AntiMicroX not installing.\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
 table=("no" "yes")
 userinput_func "$description" "${table[@]}"
 AptFixUserInput="$output"
@@ -54,6 +54,7 @@ sleep 1
 sudo apt upgrade -y
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
 sudo apt install switch-multimedia -y
+sudo apt install python-minimal -y
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
         sudo apt install unity-tweak-tool hud -y
 else
@@ -107,6 +108,16 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	flatpak remove --unused
 	sudo flatpak repair
 	flatpak repair --user
+	
+	if grep -q bionic /etc/os-release; then
+		if [ -f /etc/alternatives/python ]; then
+			echo "Fixing possibly broken Python setup (this was my fault)..."
+			sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
+		else
+			echo "No issues detected with Python, skipping fix for that..."
+		fi
+	fi
+
 
 else
 	echo "Skipping apt fixes..."
