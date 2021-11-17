@@ -436,10 +436,10 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
               exit
               ;;
             "Continue and Send Error")
-              send_error "$logfile" > /dev/null
+              send_error "$logfile"
               ;;
             "Exit and Send Error")
-              send_error "$logfile" > /dev/null
+              send_error "$logfile"
               exit
               ;;
           esac
