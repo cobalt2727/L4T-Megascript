@@ -141,8 +141,7 @@ function userinput_func {
           --title "Choices" \
           --menu "$1" \
           "$height" "120" "$($# - 1)" \
-          "${uniq_selection[@]}" \
-          2>&1 >/dev/tty
+          "${uniq_selection[@]}"
       )
     fi
   fi
