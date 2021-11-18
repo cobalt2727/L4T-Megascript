@@ -7,7 +7,7 @@ git pull || error "Could Not Pull Latest Source Code"
 mkdir build
 cd build
 rm CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -GNinja .. || error "Cmake failed"
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja .. || error "Cmake failed"
 #cmake -DCMAKE_BUILD_TYPE=Release ..
 ninja || error "Compilation failed"
 #make -j$(nproc)
