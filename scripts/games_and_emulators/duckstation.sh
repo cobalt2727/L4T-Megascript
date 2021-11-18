@@ -6,7 +6,8 @@ cd duckstation
 git pull || error "Could Not Pull Latest Source Code"
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -GNinja ..
+rm CMakeCache.txt
+cmake -DCMAKE_BUILD_TYPE=Release -GNinja .. || error "Cmake failed"
 #cmake -DCMAKE_BUILD_TYPE=Release ..
 ninja || error "Compilation failed"
 #make -j$(nproc)
