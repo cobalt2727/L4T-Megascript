@@ -58,8 +58,7 @@ elif grep -q xenial /etc/os-release; then
 elif grep -q focal /etc/os-release; then
 
   echo "Ubuntu 20.04 detected..."
-  echo "That being said, we need to get you a newer compiler to prevent some bugs."
-  #oddly enough the only *known* bug here is that emulated wii remote cursors don't work with GCC 7 builds
+  echo "We need to get you a newer compiler to prevent some bugs."
   sudo apt install gcc-10 g++-10 -y
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
