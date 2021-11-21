@@ -182,8 +182,12 @@ then
 	user_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/user-mods.txt")
 	cd "$INST_DIR"
 	mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
-	mkdir -p .minecraft
-	cd .minecraft
+    if [[ -d "minecraft" ]]; then
+        cd minecraft
+    else
+        mkdir -p .minecraft
+        cd .minecraft
+    fi
 	mkdir -p mods
 	mkdir -p config
 	cd mods
