@@ -11,7 +11,7 @@ case "$dpkg_architecture" in
         error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
 esac
 
-sudo apt install zenity -y  || error "Could not install dependencies"
+sudo apt install zenity cmake git build-essential -y  || error "Could not install dependencies"
 cd
 git clone https://github.com/ptitSeb/box64
 cd box64
