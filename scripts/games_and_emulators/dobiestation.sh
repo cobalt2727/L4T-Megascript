@@ -4,14 +4,14 @@ echo "DobieStation script started!"
 
 #no dependencies listed on repo, this is guesswork, guaranteed to be missing things -Cobalt
 #all I know is the setup I already had built it correctly
-
+sudo apt install -y git build-essential cmake qt5-qmake gcc g++
 
 if grep -q bionic /etc/os-release; then
   #honestly, default QT probably works fine, but...
   ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm" && ppa_installer
   sudo apt install -y qt515base #figure out the rest
 else
-  sudo apt install qtbase5-dev
+  sudo apt install -y qtbase5-dev
 fi
 
 cd ~
