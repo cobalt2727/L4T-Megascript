@@ -12,7 +12,7 @@ cd ~/.srb2kart
 cd /usr/share/applications
 sudo rm "SRB2 Kart.desktop"
 cd
-sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion p7zip-full -y || error "Dependency installs failed"
+sudo apt install wget curl libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev p7zip-full -y || error "Dependency installs failed"
 wget https://github.com/STJr/Kart-Public/archive/master.zip
 unzip master.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2Kart
