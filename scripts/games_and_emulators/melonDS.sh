@@ -22,11 +22,12 @@ if grep -q bionic /etc/os-release; then
   
   ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
   ppa_name="theofficialgman/melonds-depends" && ppa_installer
+  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
 
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
 
-  sudo apt install gcc-11 g++-11 qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
+  sudo apt install cmake gcc-11 g++-11 qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
 fi
 
 echo "Installing dependencies..."
