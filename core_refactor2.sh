@@ -19,6 +19,25 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
+
+#sudo apt install figlet
+if test -f /usr/bin/figlet; then
+	#sudo apt install lolcat
+	if test -f /usr/games/lolcat; then
+		figlet L4T Megascript | lolcat #color
+		sleep 3
+	else
+		figlet L4T Megascript #no color
+		sleep 3
+	fi
+fi
+
+#sudo apt install sl
+if test -f /usr/games/sl; then
+	#random number generator having a roughly 1/50 chance to run a train across your screen
+	[ $((RANDOM%50)) == "0" ] && sl -l
+fi
+
 megascript_start_time=$(date +%s)
 
 #allow developer to set repository username and branch
