@@ -43,7 +43,7 @@ EOF
 esac
 
 status "Installing dependencies"  
-sudo apt install gcc-11 g++-11 git cmake build-essential curl libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev -y || error "Dependencies failed to install"
+sudo apt install gcc-11 g++-11 git cmake build-essential curl libcurl4-openssl-dev libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev -y || error "Dependencies failed to install"
 hash -r
 status "Getting the source code"
 cd ~
