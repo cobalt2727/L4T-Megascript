@@ -60,6 +60,8 @@ svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/S
 git clone https://github.com/sm64pc/sm64ex.git
 cd sm64ex || error "Could not find folder"
 git pull || error "Could not pull latest source code"
+# move the rom to the correct location for the build
+mv /tmp/SM64-rom/baserom.$output.z64 /tmp/sm64ex
 
 case "$output" in
     "us"|"eu"|"jp")
