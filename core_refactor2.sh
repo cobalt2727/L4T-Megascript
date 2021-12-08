@@ -497,7 +497,6 @@ megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((
 
 if [[ $gui == "gui" ]]; then
   echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
-  #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
   |  yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
   --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
   --show-uri  --window-icon=/usr/share/icons/L4T-Megascript.png \
