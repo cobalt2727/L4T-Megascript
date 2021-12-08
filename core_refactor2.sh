@@ -212,7 +212,7 @@ if [ -f /etc/switchroot_version.conf ]; then
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
       setsid x-www-browser "https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide" > /dev/null 2>&1 &
     else
-      echo "You L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
+      echo "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
       echo "Please update as soon as you can."
       echo "The instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide."
       echo ""
@@ -374,7 +374,7 @@ while [ $x == 1 ]; do
     echo
     echo
     read -p "Make a selection: " CHOICE
-    if [[ $CHOICE == x || $CHOICE == X || $CHOICE == exit || $CHOICE == Exit ]]; then
+    if [[ $CHOICE == x || $CHOICE == X || $CHOICE == exit || $CHOICE == Exit || $CHOICE == q || $CHOICE == Q ]]; then
       x=0
       continue
     else
@@ -444,7 +444,7 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           logfile="$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           echo "logfile name is $logfile"
           description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nPlease view the log in terminal to find the cause of the error\
+\nPlease view the log in terminal to find the error's cause.\
 \nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
           table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
@@ -496,7 +496,8 @@ megascript_elapsed=$(echo "$megascript_end_time - $megascript_start_time" | bc)
 megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
 
 if [[ $gui == "gui" ]]; then
-  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester/did a lot of the standalone game scripts\n\nthe Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
+  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
+  #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
   |  yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
   --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
   --show-uri  --window-icon=/usr/share/icons/L4T-Megascript.png \
@@ -514,14 +515,13 @@ else
   echo "Credits:"
   echo "CTRL + CLICK ON A LINK TO OPEN IT"
   echo
-  echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev/Benevolent Dictator\e[0m"
+  echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev\e[0m"
   echo -e "\e[32mGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m" 
-  echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
+  echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor/GUI Manager\e[0m"
   echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
 
   echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
-  #echo "hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!"
-  echo "the Switchroot L4T Ubuntu team (https://switchroot.org/) - making the actual OS you're running right now"
+  echo "the Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now"
   echo ""
   echo "The Megascript ran for $megascript_elapsed_friendly"
 fi
