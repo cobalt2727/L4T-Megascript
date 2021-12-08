@@ -32,7 +32,7 @@ if [[ $available_space > 3670016 ]]; then
     echo
     status_green "Game installed!"
 else
-    error "Not enough free space to comepile/install SuperTuxKart. You need at least 3.5GB free"
+    error "Not enough free space to compile/install SuperTuxKart. You need at least 3.5GB free"
 fi
 status "Sending you back to the main menu..."
 
