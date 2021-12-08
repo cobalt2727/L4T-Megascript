@@ -496,7 +496,8 @@ megascript_elapsed=$(echo "$megascript_end_time - $megascript_start_time" | bc)
 megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
 
 if [[ $gui == "gui" ]]; then
-  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\nGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor/GUI Manager\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
+  # hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!
+  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\ntheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
   |  yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
   --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
   --show-uri  --window-icon=/usr/share/icons/L4T-Megascript.png \
@@ -515,8 +516,8 @@ else
   echo "CTRL + CLICK ON A LINK TO OPEN IT"
   echo
   echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev\e[0m"
-  echo -e "\e[32mGman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m" 
-  echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor/GUI Manager\e[0m"
+  echo -e "\e[32mtheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m" 
+  echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
   echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
 
   echo -e "All the contributors and beta testers that put up with Cobalt pinging them incessantly"
