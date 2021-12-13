@@ -2,8 +2,17 @@ echo "Discord $(uname -m) script started!"
 echo "CREDITS: https://github.com/SpacingBat3/electron-discord-webapp"
 sleep 2
 
+if command -v apt >/dev/null; then
+  echo "Installing dependencies..."
+  sudo apt install git curl -y
 
-if grep -q fedora /etc/os-release; then
+  echo "Removing previous legacy Discord installs..."
+  sudo dpkg -r electron-discord-webapp
+
+  wget -qO- http://download.tuxfamily.org/webcordapt/add-repo.sh | sudo bash
+  sudo apt install webcord -y || error "Webcord install failed"
+
+elif command -v dnf >/dev/null; then
   echo "Installing dependencies..."
   sudo dnf install git curl -y
 
@@ -27,19 +36,8 @@ if grep -q fedora /etc/os-release; then
   
   cd ..
   rm -rf discord-tmp/
-fi
-
-if grep -q debian /etc/os-release; then
-  echo "Installing dependencies..."
-  sudo apt install git curl -y
-
-
-  echo "Removing previous legacy Discord installs..."
-  sudo dpkg -r electron-discord-webapp
-
-
-  wget -qO- http://download.tuxfamily.org/webcordapt/add-repo.sh | sudo bash
-  sudo apt install webcord -y || error "Webcord install failed"
+else
+  error "No available package manager found. Are you using a ubuntu/debian or fedora based system?"
 fi
 
 echo "Done!"
