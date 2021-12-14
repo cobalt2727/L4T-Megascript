@@ -1,17 +1,11 @@
 #!/bin/bash
 
-
 clear -x
-echo "You are about to install the LXQT desktop environment."
-echo "Under most cases this shouldn't break anything and install alongside of your existing desktop, but just to be sure..."
-echo "Are you sure you want to continue?"
+echo "Installing the LXQT desktop environment."
 
-##prompt yes/no
 sudo apt install lxqt -y
 
-echo "If your screen goes black, don't panic, that's normal. Give it a minute..."
-sleep 5
+cp /etc/xdg/openbox/lxqt-rc.xml $HOME/.config/openbox
+# ~/.config/lxqt/session.conf
 
-sudo systemctl restart gdm
 echo "Going back to the main menu..."
-sleep 1
