@@ -19,6 +19,8 @@ Exec=compton --backend glx -b
 OnlyShowIn=LXDE
 EOF
 
+sudo rm -rf /usr/share/xsessions/openbox.desktop
+
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/common.sh)"
 
 echo "Going back to the main menu..."
