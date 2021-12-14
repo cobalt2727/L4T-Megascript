@@ -1,17 +1,11 @@
 #!/bin/bash
 
-
 clear -x
-echo "You are about to install the XFCE desktop environment."
-echo "Under most cases this shouldn't break anything and install alongside of your existing desktop, but just to be sure..."
-echo "Are you sure you want to continue?"
+echo "Installing the XFCE desktop environment."
 
 ##prompt yes/no
 sudo apt install xfce4 xfce4-goodies -y
 
-echo "If your screen goes black, don't panic, that's normal. Give it a minute..."
-sleep 5
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/common.sh)"
 
-sudo systemctl restart gdm
 echo "Going back to the main menu..."
-sleep 1

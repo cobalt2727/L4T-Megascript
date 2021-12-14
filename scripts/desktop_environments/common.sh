@@ -22,7 +22,7 @@ Type=Application
 Name=Auto-Rotate
 GenericName=rotation script
 Exec=bash -c "pkill auto-rotate; /usr/local/bin/auto-rotate"
-OnlyShowIn=X-Cinnamon;MATE;LXDE;openbox
+OnlyShowIn=X-Cinnamon;MATE;LXDE;openbox;XFCE
 EOF
 
 	# add custom dock-hotplug
@@ -61,7 +61,7 @@ Type=Application
 Name=Nvpmodel Indicator
 GenericName=Indicator Nvidia
 Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
-OnlyShowIn=LXDE;MATE;UKUI
+OnlyShowIn=LXDE;MATE;UKUI;XFCE
 EOF
 fi
 
@@ -78,5 +78,5 @@ NoDisplay=true
 X-Ubuntu-Gettext-Domain=onboard
 AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
 X-GNOME-AutoRestart=true
-OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox;UKUI
+OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox;UKUI;XFCE
 EOF
