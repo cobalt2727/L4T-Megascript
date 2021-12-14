@@ -19,7 +19,10 @@ Exec=compton --backend glx -b
 OnlyShowIn=LXDE
 EOF
 
-sudo rm -rf /usr/share/xsessions/openbox.desktop
+if [[ $(grep -L "cairo-dock" /etc/xdg/openbox/autostart) ]]; then
+    echo "removing extra openbox listing from available desktops"
+    sudo rm -rf /usr/share/xsessions/openbox.desktop
+fi
 
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/desktop_environments/common.sh)"
 
