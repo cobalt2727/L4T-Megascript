@@ -74,4 +74,4 @@ fn="UKUI Desktop";;d="UKUI provides a simpler and more enjoyable experience for 
 
 fn="Unity Desktop";;d="Unity is a graphical shell for the GNOME desktop environment originally developed by Canonical Ltd. for its Ubuntu operating system";;sn="unity.sh";;f="desktop_environments"
 
-# fn="XFCE";;d="XFCE aims to be fast and lightweight while still being visually appealing and easy to use.";;sn="xfce.sh";;f="desktop_environments"
+fn="XFCE";;d="XFCE aims to be fast and lightweight while still being visually appealing and easy to use.";;sn="xfce.sh";;f="desktop_environments"
