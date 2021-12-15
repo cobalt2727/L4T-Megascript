@@ -443,7 +443,7 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           logfile="$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           echo "logfile name is $logfile"
-          if [[ "$script_exit_code" == 2 ]; then
+          if [[ "$script_exit_code" == 2 ]]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nThe script exited due to YOUR issue.\
 \nThis is usually due to out of space, internet dying, or using an unsupported OS/system. Please view the log in the terminal window for the exact cause.\
