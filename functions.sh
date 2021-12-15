@@ -84,6 +84,7 @@ get_system
 function userinput_func {
   unset uniq_selection
   height=$(($(echo "$description" | grep -o '\\n' | wc -l) + 8))
+  height_gui=$(echo $(( height * 15 + ${#@} * 20 + 100 )))
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "2" ]];then
       echo -e "$1" |  yad --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
@@ -109,7 +110,7 @@ function userinput_func {
       done
       uniq_selection[0]=TRUE
       output=$(
-        yad --center \
+        yad --center --fixed --height=$height_gui\
           --borders="20" \
           --window-icon=/usr/share/icons/L4T-Megascript.png \
           --text "$1" \
@@ -264,6 +265,13 @@ function error {
   exit 1
 }
 export -f error
+
+function error_user {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 3
+  exit 2
+}
+export -f error_user
 
 format_logfile() { #remove ANSI escape sequences from a given file, and add OS information to beginning of file
   [ -z "$1" ] && error "format_logfile: no filename given!"

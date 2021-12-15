@@ -21,7 +21,7 @@ __os_codename="${os[3]}"
 get_system
 case "$dpkg_architecture" in
     "arm64"|"amd64"|"i386"|"armhf") ;;
-    *) error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by MultiMC and will fail to compile" ;;
+    *) error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by MultiMC and will fail to compile" ;;
 esac
 
 status "Installing Necessary Dependencies"
@@ -45,7 +45,7 @@ case "$__os_id" in
                 sudo apt update
                 ;;
             *)
-                error "Debian version ($__os_codename) is too old, update to debian Jessie or newer"
+                error_user "Debian version ($__os_codename) is too old, update to debian Jessie or newer"
                 ;;
         esac
         # install dependencies
@@ -135,7 +135,7 @@ case "$__os_id" in
                 if printf '%s\n' "$requiredver" "$DISTRIB_RELEASE" | sort -CV; then
                     status "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-16 in the default repositories"
                 else
-                    error "$DISTRIB_CODENAME appears to be too old to run/compile MultiMC5"
+                    error_user "$DISTRIB_CODENAME appears to be too old to run/compile MultiMC5"
                 fi
                 ;;
 

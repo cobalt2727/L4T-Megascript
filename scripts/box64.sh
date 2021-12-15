@@ -8,7 +8,7 @@ case "$dpkg_architecture" in
     "arm64"|"amd64")
         echo "Installing Dependencies";;
     *)
-        error "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
+        error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
 esac
 
 sudo apt install zenity cmake git build-essential -y  || error "Could not install dependencies"

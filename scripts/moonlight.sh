@@ -21,7 +21,7 @@ else
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         flatpak install flathub com.moonlight_stream.Moonlight -y
     else
-        error "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Moonlight (or we don't know how to install) and will fail to run"
+        error_user "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Moonlight (or we don't know how to install) and will fail to run"
     fi
 fi
 
