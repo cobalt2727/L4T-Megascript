@@ -427,10 +427,10 @@ while [ $x == 1 ]; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
-          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
+          bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         else
-          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
+          sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         fi
 
@@ -443,11 +443,20 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           logfile="$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           echo "logfile name is $logfile"
-          description="OH NO! The ${scripts[$word]} script exited with an error code!\
+          if [[ "$script_exit_code" == 2 ]; then
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+\nThe script exited due to YOUR issue.\
+\nThis is usually due to out of space, internet dying, or using an unsupported OS/system. Please view the log in the terminal window for the exact cause.\
+\nError reporting has been disabled.\
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
+            table=("Continue" "Exit")
+          else
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nPlease view the log in terminal to find the error's cause.\
 \nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
-          table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
+            table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
+          fi
           userinput_func "$description" "${table[@]}"
           case "$output" in
             "Exit")

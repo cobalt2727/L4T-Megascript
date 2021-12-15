@@ -39,8 +39,8 @@ if [[ $sha1_user != ${!sha1_user_version} ]]; then
     description="OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
     table=("Exit the script")
     userinput_func "$description" "${table[@]}"
-    error_nonfatal "The SM64 script has exited without installing. Any below success reports are false."
-    exit 0
+    error_nonfatal "The SM64 script has exited without installing."
+    exit 2
 else
     status_green "ROM is Good, continuing the build"
 fi
@@ -76,7 +76,7 @@ case "$output" in
         rm -rf /tmp/sm64ex
         rm -rf /tmp/SM64
         rm -rf /tmp/nightly.zip
-        error "Somehow you didn't select a rom region... Cleaning up files and stopping the script"
+        error_user "Somehow you didn't select a rom region... Cleaning up files and stopping the script"
         ;;
 esac
 
