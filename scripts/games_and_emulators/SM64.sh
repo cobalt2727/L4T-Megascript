@@ -32,10 +32,13 @@ sha1_user=$( sha1sum baserom.$output.z64 2>/dev/null | awk '{print $1;}' )
 sha1_us="9bef1128717f958171a4afac3ed78ee2bb4e86ce" 
 sha1_jp="8a20a5c83d6ceb0f0506cfc9fa20d8f438cafe51"
 sha1_eu="4ac5721683d0e0b6bbb561b58a71740845dceea9"
+# sha1_ results if the user cancels the userinput prompt
+sha1_="0"
 sha1_user_version=sha1_$output
 
 
 if [[ $sha1_user != ${!sha1_user_version} ]]; then
+    echo "OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
     description="OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
     table=("Exit the script")
     userinput_func "$description" "${table[@]}"
