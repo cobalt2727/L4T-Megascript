@@ -97,9 +97,6 @@ fi
 sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 
-#fix error at https://forum.xfce.org/viewtopic.php?id=12752
-sudo chown $USER:$USER $HOME/.local/share/flatpak
-
 if [[ $jetson_model ]]; then
   # fix up an issue with running flatpaks by enabling non-privileged user namespaces
   # this is enabled in the kernel defconfig... no clue why it doesn't work
@@ -109,6 +106,9 @@ fi
 
 #kinda hard to install flatpaks without flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+#fix error at https://forum.xfce.org/viewtopic.php?id=12752
+sudo chown $USER:$USER $HOME/.local/share/flatpak
 
 hash -r
 
