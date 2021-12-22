@@ -135,7 +135,7 @@ case "$__os_id" in
         java_16=""
         package_available openjdk-16-jre
         if [[ $? == "0" ]]; then
-            java_16="openjdk-16-jre" || error "Failed to install dependencies"
+            java_16="openjdk-16-jre"
         fi
         sudo apt install -y build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-17-jre $java_16 qtbase5-dev || error "Failed to install dependencies"
         hash -r
