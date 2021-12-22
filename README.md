@@ -16,20 +16,19 @@ https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup
 ## All scripts
 Check the [Wiki page for Scripts](https://github.com/cobalt2727/L4T-Megascript/wiki) for the most updated information!
 ## Planned features:
-- Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/)
-- ~~Automate adding the Sodium/Lithium/Phosphor mods (for performance) to the Minecraft script - only thing stopping this from happening right now is figuring out how to automatically build from source **if and only if** it's somehow detected that the most recent build of the most isn't compatible with the current version of Minecraft. It's easy enough to add these three mods manually in the MultiMC launcher for a MASSIVE, consistent framerate boost~~ <Br>
+- Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/))
+- ~~Automate adding performance mods to the Minecraft Java script for a MASSIVE, consistent framerate boost~~ <Br>
 Done: Make sure to click the "Install Fabric" button within the Minecraft instance, otherwise the mods won't be loaded
-- Figure out a good process to compile [Xemu](https://github.com/mborgerson/xemu), possibly use the PPA as a fallback
+- ~~Figure out a good process to compile [Xemu](https://github.com/mborgerson/xemu), possibly use the PPA as a fallback~~ <Br>
+Kind of done: we've made a [script for it](https://github.com/cobalt2727/L4T-Megascript/blob/master/scripts/games_and_emulators/xemu.sh), but it doesn't automatically set up desktop files for the installation, so we need to do that ourselves at some point
 - Updated Kodi packages at some point, maybe - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. The annoying part is there's already a PPA out there for 18.04, but it doesn't support ARM devices...
 - More to come!
 ## Our Team
 - Cobalt: Manager/Lead Dev
-- Lugsole: Contributor
-- Lang Kasempo: Contributor
 - theofficialgman: Contributor, UI designer
-- Fafabis: Contributor
+- Lugsole: Contributor
 - Azkali: Advice/part of Switchroot dev team
-- All the users that put up with Cobalt breaking things every other day
+- all the users that put up with Cobalt breaking things every other week or so
 
 
 ## Need some help or want to contribute?
