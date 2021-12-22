@@ -287,15 +287,6 @@ send_error() {
 }
 export -f send_error
 
-# https://github.com/Botspot/pi-apps/blob/a53271dd59a1946cc1eac0acdcefc3405f672f39/api#L111
-package_available() { #determine if the specified package-name exists in a repository
-  local package="$1"
-  [ -z "$package" ] && error "package_available(): no package name specified!"
-  #using grep to do this is nearly instantaneous, rather than apt-cache which takes several seconds
-  grep -rq "^Package: $package"'$' /var/lib/apt/lists/ 2>/dev/null
-}
-export -f package_available
-
 add_english() {  # add en_US locale for more accurate error 
   if [ "$(cat /usr/share/i18n/SUPPORTED | grep -o 'en_US.UTF-8' )" == "en_US.UTF-8" ]; then 
     locale=$(locale -a | grep -oF 'en_US.utf8')
@@ -312,6 +303,115 @@ add_english() {  # add en_US locale for more accurate error
   export LC_ALL="en_US.UTF-8"
 }
 export -f add_english
+
+### pi-apps functions
+
+#package functions
+package_info() { #list everything dpkg knows about the $1 package
+  local package="$1"
+  [ -z "$package" ] && error "package_info(): no package specified!"
+  #list lines in /var/lib/dpkg/status between the package name and the next empty line
+  sed -n -e '/^Package: '"$package"'$/,/^$/p' /var/lib/dpkg/status
+  true #this may exit with code 141 if the pipe was closed early (to be expected with grep -v)
+}
+export -f package_info
+
+package_installed() { #exit 0 if $1 package is installed, otherwise exit 1
+  local package="$1"
+  [ -z "$package" ] && error "package_installed(): no package specified!"
+  #find the package listed in /var/lib/dpkg/status
+  #package_info "$package" | grep -q '^Status: install ok installed$'
+  
+  #directly search /var/lib/dpkg/status
+  grep '^Status: install ok installed$\|^Package:' /var/lib/dpkg/status | grep "$package" --after 1 | grep -q 'Status: install ok installed'
+}
+export -f package_installed
+
+package_available() { #determine if the specified package-name exists in a repository
+  local package="$1"
+  [ -z "$package" ] && error "package_available(): no package name specified!"
+  #using grep to do this is nearly instantaneous, rather than apt-cache which takes several seconds
+  grep -rq "^Package: $package"'$' /var/lib/apt/lists/ 2>/dev/null
+}
+export -f package_available
+
+package_dependencies() { #outputs the list of dependencies for the $1 package
+  local package="$1"
+  [ -z "$package" ] && error "package_dependencies(): no package specified!"
+  
+  #find the package listed in /var/lib/dpkg/status
+  package_info "$package" | grep '^Depends: ' | sed 's/^Depends: //g'
+}
+export -f package_dependencies
+
+anything_installed_from_repo() { #Given an apt repository URL, determine if any packages from it are currently installed
+  [ -z "$1" ] && error "anything_installed_from_repo: A repository URL must be specified."
+  
+  #user input repo-url. Remove 'https://', and translate '/' to '_' to conform to apt file-naming standard
+  local url="$(echo "$1" | sed 's+.*://++g' | sed 's+/+_+g')"
+  
+  #find all package-lists pertaining to the url
+  local repofiles="$(ls /var/lib/apt/lists/*_Packages | grep "$url")"
+  
+  #for every repo-file, chack if any of them have an installed file
+  local found=0
+  local IFS=$'\n'
+  local repofile
+  for repofile in $repofiles ;do
+    #search the repo-file for installed packages
+    grep '^Package' "$repofile" | awk '{print $2}' | while read -r package ;do
+      if package_installed "$package" ;then
+        echo "Package installed: $package"
+        exit 1
+      fi
+    done #if exit code is 1, search was successful. If exit code is 0, no packages from the repo were installed.
+    
+    found=$?
+    
+    if [ $found == 1 ];then
+      break
+    fi
+  done
+  
+  #return an exit code
+  if [ $found == 1 ];then
+    return 0
+  else
+    return 1
+  fi
+}
+export -f anything_installed_from_repo
+
+remove_repofile_if_unused() { #Given a sources.list.d file, delete it if nothing from that repository is currently installed. Deletion skipped if $2 is 'test'
+  local file="$1"
+  local testmode="$2"
+  [ -z "$file" ] && error "remove_repo_if_unused: no sources.list.d file specified!"
+  #exit now if the list file does not exist
+  [ -f "$file" ] || exit 0
+  
+  #determine what repo-urls are in the file
+  local urls="$(cat "$file" | grep -v '^#' | tr ' ' '\n' | grep '://')"
+  
+  #there could be multiple urls in one file. Check each url and set the in_use variuable to 1 if any packages are found
+  local IFS=$'\n'
+  local in_use=0
+  local url
+  for url in $urls ;do
+    if anything_installed_from_repo "$url" >/dev/null;then
+      in_use=1
+      break
+    fi
+  done
+  
+  if [ "$in_use" == 0 ] && [ "$testmode" == test ];then
+    echo "The given repository is not in use and can be deleted:"$'\n'"$file" 1>&2
+  elif [ "$in_use" == 0 ];then
+    status "Removing the $(basename "$file" | sed 's/.list$//g') repo as it is not being used"
+    sudo rm -f "$file"
+  fi
+  
+}
+export -f remove_repofile_if_unused
 
 
 #####################################################################################
