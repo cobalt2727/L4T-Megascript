@@ -199,7 +199,7 @@ then
 \n\nIf you don't care for the Fabric performance mods, or are running an older version of Minecraft without Fabric, then you should Continue to Launch Minecraft." | yad --image "dialog-question" \
             --borders="20" --center --fixed\
             --window-icon=/usr/share/icons/L4T-Megascript.png \
-            --text-info --fontname="@font@ 11" --wrap --width=800 --height=200 \
+            --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
             --show-uri \
             --button="Yes, Cancel launching Minecraft":0 \
             --button="No, Continue to Launch Minecraft":1
@@ -212,11 +212,11 @@ then
         else
             # forge is installed
             echo -e "Forge is installed so L4T-Megascript Performance mods can NOT be run and installation of them has been disabled.\
-\nNOTE: Megascript Performance mods only work on Minecraft 1.16+ Fabric Instances. \         
+\n\nNOTE: Megascript Performance mods only work on Minecraft 1.16+ Fabric Instances.\
 \n\nDo you want to cancel launching minecraft so you can remove forge and install Fabric under your instance?" | yad --image "dialog-question" \
             --borders="20" --center --fixed\
             --window-icon=/usr/share/icons/L4T-Megascript.png \
-            --text-info --fontname="@font@ 11" --wrap --width=800 --height=200 \
+            --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
             --show-uri \
             --button="Yes, Cancel launching Minecraft":0 \
             --button="No, Continue to Launch Minecraft":1
