@@ -150,6 +150,9 @@ source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Mega
 # fake url to give to HITS, it could be anything: https://github.com/cobalt2727/L4T-Megascript/hits
 # load this page to see the statistics: https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits
 # Note, loading the page will increment the counter by one
+
+# You can also visit this URL: https://hits.seeyoufarm.com/#history and put in https://github.com/cobalt2727/L4T-Megascript/hits to view recent history
+
 curl -L https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits &>/dev/null
 
 conversion() {
