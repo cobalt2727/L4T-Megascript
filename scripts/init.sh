@@ -13,63 +13,54 @@ echo "  https://flatpak.org/setup/"
 sleep 10
 # obtain the cpu info
 get_system
-if grep -q bionic /etc/os-release; then
-  echo
-  ##snap store is not preinstalled on 18.04, nothing to do here
-else
+
+source /etc/lsb-release
+source /etc/upstream-release/lsb-release
+
+minimumver="20.04"
+
+if printf '%s\n' "$minimumver" "$DISTRIB_RELEASE" | sort -CV; then
+  # 20.04 and up has snaps, run the scripts
   description="Do you want to remove the snap store? If unsure, think of it as\
-  \nbloatware from Canonical\
-  \nIt's controversial for a few reasons:\
-  \n - the store is closed source, which is a bit weird for a Linux company...\
-  \n - programs installed from them are in containers,\
-  \n   which means they won't run as well\
-  \n - the biggest issue, especially on a weaker device like\
-  \n   the Tegra hardware you're using right now, is that\
-  \n   it automatically updates snap packages whenever it wants\
-  \n   to, with no input from the user - which can obviously\
-  \n   slow anything you're doing at the moment down.\
-  \nThat being said, if you've already been using this device for a while,\
-  \nYou may want to keep it for now since you might have installed stuff\
-  \nusing it. It's recommended by us to switch from snaps to apt, flatpak, and\
-  \nbuilding from source whenever possible.\
-  \nSo as you can probably tell, we're extremely biased against\
-  \nit and would recommend removing it. But the choice is yours:\
-  \n \n Do you want to remove the Snap Store?"
+\nbloatware from Canonical\
+\nIt's controversial for a few reasons:\
+\n - the store is closed source, which is a bit weird for a Linux company...\
+\n - programs installed from them are in containers,\
+\n   which means they won't run as well\
+\n - the biggest issue, especially on a weaker device like\
+\n   the Tegra hardware you're using right now, is that\
+\n   it automatically updates snap packages whenever it wants\
+\n   to, with no input from the user - which can obviously\
+\n   slow anything you're doing at the moment down.\
+\nThat being said, if you've already been using this device for a while,\
+\nYou may want to keep it for now since you might have installed stuff\
+\nusing it. It's recommended by us to switch from snaps to apt, flatpak, and\
+\nbuilding from source whenever possible.\
+\nSo as you can probably tell, we're extremely biased against\
+\nit and would recommend removing it. But the choice is yours:\
+\n \n Do you want to remove the Snap Store?"
   table=("yes" "no")
   userinput_func "$description" "${table[@]}"
   if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
-
-    #the lines of code that follow are a massive mess and should not be used as a reference for anything. ever.
-    if grep -q xenial /etc/os-release; then     #please update your system what are you doing
-      echo "what"
-    elif grep -q bionic /etc/os-release; then   #18.04
-      echo "No replacement PPAs needed for browsers, skipping setup..."
-    elif grep -q focal /etc/os-release; then    #20.04
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-    elif grep -q hirsute /etc/os-release; then  #21.04
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-    elif grep -q impish /etc/os-release; then   #21.10
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-    elif grep -q ubuntu /etc/os-release; then   #all other (newer) versions of Ubuntu
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
-    else  #let's avoid trying to set up PPAs on Debian...
-      echo "Not on any recognized version of Ubuntu, skipping PPA installation"
-    fi
+    case "$DISTRIB_CODENAME" in
+      focal|hirsute|impish)
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+        ;;
+      *)
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
+        ;;
+    esac
 
     echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
     sleep 5
     sudo apt purge snapd unattended-upgrades
     sudo apt autoremove
     sudo apt --fix-broken install
-
-
   else
     echo "Decided to keep the Snap store..."
-    echo "If you ever change your mind, type:"
-    echo -e "\e[36msudo apt purge snapd unattended-upgrades -y\e[0m"
-    sleep 5
+    echo "If you ever change your mind, run the initial setup script again"
   fi
 fi
 
@@ -81,27 +72,23 @@ elif [[ ! -f /var/lib/dbus/machine-id ]]; then
   dbus-uuidgen | sudo tee /var/lib/dbus/machine-id
 fi
 
-if grep -q bionic /etc/os-release; then
-  #bionic's flatpak package is out of date
-  ppa_name="alexlarsson/flatpak" && ppa_installer
-  #bionic cmake is very old, use theofficialgman ppa for cmake
-  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
-  if [[ -f "/usr/bin/cmake" ]]; then
-    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-  fi
-  hash -r
-fi
-
-#focal's flatpak package is also out of date (I get LTS is supposed to put stability above all else, but seriously?)
-if grep -q focal /etc/os-release; then
-  ppa_name="alexlarsson/flatpak" && ppa_installer
-fi
-
-#this takes two seconds to add so why not
-if grep -q xenial /etc/os-release; then
-  ppa_name="alexlarsson/flatpak" && ppa_installer
-fi
+# fix ppa for out of date repos
+case "$DISTRIB_CODENAME" in
+  bionic)
+    #bionic's flatpak package is out of date
+    ppa_name="alexlarsson/flatpak" && ppa_installer
+    #bionic cmake is very old, use theofficialgman ppa for cmake
+    ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+    if [[ -f "/usr/bin/cmake" ]]; then
+      #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+      sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+    fi
+    hash -r
+    ;;
+  xenial|focal)
+    ppa_name="alexlarsson/flatpak" && ppa_installer
+    ;;
+esac
 
 #updates whee
 sudo apt upgrade -y
