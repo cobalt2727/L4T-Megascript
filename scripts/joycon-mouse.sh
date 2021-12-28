@@ -34,7 +34,7 @@ table=("ok")
 userinput_func "$description" "${table[@]}"
 
 description="Done!\
-\n\n Restart your Switch when you're ready to gain access to using your joycons as a mouse."
+\n\n Restart your Switch when you're ready to gain access to using your joycons as a mouse.\n And just to reiterate, since people sometimes gloss over it on the previous screen, remember to use the Screenshot button to turn the mouse on/off."
 table=("ok")
 userinput_func "$description" "${table[@]}"
 
