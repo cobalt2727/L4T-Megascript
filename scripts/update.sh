@@ -101,10 +101,11 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	sleep 5
 	##maintenance (not passing with -y to prevent potentially breaking something for a user)
 	sudo dpkg --configure -a
-	sudo apt autoremove
 	sudo apt --fix-broken install
+	sudo apt autoremove
 	sudo apt autoclean
 	sudo apt autopurge
+	sudo apt clean && sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}')
 	
 	echo "Fixing flatpak issues (if any)..."
 	sudo flatpak remove --unused
