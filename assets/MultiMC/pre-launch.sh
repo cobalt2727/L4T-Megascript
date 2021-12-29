@@ -1,13 +1,13 @@
 #!/bin/bash
 # Download and install Mods compatible with minecraft version
-
+MMC_ROOT="${INST_DIR%/*/*/*}"
 wget -q --spider https://github.com && wget -q --spider https://raw.githubusercontent.com/
 
 # only run update/install script if the user has an active internet connection
 if [ $? == 0 ]
 then
-	megascript_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/megascript-mods.txt")
-	user_mods=$(sed -n "p" <"/home/$USER/MultiMC/scripts/user-mods.txt")
+	megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
+	user_mods=$(sed -n "p" <"$MMC_ROOT/scripts/user-mods.txt")
 	cd "$INST_DIR"
 	mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
     fabric_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.fabricmc.fabric-loader\///p')
