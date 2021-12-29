@@ -16,7 +16,7 @@ then
         mv /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
         chmod +x "$MMC_ROOT/scripts/pre-launch.sh"
         echo "Running new downloaded script and skipping this old one"
-        "$MMC_ROOT/scripts/pre-launch.sh" || exit 1
+        "$MMC_ROOT/scripts/pre-launch.sh" || exit $?
         exit 0
     else
         echo "Pre-Launch script already up to date."
