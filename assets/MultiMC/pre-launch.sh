@@ -7,7 +7,8 @@ wget -q --spider https://github.com && wget -q --spider https://raw.githubuserco
 if [ $? == 0 ]
 then
 
-    wget -O /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
+    echo "Checking pre-launch script from online."
+    wget -qO /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
 
     if [[ "$?" == 1 ]]; then
         echo "Online script is newer"
