@@ -173,19 +173,7 @@ chmod +x scripts/pre-launch.sh
 echo "Setting list of mods installed by the megascript by default"
 echo "Make sure to click the Install Fabric button within MultiMC to enable these mods"
 echo ""
-tee scripts/megascript-mods.txt <<'EOF'
-sodium
-lithium
-phosphor
-hydrogen
-lambdacontrols
-fabric-api
-modmenu
-lazydfu
-ferrite-core
-better-beds
-chunk-pregenerator-fabric
-EOF
+wget -O scripts/megascript-mods.txt "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/megascript-mods.txt"
 
 # clone the complete source
 status "Downloading the MultiMC5 Source Code"
