@@ -6,10 +6,23 @@ wget -q --spider https://github.com && wget -q --spider https://raw.githubuserco
 # only run update/install script if the user has an active internet connection
 if [ $? == 0 ]
 then
-	megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
-	user_mods=$(sed -n "p" <"$MMC_ROOT/scripts/user-mods.txt")
-	cd "$INST_DIR"
-	mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
+
+    wget -O /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
+
+    if [[ "$?" == 1 ]]; then
+        echo "Online script is newer"
+        rm "$MMC_ROOT/scripts/pre-launch.sh"
+        mv /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
+        chmod +x "$MMC_ROOT/scripts/pre-launch.sh"
+        echo "Running new downloaded script and skipping this old one"
+        "$MMC_ROOT/scripts/pre-launch.sh" || exit 1
+        exit 0
+    fi
+
+    megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
+    user_mods=$(sed -n "p" <"$MMC_ROOT/scripts/user-mods.txt")
+    cd "$INST_DIR"
+    mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
     fabric_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.fabricmc.fabric-loader\///p')
     forge_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraftforge\///p')
     if [[ -d "minecraft" ]]; then
@@ -18,9 +31,9 @@ then
         mkdir -p .minecraft
         cd .minecraft
     fi
-	mkdir -p mods
-	mkdir -p config
-	cd mods
+    mkdir -p mods
+    mkdir -p config
+    cd mods
     modloader=""
     add_button=""
     if [[ -z "$fabric_version" ]]; then
@@ -65,21 +78,21 @@ then
         modloader="fabric"
         add_button='--button=Yes, Update/Install My Mods and Megascript Suggested Fabric mods:0'
     fi
-	minecraft_mods_list=$(minecraft-mod-manager list | tail -n +2)
-	echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
+    minecraft_mods_list=$(minecraft-mod-manager list | tail -n +2)
+    echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
 Do you want to update/install the following Mods: \n\n$minecraft_mods_list\n\n\n\
 If this list above is emtpty, you haven't clicked (Yes, Update/Install My Mods and Megascript Suggested Fabric mods) before, you should do that to install suggested performance mods.\
 \n\nMake sure you have already clicked the Install Fabric button (or Forge button if you are supplying your own mods) otherwise these mods won't activate!\n\n\
 You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
-	--borders="20" --center --fixed\
-	--window-icon=/usr/share/icons/L4T-Megascript.png \
-	--text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
-	--show-uri \
-	"$add_button" \
+    --borders="20" --center --fixed\
+    --window-icon=/usr/share/icons/L4T-Megascript.png \
+    --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+    --show-uri \
+    "$add_button" \
     --button="Yes, Update/Install ONLY My Mods":1 \
-	--button="No, skip this and save time":2
-	
-	case "$?" in
+    --button="No, skip this and save time":2
+    
+    case "$?" in
         "0")
             echo "Selected: Update/Install My Mods and Megascript Suggested Fabric mods"
             echo "Downloading latest gamecontrollerdb.txt"
@@ -100,6 +113,6 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
         "2")
             echo "Skipped Mod install/update"
             ;;
-	esac
+    esac
 fi
 echo "Mod script finished or skipped"
