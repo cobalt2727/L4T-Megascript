@@ -7,6 +7,9 @@ wget -q --spider https://github.com && wget -q --spider https://raw.githubuserco
 if [ $? == 0 ]
 then
 
+    echo "Checking megascript-mods list from online"
+    wget -qO /tmp/megascript-mods.txt "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/megascript-mods.txt" && rm "$MMC_ROOT/scripts/megascript-mods.txt" && mv /tmp/megascript-mods.txt "$MMC_ROOT/scripts/megascript-mods.txt"
+
     echo "Checking pre-launch script from online."
     wget -qO /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
 
