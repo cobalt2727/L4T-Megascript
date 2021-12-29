@@ -17,6 +17,8 @@ then
         echo "Running new downloaded script and skipping this old one"
         "$MMC_ROOT/scripts/pre-launch.sh" || exit 1
         exit 0
+    else
+        echo "Pre-Launch script already up to date."
     fi
 
     megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
