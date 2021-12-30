@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=L4T Megascript
+Comment=All-in-one installer and updater for popular programs on L4T Ubuntu with no prior knowledge of Linux needed
 Exec=bash -c 'bash <( wget -O - https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/core_refactor2.sh ) "gui"'
 Icon=/usr/share/icons/L4T-Megascript.png
 Type=Application
