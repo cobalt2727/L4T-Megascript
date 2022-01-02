@@ -33,6 +33,9 @@ rm -rf minecraft-bedrock
 echo "Install Dependencies..."
 cd ~
 
+
+#NOTE:  a long time ago we used to use ZorinOS PPAs and Debian repos to get newer version of libraries needed to make the launcher work on 18.04.
+#       this was a bad idea, and we've since gotten things working without external software sources. so the below section wipes out those if they're found on an 18.04 setup
 if grep -q bionic /etc/os-release; then
 
     if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28);then
