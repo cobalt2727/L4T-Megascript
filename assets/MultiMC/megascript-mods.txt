@@ -9,3 +9,10 @@ lazydfu
 ferrite-core
 better-beds
 chunk-pregenerator-fabric
+dynamic-fps
+cull-leaves
+fps-reducer
+fastchest
+no-telemetry
+smoothboot
+tooltipfix
