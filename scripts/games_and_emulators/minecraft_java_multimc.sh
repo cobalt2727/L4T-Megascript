@@ -146,34 +146,107 @@ case "$__os_id" in
 esac
 
 # make all the folders
-cd
-mkdir -p ~/MultiMC
-cd ~/MultiMC || exit 1
+cd "$HOME"
+mkdir -p "$HOME/MultiMC"
+cd "$HOME/MultiMC" || error "Could not move to directory"
 mkdir -p build
 mkdir -p install
 mkdir -p scripts
 
-# install modmanager python script
-if grep -E 'bionic' /etc/os-release > /dev/null; then
-    python_version="python3.8"
+modmanager="0"
+case "$__os_id" in
+    Raspbian|Debian)
+        case "$__os_codename" in
+            bullseye) modmanager="1"; python_version="python3";;
+            buster) modmanager="1"; python_version="python3.8";;
+        esac
+        ;;
+    LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+        source /etc/lsb-release
+        source /etc/upstream-release/lsb-release
+        case "$DISTRIB_CODENAME" in
+            bionic) modmanager="1"; python_version="python3.8";;
+            *) modmanager="1"; python_version="python3";;
+        esac
+        ;;
+esac
+
+if [[ $modmanager == 1 ]]; then
+    echo -e "IMPORTANT: Do you want to add an experimental automatic mod updater/installer script?.\
+\n\nThis is used to automatically install appropriate performance mods to each of your minecraft instances on launch.\
+\n\nIf you want an easy way to install the Fabric performance mods or want a way to easily update your mods, click YES.\
+\nIf you ever want to remove this functionality, go to MultiMC->Settings->Custom Commands and remove the Pre-launch command." | yad --image "dialog-question" \
+    --borders="20" --center --fixed\
+    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
+    --show-uri \
+    --button="YES, add the mod script":0 \
+    --button="NO, do NOT add the mod script":1
 else
-    python_version="python3"
+    status "Mod script uninstallable since your OS does not have python 3.8+"
 fi
-sudo apt install $python_version python3-pip jq -y
-hash -r
-$python_version -m pip install --upgrade pip setuptools wheel minecraft-mod-manager
-unset python_version
 
-# creating mod updater script
-wget -O scripts/pre-launch.sh "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/pre-launch.sh"
-chmod +x scripts/pre-launch.sh
+if [[ "$?" == 0 ]] && [[ $modmanager == 1 ]]; then
+    if [[ "$__os_codename" == "buster" ]]; then
+        status "Adding deb-pascalroeleven repository for python3.8 backport:"
 
-# fabric mods installed by default
-# mods are disabled by default until the user uses the "Install Fabric" button in MultiMC
-echo "Setting list of mods installed by the megascript by default"
-echo "Make sure to click the Install Fabric button within MultiMC to enable these mods"
-echo ""
-wget -O scripts/megascript-mods.txt "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/megascript-mods.txt"
+        echo "- public key -> keyring"
+
+        rm -f /tmp/deb-pascalroeleven-public-key /tmp/deb-pascalroeleven-archive-keyring.gpg
+        wget -O /tmp/deb-pascalroeleven-public-key https://pascalroeleven.nl/deb-pascalroeleven.gpg
+        gpg --no-default-keyring --keyring /tmp/deb-pascalroeleven-keyring.gpg --import /tmp/deb-pascalroeleven-public-key
+        rm -f /tmp/deb-pascalroeleven-public-key
+
+        echo " - keyring -> GPG key"
+        gpg --no-default-keyring --keyring /tmp/deb-pascalroeleven-keyring.gpg --export --output /tmp/deb-pascalroeleven-archive-keyring.gpg 
+        rm -f /tmp/deb-pascalroeleven-keyring.gpg
+
+        echo " - Moving GPG key to /usr/share/keyrings"
+        sudo mv -f /tmp/deb-pascalroeleven-archive-keyring.gpg /usr/share/keyrings
+
+        echo " - Creating /etc/apt/sources.list.d/deb-pascalroeleven.list"
+        echo "deb [signed-by=/usr/share/keyrings/deb-pascalroeleven-archive-keyring.gpg] http://deb.pascalroeleven.nl/python3.8 buster-backports main" | sudo tee /etc/apt/sources.list.d/deb-pascalroeleven.list >/dev/null
+
+        (install_packages python3.8)
+        if [ $? != 0 ]; then
+            anything_installed_from_repo "http://deb.pascalroeleven.nl/python3.8"
+            if [ $? != 0 ]; then
+                # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
+                # safe to remove
+                sudo rm -f /etc/apt/sources.list.d/deb-pascalroeleven.list /usr/share/keyrings/deb-pascalroeleven-archive-keyring.gpg
+            fi
+            warning "Failed to install python3.8 packages. deb-pascalroeleven repository has been removed."  && warning "Forcefully skipping installing the mod installer script." && echo "" && warning "Continuing the MultiMC5 Install without automatic mod installer in 10 seconds."
+            sleep 10
+            modmanager="0"
+        fi
+    fi
+    # check again if modmanager is still 1 incase python3.8 failed to install on buster
+    if [[ $modmanager == 1 ]]; then
+        # install modmanager python script
+        install_packages $python_version python3-pip jq || error "Failed to install mod installer script dependencies"
+        hash -r
+        $python_version -m pip install --upgrade pip minecraft-mod-manager
+        if [[ $? == 0 ]]; then
+            # creating mod updater script
+            wget -O scripts/pre-launch.sh "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/pre-launch.sh"
+            chmod +x scripts/pre-launch.sh
+
+            # fabric mods installed by default
+            # mods are disabled by default until the user uses the "Install Fabric" button in MultiMC
+            echo "Setting list of mods installed by the megascript by default"
+            echo "Make sure to click the Install Fabric button within MultiMC to enable these mods"
+            echo ""
+            wget -O scripts/megascript-mods.txt "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/megascript-mods.txt"
+            status "Mod script installed."
+        else
+            warning "PIP errored on install of dependencies, cannot add the Mod Installer Script."
+            warning "Continuing the install without the Mod Install Script in 10 seconds."
+            sleep 10
+        fi
+        unset python_version
+    fi
+else
+    status "Mod script skipped."
+fi
 
 # clone the complete source
 status "Downloading the MultiMC5 Source Code"
