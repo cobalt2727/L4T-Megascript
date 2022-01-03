@@ -206,7 +206,8 @@ if [[ "$?" == 0 ]] && [[ $modmanager == 1 ]]; then
         echo " - Creating /etc/apt/sources.list.d/deb-pascalroeleven.list"
         echo "deb [signed-by=/usr/share/keyrings/deb-pascalroeleven-archive-keyring.gpg] http://deb.pascalroeleven.nl/python3.8 buster-backports main" | sudo tee /etc/apt/sources.list.d/deb-pascalroeleven.list >/dev/null
 
-        (install_packages python3.8)
+        sudo apt update
+        (sudo apt install python3.8 -y)
         if [ $? != 0 ]; then
             anything_installed_from_repo "http://deb.pascalroeleven.nl/python3.8"
             if [ $? != 0 ]; then
@@ -222,7 +223,7 @@ if [[ "$?" == 0 ]] && [[ $modmanager == 1 ]]; then
     # check again if modmanager is still 1 incase python3.8 failed to install on buster
     if [[ $modmanager == 1 ]]; then
         # install modmanager python script
-        install_packages $python_version python3-pip jq || error "Failed to install mod installer script dependencies"
+        sudo apt install $python_version python3-pip jq || error "Failed to install mod installer script dependencies"
         hash -r
         $python_version -m pip install --upgrade pip minecraft-mod-manager
         if [[ $? == 0 ]]; then
