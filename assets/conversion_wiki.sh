@@ -10,9 +10,8 @@ conversion() {
 ### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )
 
 ### Need some help or want to contribute?
-You're in luck - we've got a Discord server: <Br>
-[![Discord invite](https://discord.com/assets/ff41b628a47ef3141164bfedb04fb220.png)](https://discord.gg/abgW2AG87Z "Discord server invite link") <Br>
-[Click to join](https://discord.gg/abgW2AG87Z) <Br>
+You're in luck - we've got a Discord server: <a href="https://discord.gg/abgW2AG87Z">
+    Join the <img src="https://img.shields.io/discord/719014537277210704.svg?color=7289da&label=Discord%20server&logo=discord" alt="Join the Discord server"></a>
 
 ### Below is a list of supported Megascript install scripts with a short description and link to the source.
 EOF
