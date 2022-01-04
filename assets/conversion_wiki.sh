@@ -14,7 +14,6 @@ You're in luck - we've got a Discord server: <a href="https://discord.gg/abgW2AG
     Join the <img src="https://img.shields.io/discord/719014537277210704.svg?color=7289da&label=Discord%20server&logo=discord" alt="Join the Discord server"></a>
 
 ### Below is a list of supported Megascript install scripts with a short description and link to the source.
-[Games and Emulators](https://github.com/cobalt2727/L4T-Megascript/wiki#games-and-emulators)
 EOF
 
   for ((i = 1; i <= ${length}; i++)); do
@@ -30,7 +29,7 @@ EOF
         ff="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         fl="$(echo "$f" | sed -e 's/_/-/g')"
         if [[ "$ff" != "$prev_f" ]];then
-            echo '['"$ff"']((https://github.com/cobalt2727/L4T-Megascript/wiki#'"$fl"')'
+            echo '['"$ff"'](https://github.com/cobalt2727/L4T-Megascript/wiki#'"$fl"')'
         fi
         if [ "$f" != "scripts" ]; then
             f="scripts/$f"
