@@ -1,0 +1,4 @@
+[submodule "assets/RetroPie/RetroPie-Binaries"]
+	path = assets/RetroPie/RetroPie-Binaries
+	url = https://github.com/theofficialgman/RetroPie-Binaries.git
+	branch = master
