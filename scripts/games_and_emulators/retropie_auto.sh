@@ -3,9 +3,9 @@
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
 
 function install {
-    echo "Retropie install script started!"
+    status_green "Retropie install script started!"
     echo
-    echo "Downloading the files and installing needed dependencies..."
+    status "Downloading the files and installing needed dependencies..."
     sleep 3
     # get system info
     get_system
@@ -73,19 +73,19 @@ function update_scripts {
         cd ~/RetroPie-Setup
     fi
     sudo crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
-    echo "Finding all games installed and adding them to the Ports menu"
+    status "Finding all games installed and adding them to the Ports menu"
     mkdir -p "/home/$USER/.emulationstation/scripts/quit"
     rm -rf /tmp/add_games.sh
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh" -O /tmp/add_games.sh && sudo rm -rf  "/home/$USER/.emulationstation/scripts/quit/add_games.sh" && mv  /tmp/add_games.sh "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
     sudo chmod 755 "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
 
-    echo "Addding the Python .desktop image finder script"
+    status "Addding the Python .desktop image finder script"
     rm -rf /tmp/get-icon-path.py
     mkdir -p "/home/$USER/RetroPie/roms/ports"
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py" -O /tmp/get-icon-path.py && sudo rm -rf "/home/$USER/RetroPie/roms/ports/get-icon-path.py" && mv /tmp/get-icon-path.py "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
     sudo chmod 755 "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
 
-    echo "Running the auto game detection script"
+    status "Running the auto game detection script"
     "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
 
     # hotfix for switch/jetsons emulationstation crash and vlc player broken
@@ -165,7 +165,7 @@ function install_binaries {
         for folder in ${repo_folders[@]}; do
             if [[ $folder == */ ]]; then
                 folder=${folder::-1}
-                echo "Downloading Precompiled Binaries version info from Megascript for $folder"
+                status "Downloading Precompiled Binaries version info from Megascript for $folder"
                 repo_files=($( svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/$folder/ ))
                 mkdir $folder
                 cd $folder
@@ -179,8 +179,8 @@ function install_binaries {
                     fi
                 done
                 wget ${package_url_list[@]}
-                echo "Downloading Precompiled Binaries from the Megascript if newer than local for $folder"
-                echo "This could take a few seconds depending on the speed of your internet connection"
+                status "Downloading Precompiled Binaries from the Megascript if newer than local for $folder"
+                status "This could take a few seconds depending on the speed of your internet connection"
                 for package in ${package_list[@]}; do
                     package=$(echo "${package%.pkg}")
                     repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
@@ -191,7 +191,7 @@ function install_binaries {
                         # only download and extract package if it is newer than local version
                         wget https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package.tar.gz
                         cat ./$package.tar.gz | tar zxvf - -i
-                        echo "The compiled binary for $package is newer, updating local binary"
+                        status_green "The compiled binary for $package is newer, updating local binary"
                         sudo cp -R ./$package /opt/retropie/$folder
                         current_dir="$(pwd)"
                         cd /home/$USER/RetroPie-Setup
@@ -199,7 +199,7 @@ function install_binaries {
                         sudo /home/$USER/RetroPie-Setup/retropie_packages.sh $package configure
                         cd "$current_dir"
                     else
-                        echo "nothing to be done, local version of $package is newer or the same version as the megascript package"
+                        status "nothing to be done, local version of $package is newer or the same version as the megascript package"
                     fi
                     rm -rf ./$package.tar.gz
                     rm -rf ./$package.pkg
@@ -210,7 +210,7 @@ function install_binaries {
         cd ~
 		sudo rm -rf "/tmp/Retropie-Binaries"
 	else
-		echo "We don't host binaries for your platform, sorry!"
+		warning "We don't host binaries for your platform, sorry!"
 	fi
 }
 
