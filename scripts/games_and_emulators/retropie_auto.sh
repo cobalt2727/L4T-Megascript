@@ -161,12 +161,12 @@ function install_binaries {
 		cd "/tmp/Retropie-Binaries"
         mkdir $jetson_model
         cd $jetson_model
-        repo_folders=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/ ))
+        repo_folders=($( svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/ ))
         for folder in ${repo_folders[@]}; do
             if [[ $folder == */ ]]; then
                 folder=${folder::-1}
                 echo "Downloading Precompiled Binaries version info from Megascript for $folder"
-                repo_files=($( svn ls https://github.com/$repository_username/L4T-Megascript/trunk/assets/RetroPie/Binaries/$jetson_model/$folder/ ))
+                repo_files=($( svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/$folder/ ))
                 mkdir $folder
                 cd $folder
                 sudo mkdir -p /opt/retropie/$folder
@@ -174,7 +174,7 @@ function install_binaries {
                 package_url_list=()
                 for package in ${repo_files[@]}; do
                     if [[ $package == *.pkg ]]; then
-                        package_url_list+=(https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/$folder/$package)
+                        package_url_list+=(https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package)
                         package_list+=($package)
                     fi
                 done
@@ -189,7 +189,7 @@ function install_binaries {
                     local_binary_date=$(date -d $local_binary_date +%s)
                     if [[ $repo_binary_date -gt $local_binary_date ]]; then
                         # only download and extract package if it is newer than local version
-                        wget https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/Binaries/$jetson_model/$folder/$package.tar.gz
+                        wget https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package.tar.gz
                         cat ./$package.tar.gz | tar zxvf - -i
                         echo "The compiled binary for $package is newer, updating local binary"
                         sudo cp -R ./$package /opt/retropie/$folder
