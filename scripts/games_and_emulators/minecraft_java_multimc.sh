@@ -223,7 +223,7 @@ if [[ "$?" == 0 ]] && [[ $modmanager == 1 ]]; then
     # check again if modmanager is still 1 incase python3.8 failed to install on buster
     if [[ $modmanager == 1 ]]; then
         # install modmanager python script
-        sudo apt install $python_version python3-pip jq || error "Failed to install mod installer script dependencies"
+        sudo apt install $python_version python3-pip jq -y || error "Failed to install mod installer script dependencies"
         hash -r
         $python_version -m pip install --upgrade pip minecraft-mod-manager
         if [[ $? == 0 ]]; then
