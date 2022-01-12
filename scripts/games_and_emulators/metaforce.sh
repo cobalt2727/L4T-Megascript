@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #TODO:
-# desktop files (no official reference for this, only official distribution method is an appimage)
 # instructions for users to extract their copy of Metroid Prime 1/2/3/Trilogy via Metaforce running on a PC (doing so on a Switch would probably take like a week)
 # possibly an AntiMicroX profile since Metaforce only supports keyboard or the Wii U GameCube adapter right now
 
@@ -56,3 +55,10 @@ if grep -q bionic /etc/os-release; then
 else
  CC=clang CXX=clang++ ninja || error "Build failed!"
 fi
+
+cd ~
+
+#install icons for .desktop file
+sudo cp -r metaforce/metaforce-gui/platforms/freedesktop/*/ /usr/local/share/icons/hicolor/
+#install .desktop file itself
+sudo cp metaforce/metaforce-gui/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
