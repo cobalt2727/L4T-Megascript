@@ -58,7 +58,11 @@ fi
 
 cd ~
 
+#install metaforce and all associated programs
+sudo cp metaforce-build/Binaries/* /usr/local/bin/
 #install icons for .desktop file
 sudo cp -r metaforce/metaforce-gui/platforms/freedesktop/*/ /usr/local/share/icons/hicolor/
 #install .desktop file itself
 sudo cp metaforce/metaforce-gui/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
+
+#maybe prompt user to delete build folder(s)
