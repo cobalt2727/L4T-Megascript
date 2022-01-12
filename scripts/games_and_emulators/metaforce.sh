@@ -2,7 +2,7 @@
 
 #TODO:
 # desktop files (no official reference for this, only official distribution method is an appimage)
-# instructions for users to extract their copy of Metroid Prime 1/2/3/Trilogy on a PC (doing so on a Switch would probably take like a week)
+# instructions for users to extract their copy of Metroid Prime 1/2/3/Trilogy via Metaforce running on a PC (doing so on a Switch would probably take like a week)
 # possibly an AntiMicroX profile since Metaforce only supports keyboard or the Wii U GameCube adapter right now
 
 echo "Metaforce script started!"
@@ -26,13 +26,13 @@ if grep -q bionic /etc/os-release; then
   sudo apt install -y build-essential curl git ninja-build clang lld-10 zlib1g-dev libcurl4-openssl-dev \
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
-  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default clang-13 libclang-13-dev libmlir-13-dev libstdc++-11-dev || error "Failed to install dependencies!" #libfmt-dev
+  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default clang-13 libclang-13-dev libmlir-13-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
 
 else
  sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
  libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
  libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
- qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
+ qtbase5-dev-tools libclang-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
 fi
 
 git clone --recursive https://github.com/AxioDL/metaforce.git -j$(nproc)
