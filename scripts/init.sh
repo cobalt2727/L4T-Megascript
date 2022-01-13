@@ -98,9 +98,16 @@ case "$DISTRIB_CODENAME" in
     fi
     hash -r
     ;;
-  xenial|focal)
+  xenial|jammy)
     ppa_name="alexlarsson/flatpak" && ppa_installer
     ;;
+  focal)
+    ppa_name="alexlarsson/flatpak" && ppa_installer
+    ppa_name="rncbc/libs-focal" && ppa_installer
+    if [[ -f "/usr/bin/cmake" ]]; then
+      #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+      sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+    fi
 esac
 
 #updates whee
