@@ -103,7 +103,15 @@ case "$DISTRIB_CODENAME" in
     ;;
   focal)
     ppa_name="alexlarsson/flatpak" && ppa_installer
-    ppa_name="rncbc/libs-focal" && ppa_installer
+
+    # use kitware apt repo for 20.04 as it has x86/x64_64 and armhf/arm64 support (armhf/arm64 not available from this repo for bionic which is why its not used there)
+    sudo apt install gpg wget
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+    echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+    sudo apt-get update
+    sudo rm /usr/share/keyrings/kitware-archive-keyring.gpg
+    sudo apt-get install kitware-archive-keyring
+
     if [[ -f "/usr/bin/cmake" ]]; then
       #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
       sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
