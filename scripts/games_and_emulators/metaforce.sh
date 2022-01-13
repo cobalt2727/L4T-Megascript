@@ -62,7 +62,8 @@ cd ~
 sudo cp metaforce-build/Binaries/* /usr/local/bin/
 #install icons for .desktop file
 sudo cp -r metaforce/metaforce-gui/platforms/freedesktop/*/ /usr/local/share/icons/hicolor/
-#install .desktop file itself
-sudo cp metaforce/metaforce-gui/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
+#install .desktop files themselves - possibly rewrite that first line if the file gets renamed as per my suggestion in https://github.com/AxioDL/metaforce/pull/438
+sudo cp metaforce/metaforce-gui/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce-gui.desktop
+sudo cp metaforce/Runtime/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
 
-#maybe prompt user to delete build folder(s)
+#maybe prompt user to delete build folder(s) considering how big they are?
