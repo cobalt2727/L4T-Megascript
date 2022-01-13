@@ -18,7 +18,7 @@ fn="MultiMC (Minecraft Java)";;d="Minecraft Launcher, Instance, and Mod Manager"
 
 fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the Android Version Required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
 
-fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1 with keyboard controls or a Wii U Gamecube Adapter";;sn="metaforce.sh";;f="games_and_emulators"
+fn="Metaforce";;d="(WARNING - this script is experimental) An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1 with keyboard controls or a Wii U Gamecube Adapter";;sn="metaforce.sh";;f="games_and_emulators"
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
