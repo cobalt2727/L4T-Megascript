@@ -46,6 +46,13 @@ if test -f /usr/local/bin/citra-qt; then
 	CitraUserInput="$output"
 fi
 
+MetaforceUserInput="no"
+if test -f /usr/local/bin/metaforce; then
+        description="Do you want to update Metaforce? (May take 5 minutes to 3+ hours)"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+	MetaforceUserInput="$output"
+fi
 
 #######################################################################
 
@@ -149,7 +156,7 @@ if [[ $DolphinUserInput == "yes" ]]; then
 	sleep 5
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
 else
-	echo "Skipping Dolphin updates..."
+	echo "Skipping Dolphin update..."
 fi
 
 if [[ $RetroPieUserInput == "Update From Source" ]]; then
@@ -160,10 +167,10 @@ if [[ $RetroPieUserInput == "Update From Source" ]]; then
 	sleep 10
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "update_cores"
 elif [[ $RetroPieUserInput == "Update Scripts Only" ]]; then
-	echo "Updating RetroPie Setup Script and Megascript Scripts Only..."
+	echo "Updating RetroPie-Setup script and Megascript scripts Only..."
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "update_scripts"
 elif [[ $RetroPieUserInput == "Binaries Only" ]]; then
-	echo "Updating RetroPie Binaries Only..."
+	echo "Updating RetroPie binaries only..."
 	curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/retropie_auto.sh | bash -s "install_binaries"
 else
 	echo "Skipping RetroPie updates..."
@@ -174,10 +181,16 @@ if [[ $CitraUserInput == "yes" ]]; then
 	sleep 5
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)"
 else
-	echo "Skipping Citra updates..."
+	echo "Skipping Citra update..."
 fi
 
-
+if [[ $MetaforceUserInput == "yes" ]]; then
+	echo "Updating Metaforce..."
+	sleep 5
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/metaforce.sh)"
+else
+	echo "Skipping Metaforce update..."
+fi
 
 ##########################################################################
 
