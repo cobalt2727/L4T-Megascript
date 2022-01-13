@@ -72,6 +72,19 @@ elif [[ ! -f /var/lib/dbus/machine-id ]]; then
   dbus-uuidgen | sudo tee /var/lib/dbus/machine-id
 fi
 
+if [ -f /etc/switchroot_version.conf ]; then
+  swr_ver=$(cat /etc/switchroot_version.conf)
+  if [ $swr_ver == "3.4.0" ]; then
+    # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
+    if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
+      warning "Wifi was probably broken after an apt upgrade to linux-firmware"
+      warning "Replacing with known good version from L4T 3.4.0 updates files"
+      sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
+      sudo wget -O /lib/firmware/brcm/BCM4356A3.hcd https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/BCM4356A3.hcd
+    fi
+  fi
+fi
+
 # fix ppa for out of date repos
 case "$DISTRIB_CODENAME" in
   bionic)
