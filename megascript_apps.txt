@@ -2,8 +2,6 @@ fn="Initial Setup";;d="Installs many vital features like the joycon mouse, flatp
 
 fn="Auto Updater";;d="Update system (apt) packages, flatpaks (if any), and emulators and apps installed via the Megascript (check this frequently!)";;sn="update.sh";;f="scripts";;selected="TRUE"
 
-# fn="Auto Config Updater";;d="Update L4T Megascript autoconfigs for games (very helpful, [FILESIZE] download size though)";;e='echo "go ping cobalt on discord and yell at me about getting an updater system working"';;f="scripts"
-
 fn="moonlight-qt";;d='Stream games from your PC (NVIDIA GPUs use GeForce Experience on Windows (or Sunshine on Linux) AMD GPUs use Sunshine on Windows/Linux)!';;sn="moonlight.sh";;f="scripts"
 
 fn="Discord (Webcord)";;d="Discord Web App made in Electron";;sn="discord.sh";;f="scripts"
@@ -16,15 +14,17 @@ fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x
 
 fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dolphin/main.sh";;f="games_and_emulators"
 
-fn="MultiMC (Minecraft Java)";;d="Mincraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
+fn="MultiMC (Minecraft Java)";;d="Minecraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
 
 fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the Android Version Required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
+
+fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1 with keyboard controls or a Wii U Gamecube Adapter";;sn="metaforce.sh";;f="games_and_emulators"
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
 fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
 
-fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation.";;sn="melonDS.sh";;f="games_and_emulators"
+fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
@@ -46,7 +46,7 @@ fn="VSCode";;d="Code editor redefined and optimized for building/debugging moder
 
 fn="Sublime Text";;d="Sublime Text is a sophisticated text editor for code, markup and prose";;sn="sublime-text.sh";;f="IDE"
 
-fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mouse, scripts and macros.";;sn="antimicrox.sh";;f="extras"
+fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mouse, scripts and macros";;sn="antimicrox.sh";;f="extras"
 
 fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
@@ -56,22 +56,22 @@ fn="PrusaSlicer";;d="PrusaSlicer is an open-source, feature-rich, frequently upd
 
 fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and elegance";;sn="budgie.sh";;f="desktop_environments"
 
-fn="Cinnamon Desktop";;d="(Warning this script is experimental) Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions.";;sn="cinnamon.sh";;f="desktop_environments"
+fn="Cinnamon Desktop";;d="(WARNING - this script is experimental) Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions";;sn="cinnamon.sh";;f="desktop_environments"
 
-fn="Gnome Desktop";;d="GNOME is a free and open-source desktop environment for Unix-like operating systems.";;sn="gnome.sh";;f="desktop_environments"
+fn="Gnome Desktop";;d="GNOME is a free and open-source desktop environment for Unix-like operating systems";;sn="gnome.sh";;f="desktop_environments"
 
 # fn="KDE Plasma";;d="The next generation desktop for Linux";;sn="kde.sh";;f="desktop_environments"
 
-fn="LXDE";;d="(Warning this script is experimental) LXDE is a free desktop environment with comparatively low resource requirements";;sn="lxde.sh";;f="desktop_environments"
+fn="LXDE";;d="(WARNING - this script is experimental) LXDE is a free desktop environment with comparatively low resource requirements";;sn="lxde.sh";;f="desktop_environments"
 
-# fn="LXQT";;d="LXQt is a free and open source lightweight desktop environment.";;sn="lxqt.sh";;f="desktop_environments"
+# fn="LXQT";;d="LXQt is a free and open source lightweight desktop environment";;sn="lxqt.sh";;f="desktop_environments"
 
-fn="Mate Desktop";;d="(Warning this script is experimental) An Argentine user of Arch Linux started the MATE project to fork and continue GNOME 2 in response to the negative reception of GNOME 3, which had replaced its traditional taskbar with GNOME Shell.";;sn="mate.sh";;f="desktop_environments"
+fn="Mate Desktop";;d="(WARNING - this script is experimental) An Argentine user of Arch Linux started the MATE project to fork and continue GNOME 2 in response to the negative reception of GNOME 3, which had replaced its traditional taskbar with GNOME Shell";;sn="mate.sh";;f="desktop_environments"
 
-fn="Openbox";;d="(Warning this script is experimental) Openbox is a free, stacking window manager for the X Window System";;sn="openbox.sh";;f="desktop_environments"
+fn="Openbox";;d="(WARNING - this script is experimental) Openbox is a free, stacking window manager for the X Window System";;sn="openbox.sh";;f="desktop_environments"
 
-fn="UKUI Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer.";;sn="ukui.sh";;f="desktop_environments"
+fn="UKUI Desktop";;d="UKUI provides a simpler and more enjoyable experience for browsing, searching and managing your computer";;sn="ukui.sh";;f="desktop_environments"
 
 fn="Unity Desktop";;d="Unity is a graphical shell for the GNOME desktop environment originally developed by Canonical Ltd. for its Ubuntu operating system";;sn="unity.sh";;f="desktop_environments"
 
-fn="XFCE";;d="XFCE aims to be fast and lightweight while still being visually appealing and easy to use.";;sn="xfce.sh";;f="desktop_environments"
+fn="XFCE";;d="XFCE aims to be fast and lightweight while still being visually appealing and easy to use";;sn="xfce.sh";;f="desktop_environments"
