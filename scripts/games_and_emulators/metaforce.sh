@@ -60,8 +60,9 @@ cd ~
 
 #install metaforce and all associated programs
 sudo cp metaforce-build/Binaries/* /usr/local/bin/
-#install icons for .desktop file
+#install icons for .desktop files
 sudo cp -r metaforce/metaforce-gui/platforms/freedesktop/*/ /usr/local/share/icons/hicolor/
+sudo cp -r metaforce/Runtime/platforms/freedesktop/*/ /usr/local/share/icons/hicolor/
 #install .desktop files themselves - possibly rewrite that first line if the file gets renamed as per my suggestion in https://github.com/AxioDL/metaforce/pull/438
 sudo cp metaforce/metaforce-gui/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce-gui.desktop
 sudo cp metaforce/Runtime/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
