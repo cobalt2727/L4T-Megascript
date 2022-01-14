@@ -300,7 +300,9 @@ while [ $x == 1 ]; do
           --button="Exit the Megascript":1 \
           --button="Go to selection":0
       )
-      if [ "$?" != 1 ]; then
+      # preset to exit the megascript
+      output=1
+      if [ "$?" == 0 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
         if [ "$CATEGORY" == "all_categories" ]; then
@@ -328,6 +330,7 @@ while [ $x == 1 ]; do
               --button="Install items":0 \
               --button="Go back to categories":2
           )
+          output="$?"
         else
           CHOICE=$(
             yad --center \
@@ -352,8 +355,8 @@ while [ $x == 1 ]; do
               --button="Install Items":0 \
               --button="Go Back to Categories":2
           )
+          output="$?"
         fi
-        output="$?"
         if [[ "$output" == "0" ]]; then
           sudo -k
           state="0"
