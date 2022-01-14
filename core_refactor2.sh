@@ -280,6 +280,8 @@ while [ $x == 1 ]; do
     done
     uniq_selection+=(TRUE "All Categories" "all_categories")
     while [ "$CHOICE" == "" ]; do
+      # preset to exit the megascript
+      output=1
       CATEGORY=$(
         yad --center \
           --width="250" \
@@ -300,8 +302,6 @@ while [ $x == 1 ]; do
           --button="Exit the Megascript":1 \
           --button="Go to selection":0
       )
-      # preset to exit the megascript
-      output=1
       if [ "$?" == 0 ]; then
         category_space="$(echo "$CATEGORY" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         declare -n current_table="table_$CATEGORY"
