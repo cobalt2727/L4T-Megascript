@@ -18,14 +18,16 @@ sudo systemctl restart udev.service
 echo "Installing dependencies..."
 if grep -q bionic /etc/os-release; then
 
-  echo "18.04 detected - let's get you a newer version of Clang/LLVM..."
+  echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
   sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" || error "apt.llvm.org installer failed!"
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm" && ppa_installer
 
   sudo apt install -y build-essential curl git ninja-build clang lld-10 zlib1g-dev libcurl4-openssl-dev \
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
-  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default clang-13 libclang-13-dev libmlir-13-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
+  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515-meta-minimal qt5153d qt515base \
+  clang-13 libclang-13-dev libmlir-13-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
 
 else
  sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
