@@ -15,7 +15,7 @@ else
 fi
 
 ##prompt yes/no
-sudo apt install ubuntu-mate-desktop ubuntu-mate-themes plank mate-notification-daemon ubuntu-mate-welcome -y
+sudo apt install ubuntu-mate-desktop ubuntu-mate-themes plank mate-notification-daemon ubuntu-mate-welcome -y || error "Could not install dependencies"
 ##should we add these?
 ##echo "Installing extras..."
 ##sudo apt-get install mate-session-manager mate-themes mate-screensaver mate-power-manager mate-indicator-applet mate-indicator-applet-common mate-tweak dconf-editor mate-applet-appmenu -y

@@ -5,7 +5,7 @@ echo "Installing the GNOME desktop environment."
 # version function
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d\n", $1,$2,$3); }'; }
 
-sudo apt install gnome-session gnome-tweaks gnome-tweak-tool chrome-gnome-shell gnome-shell wget curl jq unzip sed -y
+sudo apt install gnome-session gnome-tweaks gnome-tweak-tool chrome-gnome-shell gnome-shell wget curl jq unzip sed -y || error "Could not install dependencies"
 hash -r
 sdlv=$(dpkg -s gnome-shell | sed -n 's/Version: //p')
 

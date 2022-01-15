@@ -4,7 +4,7 @@
 
 clear -x
 echo "Installing the LXDE desktop environment."
-sudo apt install lxde lxappearance compton libappindicator3-1 notify-osd -y
+sudo apt install lxde lxappearance compton libappindicator3-1 notify-osd -y || error "Could not install dependencies"
 
 
 # This tells LXDE to use the Compton compositor
