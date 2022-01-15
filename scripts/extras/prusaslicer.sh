@@ -52,11 +52,6 @@ cd PrusaSlicer
 # hard reset to remove any modifications made
 git reset --hard
 git pull
-cd cmake/modules
-echo "Patching the source code until fixed in master"
-rm -rf FindTBB.cmake
-wget https://raw.githubusercontent.com/ceres-solver/ceres-solver/master/cmake/FindTBB.cmake
-cd ~/PrusaSlicer
 mkdir -p build && cd build
 echo "Running cmake"
 rm -rf CMakeCache.txt
