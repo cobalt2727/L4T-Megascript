@@ -54,6 +54,14 @@ if test -f /usr/local/bin/metaforce; then
 	MetaforceUserInput="$output"
 fi
 
+XemuUserInput="no"
+if test -f /usr/local/bin/xemu; then
+        description="Do you want to update Xemu? (May take 5 minutes to 2 hours)"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+	XemuUserInput="$output"
+fi
+
 #######################################################################
 
 echo "Running APT updates..."
@@ -204,6 +212,14 @@ if [[ $MetaforceUserInput == "yes" ]]; then
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/metaforce.sh)"
 else
 	echo "Skipping Metaforce update..."
+fi
+
+if [[ $XemuUserInput == "yes" ]]; then
+	echo "Updating Xemu..."
+	sleep 5
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/xemu.sh)"
+else
+	echo "Skipping Xemu update..."
 fi
 
 ##########################################################################
