@@ -46,6 +46,14 @@ if test -f /usr/local/bin/citra-qt; then
 	CitraUserInput="$output"
 fi
 
+MelonDSUserInput="no"
+if test -f /usr/local/bin/melonDS; then
+        description="Do you want to update melonDS? (May take 5 to 20 minutes)"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+	MelonDSUserInput="$output"
+fi
+
 MetaforceUserInput="no"
 if test -f /usr/local/bin/metaforce; then
         description="Do you want to update Metaforce? (May take 5 minutes to 3+ hours)"
@@ -204,6 +212,14 @@ if [[ $CitraUserInput == "yes" ]]; then
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)"
 else
 	echo "Skipping Citra update..."
+fi
+
+if [[ $MelonDSUserInput == "yes" ]]; then
+	echo "Updating melonDS..."
+	sleep 5
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/melonDS.sh)"
+else
+	echo "Skipping melonDS update..."
 fi
 
 if [[ $MetaforceUserInput == "yes" ]]; then
