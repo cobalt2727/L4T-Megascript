@@ -32,6 +32,7 @@ function install {
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 "$USER" ALL = NOPASSWD: "/sbin/shutdown"
+"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
 _EOF_"
 
     #auto install retropie with most important emulators (which don't take up much space)
@@ -64,6 +65,20 @@ lr-tgbdual lr-yabause )
 }
 
 function update_scripts {
+
+    # update sudoers
+    sudo sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
+"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
+"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
+"$USER" ALL = NOPASSWD: "/sbin/shutdown"
+"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
+_EOF_"
+
+    # add builtin updater into retropie
+    mkdir -p "/home/$USER/RetroPie/retropiemenu"
+    wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/L4T-Megascript-RetroPie-Updater.sh" -O /tmp/L4T-Megascript-RetroPie-Updater.sh && sudo rm -rf "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh" && mv /tmp/L4T-Megascript-RetroPie-Updater.sh "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
+    chmod +x "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
+
     cd "/home/$USER/RetroPie-Setup"
     git pull
     if [[ $? -ne 0 ]]; then
@@ -214,7 +229,7 @@ function install_binaries {
 	fi
 }
 
-if [ -z "$SUDO_USER" ]; then
+if [ $(id -u) != 0 ]; then
     clear -x
     echo "Your username is"
     echo "$USER"
