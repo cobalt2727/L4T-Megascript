@@ -11,6 +11,13 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
+sudo -k
+state="0"
+while [[ "$state" == "0" ]]; do
+  zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
+  state=$?
+done
+
 unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"

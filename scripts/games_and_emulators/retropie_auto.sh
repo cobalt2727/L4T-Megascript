@@ -32,7 +32,6 @@ function install {
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 "$USER" ALL = NOPASSWD: "/sbin/shutdown"
-"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
 _EOF_"
 
     #auto install retropie with most important emulators (which don't take up much space)
@@ -71,7 +70,6 @@ function update_scripts {
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 "$USER" ALL = NOPASSWD: "/sbin/shutdown"
-"$USER" ALL = NOPASSWD: "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
 _EOF_"
 
     # add builtin updater into retropie
