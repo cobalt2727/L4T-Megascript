@@ -178,7 +178,7 @@ function install_binaries {
                         package_list+=($package)
                     fi
                 done
-                wget ${package_url_list[@]}
+                wget ${package_url_list[@]} --progress=bar:force:noscroll
                 status "Downloading Precompiled Binaries from the Megascript if newer than local for $folder"
                 status "This could take a few seconds depending on the speed of your internet connection"
                 for package in ${package_list[@]}; do
@@ -189,7 +189,7 @@ function install_binaries {
                     local_binary_date=$(date -d $local_binary_date +%s)
                     if [[ $repo_binary_date -gt $local_binary_date ]]; then
                         # only download and extract package if it is newer than local version
-                        wget https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package.tar.gz
+                        wget https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package.tar.gz --progress=bar:force:noscroll
                         cat ./$package.tar.gz | tar zxvf - -i
                         status_green "The compiled binary for $package is newer, updating local binary"
                         sudo cp -R ./$package /opt/retropie/$folder
