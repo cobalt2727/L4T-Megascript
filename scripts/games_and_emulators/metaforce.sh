@@ -23,7 +23,7 @@ if grep -q bionic /etc/os-release; then
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm" && ppa_installer
 
-  sudo apt install -y build-essential curl git ninja-build clang lld-10 zlib1g-dev libcurl4-openssl-dev \
+  sudo apt install -y build-essential curl git ninja-build clang lld-13 zlib1g-dev libcurl4-openssl-dev \
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
   qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515-meta-minimal qt5153d qt515base \
