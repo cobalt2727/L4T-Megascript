@@ -2,3 +2,6 @@
 	path = assets/RetroPie/RetroPie-Binaries
 	url = https://github.com/theofficialgman/RetroPie-Binaries.git
 	branch = master
+[submodule "assets/OpenRGB"]
+	path = assets/OpenRGB
+	url = https://github.com/cobalt2727/L4T-Bionic-OpenRGB-binaries
