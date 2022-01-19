@@ -11,12 +11,17 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
+window_id=$(xdotool getactivewindow || true)
+xdotool key F11 --window $window_id || true
+
 sudo -k
 state="0"
 while [[ "$state" == "0" ]]; do
   zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
   state=$?
 done
+
+xdotool key F11 --window $window_id || true
 
 unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
