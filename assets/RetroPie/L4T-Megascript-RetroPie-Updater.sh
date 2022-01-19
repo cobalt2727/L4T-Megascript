@@ -11,8 +11,8 @@ else
   echo "Developer Mode Enabled! Branch = $repository_branch"
 fi
 
-window_id=$(xdotool getactivewindow || true)
-xdotool key F11 --window $window_id || true
+hexNum=$(wmctrl -lp | grep "$(pidof gnome-terminal-server)" | grep "Terminal" | head -n 1 | awk {'print $1}')
+xdotool windowactivate --sync $(( $hexNum )) key F11
 
 sudo -k
 state="0"
@@ -21,7 +21,7 @@ while [[ "$state" == "0" ]]; do
   state=$?
 done
 
-xdotool key F11 --window $window_id || true
+xdotool windowactivate --sync $(( $hexNum )) key F11
 
 unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
