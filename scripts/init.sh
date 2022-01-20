@@ -55,7 +55,7 @@ if printf '%s\n' "$minimumver" "$DISTRIB_RELEASE" | sort -CV; then
 
     echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
     sleep 5
-    sudo apt purge snapd unattended-upgrades
+    sudo apt purge snapd unattended-upgrades && sudo apt-mark hold snapd -y
     sudo apt autoremove
     sudo apt --fix-broken install
   else
