@@ -23,6 +23,13 @@ done
 
 xdotool windowactivate --sync $(( $hexNum )) key F11
 
+function error_fatal {
+  echo -e "\\e[91m$1\\e[39m"
+  sleep 10
+  exit 1
+}
+
+#load functions from github source
 unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
