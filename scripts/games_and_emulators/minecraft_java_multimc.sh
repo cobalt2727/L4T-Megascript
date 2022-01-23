@@ -374,7 +374,7 @@ cd
 # detect if script is running on RPi and if so override MESA GL Version
 if grep -iE 'raspberry' <<< $model > /dev/null; then
     warning "You are running a Raspberry Pi, note that OpenGL 3.3 is not fully supported but it necessary to run Minecraft 1.17+."
-    warning "Vannilla 1.17.1 and 1.17 have been tested to work but there is no guarantee that future versions and rendering mods will continute to work"
+    warning "Vanilla 1.17.1 and 1.17 have been tested to work but there is no guarantee that future versions and rendering mods will continute to work"
     sh -c "cat > ~/.local/share/applications/MultiMC.desktop << _EOF_
 [Desktop Entry]
 Type=Application
