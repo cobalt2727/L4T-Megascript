@@ -77,6 +77,37 @@ _EOF_"
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/L4T-Megascript-RetroPie-Updater.sh" -O /tmp/L4T-Megascript-RetroPie-Updater.sh && sudo rm -rf "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh" && mv /tmp/L4T-Megascript-RetroPie-Updater.sh "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
     chmod +x "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
 
+
+    config="$HOME/.emulationstation/gamelists/retropie/gamelist.xml"
+    path="./L4T-Megascript-RetroPie-Updater.sh"
+    name="L4T-Megascript RetroPie Binaries Updater"
+    desc="This script automatically updates the L4T-Megascript supplied RetroPie binaries if necessary. It functions just like updating the binaries through the L4T-Megascript Updater script."
+    image="/usr/share/icons/L4T-Megascript.png"
+    if [[ ! -f "$config" ]]; then
+        echo "<gameList />" >"$config"
+    fi
+
+    if [[ $(xmlstarlet sel -t -v "count(/gameList/game[path='$path'])" "$config") -eq 0 ]]; then
+        echo "Adding updater info to gamelist"
+        xmlstarlet ed -L -s "/gameList" -t elem -n "game" -v "" \
+                -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
+                -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
+                -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
+                -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
+                "$config"
+    else
+        echo "Updating updater info in gamelist"
+        # remove current occurances of name, desc, and image
+        xmlstarlet ed -L -d "/gameList/game[path='$path']/name" -d "/gameList/game[path='$path']/desc" -d "/gameList/game[path='$path']/image" "$config"
+
+        # add name, desc, and image
+        xmlstarlet ed -L \
+                -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
+                -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
+                -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
+                "$config"
+    fi
+
     cd "/home/$USER/RetroPie-Setup"
     git pull
     if [[ $? -ne 0 ]]; then

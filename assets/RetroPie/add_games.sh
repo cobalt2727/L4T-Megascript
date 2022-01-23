@@ -64,10 +64,14 @@ for ((j = 0; j < "${#param[@]}"; j++)); do
 							-s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
 							"$config"
 				else
+					# remove current occurances of name, desc, and image
+					xmlstarlet ed -L -d "/gameList/game[path='$path']/name" -d "/gameList/game[path='$path']/desc" -d "/gameList/game[path='$path']/image" "$config"
+
+					# add name, desc, and image
 					xmlstarlet ed -L \
-							-u "/gameList/game[path='$path']/name" -v "$name" \
-							-u "/gameList/game[name='$name']/desc" -v "$desc" \
-							-u "/gameList/game[name='$name']/image" -v "$image" \
+							-s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
+							-s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
+							-s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
 							"$config"
 				fi
 				end_time=$(date +%s.%3N)
