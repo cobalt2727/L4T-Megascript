@@ -8,7 +8,14 @@ sudo apt install -y git build-essential cmake qt5-qmake gcc g++ || error "Could 
 
 if grep -q bionic /etc/os-release; then
   #honestly, default QT probably works fine, but...
-  ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm" && ppa_installer
+  get_system
+  if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
+    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
+    ppa_name="beineri/opt-qt-5.15.2-bionic"
+  else
+    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+  fi
+  ppa_installer
   sudo apt install -y qt515base || error "Could not install dependencies" #figure out the rest
 else
   sudo apt install -y qtbase5-dev || error "Could not install dependencies"

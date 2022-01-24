@@ -21,7 +21,14 @@ if grep -q bionic /etc/os-release; then
   echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
   sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" || error "apt.llvm.org installer failed!"
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm" && ppa_installer
+  get_system
+  if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
+    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
+    ppa_name="beineri/opt-qt-5.15.2-bionic"
+  else
+    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+  fi
+  ppa_installer
 
   sudo apt install -y build-essential curl git ninja-build clang lld-13 zlib1g-dev libcurl4-openssl-dev \
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \

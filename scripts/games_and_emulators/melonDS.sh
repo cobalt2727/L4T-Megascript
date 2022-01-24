@@ -20,7 +20,14 @@ if grep -q bionic /etc/os-release; then
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy MelonDS on Ubuntu Bionic, Focal, Hirsute, and beyond"
   
-  ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
+  get_system
+  if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
+    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
+    ppa_name="beineri/opt-qt-5.12.0-bionic"
+  else
+    ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm"
+  fi
+  ppa_installer
   ppa_name="theofficialgman/melonds-depends" && ppa_installer
   ppa_name="theofficialgman/cmake-bionic" && ppa_installer
 

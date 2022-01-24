@@ -24,7 +24,14 @@ if grep -q bionic /etc/os-release; then
   # echo "Adding GCC and G++ 11 Repo..."
   # ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   # sudo apt install gcc-11 g++-11 -y
-  ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_installer
+  get_system
+  if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
+    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
+    ppa_name="beineri/opt-qt-5.12.0-bionic"
+  else
+    ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm"
+  fi
+  ppa_installer
   sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
 fi
 
