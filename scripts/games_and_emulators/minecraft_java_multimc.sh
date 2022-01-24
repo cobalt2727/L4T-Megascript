@@ -177,7 +177,7 @@ if [[ $modmanager == 1 ]]; then
 \n\nIf you want an easy way to install the Fabric performance mods or want a way to easily update your mods, click YES.\
 \nIf you ever want to remove this functionality, go to MultiMC->Settings->Custom Commands and remove the Pre-launch command." | yad --image "dialog-question" \
     --borders="20" --center --fixed\
-    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
+    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=60 --timeout-indicator=bottom \
     --show-uri \
     --button="YES, add the mod script":0 \
     --button="NO, do NOT add the mod script":1
@@ -185,7 +185,7 @@ else
     status "Mod script uninstallable since your OS does not have python 3.8+"
 fi
 
-if [[ "$?" == 0 ]] && [[ $modmanager == 1 ]]; then
+if [[ "$?" =~ ^(0|70)$ ]] && [[ $modmanager == 1 ]]; then
     if [[ "$__os_codename" == "buster" ]]; then
         status "Adding deb-pascalroeleven repository for python3.8 backport:"
 
