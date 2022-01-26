@@ -53,14 +53,17 @@ cd metaforce-build
 
 #cmake
 if grep -q bionic /etc/os-release; then
- CC=clang-13 CXX=clang++-13 LLVM_DIR=/usr/lib/llvm-13/lib/cmake/llvm LLVM_ROOT_DIR=/usr/lib/llvm-13 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
+  if package_installed "llvm-7" ;then
+    sudo apt remove llvm-7 clang-7 -y
+  fi
+  CC=clang-13 CXX=clang++-13 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
 else
- CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
+  CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
 fi
 
 #ninja
 if grep -q bionic /etc/os-release; then
- CC=clang-13 CXX=clang++-13 LLVM_DIR=/usr/lib/llvm-13/lib/cmake/llvm LLVM_ROOT_DIR=/usr/lib/llvm-13 ninja || error "Build failed!"
+ CC=clang-13 CXX=clang++-13 ninja || error "Build failed!"
 else
  CC=clang CXX=clang++ ninja || error "Build failed!"
 fi
