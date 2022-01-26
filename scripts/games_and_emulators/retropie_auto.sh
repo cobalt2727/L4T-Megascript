@@ -222,7 +222,7 @@ function install_binaries {
                         package_list+=($package)
                     fi
                 done
-                wget ${package_url_list[@]} --progress=bar:force:noscroll
+                wget -nv ${package_url_list[@]} --progress=bar:force:noscroll
                 status "Downloading Precompiled Binaries from the Megascript if newer than local for $folder"
                 status "This could take a few seconds depending on the speed of your internet connection"
                 for package in ${package_list[@]}; do
