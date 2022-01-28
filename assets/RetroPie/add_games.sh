@@ -25,7 +25,11 @@ for ((j = 0; j < "${#param[@]}"; j++)); do
 				filename="$(echo ${FILES[i]} | grep -o ".*.desktop" | rev | cut -f 1 -d / | rev)"
 				desktop_name="$filename"
 				filename="$(echo $filename | grep -oP '.*?(?=\.desktop)' | sed -e 's/ /_/g')"
-				echo 'nohup $(gtk-launch ' '"'"$desktop_name"'")' >$filename".sh"
+				echo '# this is a hacky way to get the terminal to un-fullscreen' >$filename".sh"
+				echo 'hexNum=$(wmctrl -lp | grep "$(pidof gnome-terminal-server)" | grep "Terminal" | head -n 1 | awk {'"'"'print $1}'"'"')' >>$filename".sh"
+				echo 'xdotool windowactivate --sync $(( $hexNum )) key F11' >>$filename".sh"
+				echo 'nohup $(gtk-launch ' '"'"$desktop_name"'")' >>$filename".sh"
+				echo 'xdotool windowactivate --sync $(( $hexNum )) key F11' >>$filename".sh"
 
 				chmod +x "$filename"".sh"
 				echo "$filename" >>list.txt
