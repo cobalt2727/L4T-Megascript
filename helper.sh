@@ -24,8 +24,6 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
 
-#acquire system info for use in scripts - see functions.sh for info
-get_system
 
 mkdir -p "$HOME/L4T-Megascript/logs"
 logfile="$HOME/L4T-Megascript/logs/install-incomplete-${1////-}.log"
