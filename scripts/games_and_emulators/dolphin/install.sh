@@ -6,8 +6,19 @@ sleep 1
 cd ~
 echo "Installing dependencies..."
 sleep 1
-sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y
 
+case "$__os_id" in
+    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+        sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y
+    ;;
+    Fedora)
+        sudo dnf install -y vulkan-loader libvulkan1 cmake git gcc-c++ libXext-devel libgudev qt5-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel
+    ;;
+    *)
+        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
+        sleep 5
+    ;;
+esac
 
 echo "Downloading the source..."
 git clone https://github.com/dolphin-emu/dolphin
@@ -30,7 +41,7 @@ if grep -q bionic /etc/os-release; then
     echo "Ubuntu 18.04 detected, skipping LTO optimization..."
     echo "If that means nothing to you, don't worry about it."
     echo "That being said, we need to get you a newer compiler to prevent some bugs."
-    #oddly enough the only *known* bug here is that emulated wii remote cursors don't work with GCC 7 builds
+    #to be fair, the only *known* bug here (for now) is that emulated Wii remote cursors don't work with GCC 7 builds
     echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
     ppa_name="ubuntu-toolchain-r/test" && ppa_installer
     sudo apt install gcc-11 g++-11 -y
