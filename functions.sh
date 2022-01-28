@@ -75,6 +75,16 @@ function get_system {
       jetson_model="$__platform"
   fi
   unset __platform
+  
+  # adapted/inspired from retropie setup script system.sh https://github.com/RetroPie/RetroPie-Setup/blob/master/scriptmodules/system.sh
+  # armbian uses a minimal shell script replacement for lsb_release with basic
+  # parameter parsing that requires the arguments split rather than using -sidrc
+  mapfile -t os < <(lsb_release -s -i -d -r -c)
+  __os_id="${os[0]}"
+  __os_desc="${os[1]}"
+  __os_release="${os[2]}"
+  __os_codename="${os[3]}"
+
 }
 export -f get_system
 
