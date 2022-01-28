@@ -12,10 +12,10 @@ get_system
 
 case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y
+        sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
     ;;
     Fedora)
-        sudo dnf install -y vulkan-loader libvulkan1 cmake git gcc-c++ libXext-devel libgudev qt5-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel
+        sudo dnf install -y vulkan-loader libvulkan1 cmake git gcc-c++ libXext-devel libgudev qt5-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel || error "Failed to install dependencies!"
     ;;
     *)
         echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
@@ -24,12 +24,12 @@ case "$__os_id" in
 esac
 
 echo "Downloading the source..."
-git clone https://github.com/dolphin-emu/dolphin
+git clone https://github.com/dolphin-emu/dolphin || error_user "Failed to download source code from GitHub!"
 cd dolphin
-git pull
+git pull || error_user "Failed to download source code from GitHub!"
 
 #https://dolphin-emu.org/blog/2021/07/21/integrated-gba/
-git submodule update --init Externals/mGBA
+git submodule update --init Externals/mGBA || error_user "Failed to download source code from GitHub!"
 
 mkdir -p build
 cd build
@@ -47,7 +47,7 @@ if grep -q bionic /etc/os-release; then
     #to be fair, the only *known* bug here (for now) is that emulated Wii remote cursors don't work with GCC 7 builds
     echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
     ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-    sudo apt install gcc-11 g++-11 -y
+    sudo apt install gcc-11 g++-11 -y || error "Failed to install dependencies!"
     echo "Alright, NOW we can start the building process."
     echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
     sleep 10
@@ -66,14 +66,14 @@ if grep -q bionic /etc/os-release; then
     echo "Alright, NOW we can start the building process."
     echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
     sleep 10
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9 || error "We'll still take this error report, but PLEASE upgrade your system."
     
     
     elif grep -q focal /etc/os-release; then
     
     echo "Ubuntu 20.04 detected..."
     echo "We need to get you a newer compiler to prevent some bugs."
-    sudo apt install gcc-10 g++-10 -y
+    sudo apt install gcc-10 g++-10 -y || error "Failed to install dependencies!"
     echo "Alright, NOW we can start the building process."
     echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
     sleep 10
@@ -90,9 +90,9 @@ fi
 
 
 
-make -j$(nproc)
+make -j$(nproc) || error "Make failed!"
 echo "Installing..."
-sudo make install || error "Make install failed"
+sudo make install || error "Make install failed!"
 cd ~
 #commenting out the below line since the first build takes way too long to do on weak hardware like the Switch
 #leaving the source folder there will make future builds faster
