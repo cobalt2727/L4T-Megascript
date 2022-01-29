@@ -18,7 +18,7 @@ case "$dpkg_architecture" in
     "armhf") type="arm";type2="armhf";;
     "i386") type="i386";type2="$type1";;
     "amd64") type="x86_64";type2="amd64";;
-    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit 2 ;;
 esac
 curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-$type" | cut -d : -f 2,3 | tr -d \" | wget -i -
 mv *.AppImage MC.AppImage

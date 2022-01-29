@@ -10,7 +10,7 @@ case "$dpkg_architecture" in
     "armhf") type="armv7l";type2="armhf";;
     "i386") type="i386";type2="$type1";;
     "amd64") type="x86_64";type2="amd64";;
-    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by eDEX-UI and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit $? ;;
+    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by eDEX-UI and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit 2 ;;
 esac
 cd ~
 sudo apt install curl -y

@@ -55,8 +55,7 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
   echo "logfile name is $(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
   description="OH NO! The $1 script exited with an error code!\
 \nPlease view the log in terminal to find the cause of the error\
-\nIf you need help, copy the log and create a github issue or ask for help on our Discord!\
-\n\nContinue running the rest of the your selected Megascript installs or Exit the Megascript?"
+\nIf you need help, copy the log and create a github issue or ask for help on our Discord!"
   table=("Exit")
   userinput_func "$description" "${table[@]}"
 else

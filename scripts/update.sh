@@ -184,7 +184,7 @@ if [[ $DolphinUserInput == "yes" ]]; then
 	echo -e "\e[33mTO FIX, RESET, AND/OR UPDATE CONFIGS (not game saves) YOU HAVE\e[0m"
 	echo -e "\e[33mTO RE-RUN THE DOLPHIN SCRIPT FROM THE MENU\e[0m"
 	sleep 5
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
 else
 	echo "Skipping Dolphin update..."
 fi
@@ -209,7 +209,7 @@ fi
 if [[ $CitraUserInput == "yes" ]]; then
 	echo "Updating Citra..."
 	sleep 5
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)" || exit $?
 else
 	echo "Skipping Citra update..."
 fi
@@ -217,7 +217,7 @@ fi
 if [[ $MelonDSUserInput == "yes" ]]; then
 	echo "Updating melonDS..."
 	sleep 5
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/melonDS.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/melonDS.sh)" || exit $?
 else
 	echo "Skipping melonDS update..."
 fi
@@ -225,7 +225,7 @@ fi
 if [[ $MetaforceUserInput == "yes" ]]; then
 	echo "Updating Metaforce..."
 	sleep 5
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/metaforce.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/metaforce.sh)" || exit $?
 else
 	echo "Skipping Metaforce update..."
 fi
@@ -233,7 +233,7 @@ fi
 if [[ $XemuUserInput == "yes" ]]; then
 	echo "Updating Xemu..."
 	sleep 5
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/xemu.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/xemu.sh)" || exit $?
 else
 	echo "Skipping Xemu update..."
 fi

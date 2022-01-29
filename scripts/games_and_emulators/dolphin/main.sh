@@ -34,8 +34,8 @@ userinput_func "$description" "${table[@]}"
 if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)' ]]; then
 	echo "Building from source with device-specific optimizations..."
 	cd ~
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)"
+	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"|| exit $?
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
 
 elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
   sudo apt install xdelta3 -y
@@ -55,7 +55,7 @@ elif [[ $userInput == 4 ]]; then
 elif [[ $userInput == 5 ]]; then
   echo "Loading Project+ script..."
   sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)"  
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)" || exit $?
 
 fi
 
