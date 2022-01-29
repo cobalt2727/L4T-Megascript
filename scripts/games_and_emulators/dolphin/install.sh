@@ -24,7 +24,7 @@ case "$__os_id" in
 esac
 
 echo "Downloading the source..."
-git clone https://github.com/dolphin-emu/dolphin || error_user "Failed to download source code from GitHub!"
+git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull || error_user "Failed to download source code from GitHub!"
 
