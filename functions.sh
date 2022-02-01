@@ -293,7 +293,7 @@ format_logfile() { #remove ANSI escape sequences from a given file, and add OS i
 export -f format_logfile
 
 send_error() {
-  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "https://discord.com/api/webhooks/935036770477801502/ANjo3haSSrCDwHg-BrMHmZgNLaMzxLLs6ZRUf74sa6OYU5VLqLxdy27JA7N7EBGG7IQc"
+  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "https://discord.com/api/webhooks/938130961126805514/u3_wRY733WJAxZhULejoadMKhb7MWC9qeTPZJXTIJEKUKUImchDM4OUgpW3mNtQspLKV"
 }
 export -f send_error
 
