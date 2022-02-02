@@ -11,8 +11,6 @@ sudo apt install -y git gcc cmake extra-cmake-modules \
 
 case "$DISTRIB_CODENAME" in
   bionic)
-    #bionic's flatpak package is out of date
-    ppa_name="alexlarsson/flatpak" && ppa_installer
     #bionic cmake is very old, use theofficialgman ppa for cmake
     ppa_name="theofficialgman/cmake-bionic" && ppa_installer
     if [[ -f "/usr/bin/cmake" ]]; then
