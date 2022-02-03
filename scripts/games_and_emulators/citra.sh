@@ -53,7 +53,15 @@ rm -rf CMakeCache.txt
 if grep -q bionic /etc/os-release; then
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
 else
-  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
+  if grep -iE 'raspberry' <<< $model > /dev/null; then
+#   https://github.com/citra-emu/citra/issues/5921
+    warning "You are running a Raspberry Pi, building without ASM since the Raspberry Pi Foundation is apparently allergic to cryptography extensions..."
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCRYPTOPP_OPT_DISABLE_ASM=1
+  else
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
+  fi
+
+  
 fi
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
