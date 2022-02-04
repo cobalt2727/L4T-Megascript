@@ -10,7 +10,8 @@ case "$DISTRIB_CODENAME" in
     bionic)
         echo "Adding Boost 1.67 PPA..."
         ppa_name="theofficialgman/boost1.67-bionic" && ppa_installer
-        sudo apt install libcgal-dev -y || error "Dependencies failed to install"
+        sudo apt update
+        sudo apt install libboost1.67-all-dev libcgal-dev -y || error "Dependencies failed to install"
         sudo tee /usr/lib/aarch64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake <<'EOF' >>/dev/null
 set(CGAL_MAJOR_VERSION 5)
 set(CGAL_MINOR_VERSION 0)
