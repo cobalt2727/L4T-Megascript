@@ -20,6 +20,12 @@ function error_fatal {
   exit 1
 }
 
+dependencies='bash dialog gnutls-bin curl yad zenity lsb-release'
+# Install dependencies if necessary
+if ! dpkg -s $dependencies >/dev/null 2>&1; then
+  sudo apt install $dependencies -y
+fi
+
 unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
