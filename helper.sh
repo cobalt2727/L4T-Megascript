@@ -23,6 +23,7 @@ function error_fatal {
 dependencies='bash dialog gnutls-bin curl yad zenity lsb-release'
 # Install dependencies if necessary
 if ! dpkg -s $dependencies >/dev/null 2>&1; then
+  echo "We need to install some dependencies that the L4T-Megascript scripts expect to be available"
   sudo apt install $dependencies -y
 fi
 
