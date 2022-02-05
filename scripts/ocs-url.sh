@@ -6,7 +6,7 @@ echo 'This will allow you to actually USE that fancy "Install"'
 echo "button on the Pling website and any of its derivatives."
 sleep 3
 
-sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils -y
+sudo apt install git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils python3-dbus -y
 package_available qt5-default
 if [[ $? == "0" ]]; then
   sudo apt install -y qt5-default || error "Failed to install dependencies"
