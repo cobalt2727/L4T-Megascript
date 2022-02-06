@@ -8,6 +8,7 @@
 unset functions_downloaded
 
 function get_system {
+  source /etc/os-release
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
   # dpkg_architecture is the default userspace cpu architecture (arm64, amd64, armhf, i386, etc)
