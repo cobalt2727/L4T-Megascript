@@ -30,7 +30,7 @@ if grep -q bionic /etc/os-release; then
   fi
   ppa_installer
 
-  sudo apt install -y build-essential curl git ninja-build clang lld-13 zlib1g-dev libcurl4-openssl-dev \
+  sudo apt install -y build-essential curl git ninja-build clang lld-14 zlib1g-dev libcurl4-openssl-dev \
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
   qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
@@ -57,7 +57,7 @@ if grep -q bionic /etc/os-release; then
     sudo apt remove llvm-7 clang-7 -y
   fi
   if package_installed "llvm-13" ;then
-    sudo apt remove llvm-13 clang-13 clang++-13 -y
+    sudo apt remove llvm-13 clang-13 clang++-13 lld-13 -y
   fi
   CC=clang-14 CXX=clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
 else
