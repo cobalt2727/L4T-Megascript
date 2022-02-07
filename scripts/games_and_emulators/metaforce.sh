@@ -34,7 +34,7 @@ if grep -q bionic /etc/os-release; then
   libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
   qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
-  clang-13 libclang-13-dev libmlir-13-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
+  clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
 
 else
  sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
@@ -56,14 +56,17 @@ if grep -q bionic /etc/os-release; then
   if package_installed "llvm-7" ;then
     sudo apt remove llvm-7 clang-7 -y
   fi
-  CC=clang-13 CXX=clang++-13 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
+  if package_installed "llvm-13" ;then
+    sudo apt remove llvm-13 clang-13 clang++-13 -y
+  fi
+  CC=clang-14 CXX=clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
 else
   CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
 fi
 
 #ninja
 if grep -q bionic /etc/os-release; then
- CC=clang-13 CXX=clang++-13 ninja || error "Build failed!"
+ CC=clang-14 CXX=clang++-14 ninja || error "Build failed!"
 else
  CC=clang CXX=clang++ ninja || error "Build failed!"
 fi
