@@ -3,6 +3,23 @@
 #run L4T Megascript's initial setup script prior for modern cmake, SDL2, etc, before this
 #add some redundant checks for that here
 
+#wipe LLVM 13 installs from previous setups
+if package_installed "llvm-13" ;then
+  sudo apt remove llvm-13 -y
+fi
+if package_installed "clang-13" ;then
+  sudo apt remove clang-13 -y
+fi
+if package_installed "clang++-13" ;then
+  sudo apt remove clang++-13 -y
+fi
+if package_installed "libclang13-dev" ;then
+  sudo apt remove libclang13-dev -y
+fi
+if package_installed "libmlir-13-dev" ;then
+  sudo apt remove libmlir-13-dev -y
+fi
+
 if grep -q bionic /etc/os-release; then
   #installs latest stable LLVM toolchain (may need this on Focal now or in the future, untested)
   sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" || error "apt.llvm.org installer failed!"
