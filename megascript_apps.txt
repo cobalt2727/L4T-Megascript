@@ -1,4 +1,4 @@
-fn="Initial Setup";;d="Installs many vital features like the joycon mouse, flatpak support (no hwaccel), SDL2 etc";;sn="init.sh";;f="scripts";;selected="TRUE"
+fn="Initial Setup";;d="Installs many vital features like the joycon mouse, flatpak support (no hwaccel), SDL2, etc";;sn="init.sh";;f="scripts";;selected="TRUE"
 
 fn="Auto Updater";;d="Update system (apt) packages, flatpaks (if any), and emulators and apps installed via the Megascript (check this frequently!)";;sn="update.sh";;f="scripts";;selected="TRUE"
 
