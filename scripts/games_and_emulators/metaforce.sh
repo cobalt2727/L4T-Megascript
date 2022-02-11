@@ -37,7 +37,7 @@ echo "Installing dependencies..."
 if grep -q bionic /etc/os-release; then
 
   echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
-  sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" || error "apt.llvm.org installer failed!"
+  curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then

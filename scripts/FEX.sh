@@ -23,7 +23,7 @@ fi
 
 if grep -q bionic /etc/os-release; then
   #installs latest stable LLVM toolchain (may need this on Focal now or in the future, untested)
-  sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" || error "apt.llvm.org installer failed!"
+  curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
 
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install -y libstdc++-11-dev libstdc++6 gcc-11 g++-11 clang-14 clang++-14 || error "Failed to install dependencies!"
