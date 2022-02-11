@@ -52,3 +52,8 @@ else
   CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DENABLE_LTO=True -DBUILD_TESTS=False -G Ninja .. || error "cmake failed!"
   CC=clang CXX=clang++ ninja || error "Failed to build!"
 fi
+
+sudo ninja install
+
+sudo ninja binfmt_misc_32
+sudo ninja binfmt_misc_64
