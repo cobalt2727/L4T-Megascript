@@ -11,6 +11,8 @@ echo "Citra script successfully started!"
 echo "Credits: https://citra-emu.org/wiki/building-for-linux/"
 sleep 3
 
+get_system || error_user "Failed to scan your system for specs - run this script via the Megascript or the helper script!"
+
 echo "Running updates..."
 sleep 1
 
