@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #run L4T Megascript's initial setup script prior for modern cmake, SDL2, etc, before this
+sudo apt install cmake ninja build-essential git libsdl2-dev -y # THIS NEEDS MORE DEPENDENCIES
 #add some redundant checks for that here
 
 #wipe LLVM 13 installs from previous setups
