@@ -95,6 +95,31 @@ function online_check {
     done
 }
 
+# check and offer fix for i386 architecture being present on arm64 devices
+if [ "$(dpkg --print-architecture)" == "arm64" ]; then
+  if dpkg --print-foreign-architectures | grep 'i386' &> /dev/null; then
+    # using zenity since it could happpen that this is a users first run of the megascript and yad isn't present
+    zenity \
+    --height="200" --width="400"\
+    --question --text="ERROR: The i386 package architecture has been detected on your system.\
+\n\nYour $model is an ARM64 device and can NOT run i386 packages.\
+\nScripts designed to run on x86 such as PlayOnLinux usually cause this and should never be run.\
+\n\nContinuing without removal of the i386 architecture will likely break apt."\
+    --ok-label="Fix install: Remove i386 architecture"\
+    --cancel-label="Keep my install broken: Keep i386 architecture"
+    if [[ $? -ne 0 ]]; then
+      output="Keep my install broken: Keep i386 architecture"
+    else
+      output="Fix install: Remove i386 architecture"
+    fi
+    if [ "$output" == "Fix install: Remove i386 architecture" ]; then
+      pkexec sh -c "dpkg --remove-architecture i386; apt update"
+    else
+      warning "Skipped i386 architecture removal, its up to you if your APT or install is broken."
+    fi
+  fi
+fi
+
 function add_desktop {
   #create .desktop file for the megascript
   sudo rm -rf /tmp/L4T-Megascript.desktop
