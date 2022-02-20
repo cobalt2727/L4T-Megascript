@@ -35,7 +35,7 @@ The script itself doesn't actually get installed, even though it does install a 
 - ~~Automate adding performance mods to the Minecraft Java script for a MASSIVE, consistent framerate boost~~ <Br>
 Done: Make sure to click the "Install Fabric" button within the Minecraft instance, otherwise the mods won't be loaded
 - ~~Figure out a good process to compile [Xemu](https://github.com/mborgerson/xemu), possibly use the PPA as a fallback~~ <Br>
-Done: Xemu don't support "sudo make install" so desktop files were manually moved into place using what's already in the source code
+Done: Xemu doesn't support "sudo make install" so desktop files were manually moved into place using what's already in the source code (and the same method was used for Metaforce!)
 - Updated Kodi packages at some point, maybe - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. The annoying part is there's already a PPA out there for 18.04, but it doesn't support ARM devices...
 - More to come!
 
