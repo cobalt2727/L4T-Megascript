@@ -34,7 +34,7 @@ then
     --window-icon=/usr/share/icons/L4T-Megascript.png \
     --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=20 --timeout-indicator=bottom\
     --show-uri \
-    --button="OK, Skipping Mod Installtion Script":0
+    --button="OK, Skipping Mod Installation Script":0
 #     megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
 #     user_mods=$(sed -n "p" <"$MMC_ROOT/scripts/user-mods.txt")
 #     cd "$INST_DIR"
