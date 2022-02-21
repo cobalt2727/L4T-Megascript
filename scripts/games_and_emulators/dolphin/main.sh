@@ -57,6 +57,12 @@ elif [[ $userInput == 5 ]]; then
   sleep 3
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)" || exit $?
 
+elif [[ $userInput == 6 ]]; then
+  echo "not ready yet"
+  sleep 3
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/kirbyairridehackpack.sh)" || exit $?
+
+
 fi
 
 echo "Sending you back to the main menu..."
