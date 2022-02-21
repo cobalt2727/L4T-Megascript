@@ -137,7 +137,7 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
                 esac
                 $python_version -m pip install --upgrade minecraft-mod-manager
             else
-                echo "minecraft-mod-manager is up to date at enough, current version is ${cur_version//$'\e'\[+([0-9;])m}"
+                echo "minecraft-mod-manager is up to date enough, current version is ${cur_version//$'\e'\[+([0-9;])m}"
             fi
 
             # downloading patched gamecontrollerdb.txt to workaround glfw bug
