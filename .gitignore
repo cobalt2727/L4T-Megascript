@@ -1,2 +1,7 @@
 # ignore all log files
 logs
+
+# random trash from the user's device
+.vscode
+.DS_Store
+.vs
