@@ -25,7 +25,7 @@ if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install -y libstdc++-11-dev libstdc++6 libclang-14-dev gcc-11 g++-11 clang-14 || error "Failed to install dependencies!"
 else #this might be insufficient on Focal, needs testing
-  sudo apt install -y libstdc++-11-dev libstdc++6 libstdc++6-dev libclang-dev gcc g++ clang || error "Failed to install dependencies!"
+  sudo apt install -y libstdc++-11-dev libstdc++6 libclang-dev gcc g++ clang || error "Failed to install dependencies!"
 fi
 
 git clone https://github.com/FEX-Emu/FEX.git --recurse-submodules -j$(nproc)
