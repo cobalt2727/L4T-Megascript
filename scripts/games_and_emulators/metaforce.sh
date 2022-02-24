@@ -7,22 +7,23 @@
 echo "Metaforce script started!"
 
 #removing previous LLVM 13 installs
-if package_installed "llvm-13" ;then
-  sudo apt remove llvm-13 -y
+if grep -q bionic /etc/os-release; then
+  if package_installed "llvm-13" ;then
+    sudo apt remove llvm-13 -y
+  fi
+  if package_installed "clang-13" ;then
+    sudo apt remove clang-13 -y
+  fi
+  if package_installed "clang++-13" ;then
+    sudo apt remove clang++-13 -y
+  fi
+  if package_installed "libclang13-dev" ;then
+    sudo apt remove libclang13-dev -y
+  fi
+  if package_installed "libmlir-13-dev" ;then
+    sudo apt remove libmlir-13-dev -y
+  fi
 fi
-if package_installed "clang-13" ;then
-  sudo apt remove clang-13 -y
-fi
-if package_installed "clang++-13" ;then
-  sudo apt remove clang++-13 -y
-fi
-if package_installed "libclang13-dev" ;then
-  sudo apt remove libclang13-dev -y
-fi
-if package_installed "libmlir-13-dev" ;then
-  sudo apt remove libmlir-13-dev -y
-fi
-
 
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 sudo apt install udev libudev1 libudev-dev -y
