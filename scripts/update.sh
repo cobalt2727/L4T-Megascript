@@ -139,21 +139,23 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	
 	# the LLVM apt repo we use updated from 13 to 14 in February, wiping out residual files from old 13 installs
 	# there's probably a neater way to do this...
-	if package_installed "llvm-13" ;then
-    		sudo apt remove llvm-13 -y
- 	fi
-	if package_installed "clang-13" ;then
-    		sudo apt remove clang-13 -y
- 	fi
-	if package_installed "clang++-13" ;then
-    		sudo apt remove clang++-13 -y
- 	fi
-	if package_installed "libclang13-dev" ;then
-    		sudo apt remove libclang13-dev -y
- 	fi
-	if package_installed "libmlir-13-dev" ;then
-    		sudo apt remove libmlir-13-dev -y
- 	fi
+	if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
+		if package_installed "llvm-13" ;then
+			sudo apt remove llvm-13 -y
+		fi
+		if package_installed "clang-13" ;then
+			sudo apt remove clang-13 -y
+		fi
+		if package_installed "clang++-13" ;then
+			sudo apt remove clang++-13 -y
+		fi
+		if package_installed "libclang13-dev" ;then
+			sudo apt remove libclang13-dev -y
+		fi
+		if package_installed "libmlir-13-dev" ;then
+			sudo apt remove libmlir-13-dev -y
+		fi
+	fi
 	
 	##maintenance (not passing with -y to prevent potentially breaking something for a user)
 	sudo dpkg --configure -a
