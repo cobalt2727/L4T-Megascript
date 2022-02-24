@@ -5,17 +5,19 @@ sudo apt install cmake ninja-build clang build-essential git libglfw3-dev libepo
 #add some redundant checks for that here
 
 #wipe LLVM 13 installs from previous setups
-if package_installed "llvm-13" ;then
-  sudo apt remove llvm-13 -y
-fi
-if package_installed "clang-13" ;then
-  sudo apt remove clang-13 -y
-fi
-if package_installed "libclang-13-dev" ;then
-  sudo apt remove libclang-13-dev -y
-fi
-if package_installed "libmlir-13-dev" ;then
-  sudo apt remove libmlir-13-dev -y
+if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
+  if package_installed "llvm-13" ;then
+    sudo apt remove llvm-13 -y
+  fi
+  if package_installed "clang-13" ;then
+    sudo apt remove clang-13 -y
+  fi
+  if package_installed "libclang-13-dev" ;then
+    sudo apt remove libclang-13-dev -y
+  fi
+  if package_installed "libmlir-13-dev" ;then
+    sudo apt remove libmlir-13-dev -y
+  fi
 fi
 
 if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
@@ -43,7 +45,7 @@ if package_installed "llvm-13" ;then
 fi
 
 #NOTE: make sure to set -DBUILD_TESTS=True when testing to ensure maximum compatibility (broken as of Jan 10, 2022) https://github.com/FEX-Emu/FEX/issues/1423
-if grep -q bionic /etc/os-release; then
+if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
   CC=clang-14 CXX=clang++-14 AR=llvm-ar-14 LINKER=lld-14 NM=llvm-nm-14 OBJDUMP=llvm-objdump-14 RANLIB=llvm-ranlib-14 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DENABLE_LTO=True -DCMAKE_C_FLAGS_INIT="-static" -DBUILD_TESTS=False -G Ninja .. || error "cmake failed!"
   CC=clang-14 CXX=clang++-14 AR=llvm-ar-14 LINKER=lld-14 NM=llvm-nm-14 OBJDUMP=llvm-objdump-14 RANLIB=llvm-ranlib-14 ninja || error "Failed to build!"
 else
