@@ -193,6 +193,15 @@ source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Mega
 
 curl -L https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits &>/dev/null
 
+# check wifi signal strenth
+if [[ $(iwconfig 2> /dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') ]] && [ $(iwconfig 2> /dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') -le -77 ]; then
+  description='HOLD ON!
+\nYour WIFI signal strenth is VERY weak. Please move closer to your internet wifi router to avoid download/install errors when using the megascript!
+\nAlternatively, connect you switch via Ethernet for the most stable internet experience.'
+  table=("OK")
+  userinput_func "$description" "${table[@]}"
+fi
+
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do
     if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
