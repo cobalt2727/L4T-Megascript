@@ -42,7 +42,7 @@ _EOF_"
     sudo ./retropie_packages.sh joy2key
     #sudo ./retropie_packages.sh ports-enable configure
     sudo ./retropie_packages.sh mupen64plus
-    sudo ./retropie_packages.sh lr-duckstation
+    # sudo ./retropie_packages.sh lr-duckstation
     sudo ./retropie_packages.sh lzdoom
     # sudo ./retropie_packages.sh scraper
     # sudo ./retropie_packages.sh skyscraper
