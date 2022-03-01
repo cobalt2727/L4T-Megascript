@@ -21,9 +21,9 @@ clear -x
 x=1
 
 #sudo apt install figlet
-if test -f /usr/bin/figlet; then
+if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
 	#sudo apt install lolcat
-	if test -f /usr/games/lolcat; then
+	if test -f /usr/games/lolcat || test -f /usr/bin/lolcat; then
 		figlet L4T Megascript | lolcat #color
 		sleep 3
 	else
@@ -33,7 +33,7 @@ if test -f /usr/bin/figlet; then
 fi
 
 #sudo apt install sl
-if test -f /usr/games/sl; then
+if test -f /usr/games/sl || test -f /usr/bin/sl; then
 	#random number generator having a roughly 1/50 chance to run a train across your screen
 	[ $((RANDOM%50)) == "0" ] && sl -l
 fi
@@ -130,33 +130,46 @@ function add_desktop {
 }
 FUNC=$(declare -f add_desktop)
 
-dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release")
-## Install dependencies if necessary
-dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
-  pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
-else
-  sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
+if grep -q debian /etc/os-release; then
+  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release")
+  redhat_dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb-core")
+  ## Install dependencies if necessary
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
+    pkexec sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
+  else
+    sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
+  fi
+elif grep -q fedora /etc/os-release; then
+  sudo sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
 fi
 
 function install_post_depends {
-  ## Check SDL2 version
-  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0) lt 2.0.14); then
-    echo "Installing SDL2 from binary..."
-    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
-  fi
+  if grep -q debian /etc/os-release; then
+  
+    ## Check SDL2 version
+    if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0) lt 2.0.14); then
+      echo "Installing SDL2 from binary..."
+      bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+    fi
 
-  if [ -f /etc/switchroot_version.conf ]; then
-    swr_ver=$(cat /etc/switchroot_version.conf)
-    if [ $swr_ver == "3.4.0" ]; then
-      # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
-      if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
-        warning "Wifi was probably broken after an apt upgrade to linux-firmware"
-        warning "Replacing with known good version copied from L4T 3.4.0 updates files"
-        sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
-        sudo wget -O /lib/firmware/brcm/BCM4356A3.hcd https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/BCM4356A3.hcd
+    if [ -f /etc/switchroot_version.conf ]; then
+      swr_ver=$(cat /etc/switchroot_version.conf)
+      if [ $swr_ver == "3.4.0" ]; then
+        # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
+        if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
+          warning "Wifi was probably broken after an apt upgrade to linux-firmware"
+          warning "Replacing with known good version copied from L4T 3.4.0 updates files"
+          sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
+          sudo wget -O /lib/firmware/brcm/BCM4356A3.hcd https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/BCM4356A3.hcd
+        fi
       fi
     fi
+
+  elif grep -q fedora /etc/os-release; then
+    #nothing needed here (yet?)
+    echo ""
   fi
+
 }
 
 function add_desktop_if {
