@@ -140,7 +140,7 @@ if grep -q debian /etc/os-release; then
     sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
   fi
 elif grep -q fedora /etc/os-release; then
-  sudo sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
+  sudo sh -c "dnf upgrade -y; dnf install $(echo "${redhat_dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
 fi
 
 function install_post_depends {
