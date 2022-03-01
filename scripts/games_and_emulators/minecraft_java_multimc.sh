@@ -7,17 +7,7 @@ function error {
   exit 1
 }
 
-
-# adapted/inspired from retropie setup script system.sh https://github.com/RetroPie/RetroPie-Setup/blob/master/scriptmodules/system.sh
-# armbian uses a minimal shell script replacement for lsb_release with basic
-# parameter parsing that requires the arguments split rather than using -sidrc
-mapfile -t os < <(lsb_release -s -i -d -r -c)
-__os_id="${os[0]}"
-__os_desc="${os[1]}"
-__os_release="${os[2]}"
-__os_codename="${os[3]}"
-
-# obtain the cpu info
+# obtain the cpu and os info
 get_system
 case "$dpkg_architecture" in
     "arm64"|"amd64"|"i386"|"armhf") ;;
@@ -112,11 +102,11 @@ case "$__os_id" in
         # check if upstream-release is available
         if [ -f /etc/upstream-release/lsb-release ]; then
             echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-            DISTRIB_CODENAME=$(lsb_release -uc | awk '{print $2}')
-            DISTRIB_RELEASE=$(lsb_release -ur | awk '{print $2}')
+            DISTRIB_CODENAME=$(lsb_release -s -u -c)
+            DISTRIB_RELEASE=$(lsb_release -s -u -r)
         else
-            DISTRIB_CODENAME=$(lsb_release -c | awk '{print $2}')
-            DISTRIB_RELEASE=$(lsb_release -r | awk '{print $2}')
+            DISTRIB_CODENAME=$(lsb_release -s -c)
+            DISTRIB_RELEASE=$(lsb_release -s -r)
         fi
         case "$DISTRIB_CODENAME" in
             bionic|focal|groovy)
@@ -173,11 +163,11 @@ case "$__os_id" in
         # check if upstream-release is available
         if [ -f /etc/upstream-release/lsb-release ]; then
             echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-            DISTRIB_CODENAME=$(lsb_release -uc | awk '{print $2}')
-            DISTRIB_RELEASE=$(lsb_release -ur | awk '{print $2}')
+            DISTRIB_CODENAME=$(lsb_release -s -u -c)
+            DISTRIB_RELEASE=$(lsb_release -s -u -r)
         else
-            DISTRIB_CODENAME=$(lsb_release -c | awk '{print $2}')
-            DISTRIB_RELEASE=$(lsb_release -r | awk '{print $2}')
+            DISTRIB_CODENAME=$(lsb_release -s -c)
+            DISTRIB_RELEASE=$(lsb_release -s -r)
         fi
         case "$DISTRIB_CODENAME" in
             bionic) modmanager="1"; python_version="python3.8";;

@@ -104,11 +104,11 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
             # updating minecraft-mod-manager if its equal to or below 1.2.5
             cur_version=$(minecraft-mod-manager --version | awk '{print $2}')
             if [ $(version "${cur_version//$'\e'\[+([0-9;])m}") -le $(version "1.2.5") ]; then
-                mapfile -t os < <(lsb_release -s -i -d -r -c)
-                __os_id="${os[0]}"
-                __os_desc="${os[1]}"
-                __os_release="${os[2]}"
-                __os_codename="${os[3]}"
+                # set each variable individually since Fedora prints all output to one line
+                __os_id="$(lsb_release -s -i)"
+                __os_desc="$(lsb_release -s -d)"
+                __os_release="$(lsb_release -s -r)"
+                __os_codename="$(lsb_release -s -c)"
                 # default to python3 if OS can not be determined
                 python_version="python3"
                 case "$__os_id" in
@@ -123,11 +123,11 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
                     # check if upstream-release is available
                     if [ -f /etc/upstream-release/lsb-release ]; then
                         echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-                        DISTRIB_CODENAME=$(lsb_release -uc | awk '{print $2}')
-                        DISTRIB_RELEASE=$(lsb_release -ur | awk '{print $2}')
+                        DISTRIB_CODENAME=$(lsb_release -s -u -c)
+                        DISTRIB_RELEASE=$(lsb_release -s -u -r)
                     else
-                        DISTRIB_CODENAME=$(lsb_release -c | awk '{print $2}')
-                        DISTRIB_RELEASE=$(lsb_release -r | awk '{print $2}')
+                        DISTRIB_CODENAME=$(lsb_release -s -c)
+                        DISTRIB_RELEASE=$(lsb_release -s -r)
                     fi
                     case "$DISTRIB_CODENAME" in
                         bionic) python_version="python3.8";;
