@@ -412,7 +412,7 @@ while [ $x == 1 ]; do
           )
           output="$?"
         fi
-        if [[ "$output" == "0" ]]; then
+        if [[ "$output" == "0" ]] && [[ "$CHOICE" != "" ]]; then
           sudo -k
           state="0"
           while [[ "$state" == "0" ]]; do
@@ -420,7 +420,7 @@ while [ $x == 1 ]; do
             state=$?
           done
           add_english
-        elif [[ "$output" == "2" ]]; then
+        elif [[ "$output" == "2" ]] || [[ "$CHOICE" == "" ]]; then
           CHOICE=""
         else
           CHOICE="exit"
@@ -469,7 +469,7 @@ while [ $x == 1 ]; do
   # https://unix.stackexchange.com/questions/261103/how-do-i-maintain-sudo-in-a-bash-script
   # initialize sudo password and extent timeout so we never run out
   IFS=":"
-  if sudo -n true; then
+  if [ ! -z "$CHOICE" ]; then
     while true; do
       sleep 60
       sudo -v
