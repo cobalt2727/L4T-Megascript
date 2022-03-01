@@ -139,7 +139,7 @@ if grep -q debian /etc/os-release; then
     sudo sh -c "apt update; apt upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
   fi
 elif grep -q fedora /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb-core")
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb")
   if [[ $gui == "gui" ]]; then
     pkexec sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
   else
