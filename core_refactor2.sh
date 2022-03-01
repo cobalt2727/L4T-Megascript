@@ -420,7 +420,9 @@ while [ $x == 1 ]; do
             state=$?
           done
           add_english
-        elif [[ "$output" == "2" ]] || [[ "$CHOICE" == "" ]]; then
+        elif [[ "$output" == "0" ]] && [[ "$CHOICE" == "" ]]; then
+          CHOICE=""
+        elif [[ "$output" == "2" ]]; then
           CHOICE=""
         else
           CHOICE="exit"
