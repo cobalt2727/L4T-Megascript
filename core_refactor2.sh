@@ -482,12 +482,12 @@ while [ $x == 1 ]; do
       kill -0 "$$" 2>/dev/null || exit
     done &
     sudo apt update
+    grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
     if [[ $? -ne 0 ]]; then
       # fix for error (for some reason was never pulled into bionic...)
       # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
       # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
       # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
-      sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
       sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
       sudo apt update
     fi
