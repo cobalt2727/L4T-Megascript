@@ -425,11 +425,15 @@ while [ $x == 1 ]; do
         elif [[ "$output" == "2" ]]; then
           CHOICE=""
         else
-          CHOICE="exit"
+          CHOICE=""
+          unset -n current_table
+          break
         fi
         unset -n current_table
       else
-        CHOICE="exit"
+        CHOICE=""
+        unset -n current_table
+        break
       fi
     done
     x=0
