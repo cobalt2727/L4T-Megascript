@@ -134,7 +134,7 @@ else
 fi
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake git -y
+sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake git command-not-found -y
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 
 if [[ $jetson_model ]]; then
