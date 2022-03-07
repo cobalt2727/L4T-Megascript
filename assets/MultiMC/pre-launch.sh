@@ -121,7 +121,7 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
             function version { echo "$@" | awk -F. '{ printf("%d%03d%03d\n", $1,$2,$3); }'; }
             # updating minecraft-mod-manager if its below 1.2.7
             cur_version=$(minecraft-mod-manager --version | awk '{print $2}')
-            if [ $(version "${cur_version//$'\e'\[+([0-9;])m}") -l $(version "1.2.7") ]; then
+            if [ $(version "${cur_version//$'\e'\[+([0-9;])m}") -lt $(version "1.2.7") ]; then
                 # set each variable individually since Fedora prints all output to one line
                 __os_id="$(lsb_release -s -i)"
                 __os_desc="$(lsb_release -s -d)"
