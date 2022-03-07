@@ -27,18 +27,18 @@ then
 
     ### make sure to command this out if the mod script is working. staring here ###
 
-    echo "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes"
-    echo "See L4T-Megascript Discord for more info"
-    echo "Issue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150"
-    echo -e "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes.\
- See L4T-Megascript Discord for more info. When this is fixed, this notice will be removed and the script will automatically update and function again.\
-\n\nIssue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150" | yad --image "dialog-info" \
-    --borders="20" --center --fixed\
-    --window-icon=/usr/share/icons/L4T-Megascript.png \
-    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=20 --timeout-indicator=bottom\
-    --show-uri \
-    --button="OK, Skipping Mod Installation Script":0
-    exit 0
+#     echo "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes"
+#     echo "See L4T-Megascript Discord for more info"
+#     echo "Issue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150"
+#     echo -e "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes.\
+#  See L4T-Megascript Discord for more info. When this is fixed, this notice will be removed and the script will automatically update and function again.\
+# \n\nIssue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150" | yad --image "dialog-info" \
+#     --borders="20" --center --fixed\
+#     --window-icon=/usr/share/icons/L4T-Megascript.png \
+#     --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=20 --timeout-indicator=bottom\
+#     --show-uri \
+#     --button="OK, Skipping Mod Installation Script":0
+#     exit 0
 
     ### ends here ###
 
@@ -119,9 +119,9 @@ You might want to select the (Yes, Update/Install ONLY My Mods) button if you pl
         "0"|"1")
             shopt -s extglob
             function version { echo "$@" | awk -F. '{ printf("%d%03d%03d\n", $1,$2,$3); }'; }
-            # updating minecraft-mod-manager if its equal to or below 1.2.5
+            # updating minecraft-mod-manager if its below 1.2.7
             cur_version=$(minecraft-mod-manager --version | awk '{print $2}')
-            if [ $(version "${cur_version//$'\e'\[+([0-9;])m}") -le $(version "1.2.5") ]; then
+            if [ $(version "${cur_version//$'\e'\[+([0-9;])m}") -l $(version "1.2.7") ]; then
                 # set each variable individually since Fedora prints all output to one line
                 __os_id="$(lsb_release -s -i)"
                 __os_desc="$(lsb_release -s -d)"
