@@ -56,7 +56,9 @@ fn="ALL THE SHOVELWARE";;d="(WARNING: THIS IS LIKE 19 GB) Literally just install
 
 fn="PrusaSlicer";;d="PrusaSlicer is an open-source, feature-rich, frequently updated tool for 3D Printing";;sn="prusaslicer.sh";;f="extras"
 
-fn="WPS Office";;d="WPS (Writer, Presentation, and Spreadsheets) is a very polished and modern feeling office suite similar to Microsoft office.";;sn="wps-office.sh";;f="extras"
+fn="WPS Office";;d="WPS (Writer, Presentation, and Spreadsheets) is a very polished and modern feeling office suite similar to Microsoft office";;sn="wps-office.sh";;f="extras"
+
+fn="Aegisub";;d="Cross-platform advanced subtitle editor";;sn="aegisub.sh";;f="scripts"
 
 fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and elegance";;sn="budgie.sh";;f="desktop_environments"
 
