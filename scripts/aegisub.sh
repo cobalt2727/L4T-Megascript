@@ -17,7 +17,7 @@ case "$__os_id" in
         sudo dnf install git -y  || error "Failed to install dependencies!"
     ;;
     *)
-        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
+        echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install necessary dependencies yourself following https://github.com/wangqr/Aegisub#autoconf--make-for-linux-and-macos if you haven't already...\\e[39m"
         sleep 5
     ;;
 esac
