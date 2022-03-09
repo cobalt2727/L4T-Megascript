@@ -10,7 +10,7 @@ get_system
 
 case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo apt install make git libass-dev libboost-dev libopengl0 libicu-dev wx-common zlib1g-dev fontconfig luajit --no-install-recommends libffms2-dev libfftw3-dev libhunspell-dev libopenal-dev uchardet libuchardet-dev intltool libboost-chrono-dev -y || error "Failed to install dependencies!"
+        sudo apt install make git libass-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-regex-dev libboost-locale-dev libboost-thread-dev libopengl0 libicu-dev wx-common zlib1g-dev fontconfig luajit --no-install-recommends libffms2-dev libfftw3-dev libhunspell-dev libopenal-dev uchardet libuchardet-dev intltool -y || error "Failed to install dependencies!"
     ;;
     Fedora)
         #TODO
