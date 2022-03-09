@@ -6,6 +6,8 @@ sleep 2
 
 echo "Installing dependencies..."
 
+get_system
+
 case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
         sudo apt install make git libass-dev libboost-dev libopengl0 libicu-dev wx-common zlib1g-dev fontconfig luajit --no-install-recommends libffms2-dev libfftw3-dev libhunspell-dev libopenal-dev uchardet libuchardet-dev  -y || error "Failed to install dependencies!"
@@ -30,7 +32,7 @@ echo "Starting the build..."
 ./autogen.sh || error "Aegisub's autogen script failed!"
 ./configure || error "Aegisub's build configuration script failed!"
 make -j$(nproc) || error "make failed!"
-#sudo make install || error "Installation failed!"
+sudo make install || error "Installation failed!"
 
 echo "Cleaning up..."
 rm -rf /tmp/Aegisub/
