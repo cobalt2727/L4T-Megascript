@@ -71,6 +71,26 @@ if test -f /usr/local/bin/xemu; then
 fi
 
 #######################################################################
+# for whatever reason I have to re-run this every once in a while on my machine or apt doesn't see a new VS Code update
+if test -f /usr/bin/code; then
+	arch=$(dpkg --print-architecture)
+	case $arch in
+	    "arm64"|"armhf"|"amd64")
+	    sudo sh -c "cat > /etc/apt/sources.list.d/vscode.list << _EOF_
+	deb [arch=$arch] http://packages.microsoft.com/repos/code stable main
+	_EOF_"
+	    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+	    sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+	    rm -rf packages.microsoft.gpg
+	    sudo apt update
+	    ;;
+	    *)
+	    echo "Not updating VS Code, your architecture isn't supported"
+	    echo "...how did you even install this to begin with?"
+	    ;;
+	esac
+fi
+#######################################################################
 
 echo "Running APT updates..."
 sleep 1
