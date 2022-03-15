@@ -30,19 +30,19 @@ fi
 
 cd ~
 #install xemu itself
-sudo cp xemu/dist/xemu /usr/local/bin/xemu
+sudo install -D xemu/dist/xemu /usr/local/bin/xemu
 #install icons for .desktop files
-sudo cp -r xemu/ui/icons/xemu.svg /usr/local/share/icons/hicolor/scalable/apps/xemu.svg
+sudo install -m 644 -D xemu/ui/icons/xemu.svg /usr/local/share/icons/hicolor/scalable/apps/xemu.svg
 
-sudo cp -r xemu/ui/icons/xemu_128x128.png /usr/local/share/icons/hicolor/128x128/apps/xemu.png #128
-sudo cp -r xemu/ui/icons/xemu_16x16.png /usr/local/share/icons/hicolor/16x16/apps/xemu.png #16
-sudo cp -r xemu/ui/icons/xemu_24x24.png /usr/local/share/icons/hicolor/24x24/apps/xemu.png #24
-sudo cp -r xemu/ui/icons/xemu_256x256.png /usr/local/share/icons/hicolor/256x256/apps/xemu.png #256
-sudo cp -r xemu/ui/icons/xemu_32x32.png /usr/local/share/icons/hicolor/32x32/apps/xemu.png #32
-sudo cp -r xemu/ui/icons/xemu_48x48.png /usr/local/share/icons/hicolor/48x48/apps/xemu.png #48
-sudo cp -r xemu/ui/icons/xemu_512x512.png /usr/local/share/icons/hicolor/512x512/apps/xemu.png #512
-sudo cp -r xemu/ui/icons/xemu_64x64.png /usr/local/share/icons/hicolor/64x64/apps/xemu.png #64
+sudo install -m 644 -D xemu/ui/icons/xemu_128x128.png /usr/local/share/icons/hicolor/128x128/apps/xemu.png #128
+sudo install -m 644 -D xemu/ui/icons/xemu_16x16.png /usr/local/share/icons/hicolor/16x16/apps/xemu.png #16
+sudo install -m 644 -D xemu/ui/icons/xemu_24x24.png /usr/local/share/icons/hicolor/24x24/apps/xemu.png #24
+sudo install -m 644 -D xemu/ui/icons/xemu_256x256.png /usr/local/share/icons/hicolor/256x256/apps/xemu.png #256
+sudo install -m 644 -D xemu/ui/icons/xemu_32x32.png /usr/local/share/icons/hicolor/32x32/apps/xemu.png #32
+sudo install -m 644 -D xemu/ui/icons/xemu_48x48.png /usr/local/share/icons/hicolor/48x48/apps/xemu.png #48
+sudo install -m 644 -D xemu/ui/icons/xemu_512x512.png /usr/local/share/icons/hicolor/512x512/apps/xemu.png #512
+sudo install -m 644 -D xemu/ui/icons/xemu_64x64.png /usr/local/share/icons/hicolor/64x64/apps/xemu.png #64
 
 
 #install .desktop files themselves - possibly rewrite that first line if the file gets renamed as per my suggestion in https://github.com/AxioDL/metaforce/pull/438
-sudo cp xemu/ui/xemu.desktop /usr/local/share/applications/xemu.desktop
+sudo install -m 644 -D xemu/ui/xemu.desktop /usr/local/share/applications/xemu.desktop
