@@ -30,6 +30,11 @@ else #this might be insufficient on Focal, needs testing
   sudo apt install -y libstdc++-11-dev libstdc++6 libclang-dev gcc g++ clang || error "Failed to install dependencies!"
 fi
 
+if grep -q bionic /etc/os-release; then
+  sudo apt install -y python3-pip || error "failed to install pip3!"
+  python3 -m pip install --upgrade pip dataclasses || error "Failed to install module for backwards compatibility for Python3.6!"
+fi
+
 git clone https://github.com/FEX-Emu/FEX.git --recurse-submodules -j$(nproc)
 cd FEX
 
