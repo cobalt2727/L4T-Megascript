@@ -12,7 +12,21 @@ get_system
 
 case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libudev-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libsystemd-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
+        sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
+        
+        #the following lines attempt to handle issues with installing on distros without systemd (namely AntiX)
+        package_available libudev-dev #this will install on mainstream distros
+        if [[ $? == "0" ]]; then
+          sudo apt install -y libudev-dev || error "Failed to install udev development libraries!"
+        fi
+        package_available libsystemd-dev #this will also install on mainstream distros, install both this and libudev-dev if you're using this as a reference
+        if [[ $? == "0" ]]; then
+          sudo apt install -y libsystemd-dev || error "Failed to install systemd development libraries!"
+        fi
+        package_available libeudev-dev #this is a udev replacement that works without systemd, you can't even install it on a regular Debian/Ubuntu spin
+        if [[ $? == "0" ]]; then
+          sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
+        fi
     ;;
     Fedora)
         sudo dnf install -y vulkan-loader vulkan-loader-devel cmake git gcc-c++ libXext-devel libgudev qt5-qtbase-devel qt5-qtbase-private-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel libXi-devel || error "Failed to install dependencies!"
