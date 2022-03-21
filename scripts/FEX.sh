@@ -60,5 +60,8 @@ fi
 
 sudo ninja install
 
+#fix for https://github.com/ninja-build/ninja/issues/1302
+sudo chown $USER:$USER .ninja_*
+
 sudo ninja binfmt_misc_32
 sudo ninja binfmt_misc_64
