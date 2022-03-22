@@ -151,7 +151,7 @@ function install_post_depends {
   if grep -q debian /etc/os-release; then
   
     ## Check SDL2 version
-    if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0) lt 2.0.14); then
+    if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.0.14); then
       echo "Installing SDL2 from binary..."
       bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
     fi

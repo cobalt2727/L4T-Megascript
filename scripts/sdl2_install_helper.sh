@@ -4,15 +4,7 @@
 #note that this is an apt package in the Switchroot repository, its ok for it to fail on other devices
 sudo apt install joycond -y
 
-function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
-
-sdlv=$(dpkg -s libsdl2-dev | sed -n 's/Version: //p')
-sdlv=${sdlv/+/.}
-if [ $(version $sdlv) -ge $(version "2.0.14.0") ]; then
-    echo ""
-    echo "Already Installed Newest SDL2 Version"
-    sleep 1
-else
+if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.0.14); then
     get_system
     if [[ "$dpkg_architecture" == "arm64" ]]; then
         mkdir -p /tmp/sdl2
@@ -49,11 +41,12 @@ else
         # sudo rm -rf temp_install_sdl2
 
         cd
-        echo ""
         echo "Successfully Installed Newest SDL2 Version"
-        sleep 3
     else
         echo "Sorry we don't host binaries on the megascript for non-arm64 architectures"
-        echo "Skipping updated SDL2 install"
+        echo "Skipping updated SDL2 install and installing normal sdl2 packages"
+        sudo apt install libsdl2-2.0-0 libsdl2-dev -y
     fi
+else
+    echo "Already Installed Newest SDL2 Version"
 fi
