@@ -1,3 +1,7 @@
+#!/bin/bash
+
+if grep -q bionic /etc/os-release; then error_user "You shouldn't be running this on Ubuntu Bionic, skipping installation"; fi
+
 sudo su -c "echo 'Package: *' > /etc/apt/preferences.d/firefox"
 sudo su -c "echo 'Pin: release o=LP-PPA-mozillateam-firefox-next' >> /etc/apt/preferences.d/firefox"
 sudo su -c "echo 'Pin-Priority: 700' >> /etc/apt/preferences.d/firefox"
