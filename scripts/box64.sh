@@ -43,7 +43,7 @@ sudo make install || error "Make install failed"
 sudo systemctl restart systemd-binfmt
 sudo mkdir /usr/share/box64
 cd ..
-sudo cp Box64Icon.png /usr/share/box64/icon.png
+sudo cp docs/img/Box64Icon.png /usr/share/box64/icon.png
 
 echo "Adding box64 to applications list"
 sudo tee /usr/share/applications/box64.desktop <<'EOF'
