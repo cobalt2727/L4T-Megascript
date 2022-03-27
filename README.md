@@ -1,4 +1,6 @@
-### DISCLAIMER: USE AT YOUR OWN DEVICE'S RISK. BEAR IN MIND SOME OF THE SCRIPTS MAY SCREW UP YOUR INSTALLATION, ESPECIALLY IF YOU'RE NOT USING TEGRA HARDWARE. PLUS, WE MANUALLY COMPILE A FEW OF THE PROGRAMS INCLUDED HERE, SO IF YOU'RE REBUILDING PROGRAMS TOO OFTEN IT MAY SHORTEN THE LIFESPAN OF YOUR SD CARD.
+### DISCLAIMER:
+Some of the scripts shown here *may* screw up your installation if you're not using Tegra hardware. Most of them should be fine to use on other systems, but double-check the source code first.
+In addition, keeping your Tegra system overclocked too often or rebuilding programs too often might shorten the lifespan of your system or the SD card.
 <p align="center">
     <img src="https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/L4T_Megascript-logo-transparent-effect.png" height=256 alt="L4T-Megascript Logo"
 </p>
@@ -28,7 +30,7 @@ The L4T Megascript is an open source multipurpose script for easily installing a
 The script itself doesn't actually get installed, even though it does install a lot of other programs and features. All it downloads to your device is a little text file and desktop icon that runs the script directly off of this GitHub repo so you don't have to worry about updating things on your end! [Click here to get started!](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup)
 <Br>
 
-### DISCLAIMER: In the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the [latest source code](https://github.com/cobalt2727/L4T-Megascript/archive/refs/heads/master.zip). NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST! (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to hop in the Discord server using the link below and ask about it - we're happy to help!)
+### DISCLAIMER: In the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the [latest source code](https://github.com/cobalt2727/L4T-Megascript/archive/refs/heads/master.zip). *NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST!* (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to check our [wiki](./wiki) or hop in the Discord server using the link below and ask about it - we're happy to help!)
 
 ## Planned features:
 - Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/))
