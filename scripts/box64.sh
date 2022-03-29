@@ -19,6 +19,7 @@ case "$dpkg_architecture" in
         case "$DISTRIB_CODENAME" in
             bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
         esac
+        ;;
     "amd64")
         echo "Installing Dependencies";;
     *)
