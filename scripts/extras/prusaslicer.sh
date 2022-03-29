@@ -3,9 +3,16 @@ echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
 ppa_name="ubuntu-toolchain-r/test" && ppa_installer 
 
-# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME first from lsb-release (for ubuntu) and then from the upstream for derivatives
-source /etc/lsb-release
-source /etc/upstream-release/lsb-release
+# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
+# check if upstream-release is available
+if [ -f /etc/upstream-release/lsb-release ]; then
+    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+    DISTRIB_CODENAME=$(lsb_release -s -u -c)
+    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+else
+    DISTRIB_CODENAME=$(lsb_release -s -c)
+    DISTRIB_RELEASE=$(lsb_release -s -r)
+fi
 case "$DISTRIB_CODENAME" in
     bionic)
         echo "Adding Boost 1.67 PPA..."

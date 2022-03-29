@@ -9,6 +9,16 @@ sudo apt install -y git gcc cmake extra-cmake-modules \
     qttools5-dev qttools5-dev-tools libsdl2-dev \
     libxi-dev libxtst-dev libx11-dev itstool gettext python3-libxml2 || error "Could not install dependencies"
 
+# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
+# check if upstream-release is available
+if [ -f /etc/upstream-release/lsb-release ]; then
+    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+    DISTRIB_CODENAME=$(lsb_release -s -u -c)
+    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+else
+    DISTRIB_CODENAME=$(lsb_release -s -c)
+    DISTRIB_RELEASE=$(lsb_release -s -r)
+fi
 case "$DISTRIB_CODENAME" in
   bionic)
     #bionic cmake is very old, use theofficialgman ppa for cmake

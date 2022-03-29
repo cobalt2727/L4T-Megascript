@@ -14,8 +14,16 @@ sleep 10
 # obtain the cpu info
 get_system
 
-source /etc/lsb-release
-source /etc/upstream-release/lsb-release
+# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
+# check if upstream-release is available
+if [ -f /etc/upstream-release/lsb-release ]; then
+    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+    DISTRIB_CODENAME=$(lsb_release -s -u -c)
+    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+else
+    DISTRIB_CODENAME=$(lsb_release -s -c)
+    DISTRIB_RELEASE=$(lsb_release -s -r)
+fi
 
 minimumver="20.04"
 
