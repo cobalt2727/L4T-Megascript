@@ -479,15 +479,10 @@ while [ $x == 1 ]; do
       sudo -v
       kill -0 "$$" 2>/dev/null || exit
     done &
-    sudo apt update
-    grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-    if [[ $? -ne 0 ]]; then
-      # fix for error (for some reason was never pulled into bionic...)
-      # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
-      # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
-      # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
-      sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-      sudo apt update || yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+    sudo apt update 2>&1 || grep -q '^[(E)|(Err]:'
+    if [[ $? == 1 ]]; then
+      # apt update failed with an error
+      yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
       \n\n\Verify that you are connected to the internet. \
       \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png  \
       --button="Exit the L4T-Megascript":0 \
@@ -498,6 +493,16 @@ while [ $x == 1 ]; do
       else
         exit
       fi
+    fi
+    grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+    grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
+    if [[ $? == 1 ]]; then
+      # fix for error (for some reason was never pulled into bionic...)
+      # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
+      # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
+      # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
+      sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+      sudo apt update
     fi
     install_post_depends
     rm -rf /tmp/megascript_times.txt
