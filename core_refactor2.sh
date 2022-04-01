@@ -19,6 +19,8 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
+unset has_foreign
+unset broken_apt
 
 #sudo apt install figlet
 if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
@@ -107,15 +109,11 @@ if [ "$(dpkg --print-architecture)" == "arm64" ]; then
 \n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt."\
     --ok-label="Fix install: Remove i386/amd64 architecture"\
     --cancel-label="Keep my install broken: Keep i386/amd64 architecture"
-    if [[ $? -ne 0 ]]; then
-      output="Keep my install broken: Keep i386/amd64 architecture"
-    else
-      output="Fix install: Remove i386/amd64 architecture"
-    fi
-    if [ "$output" == "Fix install: Remove i386/amd64 architecture" ]; then
+    if [[ $? == 0 ]]; then
       pkexec sh -c "dpkg --remove-architecture i386; dpkg --remove-architecture amd64; apt update"
     else
       warning "Skipped $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture removal, its up to you if your APT or install is broken."
+      has_foreign=1
     fi
   fi
 fi
@@ -489,7 +487,17 @@ while [ $x == 1 ]; do
       # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
       # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
       sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-      sudo apt update
+      sudo apt update || yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+      \n\n\Verify that you are connected to the internet. \
+      \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png  \
+      --button="Exit the L4T-Megascript":0 \
+      --button="Continue and ignore ERROR":1
+      if [[ $? -ne 0 ]]; then
+        # write that user has broken APT in ALL megascript logs
+        broken_apt=1
+      else
+        exit
+      fi
     fi
     install_post_depends
     rm -rf /tmp/megascript_times.txt
@@ -520,6 +528,14 @@ while [ $x == 1 ]; do
         else
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
+        fi
+        if [ ! -z $broken_apt ]; then
+          # user knowingly has a broken apt and has continued, add this to all log output
+          sed -i "1iUSER HAS BROKEN APT" $logfile
+        fi
+        if [ ! -z $has_foreign ]; then
+          # user knowingly has foreign architectures and has continued, add this to all log output
+          sed -i "1iUSER HAS FOREIGN ARCHITECTURES ENABLED" $logfile
         fi
         sed -i "1iDevice Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" $logfile
         if [ "$script_exit_code" != 0 ]; then
