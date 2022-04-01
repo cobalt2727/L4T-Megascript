@@ -479,8 +479,9 @@ while [ $x == 1 ]; do
       sudo -v
       kill -0 "$$" 2>/dev/null || exit
     done &
-    sudo apt update 2>&1 || grep -q '^[(E)|(Err]:'
-    if [[ $? == 1 ]]; then
+    update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+    echo "$update_output" | grep -qe '^Err:' -qe '^E:'
+    if [[ $? == 0 ]]; then
       # apt update failed with an error
       yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
       \n\n\Verify that you are connected to the internet. \
