@@ -1,6 +1,8 @@
 #!/bin/bash
 # Download and install Mods compatible with minecraft version
-MMC_ROOT="${INST_DIR%/*/*/*}"
+MMC_ROOT="${INST_DIR%/*/*/*}/scripts"
+# if scripts directory does not exist, fallback to using the pre-launch.sh script directory for files
+[ ! -d "$MMC_ROOT" ] && MMC_ROOT="$(dirname "$0")"
 wget -q --spider https://github.com && wget -q --spider https://raw.githubusercontent.com/
 
 # only run update/install script if the user has an active internet connection
@@ -8,18 +10,19 @@ if [ $? == 0 ]
 then
 
     echo "Checking megascript-mods list from online"
-    wget -qO /tmp/megascript-mods.txt "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/megascript-mods.txt" && rm "$MMC_ROOT/scripts/megascript-mods.txt" && mv /tmp/megascript-mods.txt "$MMC_ROOT/scripts/megascript-mods.txt"
+    wget -qO /tmp/megascript-mods.txt "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/megascript-mods.txt"
+    mv /tmp/megascript-mods.txt "$MMC_ROOT/megascript-mods.txt"
 
     echo "Checking pre-launch script from online."
-    wget -qO /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
+    wget -qO /tmp/pre-launch.sh "https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/MultiMC/pre-launch.sh" && diff /tmp/pre-launch.sh "$MMC_ROOT/pre-launch.sh"
 
     if [[ "$?" == 1 ]]; then
         echo "Online script is newer"
-        rm "$MMC_ROOT/scripts/pre-launch.sh"
-        mv /tmp/pre-launch.sh "$MMC_ROOT/scripts/pre-launch.sh"
-        chmod +x "$MMC_ROOT/scripts/pre-launch.sh"
+        rm "$MMC_ROOT/pre-launch.sh"
+        mv /tmp/pre-launch.sh "$MMC_ROOT/pre-launch.sh"
+        chmod +x "$MMC_ROOT/pre-launch.sh"
         echo "Running new downloaded script and skipping this old one"
-        "$MMC_ROOT/scripts/pre-launch.sh" || exit $?
+        "$MMC_ROOT/pre-launch.sh" || exit $?
         exit 0
     else
         echo "Pre-Launch script already up to date."
@@ -42,8 +45,8 @@ then
 
     ### ends here ###
 
-    megascript_mods=$(sed -n "p" <"$MMC_ROOT/scripts/megascript-mods.txt")
-    user_mods=$(sed -n "p" <"$MMC_ROOT/scripts/user-mods.txt")
+    megascript_mods=$(sed -n "p" <"$MMC_ROOT/megascript-mods.txt")
+    user_mods=$(sed -n "p" <"$MMC_ROOT/user-mods.txt")
     cd "$INST_DIR"
     mc_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.minecraft\///p')
     fabric_version=$(jq -M -r '.components[] | "\(.uid)/\(.version)"' mmc-pack.json | sed -n -e 's/^.*net.fabricmc.fabric-loader\///p')
