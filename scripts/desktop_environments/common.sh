@@ -50,6 +50,22 @@ else
 fi
 EOF
 	sudo chmod +x /etc/dock-hotplug.sh
+	
+	# start onboard with more DEs list
+	sudo dd of=/etc/xdg/autostart/onboard-autostart.desktop << EOF
+[Desktop Entry]
+Name=Onboard
+GenericName=Onboard onscreen keyboard
+Comment=Flexible onscreen keyboard
+Exec=onboard --not-show-in=GNOME,GNOME-Classic:GNOME --startup-delay=3.0
+Icon=onboard
+Type=Application
+NoDisplay=true
+X-Ubuntu-Gettext-Domain=onboard
+AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
+X-GNOME-AutoRestart=true
+OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox;UKUI;XFCE
+EOF
 fi
 
 # only run on nvidia jetsons
@@ -64,19 +80,3 @@ Exec=/usr/share/nvpmodel_indicator/nvpmodel_indicator.py
 OnlyShowIn=LXDE;MATE;UKUI;XFCE
 EOF
 fi
-
-# start onboard with more DEs list
-sudo dd of=/etc/xdg/autostart/onboard-autostart.desktop << EOF
-[Desktop Entry]
-Name=Onboard
-GenericName=Onboard onscreen keyboard
-Comment=Flexible onscreen keyboard
-Exec=onboard --not-show-in=GNOME,GNOME-Classic:GNOME --startup-delay=3.0
-Icon=onboard
-Type=Application
-NoDisplay=true
-X-Ubuntu-Gettext-Domain=onboard
-AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
-X-GNOME-AutoRestart=true
-OnlyShowIn=Unity;MATE;Budgie;LXDE;openbox;UKUI;XFCE
-EOF
