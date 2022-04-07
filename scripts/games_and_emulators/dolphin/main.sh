@@ -4,8 +4,31 @@ clear -x
 echo "Dolphin script successfully started!"
 sleep 1
 
+get_system
+
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
-sudo apt install udev libudev1 libudev-dev -y
+# previous line this massive case statement replaced: sudo apt install udev libudev1 libudev-dev -y || error "Failed to install dependencies!"
+case "$__os_id" in
+    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+        package_available libudev-dev #this will install on mainstream distros
+        if [[ $? == "0" ]]; then
+          sudo apt install -y libudev-dev udev || error "Failed to install udev development libraries!"
+        fi
+        package_available libeudev-dev #this is a udev replacement that works without systemd, you can't even install it on a regular Debian/Ubuntu spin
+        if [[ $? == "0" ]]; then
+          sudo apt install -y libeudev-dev eudev || error "Failed to install eudev development libraries!"
+        fi
+    ;;
+    Fedora)
+        sudo dnf install -y systemd-devel || error "Failed to install dependencies!"
+    ;;
+    *)
+        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install udev development libraries yourself...\\e[39m"
+        sleep 5
+    ;;
+esac
+
+
 sudo rm -f /etc/udev/rules.d/51-gcadapter.rules
 sudo touch /etc/udev/rules.d/51-gcadapter.rules
 echo 'SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"' | sudo tee /etc/udev/rules.d/51-gcadapter.rules > /dev/null
@@ -38,7 +61,18 @@ if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)'
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
 
 elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
-  sudo apt install xdelta3 -y
+  case "$__os_id" in
+    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+        sudo apt install -y xdelta3 || error "Failed to install dependencies!"
+    ;;
+    Fedora)
+        sudo dnf install -y xdelta || error "Failed to install dependencies!"
+    ;;
+    *)
+        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install the xdelta package yourself...\\e[39m"
+        sleep 5
+    ;;
+  esac
   bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
 
 
