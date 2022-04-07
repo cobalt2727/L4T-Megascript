@@ -12,11 +12,11 @@ case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
         package_available libudev-dev #this will install on mainstream distros
         if [[ $? == "0" ]]; then
-          sudo apt install -y libudev-dev udev || error "Failed to install udev development libraries!"
+            sudo apt install -y libudev-dev udev || error "Failed to install udev development libraries!"
         fi
         package_available libeudev-dev #this is a udev replacement that works without systemd, you can't even install it on a regular Debian/Ubuntu spin
         if [[ $? == "0" ]]; then
-          sudo apt install -y libeudev-dev eudev || error "Failed to install eudev development libraries!"
+            sudo apt install -y libeudev-dev eudev || error "Failed to install eudev development libraries!"
         fi
     ;;
     Fedora)
@@ -55,48 +55,48 @@ userinput_func "$description" "${table[@]}"
 
 
 if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)' ]]; then
-	echo "Building from source with device-specific optimizations..."
-	cd ~
-	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"|| exit $?
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
-
-elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
-  case "$__os_id" in
-    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo apt install -y xdelta3 || error "Failed to install dependencies!"
-    ;;
-    Fedora)
-        sudo dnf install -y xdelta || error "Failed to install dependencies!"
-    ;;
-    *)
-        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install the xdelta package yourself...\\e[39m"
-        sleep 5
-    ;;
-  esac
-  bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
-
-
-elif [[ $userInput == 3 ]]; then
-  echo "not ready yet"
-  sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/primehack.sh)"
-
-elif [[ $userInput == 4 ]]; then
-  echo "not ready yet"
-  sleep 3
-  ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/slippi.sh)"
-
-elif [[ $userInput == 5 ]]; then
-  echo "Loading Project+ script..."
-  sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)" || exit $?
-
-elif [[ $userInput == 6 ]]; then
-  echo "not ready yet"
-  sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/kirbyairridehackpack.sh)" || exit $?
-
-
+    echo "Building from source with device-specific optimizations..."
+    cd ~
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)"|| exit $?
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
+    
+    elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
+    case "$__os_id" in
+        Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+            sudo apt install -y xdelta3 || error "Failed to install dependencies!"
+        ;;
+        Fedora)
+            sudo dnf install -y xdelta || error "Failed to install dependencies!"
+        ;;
+        *)
+            echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install the xdelta package yourself...\\e[39m"
+            sleep 5
+        ;;
+    esac
+    bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
+    
+    
+    elif [[ $userInput == 3 ]]; then
+    echo "not ready yet"
+    sleep 3
+    ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/primehack.sh)"
+    
+    elif [[ $userInput == 4 ]]; then
+    echo "not ready yet"
+    sleep 3
+    ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/slippi.sh)"
+    
+    elif [[ $userInput == 5 ]]; then
+    echo "Loading Project+ script..."
+    sleep 3
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)" || exit $?
+    
+    elif [[ $userInput == 6 ]]; then
+    echo "not ready yet"
+    sleep 3
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/kirbyairridehackpack.sh)" || exit $?
+    
+    
 fi
 
 echo "Sending you back to the main menu..."
