@@ -12,7 +12,7 @@ if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -
         rm -rf ./*
         wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.0.14%2B5_arm64.deb --progress=bar:force:noscroll && wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dbg_2.0.14%2B5_arm64.deb --progress=bar:force:noscroll && wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.0.14%2B5_arm64.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
 
-        sudo apt install ./*.deb -y --allow-change-held-packages || error "SDL2 Packages Failed to install"
+        sudo apt install ./*.deb -y -f --allow-change-held-packages || error "SDL2 Packages Failed to install"
         rm -rf ./*
 
         # keep this old code for compiling SDL2 if its ever needed
