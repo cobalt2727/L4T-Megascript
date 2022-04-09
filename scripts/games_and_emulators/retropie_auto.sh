@@ -231,7 +231,7 @@ function install_binaries {
                     repo_binary_date=$(date -d $repo_binary_date +%s)
                     local_binary_date=$(cat /opt/retropie/$folder/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
                     local_binary_date=$(date -d $local_binary_date +%s)
-                    if [[ $repo_binary_date -gt $local_binary_date ]] || ([[ $repo_binary_date == $local_binary_date ]] && ! diff "/opt/retropie/$folder/$package/retropie.pkg" "$package"); then
+                    if [[ $repo_binary_date -gt $local_binary_date ]] || ([[ $repo_binary_date == $local_binary_date ]] && ! diff "/opt/retropie/$folder/$package/retropie.pkg" "$package.pkg"); then
                         # only download and extract package if it is newer than local version or if equal to local version with later build date
                         wget https://raw.githubusercontent.com/theofficialgman/RetroPie-Binaries/master/Binaries/$jetson_model/$folder/$package.tar.gz --progress=bar:force:noscroll
                         cat ./$package.tar.gz | tar zxvf - -i
