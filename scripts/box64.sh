@@ -26,7 +26,14 @@ case "$dpkg_architecture" in
         error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
 esac
 
-sudo apt install zenity cmake git build-essential -y  || error "Could not install dependencies"
+# add toolchain ppa for gcc 11 on bionic and focal
+# newer releases of ubuntu have gcc-11 in the normal repos
+# older releases of ubuntu are not supported
+case "$DISTRIB_CODENAME" in
+    bionic|focal) ppa_name="ubuntu-toolchain-r/test" && ppa_installer ;;
+esac
+
+sudo apt install zenity cmake git build-essential gcc-11 g++-11 -y  || error "Could not install dependencies"
 cd
 git clone https://github.com/ptitSeb/box64
 cd box64
@@ -43,11 +50,11 @@ cd build
 
 case "$dpkg_architecture" in
     "arm64") case "$jetson_model" in
-        "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Tegra X1 based system" ;;
-        *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "Universal aarch64 system";;
+        "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Tegra X1 based system" ;;
+        *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Universal aarch64 system";;
         esac
         ;;
-    "amd64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo; echo "x86_64 based system" ;;
+    "amd64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "x86_64 based system" ;;
     *) error "Something is very wrong... how did you get past the first check?" ;;
 esac
 
