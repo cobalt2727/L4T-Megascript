@@ -109,13 +109,11 @@ _EOF_"
     fi
 
     cd "/home/$USER/RetroPie-Setup"
-    git pull
-    if [[ $? -ne 0 ]]; then
-        cd ~
-        rm -rf RetroPie-Setup
-        git clone https://github.com/RetroPie/RetroPie-Setup.git || error "Could Not Pull Latest Source Code"
-        cd ~/RetroPie-Setup
-    fi
+    # cleanup random files that could cause issues
+    git reset --hard
+    git clean -f
+    git pull || error "Could Not Pull Latest Source Code. You probably have corrupted your ~/RetroPie-Setup folder or your Internet DIED, you can savely remove it and try again."
+    
     sudo crudini --set '/opt/retropie/configs/all/runcommand.cfg' '' governor ' ""'
     status "Finding all games installed and adding them to the Ports menu"
     mkdir -p "/home/$USER/.emulationstation/scripts/quit"
