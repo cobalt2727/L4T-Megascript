@@ -21,6 +21,7 @@ clear -x
 x=1
 unset has_foreign
 unset broken_apt
+unset has_weak_wifi
 
 #sudo apt install figlet
 if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
@@ -215,6 +216,7 @@ if [[ $(iwconfig 2> /dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print 
 \nAlternatively, connect you switch via Ethernet for the most stable internet experience.'
   table=("OK")
   userinput_func "$description" "${table[@]}"
+  has_weak_wifi=1
 fi
 
 conversion() {
@@ -543,8 +545,22 @@ while [ $x == 1 ]; do
           # user knowingly has foreign architectures and has continued, add this to all log output
           sed -i "1iUSER HAS FOREIGN ARCHITECTURES ENABLED" $logfile
         fi
+        if [ ! -z $has_weak_wifi ]; then
+          # user knowingly has weak wifi
+          sed -i "1iUSER HAS WEAK WIFI" $logfile
+        fi
         sed -i "1iDevice Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" $logfile
         if [ "$script_exit_code" != 0 ]; then
+          # check for internet connection died errors
+          unset internet_died
+          if grep -qF "Could not resolve host: github.com" "$logfile" ;then
+            internet_died=1
+          elif grep -q 'Could not resolve\|Failed to fetch\|Temporary failure resolving\|Network is unreachable\|Internal Server Error\|404 .*Not Found' "$logfile" ;then
+            internet_died=1
+          elif grep -q "The TLS connection was non-properly terminated\.\|Can't load uri .* Unacceptable TLS certificate" "$logfile" ;then
+            internet_died=1
+          fi
+          wget -q --spider https://raw.githubusercontent.com/ || internet_died=1
           echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
 \e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
 Please ask on GitHub: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
@@ -553,7 +569,15 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           mv "$logfile" "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           logfile="$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')"
           echo "logfile name is $logfile"
-          if [[ "$script_exit_code" == 2 ]]; then
+          if [[ "$internet_died" == 1 ]]; then
+            sed -i "1iUSER Internet connection DIED"
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+\nThe script exited due to YOUR INTERNET BEING DEAD.\
+\nDo NOT complain about this. FIX your wifi, move closer to your router, or use Ethernet for a more stable connection.\
+\nError reporting has been disabled.\
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript? DO NOT CONTINUE until you fix your internet."
+            table=("Continue" "Exit")
+          elif [[ "$script_exit_code" == 2 ]]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nThe script exited due to YOUR issue.\
 \nThis is usually due to out of space, internet dying, or using an unsupported OS/system. Please view the log in the terminal window for the exact cause.\
