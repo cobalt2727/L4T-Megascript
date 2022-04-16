@@ -70,6 +70,15 @@ if test -f /usr/local/bin/xemu; then
 	XemuUserInput="$output"
 fi
 
+RUserInput="no"
+if test -f /usr/bin/R || test -f /usr/lib/R || test -f /usr/local/bin/R; then
+        description="Do you want to update R/CRAN packages? (May take 2 seconds to 2 hours)"
+        table=("yes" "no")
+        userinput_func "$description" "${table[@]}"
+	RUserInput="$output"
+fi
+
+
 #######################################################################
 
 echo "Running APT updates..."
@@ -257,6 +266,14 @@ if [[ $XemuUserInput == "yes" ]]; then
 	bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/xemu.sh)" || exit $?
 else
 	echo "Skipping Xemu update..."
+fi
+
+if [[ $RUserInput == "yes" ]]; then
+	echo "Updating R/CRAN packages..."
+	sleep 2
+	Rscript -e 'update.packages(ask = FALSE)' #there is no error handling here: packages installed from distro repos are guaranteed to fail
+else
+	echo "Skipping R package updates..."
 fi
 
 ##########################################################################
