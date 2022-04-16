@@ -422,6 +422,33 @@ remove_repofile_if_unused() { #Given a sources.list.d file, delete it if nothing
 }
 export -f remove_repofile_if_unused
 
+apt_lock_wait() { #Wait until other apt processes are finished before proceeding
+  #make sure english locale is added first
+  add_english
+  
+  echo "Waiting until APT locks are released... "
+  sp="/-\|"
+  while [ ! -z "$(sudo fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/log/unattended-upgrades/unattended-upgrades.log /var/lib/dpkg/lock-frontend 2>/dev/null)" ];do
+    echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
+    sleep 1
+  done
+  echo
+}
+export -f apt_lock_wait
+
+# wrap sudo function so we can catch "sudo apt" and "sudo apt-get" usage. Sudo can't normally run functions so we can't just wrap "apt" or "apt-get" without changing every script
+function sudo {
+  if [ "$1" == "apt" ]; then
+    apt_lock_wait
+    command sudo "$@"
+  elif [ "$1" == "apt-get" ]; then
+    apt_lock_wait
+    command sudo "$@"
+  else
+    command sudo "$@"
+  fi
+}
+export -f sudo
 
 #####################################################################################
 # don't remove this line
