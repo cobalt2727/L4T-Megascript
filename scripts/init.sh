@@ -126,6 +126,7 @@ case "$DISTRIB_CODENAME" in
         # safe to remove
         sudo rm -f /etc/apt/sources.list.d/kitware.list /usr/share/keyrings/kitware-archive-keyring.gpg
       fi
+      sudo apt update
       warning "Could not install Kitware apt repo needed for updated cmake. Removed the Kitware repo to prevent apt errors"
     fi
 
