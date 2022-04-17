@@ -117,13 +117,23 @@ case "$DISTRIB_CODENAME" in
     wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
     echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
     sudo apt-get update
-    sudo rm /usr/share/keyrings/kitware-archive-keyring.gpg
-    sudo apt-get install kitware-archive-keyring
+    sudo rm -f /usr/share/keyrings/kitware-archive-keyring.gpg
+    sudo apt-get install kitware-archive-keyring -y
+    if [ $? != 0 ]; then
+      anything_installed_from_repo "https://apt.kitware.com/ubuntu/"
+      if [ $? != 0 ]; then
+        # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
+        # safe to remove
+        sudo rm -f /etc/apt/sources.list.d/kitware.list /usr/share/keyrings/kitware-archive-keyring.gpg
+      fi
+      warning "Could not install Kitware apt repo needed for updated cmake. Removed the Kitware repo to prevent apt errors"
+    fi
 
     if [[ -f "/usr/bin/cmake" ]]; then
       #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
       sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
     fi
+    hash -r
 esac
 
 #updates whee
