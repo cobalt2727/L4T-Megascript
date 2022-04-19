@@ -167,6 +167,8 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	fi
 	
 	##maintenance (not passing with -y to prevent potentially breaking something for a user)
+	sudo rm -rf /var/lib/apt/lists/*
+	sudo apt update
 	sudo dpkg --configure -a
 	sudo apt --fix-broken install
 	sudo apt autoremove
