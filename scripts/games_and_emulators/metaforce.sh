@@ -50,16 +50,17 @@ if grep -q bionic /etc/os-release; then
   ppa_installer
 
   sudo apt install -y build-essential curl git ninja-build clang lld-14 zlib1g-dev libcurl4-openssl-dev \
-  libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
+  libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
   libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
   qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
   clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
 
 else
  sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
- libglu1-mesa-dev libdbus-1-dev libvulkan-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
+ libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
  libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
- qtbase5-dev-tools libclang-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
+ qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
+ sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
 fi
 
 git clone --recursive https://github.com/AxioDL/metaforce.git -j$(nproc)
