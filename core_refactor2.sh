@@ -414,10 +414,8 @@ while [ $x == 1 ]; do
         fi
         if [[ "$output" == "0" ]] && [[ "$CHOICE" != "" ]]; then
           sudo -k
-          state="0"
-          while [[ "$state" == "0" ]]; do
-            zenity --password | sudo -S echo "" 2>&1 >/dev/null | grep -q "incorrect"
-            state=$?
+          while ! sudo -n true; do
+            zenity --password 2>/dev/null | sudo -S echo "" 2>&1 >/dev/null
           done
           add_english
         elif [[ "$output" == "0" ]] && [[ "$CHOICE" == "" ]]; then
