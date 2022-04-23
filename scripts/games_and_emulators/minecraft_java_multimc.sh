@@ -187,6 +187,7 @@ if [[ $modmanager == 1 ]]; then
     --button="YES, add the mod script":0 \
     --button="NO, do NOT add the mod script":1
 else
+    modmanager="0"
     status "Mod script uninstallable since your OS does not have python 3.8+"
 fi
 
@@ -247,10 +248,12 @@ if [[ "$?" =~ ^(0|70)$ ]] && [[ $modmanager == 1 ]]; then
             warning "PIP errored on install of dependencies, cannot add the Mod Installer Script."
             warning "Continuing the install without the Mod Install Script in 10 seconds."
             sleep 10
+            modmanager="0"
         fi
         unset python_version
     fi
 else
+    modmanager="0"
     status "Mod script skipped."
 fi
 
@@ -337,20 +340,22 @@ warning "Bugs which only appear on this build should be posted to https://github
 status "Starting Compilation"
 make -j$(nproc) install || error "Make install failed"
 
-# enable pre-launch script
+# enable pre-launch script only if $modmanager == "1"
 # this can always be overwritten by the user after the first installation
 cd ..
-if cat install/multimc.cfg | grep -q "PreLaunchCommand="; then
-    if cat install/multimc.cfg | grep -q "PreLaunchCommand=."; then
-        warning "Skipping Adding a Prelaunch Script as there is already one specified by the user or a previous installation"
-        status "The current Prelaunch Sript is set to: $(cat install/multimc.cfg | grep "PreLaunchCommand=")"
+if [[ "$modmanager" == "1" ]]; then
+    if cat install/multimc.cfg | grep -q "PreLaunchCommand="; then
+        if cat install/multimc.cfg | grep -q "PreLaunchCommand=."; then
+            warning "Skipping Adding a Prelaunch Script as there is already one specified by the user or a previous installation"
+            status "The current Prelaunch Sript is set to: $(cat install/multimc.cfg | grep "PreLaunchCommand=")"
+        else
+            status "Adding a Prelaunch Script to handle automatic mod installation"
+            sed -i "s/PreLaunchCommand=.*/PreLaunchCommand=\/home\/$USER\/MultiMC\/scripts\/pre-launch.sh/g" install/multimc.cfg
+        fi
     else
         status "Adding a Prelaunch Script to handle automatic mod installation"
-        sed -i "s/PreLaunchCommand=.*/PreLaunchCommand=\/home\/$USER\/MultiMC\/scripts\/pre-launch.sh/g" install/multimc.cfg
+        echo "PreLaunchCommand=/home/$USER/MultiMC/scripts/pre-launch.sh" >> install/multimc.cfg
     fi
-else
-    status "Adding a Prelaunch Script to handle automatic mod installation"
-    echo "PreLaunchCommand=/home/$USER/MultiMC/scripts/pre-launch.sh" >> install/multimc.cfg
 fi
 
 # add Jvm Arguments for increased performance
