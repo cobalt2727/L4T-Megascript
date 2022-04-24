@@ -174,7 +174,7 @@ if [[ $AptFixUserInput == "yes" ]]; then
 	sudo apt autoremove
 	sudo apt autoclean
 	sudo apt autopurge
-	sudo apt clean && sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}')
+	sudo apt clean && sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') -y
 	
 	echo "Fixing flatpak issues (if any)..."
 	sudo flatpak remove --unused
