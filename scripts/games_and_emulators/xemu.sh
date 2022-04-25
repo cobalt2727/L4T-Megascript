@@ -4,7 +4,7 @@ clear -x
 echo "Xemu script started!"
 
 # Install dependencies
-sudo apt install -y build-essential libsdl2-dev libepoxy-dev libpixman-1-dev libgtk-3-dev libssl-dev libsamplerate0-dev libpcap-dev ninja-build python3 gcc g++ || error "Could not install dependencies!"
+sudo apt install -y build-essential libsdl2-dev libepoxy-dev libpixman-1-dev libgtk-3-dev libssl-dev libsamplerate0-dev libpcap-dev ninja-build python3 gcc g++ libaio-dev || error "Could not install dependencies!"
 #this script updates SDL2 for aarch64 devices and does nothing for others
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 
@@ -15,12 +15,14 @@ cd xemu || error "Couldn't download source code!"
 #do this to make my weird python changing later less likely to break things, hopefully
 git reset --hard
 git pull --recurse-submodules -j$(nproc) || error "Couldn't pull latest source code!"
+git submodule update --init genconfig/ tomlplusplus/ #may be needed to manually specify on other systems?
 
 if grep -q bionic /etc/os-release; then
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   #ppa_name="ubuntu-toolchain-r/ppa" && ppa_installer
   sudo apt install python3.8 gcc-11 g++-11 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
   sed -i -e 's/python3 /python3.8 /g' build.sh #this is hacky, yes, but hey, it works
+  python3.8 -m pip install --upgrade pip meson
   CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native CC=gcc-11 CXX=g++-11 ./build.sh || error "Compilation failed!"
 else
   #./build.sh
