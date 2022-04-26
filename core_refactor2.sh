@@ -23,6 +23,15 @@ unset has_foreign
 unset broken_apt
 unset has_weak_wifi
 
+if [ $(id -u) != 0 ]; then
+  clear -x
+  echo "Your username is"
+  echo "$USER"
+else    
+  echo "The L4T-Megascript has exited without running. Please run as non-sudo"
+  exit 1
+fi
+
 #sudo apt install figlet
 if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
 	#sudo apt install lolcat

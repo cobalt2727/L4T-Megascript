@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ $(id -u) != 0 ]; then
+  clear -x
+  echo "Your username is"
+  echo "$USER"
+else    
+  echo "The L4T-Megascript helper has exited without running. Please run as non-sudo"
+  exit 1
+fi
+
 repository_username=$3
 repository_branch=$4
 
