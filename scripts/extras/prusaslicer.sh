@@ -59,7 +59,10 @@ git clone https://github.com/prusa3d/PrusaSlicer.git
 cd PrusaSlicer
 # hard reset to remove any modifications made
 git reset --hard
-git pull
+git checkout master
+git pull || error "Could not pull latest PrusaSlicer source code"
+# temporarily checkout a sightly old version to solve issues building without static libraries
+git checkout 5307114969762e5012af6faee022d675ac8fb4ce
 mkdir -p build && cd build
 echo "Running cmake"
 rm -rf CMakeCache.txt
