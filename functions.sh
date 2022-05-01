@@ -292,7 +292,7 @@ format_logfile() { #remove ANSI escape sequences from a given file, and add OS i
 export -f format_logfile
 
 send_error() {
-  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(base64 -d <<<'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvCg==' | tr -d '\n'; base64 -d <<<'OTM4MTM3MTg0NTgwNTM0MjkyLwo=' | tr -d '\n'; base64 -d <<<'Y1pjWWpnOGVTb3NERTZJYTUxdWprR1hHCg==' | tr -d '\n'; base64 -d <<<'THgxd1hrQWtudXlTYjhqd1VuRXN6cGVudG1jOVNUX0VuMTdMZWMxOUlDR2YK' | tr -d '\n')" &>/dev/null
+  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'; base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'; base64 -d <<<'WGpmVmhmCg==' | tr -d '\n')" &>/dev/null
 }
 export -f send_error
 
