@@ -4,11 +4,6 @@ clear -x
 echo "This script will install AntiMicroX, an updated fork of AntiMicro and"
 echo "a graphical program used to map gamepad keys to keyboard."
 
-# Dependancies
-sudo apt install -y git gcc cmake extra-cmake-modules \
-    qttools5-dev qttools5-dev-tools libsdl2-dev \
-    libxi-dev libxtst-dev libx11-dev itstool gettext python3-libxml2 || error "Could not install dependencies"
-
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
 # check if upstream-release is available
 if [ -f /etc/upstream-release/lsb-release ]; then
@@ -30,6 +25,11 @@ case "$DISTRIB_CODENAME" in
     hash -r
     ;;
 esac
+
+# Dependancies
+sudo apt install -y git gcc cmake extra-cmake-modules \
+    qttools5-dev qttools5-dev-tools libsdl2-dev \
+    libxi-dev libxtst-dev libx11-dev itstool gettext python3-libxml2 || error "Could not install dependencies"
 
 hash -r
 
