@@ -306,7 +306,7 @@ fi
 
 #remove week-old logfiles
 mkdir -p ~/L4T-Megascript/logs
-find "~/L4T-Megascript/logs" -type f -mtime +7 -exec rm -f {} \; &>/dev/null &
+find "$HOME/L4T-Megascript/logs" -type f -mtime +7 -exec rm -f {} \; &>/dev/null &
 
 while [ $x == 1 ]; do
   cd ~
