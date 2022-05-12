@@ -71,7 +71,7 @@ if test -f /usr/local/bin/xemu; then
 fi
 
 RUserInput="no"
-if test -f /usr/bin/R || test -f /usr/lib/R || test -f /usr/local/bin/R; then
+if test -f /usr/bin/R || test -f /usr/lib/R || test -f /usr/local/bin/R || test -f /usr/lib64/R; then
         description="Do you want to update R/CRAN packages? (May take 2 seconds to 2 hours)"
         table=("yes" "no")
         userinput_func "$description" "${table[@]}"
