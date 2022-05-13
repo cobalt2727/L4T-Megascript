@@ -593,8 +593,10 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
             table=("Continue" "Exit")
           else
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nPlease view the log in terminal to find the error's cause.\
+\nPLEASE view the log in terminal to find the error's cause.\
+\nThere is a VERY HIGH chance that YOU caused the error and it can be fixed with a simple google search.\
 \nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
+\nIf you send an error report, PLEASE contact us in the discord.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
           fi
