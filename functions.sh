@@ -89,6 +89,23 @@ export -f get_system
 # run get_system function for the refactor to use
 get_system
 
+function LTS_check {
+	source /etc/os-release
+	if [[ $(echo $VERSION) == *"LTS"* ]]; then
+		#echo "this is an LTS"
+	else
+		#echo "not LTS, so returning false"
+		return 1
+	fi
+}
+export -f LTS_check
+
+# if LTS_check; then
+# 	echo "LTS"
+# else
+# 	echo "not LTS"
+# fi
+
 function userinput_func {
   unset uniq_selection
   height=$(($(echo "$1" | wc -l) + 8))
