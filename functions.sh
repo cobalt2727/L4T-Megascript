@@ -92,9 +92,10 @@ get_system
 function LTS_check {
 	source /etc/os-release
 	if [[ $(echo $VERSION) == *"LTS"* ]]; then
-		#echo "this is an LTS"
+		#the user's distro is an LTS
+                echo ""
 	else
-		#echo "not LTS, so returning false"
+		#not LTS, so returning false
 		return 1
 	fi
 }
