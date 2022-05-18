@@ -327,11 +327,11 @@ while [ $x == 1 ]; do
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
     if [[ $free -lt 2048000 ]]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
-      \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png
+      \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
     if [ -z "$jetson_model" ]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "WARNING: You are NOT running a Nvidia Jetson or Nintendo Switch! \
-      \n\n\Beware that some scripts may fail or mess up your install, especially on non-ARM64 hardware." --window-icon=/usr/share/icons/L4T-Megascript.png
+      \n\n\Beware that some scripts may fail or mess up your install, especially on non-ARM64 hardware." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
     add_desktop_if
     conversion
