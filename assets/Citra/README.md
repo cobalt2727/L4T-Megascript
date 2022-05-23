@@ -1,1 +1,0 @@
-Do not expect this to actually get supported any time soon - it's a placeholder for the long distant future when maybe, just maybe, the ARM build of Citra can run one or two games playably on the Switch. If you're reading this and it's actually possible now, by all means, please, let me know!
