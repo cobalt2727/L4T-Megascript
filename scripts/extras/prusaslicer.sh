@@ -54,7 +54,7 @@ status "Installing dependencies"
 sudo apt install gcc-11 g++-11 git libgtk-3-dev cmake build-essential curl libcurl4-openssl-dev libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev libpng-dev -y || error "Dependencies failed to install"
 package_available libnlopt-cxx-dev
 if [[ $? == "0" ]]; then
-  install_packages libnlopt-cxx-dev || error "Failed to install dependencies"
+  sudo apt install -y libnlopt-cxx-dev || error "Failed to install dependencies"
 fi
 hash -r
 status "Getting the source code"
