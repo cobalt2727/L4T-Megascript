@@ -2,6 +2,7 @@ sodium
 lithium
 starlight
 hydrogen
+midnightcontrols
 lambdacontrols
 fabric-api
 modmenu
