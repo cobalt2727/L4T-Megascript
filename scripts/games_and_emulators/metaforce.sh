@@ -42,7 +42,6 @@ if grep -q bionic /etc/os-release; then
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
-    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
     ppa_name="beineri/opt-qt-5.15.2-bionic"
   else
     ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
