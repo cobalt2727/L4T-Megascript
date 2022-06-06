@@ -5,7 +5,7 @@ clear -x
 echo "Updater script successfully started!"
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
-\nALERT (November 17th, 2021): please choose 'yes' here to reset Python to fix AntiMicroX not installing.\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
+\n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
 table=("no" "yes")
 userinput_func "$description" "${table[@]}"
 AptFixUserInput="$output"
