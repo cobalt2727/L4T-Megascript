@@ -62,6 +62,12 @@ else
  sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
 fi
 
+package_available libqt6svg6-dev # note to self: set up a duplicate of this install check to match the PPAs provided by https://launchpad.net/~rncbc at some point
+if [[ $? == "0" ]]; then # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored
+  sudo apt install -y libqt6svg6-dev libqt6core5compat6-dev || error "Failed to install QT6 development libraries!"
+fi
+
+
 git clone --recursive https://github.com/AxioDL/metaforce.git -j$(nproc)
 cd metaforce
 git pull -j$(nproc)
