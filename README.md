@@ -2,7 +2,7 @@
 Some of the scripts shown here *may* screw up your installation if you're not using Tegra hardware. Most of them should be fine to use on other systems, but double-check the source code first.
 In addition, keeping your Tegra system overclocked too often or rebuilding programs too often might shorten the lifespan of your system or the SD card.
 <p align="center">
-    <img src="https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/L4T_Megascript-logo-transparent-effect.png" height=256 alt="L4T-Megascript Logo"
+    <img src="https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/L4T_Megascript-logo.svg" height=256 alt="L4T-Megascript Logo"
 </p>
 
 <p align="center">All-in-one installer and updater for popular programs on L4T Ubuntu with no prior knowledge of Linux needed
