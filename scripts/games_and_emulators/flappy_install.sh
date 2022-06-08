@@ -24,8 +24,10 @@ rm -rf flappy_install.sh
 sudo rm -f /usr/share/applications/flappy.desktop
 sudo mv flappy.desktop -t /usr/share/applications
 cd /tmp
+cp /usr/share/flappy/Builds/Linux/hiscore hiscore
 sudo rm -rf /usr/share/flappy
 sudo mv flappy -t /usr/share
+sudo cp hiscore /usr/share/flappy/Builds/Linux/hiscore
 status_green "Game installed!"
 sleep 2
 echo
