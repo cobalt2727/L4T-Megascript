@@ -10,7 +10,7 @@ status "Downloading and compiling the game"
 rm -rf flappy
 git clone https://github.com/theofficialgman/flappy.git --depth=1 || error "Could not download the source code"
 cd flappy
-make 5c_1 || error "Compilation failed"
+make 7b_1 || error "Compilation failed"
 echo
 echo "Erasing files to save space..."
 echo
