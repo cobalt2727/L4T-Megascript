@@ -20,4 +20,4 @@ elif grep -q fedora /etc/os-release; then
   #add later
 fi
 
-#TODO: copy desktop detection from ocs-url script for https://wiki.x2go.org/doku.php/wiki:advanced:desktopbindings
+#TODO: copy desktop detection from theme script for https://wiki.x2go.org/doku.php/wiki:advanced:desktopbindings
