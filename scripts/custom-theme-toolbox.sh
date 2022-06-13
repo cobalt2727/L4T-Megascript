@@ -60,6 +60,21 @@ case "$__os_id" in
     ;;
 esac
 
+echo "Setting QT themes to automatically follow GTK themes when NOT running on KDE Plasma..."
+mkdir -p ~/.config/qt5ct
+mkdir -p ~/.config/qt6ct
+touch ~/.config/qt5ct/qt5ct.conf
+touch ~/.config/qt6ct/qt6ct.conf
+tee ~/.config/qt5ct/qt5ct.conf <<'EOF' >>/dev/null
+[Appearance]
+style=gtk2
+EOF
+tee ~/.config/qt6ct/qt6ct.conf <<'EOF' >>/dev/null
+[Appearance]
+style=gtk2
+EOF
+# the previously mentioned env var - when set to "qt5ct" - is compatible qt6ct too
+
 echo ""
 echo "Please reboot or log out then back in to see QT applications match the (GTK) system theme!"
 sleep 5
