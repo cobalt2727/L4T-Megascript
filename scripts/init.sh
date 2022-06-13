@@ -172,6 +172,10 @@ sudo chown $USER:$USER $HOME/.local/share/flatpak
 hash -r
 
 ##### the below paragraph has been commented out - it'll be replaced by an environment variable (properly set, this time) to follow 'qt5ct' (which will be installed, and qt6ct built) instead of 'gtk2'
+# note: check if the Fedora 'qt5ct' package automatically applies /etc/X11/Xsession.d/99qt5ct like the Ubuntu package for qt5ct does
+# don't built qt6ct on Fedora (or Ubuntu 22.10+ maybe?) as there's already a repo package for it
+
+
 ## #automatically sets QT applications to follow the system theme
 # grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
 ###and now i (attempt to) force it on anyway so that the user doesn't have to reboot to see the effect
