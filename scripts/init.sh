@@ -11,7 +11,7 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-sw
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 echo "  https://flatpak.org/setup/"
 sleep 10
-# obtain the cpu info
+# obtain the distro info
 get_system
 
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
@@ -170,18 +170,6 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 sudo chown $USER:$USER $HOME/.local/share/flatpak
 
 hash -r
-
-##### the below paragraph has been commented out - it'll be replaced by an environment variable (properly set, this time) to follow 'qt5ct' (which will be installed, and qt6ct built) instead of 'gtk2'
-# note: check if the Fedora 'qt5ct' package automatically applies /etc/X11/Xsession.d/99qt5ct like the Ubuntu package for qt5ct does
-# don't built qt6ct on Fedora (or Ubuntu 22.10+ maybe?) as there's already a repo package for it
-
-
-## #automatically sets QT applications to follow the system theme
-# grep -qxF 'export QT_QPA_PLATFORMTHEME=gtk2' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=gtk2' | sudo tee --append ~/.profile
-###and now i (attempt to) force it on anyway so that the user doesn't have to reboot to see the effect
-### i'm not entirely positive this works, they still might have to reboot or log out and log back in
-#oh well
-# export QT_QPA_PLATFORMTHEME=gtk2
 
 clear -x
 description="Do you want to install configurations that will let you use the joycons as a mouse?"
