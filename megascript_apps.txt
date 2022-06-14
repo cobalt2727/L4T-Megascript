@@ -14,6 +14,8 @@ fn="Install custom themes";;d="Script to compile ocs-url to enable Install butto
 
 fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems";;sn="box64.sh";;f="scripts"
 
+fn="Aegisub";;d="Cross-platform advanced subtitle editor";;sn="aegisub.sh";;f="scripts"
+
 fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dolphin/main.sh";;f="games_and_emulators"
 
 fn="MultiMC (Minecraft Java)";;d="Minecraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
@@ -59,8 +61,6 @@ fn="ALL THE SHOVELWARE";;d="(WARNING: THIS IS LIKE 19 GB) Literally just install
 # fn="PrusaSlicer";;d="PrusaSlicer is an open-source, feature-rich, frequently updated tool for 3D Printing";;sn="prusaslicer.sh";;f="extras"
 
 # fn="WPS Office";;d="WPS (Writer, Presentation, and Spreadsheets) is a very polished and modern feeling office suite similar to Microsoft office";;sn="wps-office.sh";;f="extras"
-
-fn="Aegisub";;d="Cross-platform advanced subtitle editor";;sn="aegisub.sh";;f="scripts"
 
 fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and elegance";;sn="budgie.sh";;f="desktop_environments"
 
