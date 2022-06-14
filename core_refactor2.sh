@@ -37,10 +37,8 @@ if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
 	#sudo apt install lolcat
 	if test -f /usr/games/lolcat || test -f /usr/bin/lolcat; then
 		figlet L4T Megascript | lolcat #color
-		sleep 3
 	else
 		figlet L4T Megascript #no color
-		sleep 3
 	fi
 fi
 
