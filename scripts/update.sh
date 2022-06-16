@@ -78,6 +78,16 @@ if test -f /usr/bin/R || test -f /usr/lib/R || test -f /usr/local/bin/R || test 
 	RUserInput="$output"
 fi
 
+# run pi-apps updater if available
+cd ~
+if test -f ~/pi-apps/updater; then
+	if [[ $gui == "gui" ]]; then
+		~/pi-apps/updater gui
+	else
+		~/pi-apps/updater cli
+	fi
+fi
+
 
 #######################################################################
 
@@ -279,11 +289,6 @@ else
 fi
 
 ##########################################################################
-
-cd ~
-if test -f ~/pi-apps/updater; then
-	~/pi-apps/updater cli
-fi
 
 cd ~
 if test -f customupdate.sh; then
