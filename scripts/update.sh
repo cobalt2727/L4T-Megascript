@@ -281,6 +281,11 @@ fi
 ##########################################################################
 
 cd ~
+if test -f ~/pi-apps/updater; then
+	~/pi-apps/updater cli
+fi
+
+cd ~
 if test -f customupdate.sh; then
 	echo "Looks like you've made a custom update file - running that..."
 	chmod +x customupdate.sh
