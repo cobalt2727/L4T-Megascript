@@ -67,10 +67,12 @@ touch ~/.config/qt5ct/qt5ct.conf
 touch ~/.config/qt6ct/qt6ct.conf
 tee ~/.config/qt5ct/qt5ct.conf <<'EOF' >>/dev/null
 [Appearance]
+standard_dialogs=gtk2
 style=gtk2
 EOF
 tee ~/.config/qt6ct/qt6ct.conf <<'EOF' >>/dev/null
 [Appearance]
+standard_dialogs=gtk2
 style=gtk2
 EOF
 # the previously mentioned env var - when set to "qt5ct" - is compatible qt6ct too
