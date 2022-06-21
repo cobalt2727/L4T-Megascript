@@ -137,6 +137,10 @@ case "$DISTRIB_CODENAME" in
     hash -r
 esac
 
+# install SDL2
+echo "Installing SDL2..."
+bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+
 #updates whee
 sudo apt upgrade -y
 sudo apt --fix-broken install
@@ -200,17 +204,6 @@ Categories=System
 EOF
 elif [[ $output == "no" ]]; then
   echo "Going to the next option"
-fi
-
-clear -x
-description="Do you want to install updated SDL2 from Megascript binaries? (Required for many games, BOX64, etc)"
-table=("yes" "no")
-userinput_func "$description" "${table[@]}"
-if [[ $output == "yes" ]]; then
-  echo "Installing SDL2..."
-  bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
-elif [[ $output == "no" ]]; then
-  echo "Going to the next option..."
 fi
 
 clear -x 
