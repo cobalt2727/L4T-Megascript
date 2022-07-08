@@ -39,11 +39,33 @@ case "$__os_id" in
         package_available qt6ct
         if [[ $? == "0" ]]; then
         	echo "Installing QT6CT for management of QT6 settings..."
-            sudo apt install -y qt6ct || error "Failed to install QT6 settings!"
+            sudo apt install -y qt6ct qt6-gtk-platformtheme qt6-xdgdesktopportal-platformtheme || error "Failed to install QT6 settings!"
         else
         	echo "Compiling QT6CT for management of QT6 settings..."
-            echo "QT6CT build script goes here"
-            # use Rui Nuno Capela's QT6 PPAs when testing this
+            # use Owen Kirby's QT6 PPA when testing this
+			#add if statement for supported versions on next line?
+			ppa_name="okirby/qt6-backports" && ppa_installer
+			sudo apt install qt6-base-dev libqt6svg6-dev qt6-tools-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
+			
+			#GTK support for QT6
+			cd ~
+			git clone https://github.com/trialuser02/qt6gtk2
+			cd qt6gtk2
+			git pull
+			qmake6 . || error "qmake failed!"
+			make -j$(nproc) || error "make failed!"
+			sudo make install || error "make install failed!"
+			cd ~
+
+			#theme selection tool for QT6
+			cd ~
+			git clone https://github.com/trialuser02/qt6ct
+			cd qt6ct
+			git pull
+			qmake6 . || error "qmake failed!"
+			make -j$(nproc) || error "make failed!"
+			sudo make install || error "make install failed!"
+			cd ~
         fi
         
         ##### only uncomment the following line if it's discovered that the Debian package doesn't auto set this in an env var like the Ubuntu package does
@@ -51,6 +73,7 @@ case "$__os_id" in
         # grep -qxF 'export QT_QPA_PLATFORMTHEME=qt5ct' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=qt5ct' | sudo tee --append ~/.profile
     ;;
     Fedora)
+		#what RPM contains the GTK2 QT6 platform theme?
         sudo dnf install -y qt5ct qt6ct || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
         #note to self: check if the RPM automatically sets up an environment variable like the Ubuntu package does
     ;;
