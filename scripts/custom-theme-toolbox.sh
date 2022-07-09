@@ -45,7 +45,7 @@ case "$__os_id" in
             # use Owen Kirby's QT6 PPA when testing this
 			#add if statement for supported versions on next line?
 			ppa_name="okirby/qt6-backports" && ppa_installer
-			sudo apt install qt6-base-dev libqt6svg6-dev qt6-tools-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
+			sudo apt install qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
 			
 			#GTK support for QT6
 			cd ~
