@@ -111,6 +111,8 @@ if test -d /usr/include/*-linux-gnu/qt6/; then
     if [[ $? == "0" ]]; then
         sudo apt install -y qt6-base-private-dev || error "Failed to install QT6 dependencies!"
     else
+        error "Unknown error occurred..."
+    fi
 fi
 
 make -j$(nproc) || error "Make failed!"
