@@ -44,11 +44,10 @@ case "$__os_id" in
             echo "Compiling QT6CT for management of QT6 settings..."
             # use Owen Kirby's QT6 PPA when testing this
             #add if statement for supported versions on next line?
-            case "$DISTRIB_CODENAME" in
-                bionic|focal|impish) ppa_name="okirby/qt6-backports" && ppa_installer
-                ;;
-            esac
-            
+            if grep -q 'bionic|focal|impish' /etc/os-release; then
+                ppa_name="okirby/qt6-backports" && ppa_installer
+            fi
+
             sudo apt install -y qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev qt6-base-private-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
             
             #GTK support for QT6
