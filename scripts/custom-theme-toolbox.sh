@@ -41,12 +41,16 @@ case "$__os_id" in
         	echo "Installing QT6CT for management of QT6 settings..."
             sudo apt install -y qt6ct qt6-gtk-platformtheme qt6-xdgdesktopportal-platformtheme || error "Failed to install QT6 settings!"
         else
-        	echo "Compiling QT6CT for management of QT6 settings..."
-            # use Owen Kirby's QT6 PPA when testing this
+			echo "Compiling QT6CT for management of QT6 settings..."
+			# use Owen Kirby's QT6 PPA when testing this
 			#add if statement for supported versions on next line?
-			ppa_name="okirby/qt6-backports" && ppa_installer
-			sudo apt install qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
-			
+			case "$DISTRIB_CODENAME" in
+				bionic|focal|impish) ppa_name="okirby/qt6-backports" && ppa_installer
+				;;
+			esac
+
+			sudo apt install -y qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev qt6-base-private-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
+
 			#GTK support for QT6
 			cd ~
 			git clone https://github.com/trialuser02/qt6gtk2
