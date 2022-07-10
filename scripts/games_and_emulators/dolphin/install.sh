@@ -103,8 +103,15 @@ else
     
 fi
 
-
-
+if test -d /usr/include/*-linux-gnu/qt6/; then
+    echo "QT6 packages found - since Dolphin will default to this when possible,"
+    echo "We'll need to install relevant dependencies..."
+    sleep 1
+    package_available qt6-base-private-dev
+    if [[ $? == "0" ]]; then
+        sudo apt install -y qt6-base-private-dev || error "Failed to install QT6 dependencies!"
+    else
+fi
 
 make -j$(nproc) || error "Make failed!"
 echo "Installing..."
