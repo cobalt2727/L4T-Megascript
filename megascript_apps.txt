@@ -24,6 +24,8 @@ fn="Minecraft Bedrock";;d="Android Minecraft Bedrock Version. Ownership of the A
 
 fn="Metaforce";;d="(WARNING - this script is experimental) An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1 with keyboard controls or a Wii U Gamecube Adapter";;sn="metaforce.sh";;f="games_and_emulators"
 
+fn="OpenMW";;d="An open source re-implementation and extension of the Gamebryo engine for Morrowind.";;sn="openmw.sh";;f="games_and_emulators"
+
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
 fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"

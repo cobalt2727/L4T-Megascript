@@ -64,4 +64,5 @@ You're in luck - we've got a Discord server: [![Discord invite](https://discord.
 - SuperTux: Developers, SuperTux2
 - n64decomp: Responsible for the SM64 Decompilation Project
 - sm64pc: Adapted the SM64 Port to work with ARM64 devices
+- OpenMW: Developers, OpenMW
 - many more!
