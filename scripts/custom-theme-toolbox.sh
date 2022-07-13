@@ -49,7 +49,7 @@ case "$__os_id" in
                 ;;
             esac
 
-            sudo apt install -y qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev qt6-base-private-dev || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
+            sudo apt install -y qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev qt6-base-private-dev qt6-l10n-tools || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
             
             #GTK support for QT6
             cd ~
