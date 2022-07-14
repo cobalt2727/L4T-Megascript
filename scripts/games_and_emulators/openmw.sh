@@ -63,7 +63,7 @@ if grep -q bionic /etc/os-release; then
   rm -rf CMakeCache.txt
 
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native \
-    -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+    -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
   make -j$(($(nproc)-1)) || error "Compilation failed"
   sudo make install || error "Make install failed"
 
