@@ -7,23 +7,23 @@ get_system
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
 # check if upstream-release is available
 if [ -f /etc/upstream-release/lsb-release ]; then
-    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-    DISTRIB_CODENAME=$(lsb_release -s -u -c)
-    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+  DISTRIB_CODENAME=$(lsb_release -s -u -c)
+  DISTRIB_RELEASE=$(lsb_release -s -u -r)
 else
-    DISTRIB_CODENAME=$(lsb_release -s -c)
-    DISTRIB_RELEASE=$(lsb_release -s -r)
+  DISTRIB_CODENAME=$(lsb_release -s -c)
+  DISTRIB_RELEASE=$(lsb_release -s -r)
 fi
 case "$dpkg_architecture" in
-    "arm64")
-        case "$DISTRIB_CODENAME" in
-            bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
-        esac
-        ;;
-    "amd64")
-        echo "Installing Dependencies";;
-    *)
-        error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
+  "arm64")
+    case "$DISTRIB_CODENAME" in
+      bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
+    esac
+    ;;
+  "amd64")
+    echo "Installing Dependencies";;
+  *)
+    error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
 esac
 
 # add toolchain ppa for gcc 11 on bionic and focal
@@ -39,23 +39,23 @@ git clone https://github.com/ptitSeb/box64
 cd box64
 git pull
 if [[ $? -ne 0 ]]; then
-    cd ~
-    rm -rf box64
-    git clone https://github.com/ptitSeb/box64 || error "Could Not Pull Latest Source Code"
-    cd box64
+  cd ~
+  rm -rf box64
+  git clone https://github.com/ptitSeb/box64 || error "Could Not Pull Latest Source Code"
+  cd box64
 fi
-rm -rf build
 mkdir build
 cd build
 
 case "$dpkg_architecture" in
-    "arm64") case "$jetson_model" in
-        "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Tegra X1 based system" ;;
-        *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Universal aarch64 system";;
-        esac
-        ;;
-    "amd64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "x86_64 based system" ;;
-    *) error "Something is very wrong... how did you get past the first check?" ;;
+  "arm64") 
+    case "$jetson_model" in
+      "tegra-x1") cmake .. -DTEGRAX1=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Tegra X1 based system" ;;
+      *) cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "Universal aarch64 system";;
+    esac
+    ;;
+  "amd64") cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11; echo "x86_64 based system" ;;
+  *) error "Something is very wrong... how did you get past the first check?" ;;
 esac
 
 echo "Building Box64"
