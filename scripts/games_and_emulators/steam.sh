@@ -15,9 +15,17 @@ else
 fi
 
 # add mesa 22+ ppa
-# this is known to conflict with the LLVM 14 APT repo. it must be removed if a user has manually installed it
+# this is known to conflict with the LLVM 14 APT repo. it must be removed if a user has installed it
+
+if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/apt/sources.list; then
+  sudo add-apt-repository -r 'deb http://apt.llvm.org/bionic/   llvm-toolchain-bionic-14  main'
+  sudo apt remove libclang-14-dev clang-14 lldb-14 lld-14 clangd-14 --autoremove -y
+  sudo apt update
+fi
+
 ppa_name="kisak/turtle" && ppa_installer
-sudo apt upgrade -y || error "Could not upgrade MESA (needs for Steam VirtualGL hardware acceleration)"
+sudo apt upgrade -y
+sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
 
 sudo apt install ninja-build python3 python3-pip -y || error "Could not install VIRGL build dependencies"
 hash -r
@@ -25,22 +33,26 @@ python3 -m pip install meson || error "Could not install meson VIRGL build depen
 hash -r
 
 # compile and install epoxy
-cd
+cd /tmp
 rm -rf libepoxy
 git clone https://github.com/anholt/libepoxy
 cd libepoxy
 meson -Dprefix=/usr build
 ninja -j$(nproc) -C build
 sudo ninja -C build install || error "Could not install libepoxy"
+cd
+rm -rf /tmp/libepoxy
 
 # virgl
-cd
+cd /tmp
 rm -rf virglrenderer
 git clone https://gitlab.freedesktop.org/virgl/virglrenderer.git
 cd virglrenderer
 meson -Dprefix=/usr build
 ninja -j$(nproc) -C build
 sudo ninja -C build install || error "Could not install virglrenderer"
+cd
+rm -rf /tmp/virglrenderer
 
 
 # install sdl2
