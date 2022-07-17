@@ -25,6 +25,7 @@ fi
 
 ppa_name="kisak/turtle" && ppa_installer
 sudo apt upgrade -y
+# if old mesa-common-dev is already installed, it causes conflicts on intial upgrade and an apt --fix-broken install is necessary to finish installation
 sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
 
 sudo apt install ninja-build python3 python3-pip -y || error "Could not install VIRGL build dependencies"
@@ -35,10 +36,10 @@ hash -r
 # compile and install epoxy
 cd /tmp
 rm -rf libepoxy
-git clone https://github.com/anholt/libepoxy
+git clone https://github.com/anholt/libepoxy || "Could not clone libepoxy"
 cd libepoxy
-meson -Dprefix=/usr build
-ninja -j$(nproc) -C build
+meson -Dprefix=/usr build || error "Could not configure libepoxy"
+ninja -j$(nproc) -C build || error "Could not build libepoxy"
 sudo ninja -C build install || error "Could not install libepoxy"
 cd
 rm -rf /tmp/libepoxy
@@ -46,10 +47,10 @@ rm -rf /tmp/libepoxy
 # virgl
 cd /tmp
 rm -rf virglrenderer
-git clone https://gitlab.freedesktop.org/virgl/virglrenderer.git
+git clone https://gitlab.freedesktop.org/virgl/virglrenderer.git || "Could not clone virglrenderer"
 cd virglrenderer
-meson -Dprefix=/usr build
-ninja -j$(nproc) -C build
+meson -Dprefix=/usr build || error "Could not configure virglrenderer"
+ninja -j$(nproc) -C build || error "Could not build virglrenderer"
 sudo ninja -C build install || error "Could not install virglrenderer"
 cd
 rm -rf /tmp/virglrenderer
@@ -66,6 +67,7 @@ bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Me
 echo "Installing steam.deb"
 wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -qO /tmp/steam.deb || error "Failed to download steam.deb"
 sudo apt install --no-install-recommends -y /tmp/steam.deb || error "Failed to install steam.deb"
+hash -r
 
 sudo mkdir -p /usr/local/bin /usr/local/share/applications
 # if a matching name binary is found in /usr/local/bin it takes priority over /usr/bin
