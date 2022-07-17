@@ -59,7 +59,7 @@ rm -rf /tmp/virglrenderer
 # install sdl2
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)" || error "Could not install SDL2"
 # installing dependencies
-sudo apt install -y libsdl2-2.0-0:arm64 libsdl2-2.0-0:armhf libsdl2-mixer-2.0-0:armhf libsdl2-mixer-2.0-0:arm64 libnss3:armhf libnm0:armhf libdbus-glib-1-2:armhf libudev1:armhf libnspr4:armhf libgudev-1.0-0:armhf libxtst6:armhf libsm6:armhf libice6:armhf libusb-1.0-0:armhf libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libxtst6 libsm6 libice6 libusb-1.0-0 || error "Could not install steam dependencies"
+sudo apt install -y libsdl2-2.0-0:arm64 libsdl2-2.0-0:armhf libsdl2-mixer-2.0-0:armhf libsdl2-mixer-2.0-0:arm64 libgtk3-nocsd0:armhf libnss3:armhf libnm0:armhf libdbus-glib-1-2:armhf libudev1:armhf libnspr4:armhf libgudev-1.0-0:armhf libxtst6:armhf libsm6:armhf libice6:armhf libusb-1.0-0:armhf libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libxtst6 libsm6 libice6 libusb-1.0-0 || error "Could not install steam dependencies"
 
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box86.sh)"|| exit $?
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)"|| exit $?
@@ -73,7 +73,7 @@ sudo mkdir -p /usr/local/bin /usr/local/share/applications
 # if a matching name binary is found in /usr/local/bin it takes priority over /usr/bin
 echo '#!/bin/bash
 if ! pgrep virgl_test_ser*; then
-  virgl_test_server --use-egl-surfaceless & export pid_virgl=$!
+  virgl_test_server --use-glx & export pid_virgl=$!
   echo "VIRGL Server Started"
 fi
 export STEAMOS=1
@@ -84,6 +84,9 @@ kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create stea
 
 # set execution bit
 sudo chmod +x /usr/local/bin/steam
+
+# allow loading MESA EGL (necessary for armhf VIRGL)
+sudo sed -i 's:^DISABLE_MESA_EGL="1":^DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 # copy official steam.desktop file to /usr/local and edit it
 # we can't edit the official steam.desktop file since this will get overwritten on a steam update
