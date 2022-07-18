@@ -86,7 +86,7 @@ kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create stea
 sudo chmod +x /usr/local/bin/steam
 
 # allow loading MESA EGL (necessary for armhf VIRGL)
-sudo sed -i 's:^DISABLE_MESA_EGL="1":^DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
+sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 # copy official steam.desktop file to /usr/local and edit it
 # we can't edit the official steam.desktop file since this will get overwritten on a steam update
