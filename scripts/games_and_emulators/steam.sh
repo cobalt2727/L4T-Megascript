@@ -99,4 +99,6 @@ rm /tmp/steam.deb
 
 if ! echo "$XDG_DATA_DIRS" | grep -q "/usr/local/share" || ! echo "$PATH" | grep -q "/usr/local/bin" ; then
   warning "YOU NEED TO REBOOT before starting steam. This is because Steam is the first application on your system to be installed into the /usr/local folder."
+else
+  warning "You should restart your system before trying to launch Steam otherwise errors may occur."
 fi
