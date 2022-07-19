@@ -10,6 +10,12 @@ get_system || error "Failed to scan your sytem specs"
 echo "Running updates..."
 sleep 1
 
+echo "Adding OpenMW PPA"
+if grep -q bionic /etc/os-release; then
+  echo "The build available in this PPA doesn't work on 18.04, but it contains important development libraries for compiling."
+fi
+ppa_name="openmw/openmw" && ppa_installer
+
 if grep -q bionic /etc/os-release; then
   echo "          -------UBUNTU 18.04 DETECTED-------"
   echo
@@ -72,9 +78,6 @@ if grep -q bionic /etc/os-release; then
   cd ~
   rm -rf openmw osg
 else
-  echo "Adding OpenMW PPA"
-  ppa_name="openmw/openmw" && ppa_installer
-
   echo "Installing OpenMW..."
   sudo apt install openmw openmw-launcher -y || error "Failed to install OpenMW"
 fi
