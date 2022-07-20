@@ -23,6 +23,9 @@ unset has_foreign
 unset broken_apt
 unset has_weak_wifi
 
+#Set terminal title
+echo -ne "\e]0;L4T-Megascript\a"
+
 if [ $(id -u) != 0 ]; then
   clear -x
   echo "Your username is"
@@ -536,9 +539,13 @@ while [ $x == 1 ]; do
       time_script_start=$(date +%s)
       if [ -z ${execute[$word]} ]; then
         if [ -z ${root[$word]} ]; then
+          #Set terminal title
+          echo -ne "\e]0;Installing ${friendly[$word]}\a"
           bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         else
+          #Set terminal title
+          echo -ne "\e]0;Installing ${friendly[$word]}\a"
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         fi
@@ -634,6 +641,9 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
     done
   fi
 done
+
+#Set terminal title
+echo -ne "\e]0;L4T-Megascript\a"
 
 if sudo -n true; then
   add_desktop
