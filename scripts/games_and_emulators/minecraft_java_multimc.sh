@@ -21,38 +21,6 @@ case "$__os_id" in
             bullseye|buster|stretch|jessie)
                 sudo apt install -y lsb-release wget apt-transport-https gnupg || error "Failed to install dependencies"
                 hash -r
-                status "Adding AdoptOpenJDK repository:"
-
-                echo "- public key -> keyring"
-
-                rm -f /tmp/adoptopenjdk-public-key /tmp/adoptopenjdk-archive-keyring.gpg
-                wget -O /tmp/adoptopenjdk-public-key https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
-                gpg --no-default-keyring --keyring /tmp/adoptopenjdk-keyring.gpg --import /tmp/adoptopenjdk-public-key
-                rm -f /tmp/adoptopenjdk-public-key
-
-                echo " - keyring -> GPG key"
-                gpg --no-default-keyring --keyring /tmp/adoptopenjdk-keyring.gpg --export --output /tmp/adoptopenjdk-archive-keyring.gpg 
-                rm -f /tmp/adoptopenjdk-keyring.gpg
-
-                echo " - Moving GPG key to /usr/share/keyrings"
-                sudo mv -f /tmp/adoptopenjdk-archive-keyring.gpg /usr/share/keyrings
-
-                echo " - Creating /etc/apt/sources.list.d/adoptopenjdk.list"
-                echo "deb [signed-by=/usr/share/keyrings/adoptopenjdk-archive-keyring.gpg] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb $__os_codename main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list >/dev/null
-
-                echo " - Installing adoptopenjdk-16-hotspot-jre"
-                #try to install adoptopenjdk java version; if it fails, remove repository to avoid breaking user's system
-                sudo apt update
-                sudo apt install -y adoptopenjdk-16-hotspot-jre
-                if [ $? != 0 ];then
-                    anything_installed_from_repo "https://adoptopenjdk.jfrog.io/adoptopenjdk/deb"
-                    if [ $? != 0 ];then
-                        # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
-                        # safe to remove
-                        sudo rm -f /etc/apt/sources.list.d/adoptopenjdk.list /usr/share/keyrings/adoptopenjdk-archive-keyring.gpg
-                    fi
-                    warning "Failed to install adoptopenjdk packages. AdoptOpenJDK repository has been removed." && warning "It is up to you to download and install a working java 16 version." && echo "" && warning "Continuing the MultiMC5 Install without Java 16"
-                fi
 
                 status "Adding Adoptium repository:"
 
@@ -121,7 +89,7 @@ case "$__os_id" in
             *)
                 requiredver="18.04"
                 if printf '%s\n' "$requiredver" "$DISTRIB_RELEASE" | sort -CV; then
-                    status "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-16 in the default repositories"
+                    status "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-17 in the default repositories"
                 else
                     error_user "$DISTRIB_CODENAME appears to be too old to run/compile MultiMC5"
                 fi
@@ -129,12 +97,7 @@ case "$__os_id" in
 
         esac
         # install dependencies
-        java_16=""
-        package_available openjdk-16-jre
-        if [[ $? == "0" ]]; then
-            java_16="openjdk-16-jre"
-        fi
-        sudo apt install -y build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-17-jre $java_16 qtbase5-dev || error "Failed to install dependencies"
+        sudo apt install -y build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-17-jre qtbase5-dev || error "Failed to install dependencies"
         hash -r
         ;;
     *)
