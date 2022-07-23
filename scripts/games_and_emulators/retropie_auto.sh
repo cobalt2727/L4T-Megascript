@@ -134,7 +134,11 @@ _EOF_"
     get_system
     if [[ $jetson_model ]]; then
         sudo mv /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so.old
-    fi    
+    fi
+
+    # hotfix for retropie runcommand.sh broken on rotated displays with X11 https://github.com/RetroPie/RetroPie-Setup/issues/3338
+    # fully disable modesetting on X11 (useless on Switch Handheld Display anyway as it has one mode)
+    sudo sed -i 's/^XRANDR="xrandr"/XRANDR="dummybin"/' /opt/retropie/supplementary/runcommand/runcommand.sh
 
     if command -v dolphin-emu-nogui &> /dev/null; then
         echo "Adding dolphin standalone to retropie"
