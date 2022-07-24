@@ -23,7 +23,8 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
   sudo apt update
 fi
 
-ppa_name="kisak/turtle" && ppa_installer
+sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-bionic.list
+ppa_name="kisak/kisak-mesa" && ppa_installer
 sudo apt upgrade -y
 # if old mesa-common-dev is already installed, it causes conflicts on intial upgrade and an apt --fix-broken install is necessary to finish installation
 sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
