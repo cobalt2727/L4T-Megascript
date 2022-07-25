@@ -7,7 +7,7 @@ echo "Installing dependencies..."
 sleep 1
 
 cd ~
-sudo apt install curl zenity -y || error "Could not install dependencies"
+sudo apt install curl zenity kmod -y || error "Could not install dependencies"
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
