@@ -46,6 +46,7 @@ git pull || error_user "Failed to download source code from GitHub!"
 git submodule update --init Externals/mGBA || error_user "Failed to download source code from GitHub!"
 git submodule update --init Externals/spirv_cross || error_user "Failed to download source code from GitHub!"
 git submodule update --init Externals/zlib-ng || error_user "Failed to download source code from GitHub!"
+git submodule update --init Externals/libspng || error_user "Failed to download source code from GitHub!"
 
 mkdir -p build
 cd build
