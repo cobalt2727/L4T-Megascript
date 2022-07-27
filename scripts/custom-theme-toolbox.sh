@@ -24,7 +24,7 @@ fi
 
 grep -v 'export QT_QPA_PLATFORMTHEME="gtk2"' ~/.profile > /tmp/.profile && mv /tmp/.profile ~/.profile #nuke the old bad config if it's found
 
-echo "Installing QT5CT for management of QT5 settings..."
+echo "Installing tools for management of QT5 settings and to build the theme installer..."
 # check out /etc/X11/Xsession.d/99qt5ct after installing QT5CT for info on how environment variables are set up - the environment variable doesn't apply on Plasma, maybe disable it manually on LXQT?
 case "$__os_id" in
     Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
@@ -78,7 +78,7 @@ case "$__os_id" in
     ;;
     Fedora)
         #what RPM contains the GTK2 QT6 platform theme?
-        sudo dnf install -y qt5ct qt6ct qt6-qtbase-devel || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
+        sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquick3d-devel || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
         #note to self: check if the RPM automatically sets up an environment variable like the Ubuntu package does
     ;;
     *)
