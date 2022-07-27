@@ -129,7 +129,7 @@ case "$__os_id" in
         qmake PREFIX=/usr
     ;;
     Fedora)
-        qmake6 PREFIX=/usr
+        qmake-qt5 PREFIX=/usr
     ;;
     *)
         qmake PREFIX=/usr #if you're hitting this line uh... good luck
