@@ -120,10 +120,6 @@ make -j$(nproc) || error "Make failed!"
 echo "Installing..."
 sudo make install || error "Make install failed!"
 
-# FIXME: remove incompatible libs until dolphin bug is solved (causes issues with MultiMC and potentially other applications too)
-sudo rm /usr/local/lib/libz.a /usr/local/include/zlib.h /usr/local/include/zlib_name_mangling.h /usr/local/include/zconf.h /usr/local/lib/pkgconfig/zlib.pc
-hash -r
-
 cd ~
 #commenting out the below line since the first build takes way too long to do on weak hardware like the Switch
 #leaving the source folder there will make future builds faster
