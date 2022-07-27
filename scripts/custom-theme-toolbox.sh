@@ -12,7 +12,7 @@ get_system
 
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
     sudo apt install unity-tweak-tool indicator-bluetooth indicator-sound hud -y
-    elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
+elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
     sudo apt install gnome-tweaks -y
     #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
     #        sudo apt install mate-control-center -y
@@ -78,7 +78,7 @@ case "$__os_id" in
     ;;
     Fedora)
         #what RPM contains the GTK2 QT6 platform theme?
-        sudo dnf install -y qt5ct qt6ct || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
+        sudo dnf install -y qt5ct qt6ct qt6-qtbase-devel || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
         #note to self: check if the RPM automatically sets up an environment variable like the Ubuntu package does
     ;;
     *)
@@ -120,9 +120,21 @@ git checkout patch-1
 
 ./scripts/prepare
 
-#this line is broken on Debian 10, but with the proper PREFIX path (that I don't remember currently) this script WILL run correctly
-#version detection may be needed if Debian 11 hasn't fixed the qmake setup, but I haven't checked that -Cobalt
-qmake PREFIX=/usr
+
+case "$__os_id" in
+    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
+        #this line is broken on Debian 10, but with the proper PREFIX path (that I don't remember currently) this script WILL run correctly
+        #version detection may be needed if Debian 11 hasn't fixed the qmake setup, but I haven't checked that
+        #works on every Ubuntu version I've tested though -Cobalt
+        qmake PREFIX=/usr
+    ;;
+    Fedora)
+        qmake6 PREFIX=/usr
+    ;;
+    *)
+        qmake PREFIX=/usr #if you're hitting this line uh... good luck
+    ;;
+esac
 
 make -j$(nproc)
 
