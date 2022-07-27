@@ -153,17 +153,17 @@ if [[ $DISPLAY ]]; then
     if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
         unity-tweak-tool
         elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then  #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
-        gnome-tweaks
         xdg-open 'https://www.gnome-look.org/browse?ord=rating'
+        gnome-tweaks
         #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
-        #mate-appearance-properties -y
         #xdg-open 'https://www.mate-look.org/browse?ord=rating'
+        #mate-appearance-properties -y
         #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for xfce'; then
-        #command for theme chooser
         #xdg-open 'https://www.xfce-look.org/browse?ord=rating'
+        #command for theme chooser
         #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for xfce'; then
-        #command for theme chooser
         #xdg-open 'https://www.xfce-look.org/browse?ord=rating'
+        #command for theme chooser
     else
         echo "Not using a DE with a known theme manager, not launching tweak tool..."
         #open up the default web browser
