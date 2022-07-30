@@ -35,6 +35,18 @@ case "$__os_id" in
         if [[ $? == "0" ]]; then
           sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
         fi
+
+        if test -d /usr/include/*-linux-gnu/qt6/; then
+            echo "QT6 packages found - since Dolphin will default to this when possible,"
+            echo "We'll need to install relevant dependencies..."
+            sleep 1
+            package_available qt6-base-private-dev
+            if [[ $? == "0" ]]; then
+                sudo apt install -y qt6-base-private-dev || error "Failed to install QT6 dependencies!"
+            else
+                error "Unknown error occurred..."
+            fi
+        fi
     ;;
     Fedora)
         sudo dnf install -y vulkan-loader vulkan-loader-devel cmake git gcc-c++ libXext-devel libgudev qt5-qtbase-devel qt5-qtbase-private-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel libXi-devel || error "Failed to install dependencies!"
@@ -110,18 +122,6 @@ else
     sleep 10
     cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static"
     
-fi
-
-if test -d /usr/include/*-linux-gnu/qt6/; then
-    echo "QT6 packages found - since Dolphin will default to this when possible,"
-    echo "We'll need to install relevant dependencies..."
-    sleep 1
-    package_available qt6-base-private-dev
-    if [[ $? == "0" ]]; then
-        sudo apt install -y qt6-base-private-dev || error "Failed to install QT6 dependencies!"
-    else
-        error "Unknown error occurred..."
-    fi
 fi
 
 make -j$(nproc) || error "Make failed!"
