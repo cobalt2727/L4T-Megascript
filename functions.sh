@@ -78,10 +78,18 @@ function get_system {
   unset __platform
   
   # set each variable individually since Fedora prints all output to one line
-  __os_id="$(lsb_release -s -i)"
-  __os_desc="$(lsb_release -s -d)"
-  __os_release="$(lsb_release -s -r)"
-  __os_codename="$(lsb_release -s -c)"
+  if [ -f /etc/upstream-release/lsb-release ]; then
+    # This is a Ubuntu Derivative, checking the upstream-release version info
+    __os_id="$(lsb_release -s -i -u)"
+    __os_desc="$(lsb_release -s -d -u)"
+    __os_release="$(lsb_release -s -r -u)"
+    __os_codename="$(lsb_release -s -c -u)"
+  else
+    __os_id="$(lsb_release -s -i)"
+    __os_desc="$(lsb_release -s -d)"
+    __os_release="$(lsb_release -s -r)"
+    __os_codename="$(lsb_release -s -c)"
+  fi
 
 }
 export -f get_system

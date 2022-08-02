@@ -16,6 +16,7 @@ esac
 
 status "Installing Necessary Dependencies"
 case "$__os_id" in
+    # Raspbian is not reported as a derivative of Debian (no /etc/upstream-release/lsb-release file)
     Raspbian|Debian)
         case "$__os_codename" in
             bullseye|buster|stretch|jessie)
@@ -65,18 +66,8 @@ case "$__os_id" in
         # install normal dependencies from raspbian/debian repos
         sudo apt install -y build-essential libopenal1 x11-xserver-utils subversion git clang cmake curl zlib1g-dev openjdk-11-jdk qtbase5-dev || error "Failed to install dependencies"
         ;;
-    LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
-        # check if upstream-release is available
-        if [ -f /etc/upstream-release/lsb-release ]; then
-            echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-            DISTRIB_CODENAME=$(lsb_release -s -u -c)
-            DISTRIB_RELEASE=$(lsb_release -s -u -r)
-        else
-            DISTRIB_CODENAME=$(lsb_release -s -c)
-            DISTRIB_RELEASE=$(lsb_release -s -r)
-        fi
-        case "$DISTRIB_CODENAME" in
+    Ubuntu)
+        case "$__os_codename" in
             bionic|focal|groovy)
                 ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep openjdk-r | wc -l)
                 if [[ $ppa_added -eq "1" ]]; then
@@ -88,10 +79,10 @@ case "$__os_id" in
                 ;;
             *)
                 requiredver="18.04"
-                if printf '%s\n' "$requiredver" "$DISTRIB_RELEASE" | sort -CV; then
-                    status "Skipping OpenJDK PPA, $DISTRIB_CODENAME already has openjdk-17 in the default repositories"
+                if printf '%s\n' "$requiredver" "$__os_release" | sort -CV; then
+                    status "Skipping OpenJDK PPA, $__os_codename already has openjdk-17 in the default repositories"
                 else
-                    error_user "$DISTRIB_CODENAME appears to be too old to run/compile MultiMC5"
+                    error_user "$__os_codename appears to be too old to run/compile MultiMC5"
                 fi
                 ;;
 
@@ -121,18 +112,8 @@ case "$__os_id" in
             buster) modmanager="1"; python_version="python3.8";;
         esac
         ;;
-    LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
-        # check if upstream-release is available
-        if [ -f /etc/upstream-release/lsb-release ]; then
-            echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-            DISTRIB_CODENAME=$(lsb_release -s -u -c)
-            DISTRIB_RELEASE=$(lsb_release -s -u -r)
-        else
-            DISTRIB_CODENAME=$(lsb_release -s -c)
-            DISTRIB_RELEASE=$(lsb_release -s -r)
-        fi
-        case "$DISTRIB_CODENAME" in
+    Ubuntu)
+        case "$__os_codename" in
             bionic) modmanager="1"; python_version="python3.8";;
             *) modmanager="1"; python_version="python3";;
         esac
