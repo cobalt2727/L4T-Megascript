@@ -29,7 +29,7 @@ sudo apt upgrade -y
 # if old mesa-common-dev is already installed, it causes conflicts on intial upgrade and an apt --fix-broken install is necessary to finish installation
 sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
 
-sudo apt install ninja-build python3 python3-pip -y || error "Could not install VIRGL build dependencies"
+sudo apt install ninja-build python3 python3-pip libdrm-dev libgbm-dev -y || error "Could not install VIRGL build dependencies"
 hash -r
 python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
 hash -r
