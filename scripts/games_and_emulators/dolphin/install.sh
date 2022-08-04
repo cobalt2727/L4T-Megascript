@@ -25,17 +25,17 @@ case "$__os_id" in
         #the following lines attempt to handle issues with installing on distros without systemd (namely AntiX)
         package_available libudev-dev #this will install on mainstream distros
         if [[ $? == "0" ]]; then
-          sudo apt install -y libudev-dev || error "Failed to install udev development libraries!"
+            sudo apt install -y libudev-dev || error "Failed to install udev development libraries!"
         fi
         package_available libsystemd-dev #this will also install on mainstream distros, install both this and libudev-dev if you're using this as a reference
         if [[ $? == "0" ]]; then
-          sudo apt install -y libsystemd-dev || error "Failed to install systemd development libraries!"
+            sudo apt install -y libsystemd-dev || error "Failed to install systemd development libraries!"
         fi
         package_available libeudev-dev #this is a udev replacement that works without systemd, you can't even install it on a regular Debian/Ubuntu spin
         if [[ $? == "0" ]]; then
-          sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
+            sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
         fi
-
+        
         if test -d /usr/include/*-linux-gnu/qt6/; then
             echo "QT6 packages found - since Dolphin will default to this when possible,"
             echo "We'll need to install relevant dependencies..."
@@ -95,8 +95,8 @@ if grep -q bionic /etc/os-release; then
     #there really is no use case for this, is there
     echo "Ubuntu 16.04 detected... good luck, you'll need it"
     sleep 2
-    echo "Adding Cmake 3.12 PPA..."
-    ppa_name="janisozaur/cmake-update" && ppa_installer
+    echo "Adding Cmake 3.13 PPA..."
+    ppa_name="freim/cmake-3.13" && ppa_installer
     echo "Adding Ubuntu Toolchain Test PPA to install GCC 9..."
     ppa_name="ubuntu-toolchain-r/test" && ppa_installer
     sudo apt install cmake gcc-9 g++-9 -y
