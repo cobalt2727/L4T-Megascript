@@ -2,6 +2,6 @@
 Type=Application
 Icon=/usr/share/SRB2/SRB2Icon.png
 Name=Sonic Robo Blast 2
-Exec=bash -c 'cd /usr/share/SRB2/assets/installer; /usr/share/SRB2/SRB2.sh'
+Exec=bash -c '/usr/share/SRB2/build/bin/lsdlsrb2'
 Terminal=false
 Categories=Game
