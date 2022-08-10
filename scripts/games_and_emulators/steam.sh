@@ -25,6 +25,11 @@ fi
 
 sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-bionic.list
 ppa_name="kisak/kisak-mesa" && ppa_installer
+
+# allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
+sudo sed -i "s/\"library_path\" : .*/\"library_path\" : \"libEGL_mesa.so.0\"/g" "/usr/share/glvnd/egl_vendor.d/50_mesa.json"
+sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
+sudo apt --fix-broken install
 sudo apt upgrade -y
 # if old mesa-common-dev is already installed, it causes conflicts on intial upgrade and an apt --fix-broken install is necessary to finish installation
 sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
@@ -85,9 +90,6 @@ kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create stea
 
 # set execution bit
 sudo chmod +x /usr/local/bin/steam
-
-# allow loading MESA EGL (necessary for armhf VIRGL)
-sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 # copy official steam.desktop file to /usr/local and edit it
 # we can't edit the official steam.desktop file since this will get overwritten on a steam update
