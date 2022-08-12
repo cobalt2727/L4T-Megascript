@@ -35,15 +35,9 @@ esac
 
 sudo apt install zenity cmake git build-essential gcc-11 g++-11 -y  || error "Could not install dependencies"
 cd
-git clone https://github.com/ptitSeb/box64
+rm -rf box64
+git clone --depth=1 https://github.com/ptitSeb/box64
 cd box64
-git pull
-if [[ $? -ne 0 ]]; then
-  cd ~
-  rm -rf box64
-  git clone https://github.com/ptitSeb/box64 || error "Could Not Pull Latest Source Code"
-  cd box64
-fi
 mkdir build
 cd build
 
@@ -88,6 +82,8 @@ Icon=/usr/share/box64/icon.png
 Terminal=hidden
 Categories=System
 EOF
+
+rm -rf ~/box64
 
 echo "Box64 successfully installed"
 echo ""
