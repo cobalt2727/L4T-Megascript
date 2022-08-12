@@ -39,16 +39,37 @@ hash -r
 sudo -H python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
 hash -r
 
-# compile and install epoxy
-cd /tmp
-rm -rf libepoxy
-git clone https://github.com/anholt/libepoxy || "Could not clone libepoxy"
-cd libepoxy
-meson -Dprefix=/usr build || error "Could not configure libepoxy"
-ninja -j$(nproc) -C build || error "Could not build libepoxy"
-sudo ninja -C build install || error "Could not install libepoxy"
-cd
-rm -rf /tmp/libepoxy
+# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
+# check if upstream-release is available
+if [ -f /etc/upstream-release/lsb-release ]; then
+  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+  DISTRIB_CODENAME=$(lsb_release -s -u -c)
+  DISTRIB_RELEASE=$(lsb_release -s -u -r)
+else
+  DISTRIB_CODENAME=$(lsb_release -s -c)
+  DISTRIB_RELEASE=$(lsb_release -s -r)
+fi
+
+case "$DISTRIB_CODENAME" in
+  bionic) 
+    # compile and install epoxy
+    cd /tmp
+    rm -rf libepoxy
+    git clone https://github.com/anholt/libepoxy || "Could not clone libepoxy"
+    cd libepoxy
+    # checkout stable 1.5.11 commit
+    git checkout a96abf1a4d29f78034273cbce96006cde950390c
+    meson -Dprefix=/usr build || error "Could not configure libepoxy"
+    ninja -j$(nproc) -C build || error "Could not build libepoxy"
+    sudo ninja -C build install || error "Could not install libepoxy"
+    cd
+    rm -rf /tmp/libepoxy
+    ;;
+  *)
+    sudo apt install libepoxy-dev -y || "Could not install libepoxy"
+    hash -r
+    ;;
+esac
 
 # virgl
 cd /tmp
