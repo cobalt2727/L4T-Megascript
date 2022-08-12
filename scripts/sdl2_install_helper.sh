@@ -10,7 +10,7 @@ if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -
     mkdir -p /tmp/sdl2
     cd /tmp/sdl2 || error "Could not change directory"
     rm -rf ./*
-    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.23.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll && wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.23.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
+    wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.23.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll && wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.23.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
     if [[ $(dpkg --print-foreign-architectures) == *"armhf"* ]]; then
       wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.23.1%2Bdfsg-1_armhf.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
     fi
