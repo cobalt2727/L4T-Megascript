@@ -36,7 +36,7 @@ sudo apt --fix-broken install || error "Could not upgrade MESA (needed for Steam
 
 sudo apt install ninja-build python3 python3-pip libdrm-dev libgbm-dev -y || error "Could not install VIRGL build dependencies"
 hash -r
-python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
+sudo -H python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
 hash -r
 
 # compile and install epoxy
