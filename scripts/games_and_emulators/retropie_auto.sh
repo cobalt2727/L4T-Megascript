@@ -226,9 +226,9 @@ function install_binaries {
                 status "This could take a few seconds depending on the speed of your internet connection"
                 for package in ${package_list[@]}; do
                     package=$(echo "${package%.pkg}")
-                    repo_binary_date=$(cat $package.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+                    repo_binary_date=$(cat $package.pkg | grep "pkg_date" | sed 's/^.*=//' | tr -d '"')
                     repo_binary_date=$(date -d $repo_binary_date +%s)
-                    local_binary_date=$(cat /opt/retropie/$folder/$package/retropie.pkg | grep "pkg_repo_date" | sed 's/^.*=//' | tr -d '"')
+                    local_binary_date=$(cat /opt/retropie/$folder/$package/retropie.pkg | grep "pkg_date" | sed 's/^.*=//' | tr -d '"')
                     local_binary_date=$(date -d $local_binary_date +%s)
                     if [[ $repo_binary_date -gt $local_binary_date ]] || ([[ $repo_binary_date == $local_binary_date ]] && ! diff "/opt/retropie/$folder/$package/retropie.pkg" "$package.pkg"); then
                         # only download and extract package if it is newer than local version or if equal to local version with later build date
