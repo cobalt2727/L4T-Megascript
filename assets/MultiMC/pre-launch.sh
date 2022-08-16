@@ -105,19 +105,31 @@ then
         add_button='--button=Yes, Update/Install My Mods and Megascript Suggested Fabric mods:0'
     fi
     minecraft_mods_list=$(minecraft-mod-manager list | tail -n +2)
-    echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
+    if  [[ $(echo "$minecraft_mods_list" | wc -l) -gt 2 ]]; then
+        echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
 Do you want to update/install the following Mods: \n\n$minecraft_mods_list\n\n\n\
-If this list above is emtpty, you haven't clicked (Yes, Update/Install My Mods and Megascript Suggested Fabric mods) before, you should do that to install suggested performance mods.\
-\n\nMake sure you have already clicked the Install Fabric button (or Forge button if you are supplying your own mods) otherwise these mods won't activate!\n\n\
-You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
-    --borders="20" --center --fixed\
-    --window-icon=/usr/share/icons/L4T-Megascript.png \
-    --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
-    --show-uri \
-    "$add_button" \
-    --button="Yes, Update/Install ONLY My Mods":1 \
-    --button="No, skip this and save time":2
-    user_output="$?"
+You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using Forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
+        --borders="20" --center --fixed\
+        --window-icon=/usr/share/icons/L4T-Megascript.png \
+        --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+        --show-uri \
+        "$add_button" \
+        --button="Yes, Update/Install ONLY My Mods":1 \
+        --button="No, skip this and save time":2
+        user_output="$?"
+    else
+        echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
+You do not currently have any mods installed. Click (Yes, Update/Install My Mods and Megascript Suggested Fabric mods) to install suggested Fabric performance mods.\n\
+You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using Forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
+        --borders="20" --center --fixed\
+        --window-icon=/usr/share/icons/L4T-Megascript.png \
+        --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+        --show-uri \
+        "$add_button" \
+        --button="Yes, Update/Install ONLY My Mods":1 \
+        --button="No, skip this and save time":2
+        user_output="$?"
+    fi
     case "$user_output" in
         "0"|"1")
             shopt -s extglob
