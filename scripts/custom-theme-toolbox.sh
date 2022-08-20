@@ -78,7 +78,7 @@ case "$__os_id" in
     ;;
     Fedora)
         #what RPM contains the GTK2 QT6 platform theme?
-        sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquickcontrols2-devel || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
+        sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquickcontrols2-devel qt5-qtstyleplugins || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
         #note to self: check if the RPM automatically sets up an environment variable like the Ubuntu package does
     ;;
     *)
