@@ -12,10 +12,10 @@ function install {
     #download git
     sudo apt install git dialog unzip xmlstarlet lsb-release crudini -y || error "Could not install dependencies"
     sudo apt install joycond -y
-
+    
     cd ~
     git clone https://github.com/RetroPie/RetroPie-Setup.git
-
+    
     cd RetroPie-Setup
     # pull latest version if already cloned
     git pull
@@ -27,13 +27,13 @@ function install {
     fi
     # unfortunatly I can't use this this not all main packages work ... sudo ./retropie_packages.sh setup basic_install
     # manually install all of the required and good stuff
-
+    
     sudo sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 "$USER" ALL = NOPASSWD: "/sbin/shutdown"
 _EOF_"
-
+    
     #auto install retropie with most important emulators (which don't take up much space)
     sudo ./retropie_packages.sh retroarch
     sudo ./retropie_packages.sh emulationstation
@@ -51,12 +51,12 @@ _EOF_"
         # only build from source on non-tegra-x1 systems
         # if executed on the PI, this shoud still install binaries for those systems
         package_list=( lr-atari800 lr-beetle-ngp lr-beetle-supergrafx lr-bsnes \
-lr-caprice32 lr-desmume lr-fbneo lr-fceumm lr-flycast lr-fuse \
-lr-gambatte lr-genesis-plus-gx lr-gpsp lr-handy lr-mame lr-mame2003 \
-lr-mame2010 lr-mame2016 lr-mesen lr-mgba lr-mupen64plus-next lr-nestopia \
-lr-pcsx-rearmed lr-ppsspp lr-prosystem lr-quicknes lr-smsplus-gx \
-lr-stella2014 lr-snes9x lr-snes9x2005 lr-snes9x2010 lr-vba-next lr-vecx \
-lr-tgbdual lr-yabause )
+            lr-caprice32 lr-desmume lr-fbneo lr-fceumm lr-flycast lr-fuse \
+            lr-gambatte lr-genesis-plus-gx lr-gpsp lr-handy lr-mame lr-mame2003 \
+            lr-mame2010 lr-mame2016 lr-mesen lr-mgba lr-mupen64plus-next lr-nestopia \
+            lr-pcsx-rearmed lr-ppsspp lr-prosystem lr-quicknes lr-smsplus-gx \
+            lr-stella2014 lr-snes9x lr-snes9x2005 lr-snes9x2010 lr-vba-next lr-vecx \
+        lr-tgbdual lr-yabause )
         for package in ${package_list[@]}; do
             sudo ./retropie_packages.sh $package
         done
@@ -64,20 +64,20 @@ lr-tgbdual lr-yabause )
 }
 
 function update_scripts {
-
+    
     # update sudoers
     sudo sh -c "cat > /etc/sudoers.d/retropie_sudo << _EOF_
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_setup.sh"
 "$USER" ALL = NOPASSWD: "/home/$USER/RetroPie-Setup/retropie_packages.sh"
 "$USER" ALL = NOPASSWD: "/sbin/shutdown"
 _EOF_"
-
+    
     # add builtin updater into retropie
     mkdir -p "/home/$USER/RetroPie/retropiemenu"
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/L4T-Megascript-RetroPie-Updater.sh" -O /tmp/L4T-Megascript-RetroPie-Updater.sh && sudo rm -rf "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh" && mv /tmp/L4T-Megascript-RetroPie-Updater.sh "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
     chmod +x "/home/$USER/RetroPie/retropiemenu/L4T-Megascript-RetroPie-Updater.sh"
-
-
+    
+    
     config="$HOME/.emulationstation/gamelists/retropie/gamelist.xml"
     path="./L4T-Megascript-RetroPie-Updater.sh"
     name="L4T-Megascript RetroPie Binaries Updater"
@@ -86,28 +86,28 @@ _EOF_"
     if [[ ! -f "$config" ]]; then
         echo "<gameList />" >"$config"
     fi
-
+    
     if [[ $(xmlstarlet sel -t -v "count(/gameList/game[path='$path'])" "$config") -eq 0 ]]; then
         echo "Adding updater info to gamelist"
         xmlstarlet ed -L -s "/gameList" -t elem -n "game" -v "" \
-                -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
-                -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
-                -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
-                -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
-                "$config"
+        -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
+        -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
+        -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
+        -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
+        "$config"
     else
         echo "Updating updater info in gamelist"
         # remove current occurances of name, desc, and image
         xmlstarlet ed -L -d "/gameList/game[path='$path']/name" -d "/gameList/game[path='$path']/desc" -d "/gameList/game[path='$path']/image" "$config"
-
+        
         # add name, desc, and image
         xmlstarlet ed -L \
-                -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
-                -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
-                -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
-                "$config"
+        -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
+        -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
+        -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
+        "$config"
     fi
-
+    
     cd "/home/$USER/RetroPie-Setup"
     # cleanup random files that could cause issues
     git reset --hard
@@ -120,26 +120,26 @@ _EOF_"
     rm -rf /tmp/add_games.sh
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/add_games.sh" -O /tmp/add_games.sh && sudo rm -rf  "/home/$USER/.emulationstation/scripts/quit/add_games.sh" && mv  /tmp/add_games.sh "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
     sudo chmod 755 "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
-
+    
     status "Addding the Python .desktop image finder script"
     rm -rf /tmp/get-icon-path.py
     mkdir -p "/home/$USER/RetroPie/roms/ports"
     wget "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/RetroPie/get-icon-path.py" -O /tmp/get-icon-path.py && sudo rm -rf "/home/$USER/RetroPie/roms/ports/get-icon-path.py" && mv /tmp/get-icon-path.py "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
     sudo chmod 755 "/home/$USER/RetroPie/roms/ports/get-icon-path.py"
-
+    
     status "Running the auto game detection script"
     "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
-
+    
     # hotfix for switch/jetsons emulationstation crash and vlc player broken
     get_system
     if [[ $jetson_model ]]; then
         sudo mv /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so.old
     fi
-
+    
     # hotfix for retropie runcommand.sh broken on rotated displays with X11 https://github.com/RetroPie/RetroPie-Setup/issues/3338
     # fully disable modesetting on X11 (useless on Switch Handheld Display anyway as it has one mode)
     sudo sed -i 's/^XRANDR="xrandr"/XRANDR="dummybin"/' /opt/retropie/supplementary/runcommand/runcommand.sh
-
+    
     if command -v dolphin-emu-nogui &> /dev/null; then
         echo "Adding dolphin standalone to retropie"
         mkdir /opt/retropie/configs/gc
@@ -151,38 +151,38 @@ _EOF_"
         FILE2='/opt/retropie/configs/wii/emulators.cfg'
         grep -qFs -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
         grep -qFs -- "$LINE" "$FILE2" || echo "$LINE" >> "$FILE2"
-
+        
         config="/etc/emulationstation/es_systems.cfg"
         if [[ ! -f "$config" ]]; then
             echo "<systemList />" | sudo tee "$config"
         fi
         homedir=~
         if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='gc'])" "$config") -eq 0 ]]; then
-        sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-                    -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
-                    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
-                    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
-                    -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
-                    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
-                    -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
-                    -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
-                    "$config"
+            sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
+            -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
+            -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
+            -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
+            -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
+            -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
+            -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
+            -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
+            "$config"
         fi
         
         if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='wii'])" "$config") -eq 0 ]]; then
-        sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-                    -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
-                    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
-                    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
-                    -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
-                    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
-                    -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
-                    -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
-                    "$config"
+            sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
+            -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
+            -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
+            -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
+            -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
+            -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
+            -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
+            -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
+            "$config"
         fi
-
+        
     fi
-
+    
     bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 }
 
@@ -198,10 +198,10 @@ function update_cores {
 function install_binaries {
     # get system info
     get_system
-	if [[ $jetson_model == "tegra-x1" ]]; then
-		sudo rm -rf "/tmp/Retropie-Binaries"
-		mkdir -p "/tmp/Retropie-Binaries"
-		cd "/tmp/Retropie-Binaries"
+    if [[ $jetson_model == "tegra-x1" ]]; then
+        sudo rm -rf "/tmp/Retropie-Binaries"
+        mkdir -p "/tmp/Retropie-Binaries"
+        cd "/tmp/Retropie-Binaries"
         mkdir $jetson_model
         cd $jetson_model
         repo_folders=($( svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/ ))
@@ -251,10 +251,10 @@ function install_binaries {
             fi
         done
         cd ~
-		sudo rm -rf "/tmp/Retropie-Binaries"
-	else
-		warning "We don't host binaries for your platform, sorry!"
-	fi
+        sudo rm -rf "/tmp/Retropie-Binaries"
+    else
+        warning "We don't host binaries for your platform, sorry!"
+    fi
 }
 
 if [ $(id -u) != 0 ]; then
@@ -263,10 +263,10 @@ if [ $(id -u) != 0 ]; then
     echo "$USER"
     if [[ $1 == "update_scripts" ]]; then
         update_scripts
-    elif [[ $1 == "update_cores" ]]; then
+        elif [[ $1 == "update_cores" ]]; then
         update_cores
         update_scripts
-    elif [[ $1 == "install_binaries" ]]; then
+        elif [[ $1 == "install_binaries" ]]; then
         install_binaries
         update_scripts
     else
@@ -274,6 +274,6 @@ if [ $(id -u) != 0 ]; then
         install_binaries
         update_scripts
     fi
-else    
-    echo "RetroPie install failed, please run script as non-sudo"    
+else
+    echo "RetroPie install failed, please run script as non-sudo"
 fi
