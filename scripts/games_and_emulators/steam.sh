@@ -23,7 +23,7 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
   sudo apt update
 fi
 
-sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-bionic.list
+sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
 ppa_name="kisak/kisak-mesa" && ppa_installer
 
 # allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
