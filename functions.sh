@@ -20,69 +20,69 @@ function get_system {
   # get model name
   # https://github.com/dylanaraps/neofetch/blob/77f2afc37239d9494ce0f5d0f71f690f8b4d34e3/neofetch#L1232
   if [[ -d /system/app/ && -d /system/priv-app ]]; then
-      model="$(getprop ro.product.brand) $(getprop ro.product.model)"
+    model="$(getprop ro.product.brand) $(getprop ro.product.model)"
 
   elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
-          -f /sys/devices/virtual/dmi/id/product_version ]]; then
-      model="$(tr -d '\0' < /sys/devices/virtual/dmi/id/product_name)"
-      model+=" $(tr -d '\0' < /sys/devices/virtual/dmi/id/product_version)"
+    -f /sys/devices/virtual/dmi/id/product_version ]]; then
+    model="$(tr -d '\0' </sys/devices/virtual/dmi/id/product_name)"
+    model+=" $(tr -d '\0' </sys/devices/virtual/dmi/id/product_version)"
 
   elif [[ -f /sys/firmware/devicetree/base/model ]]; then
-      model="$(tr -d '\0' < /sys/firmware/devicetree/base/model)"
+    model="$(tr -d '\0' </sys/firmware/devicetree/base/model)"
 
   elif [[ -f /tmp/sysinfo/model ]]; then
-      model="$(tr -d '\0' < /tmp/sysinfo/model)"
+    model="$(tr -d '\0' </tmp/sysinfo/model)"
   fi
   # Remove dummy OEM info.
-  model=${model//To be filled by O.E.M.}
-  model=${model//To Be Filled*}
-  model=${model//OEM*}
-  model=${model//Not Applicable}
-  model=${model//System Product Name}
-  model=${model//System Version}
-  model=${model//Undefined}
-  model=${model//Default string}
-  model=${model//Not Specified}
-  model=${model//Type1ProductConfigId}
-  model=${model//INVALID}
-  model=${model//All Series}
-  model=${model//�}
+  model=${model//To be filled by O.E.M./}
+  model=${model//To Be Filled*/}
+  model=${model//OEM*/}
+  model=${model//Not Applicable/}
+  model=${model//System Product Name/}
+  model=${model//System Version/}
+  model=${model//Undefined/}
+  model=${model//Default string/}
+  model=${model//Not Specified/}
+  model=${model//Type1ProductConfigId/}
+  model=${model//INVALID/}
+  model=${model//All Series/}
+  model=${model//�/}
   local __platform=""
   if [[ -e "/proc/device-tree/compatible" ]]; then
-      CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
-      if [[ ${CHIP} =~ "tegra186" ]]; then
-          __platform="tegra-x2"
-      elif [[ ${CHIP} =~ "tegra210" ]]; then
-          __platform="tegra-x1"
-      elif [[ ${CHIP} =~ "tegra194" ]]; then
-          __platform="xavier"
-      elif [[ ${CHIP} =~ "tegra234" ]]; then
-          __platform="orin"
-      elif [[ ${CHIP} =~ "tegra239" ]]; then
-          __platform="switch-pro-chip"
-      elif [[ ${CHIP} =~ "tegra" ]]; then
-          __platform="jetson-unknown"
-      fi
-      jetson_model="$__platform"
+    CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
+    if [[ ${CHIP} =~ "tegra186" ]]; then
+      __platform="tegra-x2"
+    elif [[ ${CHIP} =~ "tegra210" ]]; then
+      __platform="tegra-x1"
+    elif [[ ${CHIP} =~ "tegra194" ]]; then
+      __platform="xavier"
+    elif [[ ${CHIP} =~ "tegra234" ]]; then
+      __platform="orin"
+    elif [[ ${CHIP} =~ "tegra239" ]]; then
+      __platform="switch-pro-chip"
+    elif [[ ${CHIP} =~ "tegra" ]]; then
+      __platform="jetson-unknown"
+    fi
+    jetson_model="$__platform"
   elif [[ -e "/sys/devices/soc0/family" ]]; then
-      CHIP="$(tr -d '\0' < /sys/devices/soc0/family)"
-      if [[ ${CHIP} =~ "tegra20" ]]; then
-          __platform="tegra-2"
-      elif [[ ${CHIP} =~ "tegra30" ]]; then
-          __platform="tegra-3"
-      elif [[ ${CHIP} =~ "tegra114" ]]; then
-          __platform="tegra-4"
-      elif [[ ${CHIP} =~ "tegra124" ]]; then
-          __platform="tegra-k1-32"
-      elif [[ ${CHIP} =~ "tegra132" ]]; then
-          __platform="tegra-k1-64"
-      elif [[ ${CHIP} =~ "tegra210" ]]; then
-          __platform="tegra-x1"
-      fi
-      jetson_model="$__platform"
+    CHIP="$(tr -d '\0' </sys/devices/soc0/family)"
+    if [[ ${CHIP} =~ "tegra20" ]]; then
+      __platform="tegra-2"
+    elif [[ ${CHIP} =~ "tegra30" ]]; then
+      __platform="tegra-3"
+    elif [[ ${CHIP} =~ "tegra114" ]]; then
+      __platform="tegra-4"
+    elif [[ ${CHIP} =~ "tegra124" ]]; then
+      __platform="tegra-k1-32"
+    elif [[ ${CHIP} =~ "tegra132" ]]; then
+      __platform="tegra-k1-64"
+    elif [[ ${CHIP} =~ "tegra210" ]]; then
+      __platform="tegra-x1"
+    fi
+    jetson_model="$__platform"
   fi
   unset __platform
-  
+
   # set each variable individually since Fedora prints all output to one line
   if [ -f /etc/upstream-release/lsb-release ]; then
     # This is a Ubuntu Derivative, checking the upstream-release version info
@@ -104,14 +104,14 @@ export -f get_system
 get_system
 
 function LTS_check {
-	source /etc/os-release
-	if [[ $(echo $VERSION) == *"LTS"* ]]; then
-		#the user's distro is an LTS
-                echo ""
-	else
-		#not LTS, so returning false
-		return 1
-	fi
+  source /etc/os-release
+  if [[ $(echo $VERSION) == *"LTS"* ]]; then
+    #the user's distro is an LTS
+    echo ""
+  else
+    #not LTS, so returning false
+    return 1
+  fi
 }
 export -f LTS_check
 
@@ -127,13 +127,13 @@ function userinput_func {
   height_gui=$(echo $((height * 15 + ${#@} * 20 + 100)))
   height_gui_buttons=$(echo $((height * 15)))
   if [[ $gui == "gui" ]]; then
-    if [[ "${#@}" == "2" ]];then
-      echo -e "$1" |  yad --fixed --no-escape --undecorated --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
+    if [[ "${#@}" == "2" ]]; then
+      echo -e "$1" | yad --fixed --no-escape --undecorated --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
       --text-info --fontname="@font@ 11" --wrap --width=800 --height=$height_gui \
       --window-icon=/usr/share/icons/L4T-Megascript.png \
       --button="$2":0
       output="$2"
-    elif [[ "${#@}" == "3" ]];then
+    elif [[ "${#@}" == "3" ]]; then
       yad --image "dialog-question" \
       --borders="20" --height=$height_gui_buttons --center --fixed\
       --window-icon=/usr/share/icons/L4T-Megascript.png \
@@ -152,22 +152,22 @@ function userinput_func {
       uniq_selection[0]=TRUE
       output=$(
         yad --center --fixed --height=$height_gui\
-          --borders="20" \
-          --window-icon=/usr/share/icons/L4T-Megascript.png \
-          --text "$1" \
-          --list \
-          --radiolist \
-          --column "" \
-          --column "Selection" \
-          --print-column=2 \
-          --separator='' \
-          --button="Ok":0 \
-          "${uniq_selection[@]}"
+        --borders="20" \
+        --window-icon=/usr/share/icons/L4T-Megascript.png \
+        --text "$1" \
+        --list \
+        --radiolist \
+        --column "" \
+        --column "Selection" \
+        --print-column=2 \
+        --separator='' \
+        --button="Ok":0 \
+        "${uniq_selection[@]}"
       )
     fi
   else
-    if [[ "${#@}" == "3" ]];then
-      dialog  --stdout --clear --yes-label "$2" --no-label "$3" --yesno "$1" "$height" "120"
+    if [[ "${#@}" == "3" ]]; then
+      dialog --stdout --clear --yes-label "$2" --no-label "$3" --yesno "$1" "$height" "120"
       if [[ $? -ne 0 ]]; then
         output="$3"
       else
@@ -179,11 +179,11 @@ function userinput_func {
       done
       output=$(
         dialog --stdout --clear \
-          --backtitle "CLI Chooser Helper" \
-          --title "Choices" \
-          --menu "$1" \
-          "$height" "120" "$($# - 1)" \
-          "${uniq_selection[@]}"
+        --backtitle "CLI Chooser Helper" \
+        --title "Choices" \
+        --menu "$1" \
+        "$height" "120" "$($# - 1)" \
+        "${uniq_selection[@]}"
       )
     fi
   fi
@@ -232,7 +232,7 @@ function ppa_purger {
 export -f ppa_purger
 
 function online_check {
-    while : ; do
+  while :; do
     clear -x
     date
     echo "Checking internet connectivity..."
@@ -241,10 +241,9 @@ function online_check {
 
     #read whether or not it was successful
     #the $? reads the exit code of the previous command, 0 meaning everything works
-    if [ $? == 0 ]
-    then
-	echo -e "\e[32mInternet OK\e[0m"
-        break
+    if [ $? == 0 ]; then
+      echo -e "\e[32mInternet OK\e[0m"
+      break
     fi
     #tell people to fix their internet
     echo "You're offline and/or can't reach GitHub."
@@ -270,18 +269,18 @@ function online_check {
     echo "Trying again..."
     sleep 1
     #and now we let it loop
-    done
+  done
 }
 export -f online_check
 
 function runCmd() {
-    local ret
-    "$@"
-    ret=$?
-    if [[ "$ret" -ne 0 ]]; then
-        echo "${scripts[$word]} reported an error running '$*' - returned $ret" >> /tmp/megascript_errors.txt
-    fi
-    return $ret
+  local ret
+  "$@"
+  ret=$?
+  if [[ "$ret" -ne 0 ]]; then
+    echo "${scripts[$word]} reported an error running '$*' - returned $ret" >>/tmp/megascript_errors.txt
+  fi
+  return $ret
 }
 export -f runCmd
 
@@ -317,19 +316,23 @@ export -f error_user
 format_logfile() { #remove ANSI escape sequences from a given file, and add OS information to beginning of file
   [ -z "$1" ] && error "format_logfile: no filename given!"
   [ ! -f "$1" ] && error "format_logfile: given filename ($1) does not exist or is not a file!"
-  
-  echo -e "$model\n\nBEGINNING OF LOG FILE:\n-----------------------\n\n$(cat "$1" | tr '\r' '\n' | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x1b\[[0-9;]*//g' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | grep -vF '.......... .......... .......... .......... ..........')" > "$1"
-  
+
+  echo -e "$model\n\nBEGINNING OF LOG FILE:\n-----------------------\n\n$(cat "$1" | tr '\r' '\n' | sed 's/\x1b\[[0-9;]*m//g' | sed 's/\x1b\[[0-9;]*//g' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | grep -vF '.......... .......... .......... .......... ..........')" >"$1"
+
 }
 export -f format_logfile
 
 send_error() {
-  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'; base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'; base64 -d <<<'WGpmVmhmCg==' | tr -d '\n')" &>/dev/null
+  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(
+    base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'
+    base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'
+    base64 -d <<<'WGpmVmhmCg==' | tr -d '\n'
+  )" &>/dev/null
 }
 export -f send_error
 
-add_english() {  # add en_US locale for more accurate error 
-  if [ "$(cat /usr/share/i18n/SUPPORTED | grep -o 'en_US.UTF-8' )" == "en_US.UTF-8" ]; then 
+add_english() { # add en_US locale for more accurate error
+  if [ "$(cat /usr/share/i18n/SUPPORTED | grep -o 'en_US.UTF-8')" == "en_US.UTF-8" ]; then
     locale=$(locale -a | grep -oF 'en_US.utf8')
     if [ "$locale" != 'en_US.utf8' ]; then
       status "Adding en_US locale for better logging... "
@@ -337,7 +340,7 @@ add_english() {  # add en_US locale for more accurate error
       sudo locale-gen
     fi
   else
-      warning "en_US locale is not available on your system. This may cause bad logging experience."
+    warning "en_US locale is not available on your system. This may cause bad logging experience."
   fi
   export LANG="en_US.UTF-8"
   export LANGUAGE="en_US.UTF-8"
@@ -362,7 +365,7 @@ package_installed() { #exit 0 if $1 package is installed, otherwise exit 1
   [ -z "$package" ] && error "package_installed(): no package specified!"
   #find the package listed in /var/lib/dpkg/status
   #package_info "$package" | grep -q '^Status: install ok installed$'
-  
+
   #directly search /var/lib/dpkg/status
   grep '^Status: install ok installed$\|^Package:' /var/lib/dpkg/status | grep "$package" --after 1 | grep -q 'Status: install ok installed'
 }
@@ -379,7 +382,7 @@ export -f package_available
 package_dependencies() { #outputs the list of dependencies for the $1 package
   local package="$1"
   [ -z "$package" ] && error "package_dependencies(): no package specified!"
-  
+
   #find the package listed in /var/lib/dpkg/status
   package_info "$package" | grep '^Depends: ' | sed 's/^Depends: //g'
 }
@@ -387,35 +390,35 @@ export -f package_dependencies
 
 anything_installed_from_repo() { #Given an apt repository URL, determine if any packages from it are currently installed
   [ -z "$1" ] && error "anything_installed_from_repo: A repository URL must be specified."
-  
+
   #user input repo-url. Remove 'https://', and translate '/' to '_' to conform to apt file-naming standard
   local url="$(echo "$1" | sed 's+.*://++g' | sed 's+/+_+g')"
-  
+
   #find all package-lists pertaining to the url
   local repofiles="$(ls /var/lib/apt/lists/*_Packages | grep "$url")"
-  
+
   #for every repo-file, chack if any of them have an installed file
   local found=0
   local IFS=$'\n'
   local repofile
-  for repofile in $repofiles ;do
+  for repofile in $repofiles; do
     #search the repo-file for installed packages
-    grep '^Package' "$repofile" | awk '{print $2}' | while read -r package ;do
-      if package_installed "$package" ;then
+    grep '^Package' "$repofile" | awk '{print $2}' | while read -r package; do
+      if package_installed "$package"; then
         echo "Package installed: $package"
         exit 1
       fi
     done #if exit code is 1, search was successful. If exit code is 0, no packages from the repo were installed.
-    
+
     found=$?
-    
-    if [ $found == 1 ];then
+
+    if [ $found == 1 ]; then
       break
     fi
   done
-  
+
   #return an exit code
-  if [ $found == 1 ];then
+  if [ $found == 1 ]; then
     return 0
   else
     return 1
@@ -429,38 +432,38 @@ remove_repofile_if_unused() { #Given a sources.list.d file, delete it if nothing
   [ -z "$file" ] && error "remove_repo_if_unused: no sources.list.d file specified!"
   #exit now if the list file does not exist
   [ -f "$file" ] || exit 0
-  
+
   #determine what repo-urls are in the file
   local urls="$(cat "$file" | grep -v '^#' | tr ' ' '\n' | grep '://')"
-  
+
   #there could be multiple urls in one file. Check each url and set the in_use variuable to 1 if any packages are found
   local IFS=$'\n'
   local in_use=0
   local url
-  for url in $urls ;do
-    if anything_installed_from_repo "$url" >/dev/null;then
+  for url in $urls; do
+    if anything_installed_from_repo "$url" >/dev/null; then
       in_use=1
       break
     fi
   done
-  
-  if [ "$in_use" == 0 ] && [ "$testmode" == test ];then
+
+  if [ "$in_use" == 0 ] && [ "$testmode" == test ]; then
     echo "The given repository is not in use and can be deleted:"$'\n'"$file" 1>&2
-  elif [ "$in_use" == 0 ];then
+  elif [ "$in_use" == 0 ]; then
     status "Removing the $(basename "$file" | sed 's/.list$//g') repo as it is not being used"
     sudo rm -f "$file"
   fi
-  
+
 }
 export -f remove_repofile_if_unused
 
 apt_lock_wait() { #Wait until other apt processes are finished before proceeding
   #make sure english locale is added first
   add_english
-  
+
   echo "Waiting until APT locks are released... "
   sp="/-\|"
-  while [ ! -z "$(sudo fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/log/unattended-upgrades/unattended-upgrades.log /var/lib/dpkg/lock-frontend 2>/dev/null)" ];do
+  while [ ! -z "$(sudo fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/log/unattended-upgrades/unattended-upgrades.log /var/lib/dpkg/lock-frontend 2>/dev/null)" ]; do
     echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
     sleep 1
   done

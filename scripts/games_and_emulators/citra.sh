@@ -21,7 +21,7 @@ if grep -q bionic /etc/os-release; then
   echo
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy Citra on Ubuntu Bionic, Focal, Hirsute, and beyond"
-  
+
   ###uncomment these lines in the future to resolve possible build errors
   # echo "Adding GCC and G++ 11 Repo..."
   # ppa_name="ubuntu-toolchain-r/test" && ppa_installer
@@ -44,7 +44,7 @@ sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev
 echo "Building Citra..."
 sleep 1
 cd ~
-git clone --recurse-submodules -j$(nproc)  https://github.com/citra-emu/citra
+git clone --recurse-submodules -j$(nproc) https://github.com/citra-emu/citra
 cd citra
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
@@ -55,16 +55,16 @@ rm -rf CMakeCache.txt
 if grep -q bionic /etc/os-release; then
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
 else
-  if grep -iE 'raspberry' <<< $model > /dev/null; then
-#   https://github.com/citra-emu/citra/issues/5921
+  if grep -iE 'raspberry' <<<$model >/dev/null; then
+    #   https://github.com/citra-emu/citra/issues/5921
     warning "You are running a Raspberry Pi, building without ASM since Broadcom is apparently allergic to cryptography extensions..."
     cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCRYPTOPP_OPT_DISABLE_ASM=1
   else
     cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
   fi
 
-  
 fi
+
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
 

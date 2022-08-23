@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 clear -x
 echo "SuperTux2 script started!"
 echo "Downloading the files and installing needed dependencies..."
@@ -10,7 +9,7 @@ cd ~/RetroPie/roms/ports
 rm -r supertux2.sh
 cd ~/.local/share/supertux2
 mv profile1 -t ~/
-cd 
+cd
 git clone --recursive https://github.com/SuperTux/supertux
 sudo apt install build-essential libfreetype* libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev libglm-dev subversion libpng-dev libpng++-dev -y
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/ST2
@@ -52,5 +51,3 @@ sleep 10
 echo
 echo "Sending you back to the main menu..."
 sleep 1
-
-

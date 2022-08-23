@@ -19,7 +19,7 @@ if grep -q bionic /etc/os-release; then
   echo
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy MelonDS on Ubuntu Bionic, Focal, Hirsute, and beyond"
-  
+
   get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"

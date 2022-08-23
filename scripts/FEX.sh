@@ -6,16 +6,16 @@ sudo apt install cmake ninja-build clang build-essential git libglfw3-dev libepo
 
 #wipe LLVM 13 installs from previous setups
 if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
-  if package_installed "llvm-13" ;then
+  if package_installed "llvm-13"; then
     sudo apt remove llvm-13 -y
   fi
-  if package_installed "clang-13" ;then
+  if package_installed "clang-13"; then
     sudo apt remove clang-13 -y
   fi
-  if package_installed "libclang-13-dev" ;then
+  if package_installed "libclang-13-dev"; then
     sudo apt remove libclang-13-dev -y
   fi
-  if package_installed "libmlir-13-dev" ;then
+  if package_installed "libmlir-13-dev"; then
     sudo apt remove libmlir-13-dev -y
   fi
 fi
@@ -45,7 +45,7 @@ mkdir Build
 cd Build
 
 #nuke unneeded versions
-if package_installed "llvm-13" ;then
+if package_installed "llvm-13"; then
   sudo apt remove llvm-13 clang-13 -y
 fi
 

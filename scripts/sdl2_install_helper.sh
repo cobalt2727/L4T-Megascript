@@ -27,7 +27,7 @@ else
   echo "Already Installed Newest SDL2 Version"
 fi
 
-if [[ "$dpkg_architecture" == "arm64" ]] && [[ $(dpkg --print-foreign-architectures) == *"armhf"* ]] && ( apt-cache policy libsdl2-2.0-0:armhf | grep -q 'Installed: (none)' || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0:armhf) lt 2.23.1) ); then
+if [[ "$dpkg_architecture" == "arm64" ]] && [[ $(dpkg --print-foreign-architectures) == *"armhf"* ]] && (apt-cache policy libsdl2-2.0-0:armhf | grep -q 'Installed: (none)' || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0:armhf) lt 2.23.1)); then
   mkdir -p /tmp/sdl2
   cd /tmp/sdl2 || error "Could not change directory"
   rm -rf ./*

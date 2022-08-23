@@ -4,7 +4,7 @@ if [ $(id -u) != 0 ]; then
   clear -x
   echo "Your username is"
   echo "$USER"
-else    
+else
   echo "The L4T-Megascript helper has exited without running. Please run as non-sudo"
   exit 1
 fi
@@ -40,20 +40,19 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, pleast fix your internet and try again!"
 
-
 mkdir -p "$HOME/L4T-Megascript/logs"
 logfile="$HOME/L4T-Megascript/logs/install-incomplete-${1////-}.log"
-if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ];then
+if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ]; then
   #append a number to logfile's file-extension if the original filename already exists
   i=1
-  while true;do
+  while true; do
     #if variable $i is 2, then example newlogfile value: /path/to/install-Discord.log2
     newlogfile="$logfile$i"
-    if [ ! -f "$newlogfile" ] && [ ! -f "$(echo "$newlogfile" | sed 's+/-incomplete-+-success-+g')" ] && [ ! -f "$(echo "$newlogfile" | sed 's+-incomplete-+-fail-+g')" ];then
+    if [ ! -f "$newlogfile" ] && [ ! -f "$(echo "$newlogfile" | sed 's+/-incomplete-+-success-+g')" ] && [ ! -f "$(echo "$newlogfile" | sed 's+-incomplete-+-fail-+g')" ]; then
       logfile="${newlogfile}"
       break
     fi
-    i=$((i+1))
+    i=$((i + 1))
   done
   unset i
 fi
@@ -62,7 +61,7 @@ sudo apt update
 $2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)" &> >(tee -a "$logfile")
 
 if [ "$?" != 0 ]; then
-  echo -e  "\n\e[91mFailed to install $1!\e[39m
+  echo -e "\n\e[91mFailed to install $1!\e[39m
 \e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
 Please ask on Github: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 echo "Thonny script started!"
 #do NOT add ubuntu-toolchain-r/ppa, known slightly broken python3.6
 
@@ -9,7 +8,7 @@ sudo apt install python2 python2.7 python3 python3-pip thonny -y
 
 if grep -q bionic /etc/os-release; then
   sudo rm /etc/alternatives/python
-  sudo apt install --reinstall python-minimal -y  #fix up a thing we broke
+  sudo apt install --reinstall python-minimal -y #fix up a thing we broke
   sudo apt install python3.8 libpython3.8 -y
 fi
 

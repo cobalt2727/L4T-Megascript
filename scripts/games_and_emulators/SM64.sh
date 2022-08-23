@@ -14,7 +14,7 @@ cd /tmp/SM64-rom || error "Could not move to the rom folder"
 status "Please place your US/JP/EU rom backup into /tmp/SM64-rom"
 
 if [[ $gui == "gui" ]]; then
-    xdg-open /tmp/SM64-rom 2>/dev/null
+  xdg-open /tmp/SM64-rom 2>/dev/null
 fi
 
 description="To build this port, you need a Super Mario 64 rom with the extension .z64.\
@@ -28,24 +28,23 @@ userinput_func "$description" "${table[@]}"
 
 status "Checking user supplied ROM backup"
 unset sha1_user
-sha1_user=$( sha1sum baserom.$output.z64 2>/dev/null | awk '{print $1;}' )
-sha1_us="9bef1128717f958171a4afac3ed78ee2bb4e86ce" 
+sha1_user=$(sha1sum baserom.$output.z64 2>/dev/null | awk '{print $1;}')
+sha1_us="9bef1128717f958171a4afac3ed78ee2bb4e86ce"
 sha1_jp="8a20a5c83d6ceb0f0506cfc9fa20d8f438cafe51"
 sha1_eu="4ac5721683d0e0b6bbb561b58a71740845dceea9"
 # sha1_ results if the user cancels the userinput prompt
 sha1_="0"
 sha1_user_version=sha1_$output
 
-
 if [[ $sha1_user != ${!sha1_user_version} ]]; then
-    echo "OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
-    description="OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
-    table=("Exit the script")
-    userinput_func "$description" "${table[@]}"
-    error_nonfatal "The SM64 script has exited without installing."
-    exit 2
+  echo "OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
+  description="OH No! Your rom backup is bad and does not match the backup of an actual SM64 rom. Please supply a working rom file."
+  table=("Exit the script")
+  userinput_func "$description" "${table[@]}"
+  error_nonfatal "The SM64 script has exited without installing."
+  exit 2
 else
-    status_green "ROM is Good, continuing the build"
+  status_green "ROM is Good, continuing the build"
 fi
 
 status "Downloading the files, removing old files and installing needed dependencies..."
@@ -67,20 +66,20 @@ git pull || error "Could not pull latest source code"
 mv /tmp/SM64-rom/baserom.$output.z64 /tmp/sm64ex
 
 case "$output" in
-    "us"|"eu"|"jp")
-        make -j$(nproc) VERSION="$output" BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1 || error "Compilation failed"
-        cd build
-        mv "$output"_pc SM64
-        cd SM64
-        mv sm64."$output".f3dex2e sm64
-        ;;
-    *)
-        cd ~
-        rm -rf /tmp/sm64ex
-        rm -rf /tmp/SM64
-        rm -rf /tmp/nightly.zip
-        error_user "Somehow you didn't select a rom region... Cleaning up files and stopping the script"
-        ;;
+"us" | "eu" | "jp")
+  make -j$(nproc) VERSION="$output" BETTERCAMERA=1 TEXTURE_FIX=1 EXT_OPTIONS_MENU=1 NODRAWINGDISTANCE=1 EXTERNAL_DATA=1 || error "Compilation failed"
+  cd build
+  mv "$output"_pc SM64
+  cd SM64
+  mv sm64."$output".f3dex2e sm64
+  ;;
+*)
+  cd ~
+  rm -rf /tmp/sm64ex
+  rm -rf /tmp/SM64
+  rm -rf /tmp/nightly.zip
+  error_user "Somehow you didn't select a rom region... Cleaning up files and stopping the script"
+  ;;
 esac
 
 status_green "Game compiled!"

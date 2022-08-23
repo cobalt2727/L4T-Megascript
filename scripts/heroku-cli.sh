@@ -10,7 +10,7 @@ sleep 1
 #https://github.com/nodesource/distributions
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs #npm gets installed alongside the NodeSource package
-sudo npm install -g npm #make sure NPM is updated, possibly out of date from nodesource install
+sudo npm install -g npm        #make sure NPM is updated, possibly out of date from nodesource install
 
 echo "Installing heroku-cli..."
 sleep 1
@@ -26,4 +26,3 @@ else
   echo -e "\e[35mheroku login -i\e[0m"
   heroku login -i
 fi
-

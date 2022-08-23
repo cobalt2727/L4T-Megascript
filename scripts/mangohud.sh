@@ -14,13 +14,13 @@ else
   rm -rf /tmp/mangohud-debs
 fi
 
-sudo apt install ninja-build git build-essential python3-pip -y  || error "Could not install apt dependencies"
+sudo apt install ninja-build git build-essential python3-pip -y || error "Could not install apt dependencies"
 python3 -m pip install --upgrade pip meson || error "Could not install python dependencies"
 cd /tmp
 git clone https://github.com/flightlessmango/MangoHud.git
 cd MangoHud
 git pull || error "Could Not Pull Latest Source Code"
-meson build  --prefix /usr -Dappend_libdir_mangohud=false -Dwith_xnvctrl=disabled || error "Could Not Build Source"
+meson build --prefix /usr -Dappend_libdir_mangohud=false -Dwith_xnvctrl=disabled || error "Could Not Build Source"
 sudo ninja -C build install || error "Could Not Install Mangohud"
 rm -rf MangoHud
 

@@ -14,11 +14,29 @@ cd minecraft-bedrock
 # get dpkg_architecture using function
 get_system
 case "$dpkg_architecture" in
-    "arm64") type="arm_aarch64";type2="arm64";;
-    "armhf") type="arm";type2="armhf";;
-    "i386") type="i386";type2="$type1";;
-    "amd64") type="x86_64";type2="amd64";;
-    *) echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"; echo ""; echo "Exiting the script"; sleep 3; exit 2 ;;
+"arm64")
+  type="arm_aarch64"
+  type2="arm64"
+  ;;
+"armhf")
+  type="arm"
+  type2="armhf"
+  ;;
+"i386")
+  type="i386"
+  type2="$type1"
+  ;;
+"amd64")
+  type="x86_64"
+  type2="amd64"
+  ;;
+*)
+  echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"
+  echo ""
+  echo "Exiting the script"
+  sleep 3
+  exit 2
+  ;;
 esac
 curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-$type" | cut -d : -f 2,3 | tr -d \" | wget -i -
 mv *.AppImage MC.AppImage
@@ -33,24 +51,23 @@ rm -rf minecraft-bedrock
 echo "Install Dependencies..."
 cd ~
 
-
 #NOTE:  a long time ago we used to use ZorinOS PPAs and Debian repos to get newer version of libraries needed to make the launcher work on 18.04.
 #       this was a bad idea, and we've since gotten things working without external software sources. so the below section wipes out those if they're found on an 18.04 setup
 if grep -q bionic /etc/os-release; then
 
-    if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28);then
-        echo "Continuing the install"
-    else
-        echo "Force Downgrading libc and related packages"
-        echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
-        sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
-        sudo rm -rf /etc/apt/preferences.d/zorinos*
-        sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
-        sudo rm -rf /etc/apt/preferences.d/freetype*
+  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
+    echo "Continuing the install"
+  else
+    echo "Force Downgrading libc and related packages"
+    echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
+    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
+    sudo rm -rf /etc/apt/preferences.d/zorinos*
+    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
+    sudo rm -rf /etc/apt/preferences.d/freetype*
 
-        sudo apt update
-        sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades        
-    fi
+    sudo apt update
+    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
+  fi
 fi
 
 echo "Please Reboot before launching!"

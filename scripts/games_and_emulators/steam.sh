@@ -51,24 +51,24 @@ else
 fi
 
 case "$DISTRIB_CODENAME" in
-  bionic) 
-    # compile and install epoxy
-    cd /tmp
-    rm -rf libepoxy
-    git clone https://github.com/anholt/libepoxy || "Could not clone libepoxy"
-    cd libepoxy
-    # checkout stable 1.5.11 commit
-    git checkout a96abf1a4d29f78034273cbce96006cde950390c
-    meson -Dprefix=/usr build || error "Could not configure libepoxy"
-    ninja -j$(nproc) -C build || error "Could not build libepoxy"
-    sudo ninja -C build install || error "Could not install libepoxy"
-    cd
-    rm -rf /tmp/libepoxy
-    ;;
-  *)
-    sudo apt install libepoxy-dev -y || "Could not install libepoxy"
-    hash -r
-    ;;
+bionic)
+  # compile and install epoxy
+  cd /tmp
+  rm -rf libepoxy
+  git clone https://github.com/anholt/libepoxy || "Could not clone libepoxy"
+  cd libepoxy
+  # checkout stable 1.5.11 commit
+  git checkout a96abf1a4d29f78034273cbce96006cde950390c
+  meson -Dprefix=/usr build || error "Could not configure libepoxy"
+  ninja -j$(nproc) -C build || error "Could not build libepoxy"
+  sudo ninja -C build install || error "Could not install libepoxy"
+  cd
+  rm -rf /tmp/libepoxy
+  ;;
+*)
+  sudo apt install libepoxy-dev -y || "Could not install libepoxy"
+  hash -r
+  ;;
 esac
 
 # virgl
@@ -84,14 +84,13 @@ sudo ninja -C build install || error "Could not install virglrenderer"
 cd
 rm -rf /tmp/virglrenderer
 
-
 # install sdl2
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)" || error "Could not install SDL2"
 # installing dependencies
 sudo apt install -y libegl1-mesa:armhf libgl1-mesa-glx:armhf libgles2-mesa:armhf libsdl2-2.0-0:arm64 libsdl2-2.0-0:armhf libsdl2-mixer-2.0-0:armhf libsdl2-mixer-2.0-0:arm64 libgtk3-nocsd0:armhf libnss3:armhf libnm0:armhf libdbus-glib-1-2:armhf libudev1:armhf libnspr4:armhf libgudev-1.0-0:armhf libxtst6:armhf libsm6:armhf libice6:armhf libusb-1.0-0:armhf libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libxtst6 libsm6 libice6 libusb-1.0-0 || error "Could not install steam dependencies"
 
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box86.sh)"|| exit $?
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)"|| exit $?
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box86.sh)" || exit $?
+bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
 
 echo "Installing steam.deb"
 wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -qO /tmp/steam.deb || error "Failed to download steam.deb"
@@ -127,7 +126,7 @@ sudo sed -i 's:Exec=/usr/bin/steam:Exec=/usr/local/bin/steam:' /usr/local/share/
 # remove deb
 rm /tmp/steam.deb
 
-if ! echo "$XDG_DATA_DIRS" | grep -q "/usr/local/share" || ! echo "$PATH" | grep -q "/usr/local/bin" ; then
+if ! echo "$XDG_DATA_DIRS" | grep -q "/usr/local/share" || ! echo "$PATH" | grep -q "/usr/local/bin"; then
   warning "YOU NEED TO REBOOT before starting steam. This is because Steam is the first application on your system to be installed into the /usr/local folder."
 else
   warning "You should restart your system before trying to launch Steam otherwise errors may occur."

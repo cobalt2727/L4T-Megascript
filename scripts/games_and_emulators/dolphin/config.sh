@@ -7,16 +7,16 @@ get_system
 cd ~
 
 case "$__os_id" in
-    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo apt install subversion -y || error "Failed to install dependencies!"
-    ;;
-    Fedora)
-        sudo dnf install subversion -y || error "Failed to install dependencies!"
-    ;;
-    *)
-        echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
-        sleep 5
-    ;;
+Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+  sudo apt install subversion -y || error "Failed to install dependencies!"
+  ;;
+Fedora)
+  sudo dnf install subversion -y || error "Failed to install dependencies!"
+  ;;
+*)
+  echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
+  sleep 5
+  ;;
 esac
 
 cd .config/
@@ -48,7 +48,7 @@ sudo rm -f /etc/udev/rules.d/51-usb-devices.rules
 sudo wget https://raw.githubusercontent.com/dolphin-emu/dolphin/master/Data/51-usb-device.rules -O /etc/udev/rules.d/51-usb-devices.rules
 sudo udevadm control --reload-rules
 case "$__os_id" in
-    Raspbian|Debian|LinuxMint|Linuxmint|Ubuntu|[Nn]eon|Pop|Zorin|[eE]lementary|[jJ]ing[Oo][sS])
-        sudo systemctl restart udev.service
-    ;;
+Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+  sudo systemctl restart udev.service
+  ;;
 esac

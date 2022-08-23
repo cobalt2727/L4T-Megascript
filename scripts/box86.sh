@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # obtain the cpu info
 get_system
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
@@ -14,15 +13,17 @@ else
   DISTRIB_RELEASE=$(lsb_release -s -r)
 fi
 case "$dpkg_architecture" in
-  "arm64")
-    case "$DISTRIB_CODENAME" in
-      bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
-    esac
-    ;;
-  "amd64")
-    echo "Installing Dependencies";;
-  *)
-    error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile";;
+"arm64")
+  case "$DISTRIB_CODENAME" in
+  bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
+  esac
+  ;;
+"amd64")
+  echo "Installing Dependencies"
+  ;;
+*)
+  error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile"
+  ;;
 esac
 
 #add armhf architecture (multiarch)

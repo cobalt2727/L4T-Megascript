@@ -7,7 +7,7 @@ if grep -q ubuntu /etc/os-release; then
   sudo apt install -y x2goserver x2goclient x2gobroker-daemon x2godesktopsharing pyhoca-gui pyhoca-cli
 
 elif grep -q debian /etc/os-release; then
-# https://wiki.x2go.org/doku.php/wiki:repositories:debian
+  # https://wiki.x2go.org/doku.php/wiki:repositories:debian
   sudo apt install extrepo -y
   #does this line prompt yes/no?
   sudo extrepo enable x2go && sudo apt update

@@ -3,7 +3,7 @@
 ###UNTESTED, WILL ALMOST CERTAINLY BREAK - PLEASE REPORT ERRORS TO THE DISCORD
 
 echo "Installing dependencies..."
-sudo apt install -y cmake build-essential git libkf5config-dev libkf5coreaddons-dev libkf5i18n-dev libkf5kio-dev libkf5notifications-dev libkf5service-dev libqt5svg5-dev libqt5waylandcompositor5-dev qtbase5-dev qtdeclarative5-dev qtquickcontrols2-5-dev cmake-extra-modules libkf5i18n-dev libkf5solid-dev libkf5syntaxhighlighting-dev libqt5x11extras5-dev libxcb-icccm4-dev libxcb-shape0-dev qml-module-qtgraphicaleffects qml-module-qtquick-controls2 qml-module-qtquick-shapes qtbase5-dev qtdeclarative5-dev libicu*  || error "Could not install dependencies"
+sudo apt install -y cmake build-essential git libkf5config-dev libkf5coreaddons-dev libkf5i18n-dev libkf5kio-dev libkf5notifications-dev libkf5service-dev libqt5svg5-dev libqt5waylandcompositor5-dev qtbase5-dev qtdeclarative5-dev qtquickcontrols2-5-dev cmake-extra-modules libkf5i18n-dev libkf5solid-dev libkf5syntaxhighlighting-dev libqt5x11extras5-dev libxcb-icccm4-dev libxcb-shape0-dev qml-module-qtgraphicaleffects qml-module-qtquick-controls2 qml-module-qtquick-shapes qtbase5-dev qtdeclarative5-dev libicu* || error "Could not install dependencies"
 if grep -q bionic /etc/os-release; then
   get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
@@ -34,7 +34,6 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_BSYMBOLICFUNCTIONS=OFF -DQUICK_COMPIL
 
 make -j$(nproc)
 sudo make install || error "submitting log for failed mauikit build..."
-
 
 cd ~
 echo "Building maui-shell..."

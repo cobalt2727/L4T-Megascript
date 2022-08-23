@@ -12,7 +12,7 @@ else
 fi
 
 hexNum=$(wmctrl -lp | grep "$(pidof gnome-terminal-server)" | grep "Terminal" | head -n 1 | awk {'print $1}')
-xdotool windowactivate --sync $(( $hexNum )) key F11
+xdotool windowactivate --sync $(($hexNum)) key F11
 
 sudo -k
 state="0"
@@ -21,7 +21,7 @@ while [[ "$state" == "0" ]]; do
   state=$?
 done
 
-xdotool windowactivate --sync $(( $hexNum )) key F11
+xdotool windowactivate --sync $(($hexNum)) key F11
 
 function error_fatal {
   echo -e "\\e[91m$1\\e[39m"

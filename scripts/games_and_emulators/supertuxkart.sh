@@ -5,7 +5,7 @@ status "SuperTuxKart script started!"
 available_space=$(df . | awk 'NR==2 {print $4}')
 
 if [[ $available_space -lt 3670016 ]]; then
-    error_user "Not enough free space to compile/install SuperTuxKart. You need at least 3.5GB free"
+  error_user "Not enough free space to compile/install SuperTuxKart. You need at least 3.5GB free"
 fi
 
 status "Downloading the files and installing needed dependencies..."
@@ -19,8 +19,14 @@ libjpeg-dev libpng-dev \
 libssl-dev nettle-dev pkg-config zlib1g-dev -y || error "Dependency installs failed"
 mkdir -p supertuxkart
 cd supertuxkart
-git clone https://github.com/supertuxkart/stk-code stk-code --depth=1 || (cd stk-code && git pull --depth=1 ; cd ..)
-svn co https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets || (cd stk-assets && svn up ; cd ..)
+git clone https://github.com/supertuxkart/stk-code stk-code --depth=1 || (
+  cd stk-code && git pull --depth=1
+  cd ..
+)
+svn co https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets || (
+  cd stk-assets && svn up
+  cd ..
+)
 cd stk-code
 mkdir build
 cd build

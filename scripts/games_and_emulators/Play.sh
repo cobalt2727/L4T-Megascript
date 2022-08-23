@@ -14,7 +14,7 @@ cd Play-/
 git submodule update --init --recursive
 git pull --recurse-submodules -j4
 
-mkdir -p build 
+mkdir -p build
 cd build
 
 echo "Building..."
