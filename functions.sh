@@ -56,6 +56,12 @@ function get_system {
           __platform="tegra-x1"
       elif [[ ${CHIP} =~ "tegra194" ]]; then
           __platform="xavier"
+      elif [[ ${CHIP} =~ "tegra234" ]]; then
+          __platform="orin"
+      elif [[ ${CHIP} =~ "tegra239" ]]; then
+          __platform="switch-pro-chip"
+      elif [[ ${CHIP} =~ "tegra" ]]; then
+          __platform="jetson-unknown"
       fi
       jetson_model="$__platform"
   elif [[ -e "/sys/devices/soc0/family" ]]; then

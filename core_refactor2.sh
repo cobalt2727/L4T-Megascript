@@ -330,6 +330,14 @@ while [ $x == 1 ]; do
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
       \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
+    if [[ "$jetson_model" == "switch-pro-chip" ]]; then
+      echo "This user is running a tegra239 (the rumored nintendo switch pro)" > /tmp/output.txt
+      send_error "/tmp/output.txt"
+    fi
+    if [[ "$jetson_model" == "jetson-unknown" ]]; then
+      echo "This user is running an unknown jetson model: $(tr -d '\0' < /proc/device-tree/compatible)" > /tmp/output.txt
+      send_error "/tmp/output.txt"
+    fi
     if [ -z "$jetson_model" ]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "WARNING: You are NOT running a Nvidia Jetson or Nintendo Switch! \
       \n\n\Beware that some scripts may fail or mess up your install, especially on non-ARM64 hardware." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
