@@ -90,6 +90,14 @@ function get_system {
     __os_desc="$(lsb_release -s -d -u)"
     __os_release="$(lsb_release -s -r -u)"
     __os_codename="$(lsb_release -s -c -u)"
+  elif [ -f /etc/lsb-release.diverted ]; then
+    # ubuntu 22.04+ distros no longer include the /etc/upstream-release/lsb-release
+    # add a parser for the new /etc/lsb-release.diverted file
+    source /etc/lsb-release.diverted
+    __os_id="$DISTRIB_ID"
+    __os_desc="$DISTRIB_DESCRIPTION"
+    __os_release="$DISTRIB_RELEASE"
+    __os_codename="$DISTRIB_CODENAME"
   else
     __os_id="$(lsb_release -s -i)"
     __os_desc="$(lsb_release -s -d)"
