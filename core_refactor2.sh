@@ -319,6 +319,14 @@ while [ $x == 1 ]; do
   execute=()
   ids=()
   if [[ $gui == "gui" ]]; then
+    if [[ "$jetson_model" == "switch-pro-chip" ]]; then
+      echo "This user is running a tegra239 (the rumored nintendo switch pro)" >/tmp/output.txt
+      send_error "/tmp/output.txt"
+    fi
+    if [[ "$jetson_model" == "jetson-unknown" ]]; then
+      echo "This user is running an unknown jetson model: $(tr -d '\0' </proc/device-tree/compatible)" >/tmp/output.txt
+      send_error "/tmp/output.txt"
+    fi    
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\Device Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
@@ -328,14 +336,6 @@ while [ $x == 1 ]; do
     if [[ $free -lt 2048000 ]]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
       \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
-    fi
-    if [[ "$jetson_model" == "switch-pro-chip" ]]; then
-      echo "This user is running a tegra239 (the rumored nintendo switch pro)" >/tmp/output.txt
-      send_error "/tmp/output.txt"
-    fi
-    if [[ "$jetson_model" == "jetson-unknown" ]]; then
-      echo "This user is running an unknown jetson model: $(tr -d '\0' </proc/device-tree/compatible)" >/tmp/output.txt
-      send_error "/tmp/output.txt"
     fi
     if [ -z "$jetson_model" ]; then
       yad --center --warning --width="500" --height="250" --title "Welcome!" --text "WARNING: You are NOT running a Nvidia Jetson or Nintendo Switch! \
