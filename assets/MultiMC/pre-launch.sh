@@ -166,6 +166,7 @@ case "$user_output" in
       esac
       ;;
     esac
+    $python_version -m pip install --upgrade pip
     $python_version -m pip install --upgrade minecraft-mod-manager
   else
     echo "minecraft-mod-manager is up to date enough, current version is ${cur_version//$'\e'\[+([0-9;])m/}"

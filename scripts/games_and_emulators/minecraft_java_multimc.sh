@@ -175,7 +175,8 @@ if [[ "$?" =~ ^(0|70)$ ]] && [[ $modmanager == 1 ]]; then
         # install modmanager python script
         sudo apt install $python_version python3-pip jq -y || error "Failed to install mod installer script dependencies"
         hash -r
-        $python_version -m pip install --upgrade pip minecraft-mod-manager
+        $python_version -m pip install --upgrade pip
+        $python_version -m pip install --upgrade minecraft-mod-manager
         if [[ $? == 0 ]]; then
             # creating mod updater script
             wget -O scripts/pre-launch.sh "https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/assets/MultiMC/pre-launch.sh"
