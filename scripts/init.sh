@@ -17,12 +17,12 @@ get_system
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
 # check if upstream-release is available
 if [ -f /etc/upstream-release/lsb-release ]; then
-    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-    DISTRIB_CODENAME=$(lsb_release -s -u -c)
-    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+  DISTRIB_CODENAME=$(lsb_release -s -u -c)
+  DISTRIB_RELEASE=$(lsb_release -s -u -r)
 else
-    DISTRIB_CODENAME=$(lsb_release -s -c)
-    DISTRIB_RELEASE=$(lsb_release -s -r)
+  DISTRIB_CODENAME=$(lsb_release -s -c)
+  DISTRIB_RELEASE=$(lsb_release -s -r)
 fi
 
 minimumver="20.04"
@@ -52,13 +52,13 @@ if printf '%s\n' "$minimumver" "$DISTRIB_RELEASE" | sort -CV; then
   if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
     case "$DISTRIB_CODENAME" in
-      focal|hirsute|impish)
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-        ;;
-      *)
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
-        ;;
+    focal | hirsute | impish)
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+      ;;
+    *)
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
+      ;;
     esac
 
     echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
@@ -95,46 +95,47 @@ fi
 
 # fix ppa for out of date repos
 case "$DISTRIB_CODENAME" in
-  bionic)
-    #bionic's flatpak package is out of date
-    ppa_name="alexlarsson/flatpak" && ppa_installer
-    #bionic cmake is very old, use theofficialgman ppa for cmake
-    ppa_name="theofficialgman/cmake-bionic" && ppa_installer
-    if [[ -f "/usr/bin/cmake" ]]; then
-      #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-      sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-    fi
-    hash -r
-    ;;
-  xenial|jammy)
-    ppa_name="alexlarsson/flatpak" && ppa_installer
-    ;;
-  focal)
-    ppa_name="alexlarsson/flatpak" && ppa_installer
+bionic)
+  #bionic's flatpak package is out of date
+  ppa_name="alexlarsson/flatpak" && ppa_installer
+  #bionic cmake is very old, use theofficialgman ppa for cmake
+  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+  if [[ -f "/usr/bin/cmake" ]]; then
+    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+  fi
+  hash -r
+  ;;
+xenial | jammy)
+  ppa_name="alexlarsson/flatpak" && ppa_installer
+  ;;
+focal)
+  ppa_name="alexlarsson/flatpak" && ppa_installer
 
-    # use kitware apt repo for 20.04 as it has x86/x64_64 and armhf/arm64 support (armhf/arm64 not available from this repo for bionic which is why its not used there)
-    sudo apt install gpg wget
-    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
-    echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
-    sudo apt-get update
-    sudo rm -f /usr/share/keyrings/kitware-archive-keyring.gpg
-    sudo apt-get install kitware-archive-keyring -y
+  # use kitware apt repo for 20.04 as it has x86/x64_64 and armhf/arm64 support (armhf/arm64 not available from this repo for bionic which is why its not used there)
+  sudo apt install gpg wget
+  wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+  sudo apt-get update
+  sudo rm -f /usr/share/keyrings/kitware-archive-keyring.gpg
+  sudo apt-get install kitware-archive-keyring -y
+  if [ $? != 0 ]; then
+    anything_installed_from_repo "https://apt.kitware.com/ubuntu/"
     if [ $? != 0 ]; then
-      anything_installed_from_repo "https://apt.kitware.com/ubuntu/"
-      if [ $? != 0 ]; then
-        # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
-        # safe to remove
-        sudo rm -f /etc/apt/sources.list.d/kitware.list /usr/share/keyrings/kitware-archive-keyring.gpg
-      fi
-      sudo apt update
-      warning "Could not install Kitware apt repo needed for updated cmake. Removed the Kitware repo to prevent apt errors"
+      # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
+      # safe to remove
+      sudo rm -f /etc/apt/sources.list.d/kitware.list /usr/share/keyrings/kitware-archive-keyring.gpg
     fi
+    sudo apt update
+    warning "Could not install Kitware apt repo needed for updated cmake. Removed the Kitware repo to prevent apt errors"
+  fi
 
-    if [[ -f "/usr/bin/cmake" ]]; then
-      #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-      sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-    fi
-    hash -r
+  if [[ -f "/usr/bin/cmake" ]]; then
+    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
+    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
+  fi
+  hash -r
+  ;;
 esac
 
 # install SDL2
@@ -151,9 +152,9 @@ if [[ $jetson_model ]]; then
 fi
 
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
-        sudo apt install unity-tweak-tool hud -y
+  sudo apt install unity-tweak-tool hud -y
 else
-        echo "Not using Unity as the current desktop, skipping theme manager install..."
+  echo "Not using Unity as the current desktop, skipping theme manager install..."
 fi
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
@@ -206,7 +207,7 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
-clear -x 
+clear -x
 description="Do you want to build and install htop?\
 \n(A useful command line utility for viewing cpu/thread usage and frequency)"
 table=("yes" "no")
@@ -228,7 +229,7 @@ elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
 
-clear -x 
+clear -x
 description="Do you want to build and install neofetch?\
 \n\nNeofetch displays information about your operating system,\
 \nsoftware and hardware in an aesthetic and visually pleasing way."
@@ -246,6 +247,5 @@ if [[ $output == "yes" ]]; then
 elif [[ $output == "no" ]]; then
   echo "Going to the next option"
 fi
-
 
 clear -x

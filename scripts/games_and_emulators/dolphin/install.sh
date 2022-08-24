@@ -153,26 +153,26 @@ if test -f /usr/bin/emulationstation; then
   homedir=~
   if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='gc'])" "$config") -eq 0 ]]; then
     sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-    -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
-    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
-    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
-    -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
-    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
-    -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
-    -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
-    "$config"
+      -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
+      -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
+      -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
+      -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
+      -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
+      -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
+      -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
+      "$config"
   fi
 
   if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='wii'])" "$config") -eq 0 ]]; then
     sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-    -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
-    -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
-    -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
-    -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
-    -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
-    -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
-    -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
-    "$config"
+      -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
+      -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
+      -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
+      -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
+      -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
+      -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
+      -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
+      "$config"
   fi
 
 fi

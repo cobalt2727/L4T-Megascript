@@ -23,17 +23,17 @@ elif command -v dnf >/dev/null; then
 
   echo "Downloading the most recent .rpm from SpacingBat3's repository..."
   #note to self: fix this to be cross-architecture later
-  curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
-    | grep "browser_download_url.*arm64.rpm" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi -
+  curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest |
+    grep "browser_download_url.*arm64.rpm" |
+    cut -d : -f 2,3 |
+    tr -d \" |
+    wget -qi -
 
   echo "Done! Installing the package (and maybe fixing dependencies)..."
   sudo rpm -i *arm64.rpm || error "Webcord install failed"
   ## can we find a Fedora equivalent to this? the only one I saw seemed like it needs to be done manually
   #sudo apt --fix-broken install -y
-  
+
   cd ..
   rm -rf discord-tmp/
 else

@@ -50,12 +50,12 @@ _EOF_"
   if [[ $jetson_model != "tegra-x1" ]]; then
     # only build from source on non-tegra-x1 systems
     # if executed on the PI, this shoud still install binaries for those systems
-    package_list=(lr-atari800 lr-beetle-ngp lr-beetle-supergrafx lr-bsnes \
-      lr-caprice32 lr-desmume lr-fbneo lr-fceumm lr-flycast lr-fuse \
-      lr-gambatte lr-genesis-plus-gx lr-gpsp lr-handy lr-mame lr-mame2003 \
-      lr-mame2010 lr-mame2016 lr-mesen lr-mgba lr-mupen64plus-next lr-nestopia \
-      lr-pcsx-rearmed lr-ppsspp lr-prosystem lr-quicknes lr-smsplus-gx \
-      lr-stella2014 lr-snes9x lr-snes9x2005 lr-snes9x2010 lr-vba-next lr-vecx \
+    package_list=(lr-atari800 lr-beetle-ngp lr-beetle-supergrafx lr-bsnes
+      lr-caprice32 lr-desmume lr-fbneo lr-fceumm lr-flycast lr-fuse
+      lr-gambatte lr-genesis-plus-gx lr-gpsp lr-handy lr-mame lr-mame2003
+      lr-mame2010 lr-mame2016 lr-mesen lr-mgba lr-mupen64plus-next lr-nestopia
+      lr-pcsx-rearmed lr-ppsspp lr-prosystem lr-quicknes lr-smsplus-gx
+      lr-stella2014 lr-snes9x lr-snes9x2005 lr-snes9x2010 lr-vba-next lr-vecx
       lr-tgbdual lr-yabause)
     for package in ${package_list[@]}; do
       sudo ./retropie_packages.sh $package
@@ -89,11 +89,11 @@ _EOF_"
   if [[ $(xmlstarlet sel -t -v "count(/gameList/game[path='$path'])" "$config") -eq 0 ]]; then
     echo "Adding updater info to gamelist"
     xmlstarlet ed -L -s "/gameList" -t elem -n "game" -v "" \
-    -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
-    -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
-    -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
-    -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
-    "$config"
+      -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
+      -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
+      -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
+      -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
+      "$config"
   else
     echo "Updating updater info in gamelist"
     # remove current occurances of name, desc, and image
@@ -101,10 +101,10 @@ _EOF_"
 
     # add name, desc, and image
     xmlstarlet ed -L \
-    -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
-    -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
-    -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
-    "$config"
+      -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
+      -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
+      -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
+      "$config"
   fi
 
   cd "/home/$USER/RetroPie-Setup"
@@ -158,26 +158,26 @@ _EOF_"
     homedir=~
     if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='gc'])" "$config") -eq 0 ]]; then
       sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-      -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
-      -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
-      -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
-      -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
-      -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
-      -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
-      -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
-      "$config"
+        -s "/systemList/system[last()]" -t elem -n "name" -v "gc" \
+        -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo GameCube" \
+        -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/gc" \
+        -s "/systemList/system[last()]" -t elem -n "extension" -v ".ciso .gcm .gcz .iso .rv" \
+        -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ gc %ROM%' \
+        -s "/systemList/system[last()]" -t elem -n "platform" -v 'gc' \
+        -s "/systemList/system[last()]" -t elem -n "theme" -v 'gc' \
+        "$config"
     fi
 
     if [[ $(xmlstarlet sel -t -v "count(/systemList/system[name='wii'])" "$config") -eq 0 ]]; then
       sudo xmlstarlet ed -L -s "/systemList" -t elem -n "system" -v "" \
-      -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
-      -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
-      -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
-      -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
-      -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
-      -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
-      -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
-      "$config"
+        -s "/systemList/system[last()]" -t elem -n "name" -v "wii" \
+        -s "/systemList/system[last()]" -t elem -n "fullname" -v "Nintendo Wii" \
+        -s "/systemList/system[last()]" -t elem -n "path" -v "$homedir/RetroPie/roms/wii" \
+        -s "/systemList/system[last()]" -t elem -n "extension" -v ".gcm .iso .wbfs .ciso .gcz" \
+        -s "/systemList/system[last()]" -t elem -n "command" -v '/opt/retropie/supplementary/runcommand/runcommand.sh 0 _SYS_ wii %ROM%' \
+        -s "/systemList/system[last()]" -t elem -n "platform" -v 'wii' \
+        -s "/systemList/system[last()]" -t elem -n "theme" -v 'wii' \
+        "$config"
     fi
 
   fi

@@ -12,11 +12,11 @@ status "Downloading the files and installing needed dependencies..."
 sleep 3
 cd ~
 sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 \
-libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev \
-cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion \
-libbluetooth-dev libenet-dev libfreetype6-dev libharfbuzz-dev \
-libjpeg-dev libpng-dev \
-libssl-dev nettle-dev pkg-config zlib1g-dev -y || error "Dependency installs failed"
+  libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev \
+  cmake extra-cmake-modules libopenal-dev libglew-dev libboost-dev libboost-all-dev subversion \
+  libbluetooth-dev libenet-dev libfreetype6-dev libharfbuzz-dev \
+  libjpeg-dev libpng-dev \
+  libssl-dev nettle-dev pkg-config zlib1g-dev -y || error "Dependency installs failed"
 mkdir -p supertuxkart
 cd supertuxkart
 git clone https://github.com/supertuxkart/stk-code stk-code --depth=1 || (

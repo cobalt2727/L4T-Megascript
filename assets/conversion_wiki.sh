@@ -5,7 +5,7 @@ length=$(wc -l "/tmp/megascript_apps.txt" | awk '{ print $1 }')
 prev_f=""
 conversion() {
 
-  cat << EOF 
+  cat <<EOF
 ## Welcome to the L4T Megascript wiki! Use the sidebar on your right to navigate through here.
 ### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )
 
@@ -28,11 +28,11 @@ EOF
         eval "$(echo "$line" | tr ";" "\n")"
         ff="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
         fl="$(echo "$f" | sed -e 's/_/-/g')"
-        if [[ "$ff" != "$prev_f" ]];then
-            echo '['"$ff"'](https://github.com/cobalt2727/L4T-Megascript/wiki#'"$fl"')'
+        if [[ "$ff" != "$prev_f" ]]; then
+          echo '['"$ff"'](https://github.com/cobalt2727/L4T-Megascript/wiki#'"$fl"')'
         fi
         if [ "$f" != "scripts" ]; then
-            f="scripts/$f"
+          f="scripts/$f"
         fi
         prev_f="$ff"
       fi
@@ -50,11 +50,11 @@ EOF
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
         ff="$(echo "$f" | sed -e 's/_/ /g' | sed -e "s/\b\(.\)/\u\1/g")"
-        if [[ "$ff" != "$prev_f" ]];then
-            echo "## $ff"
+        if [[ "$ff" != "$prev_f" ]]; then
+          echo "## $ff"
         fi
         if [ "$f" != "scripts" ]; then
-            f="scripts/$f"
+          f="scripts/$f"
         fi
         echo "**[$fn](https://github.com/cobalt2727/L4T-Megascript/blob/master/$f/$sn)**: $d "
         echo ""
@@ -64,4 +64,4 @@ EOF
   done
 }
 clear
-conversion > Home.md
+conversion >Home.md

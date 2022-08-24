@@ -1,25 +1,25 @@
 echo "Started Prusaslicer Build Script"
 echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-ppa_name="ubuntu-toolchain-r/test" && ppa_installer 
+ppa_name="ubuntu-toolchain-r/test" && ppa_installer
 
 # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
 # check if upstream-release is available
 if [ -f /etc/upstream-release/lsb-release ]; then
-    echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-    DISTRIB_CODENAME=$(lsb_release -s -u -c)
-    DISTRIB_RELEASE=$(lsb_release -s -u -r)
+  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
+  DISTRIB_CODENAME=$(lsb_release -s -u -c)
+  DISTRIB_RELEASE=$(lsb_release -s -u -r)
 else
-    DISTRIB_CODENAME=$(lsb_release -s -c)
-    DISTRIB_RELEASE=$(lsb_release -s -r)
+  DISTRIB_CODENAME=$(lsb_release -s -c)
+  DISTRIB_RELEASE=$(lsb_release -s -r)
 fi
 case "$DISTRIB_CODENAME" in
-    bionic)
-        echo "Adding Boost 1.67 PPA..."
-        ppa_name="theofficialgman/boost1.67-bionic" && ppa_installer
-        sudo apt update
-        sudo apt install libboost1.67-all-dev libcgal-dev -y || error "Dependencies failed to install"
-        sudo tee /usr/lib/aarch64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake <<'EOF' >>/dev/null
+bionic)
+  echo "Adding Boost 1.67 PPA..."
+  ppa_name="theofficialgman/boost1.67-bionic" && ppa_installer
+  sudo apt update
+  sudo apt install libboost1.67-all-dev libcgal-dev -y || error "Dependencies failed to install"
+  sudo tee /usr/lib/aarch64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake <<'EOF' >>/dev/null
 set(CGAL_MAJOR_VERSION 5)
 set(CGAL_MINOR_VERSION 0)
 set(CGAL_BUGFIX_VERSION 0)
@@ -47,10 +47,10 @@ else()
   endif()
 endif()
 EOF
-        ;;
+  ;;
 esac
 
-status "Installing dependencies"  
+status "Installing dependencies"
 sudo apt install gcc-11 g++-11 git libgtk-3-dev cmake build-essential curl libcurl4-openssl-dev libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev libpng-dev -y || error "Dependencies failed to install"
 package_available libnlopt-cxx-dev
 if [[ $? == "0" ]]; then
@@ -73,10 +73,10 @@ rm -rf CMakeCache.txt
 cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 || error "Cmake makefile generation failed"
 memtotal=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 if [[ $memtotal < 7500000 ]]; then
-    echo "Startig compilation with two threads only (due to ram limitations)"
-    make -j2 || error "Make build failed"
+  echo "Startig compilation with two threads only (due to ram limitations)"
+  make -j2 || error "Make build failed"
 else
-    make -j$(nproc) || error "Make build failed"
+  make -j$(nproc) || error "Make build failed"
 fi
 status "Now installing"
 sudo make install || error "Make install failed"

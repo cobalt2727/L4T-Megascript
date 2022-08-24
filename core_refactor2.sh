@@ -30,25 +30,25 @@ if [ $(id -u) != 0 ]; then
   clear -x
   echo "Your username is"
   echo "$USER"
-else    
+else
   echo "The L4T-Megascript has exited without running. Please run as non-sudo"
   exit 1
 fi
 
 #sudo apt install figlet
 if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
-	#sudo apt install lolcat
-	if test -f /usr/games/lolcat || test -f /usr/bin/lolcat; then
-		figlet L4T Megascript | lolcat #color
-	else
-		figlet L4T Megascript #no color
-	fi
+  #sudo apt install lolcat
+  if test -f /usr/games/lolcat || test -f /usr/bin/lolcat; then
+    figlet L4T Megascript | lolcat #color
+  else
+    figlet L4T Megascript #no color
+  fi
 fi
 
 #sudo apt install sl
 if test -f /usr/games/sl || test -f /usr/bin/sl; then
-	#random number generator having a roughly 1/50 chance to run a train across your screen
-	[ $((RANDOM%50)) == "0" ] && sl -l
+  #random number generator having a roughly 1/50 chance to run a train across your screen
+  [ $((RANDOM % 50)) == "0" ] && sl -l
 fi
 
 megascript_start_time=$(date +%s)
@@ -67,7 +67,7 @@ else
 fi
 
 function online_check {
-    while : ; do
+  while :; do
     clear -x
     date
     echo "Checking internet connectivity..."
@@ -76,10 +76,9 @@ function online_check {
 
     #read whether or not it was successful
     #the $? reads the exit code of the previous command, 0 meaning everything works
-    if [ $? == 0 ]
-    then
-	echo -e "\e[32mInternet OK\e[0m"
-        break
+    if [ $? == 0 ]; then
+      echo -e "\e[32mInternet OK\e[0m"
+      break
     fi
     #tell people to fix their internet
     echo "You're offline and/or can't reach GitHub."
@@ -105,7 +104,7 @@ function online_check {
     echo "Trying again..."
     sleep 1
     #and now we let it loop
-    done
+  done
 }
 
 # check and offer fix for i386 architecture being present on arm64 devices
@@ -113,13 +112,13 @@ if [ "$(dpkg --print-architecture)" == "arm64" ]; then
   if dpkg --print-foreign-architectures | grep -q 'i386\|amd64'; then
     # using zenity since it could happpen that this is a users first run of the megascript and yad isn't present
     zenity \
-    --height="200" --width="400"\
-    --question --text="ERROR: The $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') package architecture(s) has been detected on your system.\
+      --height="200" --width="400" \
+      --question --text="ERROR: The $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') package architecture(s) has been detected on your system.\
 \n\nYour $model is an ARM64 device and can NOT run $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') packages.\
 \nScripts designed to run on x86 such as PlayOnLinux usually cause this and should never be run.\
-\n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt."\
-    --ok-label="Fix install: Remove i386/amd64 architecture"\
-    --cancel-label="Keep my install broken: Keep i386/amd64 architecture"
+\n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt." \
+      --ok-label="Fix install: Remove i386/amd64 architecture" \
+      --cancel-label="Keep my install broken: Keep i386/amd64 architecture"
     if [[ $? == 0 ]]; then
       pkexec sh -c "dpkg --remove-architecture i386; dpkg --remove-architecture amd64; apt update"
     else
@@ -158,7 +157,7 @@ fi
 
 function install_post_depends {
   if grep -q debian /etc/os-release; then
-  
+
     ## Check SDL2 version
     if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.0.14); then
       echo "Installing SDL2 from binary..."
@@ -220,7 +219,7 @@ source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Mega
 curl -L https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits &>/dev/null
 
 # check wifi signal strenth
-if [[ $(iwconfig 2> /dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') ]] && [ $(iwconfig 2> /dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') -le -77 ]; then
+if [[ $(iwconfig 2>/dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') ]] && [ $(iwconfig 2>/dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') -le -77 ]; then
   description='HOLD ON!
 \nYour WIFI signal strenth is VERY weak. Please move closer to your internet wifi router to avoid download/install errors when using the megascript!
 \nAlternatively, connect you switch via Ethernet for the most stable internet experience.'
@@ -294,13 +293,13 @@ if [ -f /etc/switchroot_version.conf ]; then
       yad --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
       \n\n\Please update as soon as you can.\nThe instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide. \
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
-      setsid x-www-browser "https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide" > /dev/null 2>&1 &
+      setsid x-www-browser "https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide" >/dev/null 2>&1 &
     else
       echo "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current!"
       echo "Please update as soon as you can."
       echo "The instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide."
       echo ""
-      read  -n 1 -p "Press any key to continue" mainmenuinput
+      read -n 1 -p "Press any key to continue" mainmenuinput
     fi
   fi
 fi
@@ -331,11 +330,11 @@ while [ $x == 1 ]; do
       \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
     if [[ "$jetson_model" == "switch-pro-chip" ]]; then
-      echo "This user is running a tegra239 (the rumored nintendo switch pro)" > /tmp/output.txt
+      echo "This user is running a tegra239 (the rumored nintendo switch pro)" >/tmp/output.txt
       send_error "/tmp/output.txt"
     fi
     if [[ "$jetson_model" == "jetson-unknown" ]]; then
-      echo "This user is running an unknown jetson model: $(tr -d '\0' < /proc/device-tree/compatible)" > /tmp/output.txt
+      echo "This user is running an unknown jetson model: $(tr -d '\0' </proc/device-tree/compatible)" >/tmp/output.txt
       send_error "/tmp/output.txt"
     fi
     if [ -z "$jetson_model" ]; then
@@ -503,9 +502,9 @@ while [ $x == 1 ]; do
       # apt update failed with an error
       yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
       \n\n\Verify that you are connected to the internet. \
-      \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png  \
-      --button="Exit the L4T-Megascript":0 \
-      --button="Continue and ignore ERROR":1
+      \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+        --button="Exit the L4T-Megascript":0 \
+        --button="Continue and ignore ERROR":1
       if [[ $? -ne 0 ]]; then
         # write that user has broken APT in ALL megascript logs
         broken_apt=1
@@ -529,17 +528,17 @@ while [ $x == 1 ]; do
       #shamelessly take (and adapt) from Pi-Apps https://github.com/Botspot/pi-apps/blob/20378324ce92ca1e7634db77adc747a18ab214b2/manage#L221
       #determine path for log file to be created
       logfile="$HOME/L4T-Megascript/logs/install-incomplete-${friendly[$word]}.log"
-      if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ];then
+      if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+g')" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-fail-+g')" ]; then
         #append a number to logfile's file-extension if the original filename already exists
         i=1
-        while true;do
+        while true; do
           #if variable $i is 2, then example newlogfile value: /path/to/install-Discord.log2
           newlogfile="$logfile$i"
-          if [ ! -f "$newlogfile" ] && [ ! -f "$(echo "$newlogfile" | sed 's+/-incomplete-+-success-+g')" ] && [ ! -f "$(echo "$newlogfile" | sed 's+-incomplete-+-fail-+g')" ];then
+          if [ ! -f "$newlogfile" ] && [ ! -f "$(echo "$newlogfile" | sed 's+/-incomplete-+-success-+g')" ] && [ ! -f "$(echo "$newlogfile" | sed 's+-incomplete-+-fail-+g')" ]; then
             logfile="${newlogfile}"
             break
           fi
-          i=$((i+1))
+          i=$((i + 1))
         done
         unset i
       fi
@@ -573,15 +572,15 @@ while [ $x == 1 ]; do
         if [ "$script_exit_code" != 0 ]; then
           # check for internet connection died errors
           unset internet_died
-          if grep -qF "Could not resolve host: github.com" "$logfile" ;then
+          if grep -qF "Could not resolve host: github.com" "$logfile"; then
             internet_died=1
-          elif grep -q 'Could not resolve\|Failed to fetch\|Temporary failure resolving\|Network is unreachable\|Internal Server Error\|404 .*Not Found' "$logfile" ;then
+          elif grep -q 'Could not resolve\|Failed to fetch\|Temporary failure resolving\|Network is unreachable\|Internal Server Error\|404 .*Not Found' "$logfile"; then
             internet_died=1
-          elif grep -q "The TLS connection was non-properly terminated\.\|Can't load uri .* Unacceptable TLS certificate" "$logfile" ;then
+          elif grep -q "The TLS connection was non-properly terminated\.\|Can't load uri .* Unacceptable TLS certificate" "$logfile"; then
             internet_died=1
           fi
           wget -q --spider https://raw.githubusercontent.com/ || internet_died=1
-          echo -e  "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
+          echo -e "\n\e[91mFailed to install ${friendly[$word]}!\e[39m
 \e[40m\e[93m\e[5m🔺\e[25m\e[39m\e[49m\e[93mNeed help? Copy the \e[1mENTIRE\e[0m\e[49m\e[93m terminal output or take a screenshot.
 Please ask on GitHub: \e[94m\e[4mhttps://github.com/cobalt2727/L4T-Megascript/issues\e[24m\e[93m
 Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile"
@@ -615,16 +614,16 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           fi
           userinput_func "$description" "${table[@]}"
           case "$output" in
-            "Exit")
-              exit
-              ;;
-            "Continue and Send Error")
-              send_error "$logfile"
-              ;;
-            "Exit and Send Error")
-              send_error "$logfile"
-              exit
-              ;;
+          "Exit")
+            exit
+            ;;
+          "Continue and Send Error")
+            send_error "$logfile"
+            ;;
+          "Exit and Send Error")
+            send_error "$logfile"
+            exit
+            ;;
           esac
         else
           status_green "\nInstalled ${friendly[$word]} successfully." | tee -a "$logfile"
@@ -637,14 +636,14 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
         time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
-        echo "${scripts[$word]} took $time_elapsed_friendly" >> /tmp/megascript_times.txt        
+        echo "${scripts[$word]} took $time_elapsed_friendly" >>/tmp/megascript_times.txt
       else
         # this is legacy use, no current scripts use this function
         eval "${execute[$word]}"
         time_script_stop=$(date +%s)
         time_elapsed=$(echo "$time_script_stop - $time_script_start" | bc)
         time_elapsed_friendly=$(eval "echo $(date -ud "@$time_elapsed" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')")
-        echo "${execute[$word]} took $time_elapsed_friendly" >> /tmp/megascript_times.txt  
+        echo "${execute[$word]} took $time_elapsed_friendly" >>/tmp/megascript_times.txt
       fi
     done
   fi
@@ -665,15 +664,15 @@ megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((
 
 if [[ $gui == "gui" ]]; then
   # hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!
-  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\ntheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" \
-  |  yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
-  --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
-  --show-uri  --window-icon=/usr/share/icons/L4T-Megascript.png \
-  --button="Open the L4T-Megascript Wiki Page":1 \
-  --button="Exit the L4T-Megascript":0
+  echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\ntheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" |
+    yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
+      --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
+      --show-uri --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --button="Open the L4T-Megascript Wiki Page":1 \
+      --button="Exit the L4T-Megascript":0
   if [[ $? -ne 0 ]]; then
     # spawn a web browser with the wiki
-    setsid x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki" > /dev/null 2>&1 &
+    setsid x-www-browser "https://github.com/cobalt2727/L4T-Megascript/wiki" >/dev/null 2>&1 &
   fi
   clear -x
 else
@@ -684,7 +683,7 @@ else
   echo "CTRL + CLICK ON A LINK TO OPEN IT"
   echo
   echo -e "\e[38;2;0;71;171mCobalt - Manager/Lead Dev\e[0m"
-  echo -e "\e[32mtheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m" 
+  echo -e "\e[32mtheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\e[0m"
   echo -e "\e[38;2;$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1);$(shuf -i 0-255 -n 1)mLugsole - Contributor\e[0m"
   echo -e "\e[35mLang Kasempo - Contributor/Beta Tester\e[0m"
 

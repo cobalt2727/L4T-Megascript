@@ -39,38 +39,38 @@ if grep -q bionic /etc/os-release; then
     libmygui-dev libunshield-dev liblz4-dev libtinyxml-dev libqt5opengl5-dev \
     libboost-filesystem-dev libboost-program-options-dev libboost-iostreams-dev \
     libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libswresample-dev \
-    librecast-dev libluajit-5.1-dev libsqlite3-dev libyaml-cpp-dev -y \
-    || error "Could not install dependencies"
+    librecast-dev libluajit-5.1-dev libsqlite3-dev libyaml-cpp-dev -y ||
+    error "Could not install dependencies"
 
   echo "Building OpenSceneGraph..."
   sleep 1
   cd ~
-  git clone -j$(($(nproc)-1)) https://github.com/OpenMW/osg -b 3.6
+  git clone -j$(($(nproc) - 1)) https://github.com/OpenMW/osg -b 3.6
   cd osg
-  git pull -j$(($(nproc)-1)) || error "Could not pull latest source code"
+  git pull -j$(($(nproc) - 1)) || error "Could not pull latest source code"
   mkdir -p build
   cd build
   rm -rf CMakeCache.txt
 
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native \
     -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
-  make -j$(($(nproc)-1)) || error "Compilation failed"
+  make -j$(($(nproc) - 1)) || error "Compilation failed"
   sudo make install || error "Make install failed"
   echo "Successfully installed OpenSceneGraph!"
 
   echo "Building OpenMW..."
   sleep 1
   cd ~
-  git clone -j$(($(nproc)-1)) https://gitlab.com/OpenMW/openmw -b openmw-47
+  git clone -j$(($(nproc) - 1)) https://gitlab.com/OpenMW/openmw -b openmw-47
   cd openmw
-  git pull -j$(($(nproc)-1)) || error "Could not pull latest source code"
+  git pull -j$(($(nproc) - 1)) || error "Could not pull latest source code"
   mkdir -p build
   cd build
   rm -rf CMakeCache.txt
 
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native \
     -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
-  make -j$(($(nproc)-1)) || error "Compilation failed"
+  make -j$(($(nproc) - 1)) || error "Compilation failed"
   sudo make install || error "Make install failed"
 
   echo "Removing build files..."

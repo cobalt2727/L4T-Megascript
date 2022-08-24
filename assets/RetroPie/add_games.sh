@@ -62,21 +62,21 @@ for ((j = 0; j < "${#param[@]}"; j++)); do
         fi
         if [[ $(xmlstarlet sel -t -v "count(/gameList/game[path='$path'])" "$config") -eq 0 ]]; then
           xmlstarlet ed -L -s "/gameList" -t elem -n "game" -v "" \
-          -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
-          -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
-          -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
-          -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
-          "$config"
+            -s "/gameList/game[last()]" -t elem -n "path" -v "$path" \
+            -s "/gameList/game[last()]" -t elem -n "name" -v "$name" \
+            -s "/gameList/game[last()]" -t elem -n "desc" -v "$desc" \
+            -s "/gameList/game[last()]" -t elem -n "image" -v "$image" \
+            "$config"
         else
           # remove current occurances of name, desc, and image
           xmlstarlet ed -L -d "/gameList/game[path='$path']/name" -d "/gameList/game[path='$path']/desc" -d "/gameList/game[path='$path']/image" "$config"
 
           # add name, desc, and image
           xmlstarlet ed -L \
-          -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
-          -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
-          -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
-          "$config"
+            -s "/gameList/game[path='$path']" -t elem -n "name" -v "$name" \
+            -s "/gameList/game[path='$path']" -t elem -n "desc" -v "$desc" \
+            -s "/gameList/game[path='$path']" -t elem -n "image" -v "$image" \
+            "$config"
         fi
         end_time=$(date +%s.%3N)
         elapsed=$(echo "scale=3; $end_time - $start_time" | bc)

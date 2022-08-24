@@ -8,7 +8,7 @@ sudo apt install openbox obconf feh xcompmgr cairo-dock libappindicator3-1 -y
 
 echo "Openbox Startup Script (bottom dock and autorotation script"
 
-sudo dd of=/etc/xdg/openbox/autostart  << EOF
+sudo dd of=/etc/xdg/openbox/autostart <<EOF
 sh ~/.fehbg &
 xcompmgr &cairo-dock -o &
 EOF

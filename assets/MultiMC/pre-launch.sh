@@ -70,11 +70,11 @@ if [[ -z "$fabric_version" ]]; then
     echo -e "Fabric is not installed so L4T-Megascript Performance mods can NOT be run.\
 \n\nDo you want to cancel launching minecraft so you can go click Install Fabric under your minecraft instance?\
 \n\nIf you don't care for the Fabric performance mods, or are running an older version of Minecraft without Fabric, then you should Continue to Launch Minecraft." | yad --image "dialog-question" \
-    --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
-    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
-    --show-uri \
-    --button="Yes, Cancel launching Minecraft":0 \
-    --button="No, Continue to Launch Minecraft":1
+      --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
+      --show-uri \
+      --button="Yes, Cancel launching Minecraft":0 \
+      --button="No, Continue to Launch Minecraft":1
     case "$?" in
     "0")
       echo "User canceled Launching Minecraft"
@@ -86,11 +86,11 @@ if [[ -z "$fabric_version" ]]; then
     echo -e "Forge is installed so L4T-Megascript Performance mods can NOT be run and installation of them has been disabled.\
 \n\nNOTE: Megascript Performance mods only work on Minecraft 1.16+ Fabric Instances.\
 \n\nDo you want to cancel launching minecraft so you can remove forge and install Fabric under your instance?" | yad --image "dialog-question" \
-    --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
-    --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
-    --show-uri \
-    --button="Yes, Cancel launching Minecraft":0 \
-    --button="No, Continue to Launch Minecraft":1
+      --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 \
+      --show-uri \
+      --button="Yes, Cancel launching Minecraft":0 \
+      --button="No, Continue to Launch Minecraft":1
     case "$?" in
     "0")
       echo "User canceled Launching Minecraft"
@@ -109,23 +109,23 @@ if [[ $(echo "$minecraft_mods_list" | wc -l) -gt 2 ]]; then
   echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\
 Do you want to update/install the following Mods: \n\n$minecraft_mods_list\n\n\n\
 You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using Forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
-  --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
-  --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
-  --show-uri \
-  "$add_button" \
-  --button="Yes, Update/Install ONLY My Mods":1 \
-  --button="No, skip this and save time":2
+    --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
+    --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+    --show-uri \
+    "$add_button" \
+    --button="Yes, Update/Install ONLY My Mods":1 \
+    --button="No, skip this and save time":2
   user_output="$?"
 else
   echo -e "The megascript uses Minecraft Mod Manager to keep all your Mods up to date and install a pregenerated list of Fabric Mods.\n\n\
 You do not currently have any mods installed. Click (Yes, Update/Install My Mods and Megascript Suggested Fabric mods) to install suggested Fabric performance mods.\n\
 You might want to select the (Yes, Update/Install ONLY My Mods) button if you plan on using Forge mods. This button will skip the pregenerated list of Fabric mods" | yad --image "dialog-question" \
-  --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
-  --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
-  --show-uri \
-  "$add_button" \
-  --button="Yes, Update/Install ONLY My Mods":1 \
-  --button="No, skip this and save time":2
+    --borders="20" --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
+    --text-info --fontname="@font@ 11" --wrap --width=800 --height=500 \
+    --show-uri \
+    "$add_button" \
+    --button="Yes, Update/Install ONLY My Mods":1 \
+    --button="No, skip this and save time":2
   user_output="$?"
 fi
 case "$user_output" in
