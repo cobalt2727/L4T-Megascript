@@ -473,7 +473,6 @@ apt_lock_wait() { #Wait until other apt processes are finished before proceeding
     echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
     sleep 1
   done
-  echo
 }
 export -f apt_lock_wait
 
