@@ -103,6 +103,7 @@ function get_system {
     __os_desc="$DISTRIB_DESCRIPTION"
     __os_release="$DISTRIB_RELEASE"
     __os_codename="$DISTRIB_CODENAME"
+    unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
   elif [ -f /etc/lsb-release.diverted ]; then
     # ubuntu 22.04+ popOS no longer includes the /etc/upstream-release/lsb-release or the lsb_release -u option
     # add a parser for the new /etc/lsb-release.diverted file
@@ -111,6 +112,7 @@ function get_system {
     __os_desc="$DISTRIB_DESCRIPTION"
     __os_release="$DISTRIB_RELEASE"
     __os_codename="$DISTRIB_CODENAME"
+    unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
   else
     __os_id="$(lsb_release -s -i)"
     __os_desc="$(lsb_release -s -d)"

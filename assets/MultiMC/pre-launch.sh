@@ -136,10 +136,41 @@ case "$user_output" in
   cur_version=$(minecraft-mod-manager --version | tail -n 1 | awk '{print $2}')
   if [ $(version "${cur_version//$'\e'\[+([0-9;])m/}") -lt $(version "1.4.0") ]; then
     # set each variable individually since Fedora prints all output to one line
-    __os_id="$(lsb_release -s -i)"
-    __os_desc="$(lsb_release -s -d)"
-    __os_release="$(lsb_release -s -r)"
-    __os_codename="$(lsb_release -s -c)"
+
+    # first check if lsb_release has an upstream option -u
+    # if not, check if there is an upstream-release file
+    # if not, check if there is a lsb-release.diverted file
+    # if not, assume that this is not a ubuntu derivative
+    if lsb_release -a -u &>/dev/null; then
+      # This is a Ubuntu Derivative, checking the upstream-release version info
+      __os_id="$(lsb_release -s -i -u)"
+      __os_desc="$(lsb_release -s -d -u)"
+      __os_release="$(lsb_release -s -r -u)"
+      __os_codename="$(lsb_release -s -c -u)"
+    elif [ -f /etc/upstream-release/lsb-release ]; then
+      # ubuntu 22.04+ linux mint no longer includes the lsb_release -u option
+      # add a parser for the /etc/upstream-release/lsb-release file
+      source /etc/upstream-release/lsb-release
+      __os_id="$DISTRIB_ID"
+      __os_desc="$DISTRIB_DESCRIPTION"
+      __os_release="$DISTRIB_RELEASE"
+      __os_codename="$DISTRIB_CODENAME"
+      unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
+    elif [ -f /etc/lsb-release.diverted ]; then
+      # ubuntu 22.04+ popOS no longer includes the /etc/upstream-release/lsb-release or the lsb_release -u option
+      # add a parser for the new /etc/lsb-release.diverted file
+      source /etc/lsb-release.diverted
+      __os_id="$DISTRIB_ID"
+      __os_desc="$DISTRIB_DESCRIPTION"
+      __os_release="$DISTRIB_RELEASE"
+      __os_codename="$DISTRIB_CODENAME"
+      unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
+    else
+      __os_id="$(lsb_release -s -i)"
+      __os_desc="$(lsb_release -s -d)"
+      __os_release="$(lsb_release -s -r)"
+      __os_codename="$(lsb_release -s -c)"
+    fi
     # default to python3 if OS can not be determined
     python_version="python3"
     case "$__os_id" in
@@ -149,18 +180,8 @@ case "$user_output" in
       buster) python_version="python3.8" ;;
       esac
       ;;
-    LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-      # get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
-      # check if upstream-release is available
-      if [ -f /etc/upstream-release/lsb-release ]; then
-        echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-        DISTRIB_CODENAME=$(lsb_release -s -u -c)
-        DISTRIB_RELEASE=$(lsb_release -s -u -r)
-      else
-        DISTRIB_CODENAME=$(lsb_release -s -c)
-        DISTRIB_RELEASE=$(lsb_release -s -r)
-      fi
-      case "$DISTRIB_CODENAME" in
+    Ubuntu)
+      case "$__os_codename" in
       bionic) python_version="python3.8" ;;
       *) python_version="python3" ;;
       esac

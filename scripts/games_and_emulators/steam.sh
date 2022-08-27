@@ -39,18 +39,10 @@ hash -r
 sudo -H python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
 hash -r
 
-# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
-# check if upstream-release is available
-if [ -f /etc/upstream-release/lsb-release ]; then
-  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-  DISTRIB_CODENAME=$(lsb_release -s -u -c)
-  DISTRIB_RELEASE=$(lsb_release -s -u -r)
-else
-  DISTRIB_CODENAME=$(lsb_release -s -c)
-  DISTRIB_RELEASE=$(lsb_release -s -r)
-fi
+# obtain the system info
+get_system
 
-case "$DISTRIB_CODENAME" in
+case "$__os_codename" in
 bionic)
   # compile and install epoxy
   cd /tmp

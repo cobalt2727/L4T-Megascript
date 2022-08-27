@@ -11,23 +11,12 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-sw
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 echo "  https://flatpak.org/setup/"
 sleep 10
-# obtain the distro info
+# obtain the system info
 get_system
-
-# get the $DISTRIB_RELEASE and $DISTRIB_CODENAME by calling lsb_release
-# check if upstream-release is available
-if [ -f /etc/upstream-release/lsb-release ]; then
-  echo "This is a Ubuntu Derivative, checking the upstream-release version info"
-  DISTRIB_CODENAME=$(lsb_release -s -u -c)
-  DISTRIB_RELEASE=$(lsb_release -s -u -r)
-else
-  DISTRIB_CODENAME=$(lsb_release -s -c)
-  DISTRIB_RELEASE=$(lsb_release -s -r)
-fi
 
 minimumver="20.04"
 
-if printf '%s\n' "$minimumver" "$DISTRIB_RELEASE" | sort -CV; then
+if printf '%s\n' "$minimumver" "$__os_release" | sort -CV; then
   # 20.04 and up has snaps, run the scripts
   description="Do you want to remove the snap store? If unsure, think of it as\
 \nbloatware from Canonical\
@@ -51,7 +40,7 @@ if printf '%s\n' "$minimumver" "$DISTRIB_RELEASE" | sort -CV; then
   userinput_func "$description" "${table[@]}"
   if [[ $output == "yes" ]]; then
     echo -e "\e[32mRemoving the Snap store...\e[0m"
-    case "$DISTRIB_CODENAME" in
+    case "$__os_codename" in
     focal | hirsute | impish)
       bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
       ;;
@@ -94,7 +83,7 @@ if [ -f /etc/switchroot_version.conf ]; then
 fi
 
 # fix ppa for out of date repos
-case "$DISTRIB_CODENAME" in
+case "$__os_codename" in
 bionic)
   #bionic's flatpak package is out of date
   ppa_name="alexlarsson/flatpak" && ppa_installer
