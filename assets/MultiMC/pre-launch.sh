@@ -134,7 +134,7 @@ case "$user_output" in
   function version { echo "$@" | awk -F. '{ printf("%d%03d%03d\n", $1,$2,$3); }'; }
   # updating minecraft-mod-manager if its below 1.3.0
   cur_version=$(minecraft-mod-manager --version | tail -n 1 | awk '{print $2}')
-  if [ $(version "${cur_version//$'\e'\[+([0-9;])m/}") -lt $(version "1.4.0") ]; then
+  if [ $(version "${cur_version//$'\e'\[+([0-9;])m/}") -lt $(version "1.4.2") ]; then
     # set each variable individually since Fedora prints all output to one line
 
     # first check if lsb_release has an upstream option -u
