@@ -15,7 +15,7 @@ esac
 
 sudo apt install -y cmake libsdl2-dev libxrandr-dev pkg-config qt6-base-dev qt6-base-private-dev qt6-base-dev-tools qt6-tools-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build || error "Could not install dependencies"
 
-git clone https://github.com/stenzek/duckstation || error "Could Not Pull Latest Source Code"
+git clone https://github.com/stenzek/duckstation
 cd duckstation
 git pull || error "Could Not Pull Latest Source Code"
 mkdir build
