@@ -1,5 +1,7 @@
 cd ~
 
+get_system
+
 case "$__os_codename" in
 impish | focal | bionic)
   ppa_name="okirby/qt6-backports" && ppa_installer
