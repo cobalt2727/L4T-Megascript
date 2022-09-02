@@ -13,7 +13,7 @@ impish | focal | bionic)
 esac
 
 
-sudo apt install -y cmake libsdl2-dev libxrandr-dev pkg-config qt6-base-dev qt6-base-private-dev qt6-base-dev-tools qt6-tools-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build || error "Could not install dependencies"
+sudo apt install -y cmake libsdl2-dev libxrandr-dev pkg-config qt6-base-dev qt6-base-private-dev qt6-base-dev-tools qt6-tools-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build qt6-l10n-tools qt6-tools-dev-tools || error "Could not install dependencies"
 
 git clone https://github.com/stenzek/duckstation
 cd duckstation
@@ -25,7 +25,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=
 # cmake -DCMAKE_BUILD_TYPE=Release ..
 # ninja || error "Compilation failed"
 # make -j$(nproc)
-cmake --build build-release --parallel || error "Compilation failed"
+cmake --build . --parallel || error "Compilation failed"
 
 echo "Done!"
 echo "this script doesn't install Duckstation properly yet, please run it from ~/duckstation/build/bin/duckstation-qt"
