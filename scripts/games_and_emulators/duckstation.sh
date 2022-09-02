@@ -1,13 +1,29 @@
 cd ~
-sudo apt install cmake libsdl2-dev libxrandr-dev pkg-config qtbase5-dev qtbase5-private-dev qtbase5-dev-tools qttools5-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build -y || error "Could not install dependencies"
 
-git clone https://github.com/stenzek/duckstation
+case "$__os_codename" in
+impish | focal | bionic)
+  ppa_name="okirby/qt6-backports" && ppa_installer
+  echo "Installing dependencies..."
+  ;;
+*)
+  echo "Installing dependencies..."
+  ;;
+esac
+
+
+sudo apt install -y cmake libsdl2-dev libxrandr-dev pkg-config qtbase6-dev qtbase6-private-dev qtbase6-dev-tools qttools6-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build || error "Could not install dependencies"
+
+git clone https://github.com/stenzek/duckstation || error "Could Not Pull Latest Source Code"
 cd duckstation
 git pull || error "Could Not Pull Latest Source Code"
 mkdir build
 cd build
 rm CMakeCache.txt
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja .. || error "Cmake failed"
-#cmake -DCMAKE_BUILD_TYPE=Release ..
-ninja || error "Compilation failed"
-#make -j$(nproc)
+# cmake -DCMAKE_BUILD_TYPE=Release ..
+# ninja || error "Compilation failed"
+# make -j$(nproc)
+cmake --build build-release --parallel || error "Compilation failed"
+
+echo "Done!"
+echo "this script doesn't install Duckstation properly yet, please run it from ~/duckstation/build/bin/duckstation-qt"
