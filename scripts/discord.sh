@@ -1,5 +1,5 @@
 echo "Discord $(uname -m) script started!"
-echo "CREDITS: https://github.com/SpacingBat3/electron-discord-webapp"
+echo "CREDITS: https://github.com/SpacingBat3/WebCord"
 sleep 2
 
 if command -v apt >/dev/null; then
