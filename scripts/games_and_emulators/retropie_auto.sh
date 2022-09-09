@@ -10,7 +10,7 @@ function install {
   # get system info
   get_system
   #download git
-  sudo apt install git dialog unzip xmlstarlet lsb-release crudini -y || error "Could not install dependencies"
+  sudo apt install git dialog unzip xmlstarlet lsb-release crudini python3-pyudev -y || error "Could not install dependencies"
   sudo apt install joycond -y
 
   cd ~
