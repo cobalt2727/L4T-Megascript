@@ -76,9 +76,9 @@ echo
 #if you're looking at this script as a reference for building Dolphin on your own hardware,
 #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
 
-if grep -q bionic /etc/os-release; then
-
-  echo "Ubuntu 18.04 detected, skipping LTO optimization..."
+case "$__os_codename" in
+bionic | focal)
+  echo "Ubuntu $__os_release detected, skipping LTO optimization..."
   echo "If that means nothing to you, don't worry about it."
   echo "That being said, we need to get you a newer compiler to prevent some bugs."
   #to be fair, the only *known* bug here (for now) is that emulated Wii remote cursors don't work with GCC 7 builds
@@ -89,9 +89,8 @@ if grep -q bionic /etc/os-release; then
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
   sleep 10
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
-
-elif grep -q xenial /etc/os-release; then
-
+  ;;
+xenial)
   #there really is no use case for this, is there
   echo "Ubuntu 16.04 detected... good luck, you'll need it"
   sleep 2
@@ -104,26 +103,13 @@ elif grep -q xenial /etc/os-release; then
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
   sleep 10
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9 || error "We'll still take this error report, but PLEASE upgrade your system."
-
-elif
-  grep -q focal /etc/os-release
-then
-
-  echo "Ubuntu 20.04 detected..."
-  echo "We need to get you a newer compiler to prevent some bugs."
-  sudo apt install gcc-10 g++-10 -y || error "Failed to install dependencies!"
-  echo "Alright, NOW we can start the building process."
-  echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
-  sleep 10
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
-
-else
-
+  ;;
+*)
   echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
   sleep 10
   cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static"
-
-fi
+  ;;
+esac
 
 make -j$(nproc) || error "Make failed!"
 echo "Installing..."
