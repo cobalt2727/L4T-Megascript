@@ -40,7 +40,7 @@ git clone --depth=1 https://github.com/ptitSeb/box86.git
 cd box86
 mkdir build
 cd build
-cmake .. -DCMAKE_ASM_FLAGS="-marm -pipe -march=armv8-a+crc -mcpu=native -mfpu=neon-fp-armv8 -mfloat-abi=hard" -DCMAKE_C_COMPILER=arm-linux-gnueabihf-gcc-8 -DARM_DYNAREC=ON
+cmake .. -DCMAKE_ASM_FLAGS="-marm -pipe -march=armv8-a+crc -mcpu=cortex-a57 -mfpu=neon-fp-armv8 -mfloat-abi=hard" -DCMAKE_C_COMPILER=arm-linux-gnueabihf-gcc-8 -DARM_DYNAREC=ON
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
 sudo systemctl restart systemd-binfmt
