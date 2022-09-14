@@ -16,6 +16,8 @@ fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x
 
 fn="Aegisub";;d="Cross-platform advanced subtitle editor";;sn="aegisub.sh";;f="scripts"
 
+fn="LibreOffice Suite";;d="LibreOffice is a powerful and free office suite used by millions of people around the world to help you unleash your creativity and enhance your productivity.";;sn="libreoffice.sh";;f="scripts"
+
 fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dolphin/main.sh";;f="games_and_emulators"
 
 fn="MultiMC (Minecraft Java)";;d="Minecraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
