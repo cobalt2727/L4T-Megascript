@@ -25,6 +25,8 @@ case "$__os_id" in
             cmake . || error "Cmake failed"
             sudo make install || error "Failed to make install"
             sudo systemctl enable --now joycond || error "Couldn't enable the joycond service for some reason - PLEASE send us this error!"
+            cd ..
+            rm -rf joycond/
         fi
         
     ;;
@@ -40,6 +42,8 @@ esac
 
 # sudo rm -rf /usr/share/X11/xorg.conf.d/50-joystick.conf
 wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/50-joystick.conf && sudo mv 50-joystick.conf /usr/share/X11/xorg.conf.d
+
+cd ~
 
 description="Joy-Con Mouse Primary Default Mapping\
 \nMappings for all supported controlers are in the config file: https://github.com/cobalt2727/L4T-Megascript/blob/master/assets/50-joystick.conf\
