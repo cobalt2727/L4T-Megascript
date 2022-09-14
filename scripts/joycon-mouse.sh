@@ -18,10 +18,10 @@ case "$__os_id" in
             sudo apt install -y joycond || error "Failed to install dependencies"
         else
             echo "Installing joycond from source..."
-            sudo apt install -y libevdev-dev || error "Failed to install dependencies"
-            cd /tmp/
-            git clone https://github.com/DanielOgorchock/joycond --depth=1 || error "Failed to grab source code"
+            sudo apt install -y libevdev-dev git cmake || error "Failed to install dependencies"
+            git clone https://github.com/DanielOgorchock/joycond --depth=1
             cd joycond
+            git pull
             cmake . || error "Cmake failed"
             sudo make install || error "Failed to make install"
             sudo systemctl enable --now joycond || error "Couldn't enable the joycond service for some reason - PLEASE send us this error!"
@@ -38,7 +38,7 @@ case "$__os_id" in
     ;;
 esac
 
-sudo rm -rf /usr/share/X11/xorg.conf.d/50-joystick.conf
+# sudo rm -rf /usr/share/X11/xorg.conf.d/50-joystick.conf
 wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/50-joystick.conf && sudo mv 50-joystick.conf /usr/share/X11/xorg.conf.d
 
 description="Joy-Con Mouse Primary Default Mapping\
