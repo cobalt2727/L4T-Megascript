@@ -2,10 +2,42 @@
 
 clear -x
 echo "Joycon mouse script started!"
+get_system
 sleep 1
 cd /tmp
 sudo rm -rf 50-joystick.conf
-sudo apt install joycond xserver-xorg-input-joystick wget -y
+
+echo "Installing dependencies..."
+case "$__os_id" in
+    Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+        
+        sudo apt install xserver-xorg-input-joystick wget -y
+        
+        package_available joycond
+        if [[ $? == "0" ]]; then
+            sudo apt install -y joycond || error "Failed to install dependencies"
+        else
+            echo "Installing joycond from source..."
+            sudo apt install -y libevdev-dev || error "Failed to install dependencies"
+            cd /tmp/
+            git clone https://github.com/DanielOgorchock/joycond --depth=1 || error "Failed to grab source code"
+            cd joycond
+            cmake . || error "Cmake failed"
+            sudo make install || error "Failed to make install"
+            sudo systemctl enable --now joycond || error "Couldn't enable the joycond service for some reason - PLEASE send us this error!"
+        fi
+        
+    ;;
+    Fedora)
+        #TODO
+        sudo dnf install joycond wget -y || error "Failed to install dependencies!"
+    ;;
+    *)
+        echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install xserver-xorg-input-joystick yourself...\\e[39m"
+        sleep 5
+    ;;
+esac
+
 sudo rm -rf /usr/share/X11/xorg.conf.d/50-joystick.conf
 wget https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/50-joystick.conf && sudo mv 50-joystick.conf /usr/share/X11/xorg.conf.d
 
@@ -33,6 +65,6 @@ table=("ok")
 userinput_func "$description" "${table[@]}"
 
 description="Done!\
-\n\n Restart your Switch when you're ready to gain access to using your joycons as a mouse.\n And just to reiterate, since people sometimes gloss over it on the previous screen, remember to use the Screenshot button to turn the mouse on/off."
+\n\n Restart your Switch when you're ready to gain access to using your joycons as a mouse.\n And just to reiterate, since people sometimes gloss over it on the previous screen, remember to use the SCREENSHOT button to turn the mouse on/off."
 table=("ok")
 userinput_func "$description" "${table[@]}"
