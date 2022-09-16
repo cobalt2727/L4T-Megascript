@@ -24,9 +24,7 @@ if command -v apt >/dev/null; then
   echo "Done! Installing the package..."
   sudo apt install -y /tmp/*arm64.deb || error "Webcord install failed"
 
-elif
-  command -v dnf >/dev/null
-then
+elif command -v dnf >/dev/null; then
   echo "Installing dependencies..."
   sudo dnf install git curl -y || error "Couldn't install dependencies"
 
