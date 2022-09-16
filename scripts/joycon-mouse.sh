@@ -9,35 +9,35 @@ sudo rm -rf 50-joystick.conf
 
 echo "Installing dependencies..."
 case "$__os_id" in
-    Raspbian | Debian | Ubuntu | Kali)
-        
-        sudo apt install xserver-xorg-input-joystick wget -y
-        
-        package_available joycond
-        if [[ $? == "0" ]]; then
-            sudo apt install -y joycond || error "Failed to install dependencies"
-        else
-            echo "Installing joycond from source..."
-            sudo apt install -y libevdev-dev git cmake || error "Failed to install dependencies"
-            git clone https://github.com/DanielOgorchock/joycond --depth=1
-            cd joycond
-            git pull
-            cmake . || error "Cmake failed"
-            sudo make install || error "Failed to make install"
-            sudo systemctl enable --now joycond || error "Couldn't enable the joycond service for some reason - PLEASE send us this error!"
-            cd ..
-            rm -rf joycond/
-        fi
-        
-    ;;
-    Fedora)
-        #TODO
-        sudo dnf install joycond wget -y || error "Failed to install dependencies!"
-    ;;
-    *)
-        echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install xserver-xorg-input-joystick yourself...\\e[39m"
-        sleep 5
-    ;;
+Raspbian | Debian | Ubuntu | Kali)
+
+  sudo apt install xserver-xorg-input-joystick wget -y
+
+  package_available joycond
+  if [[ $? == "0" ]]; then
+    sudo apt install -y joycond || error "Failed to install dependencies"
+  else
+    echo "Installing joycond from source..."
+    sudo apt install -y libevdev-dev git cmake || error "Failed to install dependencies"
+    git clone https://github.com/DanielOgorchock/joycond --depth=1
+    cd joycond
+    git pull
+    cmake . || error "Cmake failed"
+    sudo make install || error "Failed to make install"
+    sudo systemctl enable --now joycond || error "Couldn't enable the joycond service for some reason - PLEASE send us this error!"
+    cd ..
+    rm -rf joycond/
+  fi
+
+  ;;
+Fedora)
+  #TODO
+  sudo dnf install joycond wget -y || error "Failed to install dependencies!"
+  ;;
+*)
+  echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install xserver-xorg-input-joystick yourself...\\e[39m"
+  sleep 5
+  ;;
 esac
 
 # sudo rm -rf /usr/share/X11/xorg.conf.d/50-joystick.conf
