@@ -699,3 +699,22 @@ unset gui
 echo ""
 echo -e 'Thank you for using the L4T Megascript! Stop by our \e[36mDiscord\e[0m server at https://discord.gg/abgW2AG87Z for support.'
 echo 'Source code is available here: https://github.com/cobalt2727/L4T-Megascript/'
+
+SeptemberUserInput="no"
+if [[ $DISPLAY ]]; then 
+  if [ $(date -I) == "2022-09-21" ]; then
+    description="do you remember?"
+    table=("yes" "no")
+    userinput_func "$description" "${table[@]}"
+    SeptemberUserInput="$output"
+    
+    if [[ $SeptemberUserInput == "yes" ]]; then
+      xdg-open https://www.youtube.com/watch?v=Gs069dndIYk
+    else
+      echo "" > /dev/null
+    fi
+  else
+    echo "" > /dev/null
+fi
+
+fi
