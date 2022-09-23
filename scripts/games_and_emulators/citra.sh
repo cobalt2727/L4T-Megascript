@@ -22,10 +22,9 @@ if grep -q bionic /etc/os-release; then
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy Citra on Ubuntu Bionic, Focal, Hirsute, and beyond"
 
-  ###uncomment these lines in the future to resolve possible build errors
-  # echo "Adding GCC and G++ 11 Repo..."
-  # ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  # sudo apt install gcc-11 g++-11 -y
+  echo "Adding GCC and G++ 11 Repo..."
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  sudo apt install gcc-11 g++-11 -y
   get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
@@ -53,7 +52,7 @@ cd build
 rm -rf CMakeCache.txt
 #LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
 if grep -q bionic /etc/os-release; then
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
 else
   if grep -iE 'raspberry' <<<$model >/dev/null; then
     #   https://github.com/citra-emu/citra/issues/5921
