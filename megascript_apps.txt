@@ -70,7 +70,7 @@ fn="Budgie Desktop";;d="Budgie's design emphasizes simplicity, minimalism and el
 
 fn="Cinnamon Desktop";;d="(WARNING - this script is experimental) Cinnamon is a free and open-source desktop environment for the X Window System that derives from GNOME 3 but follows traditional desktop metaphor conventions";;sn="cinnamon.sh";;f="desktop_environments"
 
-fn="Gnome Desktop";;d="(WARNING - this script is experimental) GNOME is a free and open-source desktop environment for Unix-like operating systems";;sn="gnome.sh";;f="desktop_environments"
+# fn="Gnome Desktop";;d="(WARNING - this script is experimental) GNOME is a free and open-source desktop environment for Unix-like operating systems";;sn="gnome.sh";;f="desktop_environments"
 
 # fn="KDE Plasma";;d="The next generation desktop for Linux";;sn="kde.sh";;f="desktop_environments"
 
