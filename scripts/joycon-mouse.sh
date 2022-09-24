@@ -2,8 +2,6 @@
 
 clear -x
 echo "Joycon mouse script started!"
-get_system
-sleep 1
 cd /tmp
 sudo rm -rf 50-joystick.conf
 

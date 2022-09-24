@@ -4,8 +4,6 @@ clear -x
 echo "This script will install AntiMicroX, an updated fork of AntiMicro and"
 echo "a graphical program used to map gamepad keys to keyboard."
 
-# obtain the system info
-get_system
 case "$__os_codename" in
 bionic)
   #bionic cmake is very old, use theofficialgman ppa for cmake
