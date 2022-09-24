@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if grep -q bionic /etc/os-release; then error_user "You shouldn't be running this on Ubuntu Bionic, skipping installation"; fi
+case "$__os_codename" in
+bionic) error_user "You shouldn't be running this on Ubuntu Bionic, skipping installation" ;;
+esac
 
 sudo su -c "echo 'Package: *' > /etc/apt/preferences.d/chromium"
 sudo su -c "echo 'Pin: release o=LP-PPA-saiarcot895-chromium-beta' >> /etc/apt/preferences.d/chromium"

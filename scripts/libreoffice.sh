@@ -1,7 +1,4 @@
 echo "LibreOffice script started!"
-sleep 2
-
-get_system
 
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])

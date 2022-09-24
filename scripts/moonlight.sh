@@ -3,8 +3,6 @@
 cd
 clear -x
 echo "Moonlight script started!"
-# get architecture using function
-get_system
 if [[ $jetson_model ]]; then
   # remove old moonlight name and repo
   sudo rm -rf /etc/apt/sources.list.d/moonlight-l4t.list

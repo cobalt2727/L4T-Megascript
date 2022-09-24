@@ -39,9 +39,6 @@ hash -r
 sudo -H python3 -m pip install meson || error "Could not install meson VIRGL build dependency"
 hash -r
 
-# obtain the system info
-get_system
-
 case "$__os_codename" in
 bionic)
   # compile and install epoxy

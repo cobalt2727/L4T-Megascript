@@ -8,13 +8,14 @@
 unset functions_downloaded
 
 function get_system {
+  # architecture, dpkg_architecture, jetson_model (if available), model, __os_id, __os_desc, __os_release, and __os_codename are always available in L4T-Megascript scripts without calling any function
   source /etc/os-release
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
+  export architecture
   # dpkg_architecture is the default userspace cpu architecture (arm64, amd64, armhf, i386, etc)
   dpkg_architecture="$(dpkg --print-architecture)"
-  # jetson codename is the name reported in the DTS filename
-  jetson_codename=""
+  export dpkg_architecture
   # jetson model is the friendly name that we assign
   jetson_model=""
   # get model name
@@ -47,6 +48,7 @@ function get_system {
   model=${model//INVALID/}
   model=${model//All Series/}
   model=${model//�/}
+  export model
   local __platform=""
   if [[ -e "/proc/device-tree/compatible" ]]; then
     CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
@@ -64,6 +66,7 @@ function get_system {
       __platform="jetson-unknown"
     fi
     jetson_model="$__platform"
+    export jetson_model
   elif [[ -e "/sys/devices/soc0/family" ]]; then
     CHIP="$(tr -d '\0' </sys/devices/soc0/family)"
     if [[ ${CHIP} =~ "tegra20" ]]; then
@@ -80,6 +83,7 @@ function get_system {
       __platform="tegra-x1"
     fi
     jetson_model="$__platform"
+    export jetson_model
   fi
   unset __platform
 
@@ -120,10 +124,15 @@ function get_system {
     __os_codename="$(lsb_release -s -c)"
   fi
 
+  export __os_id
+  export __os_desc
+  export __os_release
+  export __os_codename
+
 }
 export -f get_system
 
-# run get_system function for the refactor to use
+## IMPORTANT, NEVER REMOVE calling get_system from the functions.sh file. All scripts assume it has been called and the variables are available
 get_system
 
 function LTS_check {

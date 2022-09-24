@@ -8,8 +8,6 @@ echo "In addition, I've included an installer for a QT settings tool"
 echo "To automatically make QT apps follow the system theme."
 sleep 3
 
-get_system
-
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
   sudo apt install unity-tweak-tool indicator-bluetooth indicator-sound hud -y
 elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie

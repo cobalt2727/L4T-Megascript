@@ -13,22 +13,22 @@ echo
 echo "We've got the following options:"
 echo "- Budgie"
 echo "- Cinnamon"
-if grep -q bionic /etc/os-release; then
-  echo "- Gnome (the default desktop on Ubuntu 20.04)"
-else  
-  echo "- Gnome (your default desktop)"
-fi
+case "$__os_codename" in
+bionic)
+  echo "- Gnome (the default desktop on Ubuntu 20.04)" ;;
+*)
+  echo "- Gnome (your default desktop)" ;;
+esac
 echo "- KDE Plasma"
 echo "- LXDE"
 echo "- LXQT"
 echo "- MATE"
 echo "- Ukui"
 echo "- XFCE"
-if grep -q bionic /etc/os-release; then
-  echo "- Unity (your default desktop)"
-else  
-  echo "- Unity (the old default desktop from Ubuntu 18.04)"
-fi
+case "$__os_codename" in
+bionic)  echo "- Unity (your default desktop)" ;;
+*) echo "- Unity (the old default desktop from Ubuntu 18.04)" ;;
+esac
 
 
 

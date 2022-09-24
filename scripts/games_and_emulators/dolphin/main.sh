@@ -4,8 +4,6 @@ clear -x
 echo "Dolphin script successfully started!"
 sleep 1
 
-get_system
-
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 # previous line this massive case statement replaced: sudo apt install udev libudev1 libudev-dev -y || error "Failed to install dependencies!"
 case "$__os_id" in

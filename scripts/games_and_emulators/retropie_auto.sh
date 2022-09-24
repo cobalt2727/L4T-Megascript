@@ -7,8 +7,6 @@ function install {
   echo
   status "Downloading the files and installing needed dependencies..."
   sleep 3
-  # get system info
-  get_system
   #download git
   sudo apt install git dialog unzip xmlstarlet lsb-release crudini python3-pyudev -y || error "Could not install dependencies"
   sudo apt install joycond -y
@@ -130,7 +128,6 @@ _EOF_"
   "/home/$USER/.emulationstation/scripts/quit/add_games.sh"
 
   # hotfix for switch/jetsons emulationstation crash and vlc player broken
-  get_system
   if [[ $jetson_model ]]; then
     sudo mv /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so /usr/lib/aarch64-linux-gnu/vlc/plugins/codec/libomxil_plugin.so.old
   fi
@@ -195,8 +192,6 @@ function update_cores {
 }
 
 function install_binaries {
-  # get system info
-  get_system
   if [[ $jetson_model == "tegra-x1" ]]; then
     sudo rm -rf "/tmp/Retropie-Binaries"
     mkdir -p "/tmp/Retropie-Binaries"

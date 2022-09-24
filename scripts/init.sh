@@ -11,8 +11,6 @@ echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-sw
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
 echo "  https://flatpak.org/setup/"
 sleep 10
-# obtain the system info
-get_system
 
 minimumver="20.04"
 

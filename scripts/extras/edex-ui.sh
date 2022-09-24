@@ -3,8 +3,6 @@ cd ~
 echo "eDEX-UI script started!"
 sleep 1
 
-# get dpkg_architecture using function
-get_system
 case "$dpkg_architecture" in
     "arm64") type="arm64";type2="arm64";;
     "armhf") type="armv7l";type2="armhf";;

@@ -11,8 +11,6 @@ sudo apt install curl zenity kmod -y || error "Could not install dependencies"
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
-# get dpkg_architecture using function
-get_system
 case "$dpkg_architecture" in
 "arm64")
   type="arm_aarch64"
@@ -53,8 +51,8 @@ cd ~
 
 #NOTE:  a long time ago we used to use ZorinOS PPAs and Debian repos to get newer version of libraries needed to make the launcher work on 18.04.
 #       this was a bad idea, and we've since gotten things working without external software sources. so the below section wipes out those if they're found on an 18.04 setup
-if grep -q bionic /etc/os-release; then
-
+case "$__os_codename" in
+bionic)
   if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
     echo "Continuing the install"
   else
@@ -68,7 +66,8 @@ if grep -q bionic /etc/os-release; then
     sudo apt update
     sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
   fi
-fi
+  ;;
+esac
 
 echo "Please Reboot before launching!"
 sleep 5

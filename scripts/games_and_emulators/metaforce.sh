@@ -7,7 +7,8 @@
 echo "Metaforce script started!"
 
 #removing previous LLVM 13 installs
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
   if package_installed "llvm-13"; then
     sudo apt remove llvm-13 -y
   fi
@@ -23,7 +24,8 @@ if grep -q bionic /etc/os-release; then
   if package_installed "libmlir-13-dev"; then
     sudo apt remove libmlir-13-dev -y
   fi
-fi
+  ;;
+esac
 
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 sudo apt install udev libudev1 libudev-dev -y
@@ -34,12 +36,12 @@ sudo udevadm control --reload-rules
 sudo systemctl restart udev.service
 
 echo "Installing dependencies..."
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
 
   echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
   curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     ppa_name="beineri/opt-qt-5.15.2-bionic"
   else
@@ -52,14 +54,15 @@ if grep -q bionic /etc/os-release; then
     libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
     qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
     clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
-
-else
+  ;;
+*)
   sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
     libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
     qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
   sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
-fi
+  ;;
+esac
 
 package_available qt6-tools-dev
 if [[ $? == "0" ]]; then        # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored (until we get errors about it)
@@ -75,7 +78,8 @@ mkdir metaforce-build
 cd metaforce-build
 
 #cmake
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
   if package_installed "llvm-7"; then
     sudo apt remove llvm-7 clang-7 -y
   fi
@@ -83,16 +87,13 @@ if grep -q bionic /etc/os-release; then
     sudo apt remove llvm-13 clang-13 clang++-13 lld-13 -y
   fi
   CC=clang-14 CXX=clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
-else
-  CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
-fi
-
-#ninja
-if grep -q bionic /etc/os-release; then
   CC=clang-14 CXX=clang++-14 ninja || error "Build failed!"
-else
+  ;;
+*)
+  CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
   CC=clang CXX=clang++ ninja || error "Build failed!"
-fi
+  ;;
+esac
 
 cd ~
 

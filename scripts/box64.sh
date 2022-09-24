@@ -2,8 +2,6 @@ clear -x
 
 echo "Box64 script started!"
 
-# obtain the system info
-get_system
 case "$dpkg_architecture" in
 "arm64")
   case "$__os_codename" in

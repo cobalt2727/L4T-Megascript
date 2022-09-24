@@ -17,17 +17,20 @@ git reset --hard
 git pull --recurse-submodules -j$(nproc) || error "Couldn't pull latest source code!"
 git submodule update --init genconfig/ tomlplusplus/ #may be needed to manually specify on other systems?
 
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   #ppa_name="ubuntu-toolchain-r/ppa" && ppa_installer
   sudo apt install python3.8 gcc-11 g++-11 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
   sed -i -e 's/python3 /python3.8 /g' build.sh                                           #this is hacky, yes, but hey, it works
   python3.8 -m pip install --upgrade pip meson
   CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native CC=gcc-11 CXX=g++-11 ./build.sh || error "Compilation failed!"
-else
+  ;;
+*)
   #./build.sh
   CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native ./build.sh || error "Compilation failed!" #I don't think CXXFLAGS actually gets used, but I'm leaving it there in case the build script ever takes it into account
-fi
+  ;;
+esac
 
 cd ~
 #install xemu itself

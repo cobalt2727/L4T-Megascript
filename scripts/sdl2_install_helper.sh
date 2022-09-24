@@ -4,7 +4,6 @@
 #note that this is an apt package in the Switchroot repository, its ok for it to fail on other devices
 sudo apt install joycond -y
 
-get_system
 if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.23.1); then
   if [[ "$dpkg_architecture" == "arm64" ]]; then
     mkdir -p /tmp/sdl2

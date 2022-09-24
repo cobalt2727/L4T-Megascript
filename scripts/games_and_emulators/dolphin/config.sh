@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#acquire system info for use in scripts - see functions.sh for info
-get_system
-
 ##Import config files
 cd ~
 

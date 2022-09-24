@@ -7,8 +7,6 @@ function error {
   exit 1
 }
 
-# obtain the cpu and os info
-get_system
 case "$dpkg_architecture" in
 "arm64" | "amd64" | "i386" | "armhf") ;;
 *) error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by MultiMC and will fail to compile" ;;
@@ -276,7 +274,6 @@ cd ..
 # configure the project
 cd build
 # obtain the cpu info
-get_system
 # temporary hotfix to build with java 11 (build currently fails on java 16 autodetection)
 # https://github.com/MultiMC/Launcher/issues/3949
 # remove cmake cache until bug is fixed

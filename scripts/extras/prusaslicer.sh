@@ -3,8 +3,6 @@ echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
 ppa_name="ubuntu-toolchain-r/test" && ppa_installer
 
-# obtain the system info
-get_system
 case "$__os_codename" in
 bionic)
   echo "Adding Boost 1.67 PPA..."

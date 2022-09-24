@@ -7,11 +7,12 @@ echo "Are you sure you want to continue?"
 
 ppa_name="ubuntu-mate-dev/welcome" && ppa_installer
 
-if grep -q bionic /etc/os-release; then
-  echo ""
-else
-  ppa_name="ubuntu-mate-dev/fresh-mate" && ppa_installer
-fi
+case "$__os_codename" in
+bionic)
+  echo "" ;;
+*)
+  ppa_name="ubuntu-mate-dev/fresh-mate" && ppa_installer ;;
+esac
 
 ##prompt yes/no
 sudo apt install ubuntu-mate-desktop ubuntu-mate-themes plank mate-notification-daemon ubuntu-mate-welcome -y || error "Could not install dependencies"

@@ -5,24 +5,22 @@ echo "OpenMW script successfully started!"
 echo "Credits: https://wiki.openmw.org/index.php/Development_Environment_Setup#Linux"
 sleep 3
 
-get_system || error "Failed to scan your sytem specs"
-
 echo "Running updates..."
 sleep 1
 
 echo "Adding OpenMW PPA"
-if grep -q bionic /etc/os-release; then
-  echo "The build available in this PPA doesn't work on 18.04, but it contains important development libraries for compiling."
-fi
+case "$__os_codename" in
+bionic) echo "The build available in this PPA doesn't work on 18.04, but it contains important development libraries for compiling." ;;
+esac
 ppa_name="openmw/openmw" && ppa_installer
 
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
   echo "          -------UBUNTU 18.04 DETECTED-------"
   echo
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy OpenMW on Ubuntu Bionic, Focal, Hirsute, and beyond"
 
-  get_system
   ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
   ppa_installer
   sudo apt install qt5153d qt515base qt515declarative qt515gamepad \
@@ -77,10 +75,12 @@ if grep -q bionic /etc/os-release; then
   sleep 1
   cd ~
   rm -rf openmw osg
-else
+  ;;
+*)
   echo "Installing OpenMW..."
   sudo apt install openmw openmw-launcher -y || error "Failed to install OpenMW"
-fi
+  ;;
+esac
 
 echo "Successfully installed OpenMW!"
 echo "Sending you back to the main menu..."

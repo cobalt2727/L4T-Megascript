@@ -121,8 +121,8 @@ else
   echo "Not using Unity as the current desktop, skipping theme manager install..."
 fi
 
-if grep -q bionic /etc/os-release; then
-
+case "$__os_codename" in
+bionic)
   if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
     echo "Continuing the installs"
   else
@@ -139,8 +139,8 @@ if grep -q bionic /etc/os-release; then
     sudo apt update
     sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
   fi
-
-fi
+  ;;
+esac
 
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
@@ -162,7 +162,8 @@ if [[ $AptFixUserInput == "yes" ]]; then
 
   # the LLVM apt repo we use updated from 13 to 14 in February, wiping out residual files from old 13 installs
   # there's probably a neater way to do this...
-  if grep -q bionic /etc/os-release || grep -q focal /etc/os-release; then
+  case "$__os_codename" in
+  bionic | focal)
     if package_installed "llvm-13"; then
       sudo apt remove llvm-13 -y
     fi
@@ -178,7 +179,8 @@ if [[ $AptFixUserInput == "yes" ]]; then
     if package_installed "libmlir-13-dev"; then
       sudo apt remove libmlir-13-dev -y
     fi
-  fi
+    ;;
+  esac
 
   ##maintenance (not passing with -y to prevent potentially breaking something for a user)
   sudo rm -rf /var/lib/apt/lists/
@@ -197,14 +199,16 @@ if [[ $AptFixUserInput == "yes" ]]; then
   sudo flatpak repair
   flatpak repair --user
 
-  if grep -q bionic /etc/os-release; then
+  case "$__os_codename" in
+  bionic)
     if [ -f /etc/alternatives/python ]; then
       echo "Fixing possibly broken Python setup (this was my fault)..."
       sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
     else
       echo "No issues detected with Python, skipping fix for that..."
     fi
-  fi
+    ;;
+  esac
 
 else
 

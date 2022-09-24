@@ -13,9 +13,6 @@ if [[ -f "/etc/gdm3/custom.conf" ]]; then
   replace /etc/gdm3/custom.conf AutomaticLoginEnable False | sudo tee /etc/gdm3/custom.conf
 fi
 
-# get system info
-get_system
-
 # only run on nintendo switch systems (previously named icosa or icosa_emmc but now named Nintendo Switch (20XX))
 if echo "$model" | grep -q [Ss]witch || echo "$model" | grep -q [Ii]cosa; then
   echo "Adding autorotation script"

@@ -11,12 +11,11 @@ echo "Citra script successfully started!"
 echo "Credits: https://citra-emu.org/wiki/building-for-linux/"
 sleep 3
 
-get_system || error_user "Failed to scan your system for specs - run this script via the Megascript or the helper script!"
-
 echo "Running updates..."
 sleep 1
 
-if grep -q bionic /etc/os-release; then
+case "$__os_codename" in
+bionic)
   echo "          -------UBUNTU 18.04 DETECTED-------"
   echo
   echo "theofficialgman has done his PPA Qt5 wizardry"
@@ -25,7 +24,6 @@ if grep -q bionic /etc/os-release; then
   echo "Adding GCC and G++ 11 Repo..."
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install gcc-11 g++-11 -y
-  get_system
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
     ppa_name="beineri/opt-qt-5.12.0-bionic"
@@ -34,7 +32,8 @@ if grep -q bionic /etc/os-release; then
   fi
   ppa_installer
   sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
-fi
+  ;;
+esac
 
 echo "Installing dependencies..."
 sleep 1
@@ -51,18 +50,20 @@ mkdir -p build
 cd build
 rm -rf CMakeCache.txt
 #LTO isn't used but we're leaving that in anyway in case the devs ever add it - having it there just gets skipped over currently
-if grep -q bionic /etc/os-release; then
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
-else
+case "$__os_codename" in
+bionic)
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt512 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  ;;
+*)
   if grep -iE 'raspberry' <<<$model >/dev/null; then
     #   https://github.com/citra-emu/citra/issues/5921
     warning "You are running a Raspberry Pi, building without ASM since Broadcom is apparently allergic to cryptography extensions..."
-    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native -DCRYPTOPP_OPT_DISABLE_ASM=1
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCRYPTOPP_OPT_DISABLE_ASM=1
   else
-    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-march=native -DCMAKE_C_FLAGS=-march=native
+    cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
   fi
-
-fi
+  ;;
+esac
 
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
