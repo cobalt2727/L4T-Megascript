@@ -52,7 +52,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     #GTK support for QT6
     cd ~
     git clone https://github.com/trialuser02/qt6gtk2
-    cd qt6gtk2
+    cd qt6gtk2 || error_user "Failed to download source code from GitHub!"
     git pull
     qmake6 . || error "qmake failed!"
     make -j$(nproc) || error "make failed!"
@@ -62,7 +62,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     #theme selection tool for QT6
     cd ~
     git clone https://github.com/trialuser02/qt6ct
-    cd qt6ct
+    cd qt6ct || error_user "Failed to download source code from GitHub!"
     git pull
     qmake6 . || error "qmake failed!"
     make -j$(nproc) || error "make failed!"
@@ -111,7 +111,7 @@ rm -rf ocs-url/
 ##using my fork temporarily until the original maintainer merges my changes to fix manual builds
 git clone https://www.opencode.net/cobalt2727/ocs-url
 
-cd ocs-url
+cd ocs-url || error_user "Failed to download source code from opencode.net!"
 
 ##switch over to my commits
 git checkout patch-1
