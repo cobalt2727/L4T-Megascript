@@ -9,7 +9,6 @@ echo "Grab your charger, and pull up a chair!"
 echo "CREDITS:"
 echo "  https://gbatemp.net/threads/l4t-ubuntu-a-fully-featured-linux-on-your-switch.537301/"
 echo "  Optional tab on https://gbatemp.net/threads/installing-moonlight-qt-on-l4t-ubuntu.537429/"
-echo "  https://flatpak.org/setup/"
 sleep 10
 
 minimumver="20.04"
