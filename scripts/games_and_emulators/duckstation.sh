@@ -4,6 +4,13 @@ case "$__os_codename" in
 impish | focal | bionic)
   ppa_name="okirby/qt6-backports" && ppa_installer
   echo "Installing dependencies..."
+  case "$__os_codename" in
+  focal | bionic)
+    ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+    sudo apt install gcc-11 g++-11 -y || error "Could not install dependencies"
+    ;;
+  *) ;;
+  esac
   ;;
 *)
   echo "Installing dependencies..."
@@ -18,7 +25,14 @@ git pull || error "Could Not Pull Latest Source Code"
 mkdir build
 cd build
 rm CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja .. || error "Cmake failed"
+case "$__os_codename" in
+focal | bionic)
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 .. || error "Cmake failed"
+  ;;
+*)
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja .. || error "Cmake failed"
+  ;;
+esac
 # cmake -DCMAKE_BUILD_TYPE=Release ..
 # ninja || error "Compilation failed"
 # make -j$(nproc)
