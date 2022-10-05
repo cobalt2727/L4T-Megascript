@@ -28,6 +28,10 @@ else
   fi
 fi
 
+# allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
+sudo sed -i "s/\"library_path\" : .*/\"library_path\" : \"libEGL_mesa.so.0\"/g" "/usr/share/glvnd/egl_vendor.d/50_mesa.json"
+sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
+
 cd
 # gcc 7 produces errors when compiling on arm/arm64 on both box86 and box64
 # there is no available gcc-11 armhf cross compiler so the gcc-8 armhf cross compiler is used and it works fine
