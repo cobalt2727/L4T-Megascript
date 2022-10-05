@@ -22,7 +22,7 @@ case "$dpkg_architecture" in
   ;;
 "i386")
   type="i386"
-  type2="$type1"
+  type2="$type"
   ;;
 "amd64")
   type="x86_64"
