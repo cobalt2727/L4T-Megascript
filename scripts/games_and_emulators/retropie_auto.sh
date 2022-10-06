@@ -192,7 +192,8 @@ function update_cores {
 }
 
 function install_binaries {
-  if [[ $jetson_model == "tegra-x1" ]]; then
+  if [[ $jetson_model == "tegra-x1" ]] || [[ $jetson_model == "tegra-x2" ]]; then
+    jetson_model="tegra-x1"
     sudo rm -rf "/tmp/Retropie-Binaries"
     mkdir -p "/tmp/Retropie-Binaries"
     cd "/tmp/Retropie-Binaries"
