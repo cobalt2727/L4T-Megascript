@@ -26,7 +26,20 @@ bionic)
   ;;
 esac
 
-sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev -y || error "Dependency installs failed"
+case "$__os_id" in
+Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+  sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev -y || error "Dependency installs failed"
+  ;;
+Fedora)
+  sudo dnf install -y wget cmake unzip git SDL2_mixer-devel libcurl-devel libopenmpt-devel game-music-emu-devel zlib-devel || error "Dependency installs failed"
+  ;;
+*)
+  echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
+  sleep 5
+  ;;
+esac
+
+
 wget https://github.com/STJr/SRB2/archive/master.zip --progress=bar:force:noscroll
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2-A
