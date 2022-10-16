@@ -181,6 +181,13 @@ if [[ $AptFixUserInput == "yes" ]]; then
     fi
     ;;
   esac
+  
+  case "$__os_codename" in
+  bionic)
+    sudo ppa-purge theofficialgman/opt-qt-5.12.0-bionic-arm
+    sudo ppa-purge beineri/opt-qt-5.12.0-bionic
+    ;;
+  esac
 
   ##maintenance (not passing with -y to prevent potentially breaking something for a user)
   sudo rm -rf /var/lib/apt/lists/
