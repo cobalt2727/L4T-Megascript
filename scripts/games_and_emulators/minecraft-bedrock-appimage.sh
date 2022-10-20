@@ -13,16 +13,16 @@ mkdir minecraft-bedrock
 cd minecraft-bedrock
 case "$dpkg_architecture" in
 "arm64")
-  type="arm_aarch64"
+  type="arm64"
   type2="arm64"
   ;;
 "armhf")
-  type="arm"
+  type="armhf"
   type2="armhf"
   ;;
 "i386")
-  type="i386"
-  type2="$type"
+  type="x86-" #the - at the end keeps i386 users from downloading both i386 and x86_64 files
+  type2="i386"
   ;;
 "amd64")
   type="x86_64"
@@ -42,7 +42,7 @@ chmod +x *.AppImage
 curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_$type2" | cut -d : -f 2,3 | tr -d \" | wget -i -
 sudo dpkg -i *bionic_*.deb
 hash -r
-ail-cli integrate MC.AppImage
+ail-cli integrate MC.AppImage || error "Couldn't integrate AppImage"
 cd ~
 rm -rf minecraft-bedrock
 
@@ -64,7 +64,7 @@ bionic)
     sudo rm -rf /etc/apt/preferences.d/freetype*
 
     sudo apt update
-    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
+    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades || error "Could not install dependencies"
   fi
   ;;
 esac
