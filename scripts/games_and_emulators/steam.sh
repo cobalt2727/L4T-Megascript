@@ -65,8 +65,6 @@ cd /tmp
 rm -rf virglrenderer
 git clone https://gitlab.freedesktop.org/virgl/virglrenderer.git || "Could not clone virglrenderer"
 cd virglrenderer
-# Upstream BUG: https://gitlab.freedesktop.org/virgl/virglrenderer/-/issues/274
-git checkout 2b5c92ea
 meson -Dprefix=/usr build || error "Could not configure virglrenderer"
 ninja -j$(nproc) -C build || error "Could not build virglrenderer"
 sudo ninja -C build install || error "Could not install virglrenderer"
