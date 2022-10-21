@@ -38,7 +38,7 @@ esac
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake extra-cmake-modules clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev -y || error "Could not install dependencies"
+sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qtbase5-dev libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins libfdk-aac-dev build-essential cmake clang clang-format libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev -y || error "Could not install dependencies"
 
 echo "Building Citra..."
 sleep 1

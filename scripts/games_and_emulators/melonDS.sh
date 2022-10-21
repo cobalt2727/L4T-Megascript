@@ -41,7 +41,7 @@ esac
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt install cmake libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev libslirp-dev libarchive-dev libepoxy-dev -y || error "Could not install dependencies"
+sudo apt install cmake extra-cmake-modules libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev libslirp-dev libarchive-dev libepoxy-dev -y || error "Could not install dependencies"
 package_available qt5-default
 if [[ $? == "0" ]]; then
   sudo apt install -y qt5-default || error "Failed to install dependencies"
