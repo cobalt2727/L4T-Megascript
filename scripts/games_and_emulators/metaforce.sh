@@ -65,6 +65,10 @@ bionic)
   if [[ $? == "0" ]]; then
     sudo apt install -y mlir-$LLVM_VERSION-tools || error "Failed to install dependencies" # needed for 22.10+
   fi
+  package_available libmlir-$LLVM_VERSION-dev
+  if [[ $? == "0" ]]; then
+    sudo apt install -y libmlir-$LLVM_VERSION-dev || error "Failed to install dependencies" # needed for 22.10+
+  fi
 
   sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
   ;;
