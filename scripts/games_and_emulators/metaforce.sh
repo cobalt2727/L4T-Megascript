@@ -56,7 +56,7 @@ bionic)
     clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
   ;;
 *)
-  sudo apt install -y build-essential curl git ninja-build clang lld zlib1g-dev libcurl4-openssl-dev \
+  sudo apt install -y build-essential curl git ninja-build clang clang-tools lld zlib1g-dev libcurl4-openssl-dev \
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
     libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
     qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
