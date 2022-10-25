@@ -60,12 +60,18 @@ bionic)
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
     libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
     qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
+  LLVM_VERSION=$(echo $(dpkg -s llvm | grep -i version) | sed 's/.*\://' | awk -F\. '{print $1}')
+  package_available mlir-$LLVM_VERSION-tools
+  if [[ $? == "0" ]]; then
+    sudo apt install -y mlir-$LLVM_VERSION-tools || error "Failed to install dependencies" # needed for 22.10+
+  fi
+
   sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
   ;;
 esac
 
 package_available qt6-tools-dev
-if [[ $? == "0" ]]; then        # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored (until we get errors about it)
+if [[ $? == "0" ]]; then # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored (until we get errors about it)
   sudo apt install -y qt6-tools-dev libqt6svg6-dev libqt6core5compat6-dev qt6-tools-dev-tools qt6-declarative-dev qt6-l10n-tools || error "Failed to install QT6 development libraries!"
 fi
 

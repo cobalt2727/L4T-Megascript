@@ -11,7 +11,7 @@ sudo apt install curl zenity kmod -y || error "Could not install dependencies"
 rm -rf minecraft-bedrock
 mkdir minecraft-bedrock
 cd minecraft-bedrock
-case "$dpkg_architecture" in
+case "$(uname -m)" in
 "arm64")
   type="arm64"
   type2="arm64"
@@ -29,7 +29,7 @@ case "$dpkg_architecture" in
   type2="amd64"
   ;;
 *)
-  echo "Error: your userspace architecture ($dpkg_architecture) is not supporeted by Minecraft Bedrock Launcher and will fail to run"
+  echo "Error: your userspace architecture ($(uname -i)) is not supporeted by Minecraft Bedrock Launcher and will fail to run"
   echo ""
   echo "Exiting the script"
   sleep 3
