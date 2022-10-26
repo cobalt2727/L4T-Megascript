@@ -33,13 +33,22 @@ The script itself doesn't actually get installed, even though it does install a 
 ### DISCLAIMER: In the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the [latest source code](https://github.com/cobalt2727/L4T-Megascript/archive/refs/heads/master.zip). *NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST!* (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to check our [wiki](./wiki) or hop in the Discord server using the link below and ask about it - we're happy to help!)
 
 ## Planned features:
+- Bring Fedora support to ALL scripts (this is currently a very long WIP, may require custom COPR repos with build flags for Tegra)
+    - possibly compile [ES-DE](https://gitlab.com/es-de/emulationstation-de/) as a cross-platform replacement for RetroPie (though we'd still use RetroPie's build scripts to generate the premade Tegra RetroArch cores
+    - alternatively, just use vanilla RetroArch and [make sure the online updater is disabled](https://wiki.archlinux.org/title/RetroArch#Enabling_the_%22Online_Updater%22)
+- Test the scripts against a Debian install, not just Ubuntu
+- Integrate [azkali](https://github.com/azkali)'s (currently private) Ubuntu 20.04 upgrade script, begin prompting users to run it once June 2023 hits?
 - Finish all the wiki pages (and ideally, migrate them over in the long run to https://squidfunk.github.io/mkdocs-material/ like RetroPie's [really cool documentation](https://retropie.org.uk/docs/))
+- do some wizardry with `LD_PRELOAD` to provide [AetherSX2](https://www.aethersx2.com/archive/?dir=desktop/linux) with newer system libraries so that the 20.04-built AppImage actually runs on 18.04
+    - this may not be possible with the [QT6 PPA we currently use](https://launchpad.net/~okirby/+archive/ubuntu/qt6-backports) for scripts that need it, so that would also have to be found elsewhere
 - ~~Automate adding performance mods to the Minecraft Java script for a MASSIVE, consistent framerate boost~~ <Br>
 Done: Make sure to click the "Install Fabric" button within the Minecraft instance, otherwise the mods won't be loaded
+- Add a build script and default configurations for [Slippi](https://slippi.gg/) - currently not possible until they rebase on mainline Dolphin instead of Ishiiruka
 - ~~Figure out a good process to compile [Xemu](https://github.com/mborgerson/xemu), possibly use the PPA as a fallback~~ <Br>
-Done: Xemu doesn't support "sudo make install" so desktop files were manually moved into place using what's already in the source code (and the same method was used for Metaforce!)
-- Updated Kodi packages at some point, maybe - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. The annoying part is there's already a PPA out there for 18.04, but it doesn't support ARM devices...
-- More to come!
+Done: Xemu doesn't support "sudo make install" so desktop files were manually moved into place using what's already in the source code
+- Make sure [Metaforce](https://github.com/AxioDL/metaforce) users can update smoothly when their dev team eventually merges the `new-cmodel` branch - for example, multiple submodule binaries from the old main branch will be deprecated and should be removed
+- Updated Kodi packages - it's definitely _possible_ when compiled manually, it's just a question of how easy is it to get everything we need working properly. There's already a PPA out there for 18.04, but it doesn't support ARM devices. Please let the devs know if you'd be willing to test Kodi on your ARM device at https://forum.kodi.tv/showthread.php?tid=366968
+- Add more apps!
 
 ## Our Team
 - Cobalt: Manager/Lead Dev
