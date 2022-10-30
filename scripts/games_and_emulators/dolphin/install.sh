@@ -19,7 +19,17 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     hash -r
     ;;
   esac
-  sudo apt install --no-install-recommends ca-certificates qtbase5-dev qtbase5-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
+
+  # as of the following commit on October 30th, Dolphin requires QT 5.15 or higher (with the addition of setPlaceholderText)
+  # https://github.com/dolphin-emu/dolphin/commit/053320b7cf5e1f4363c20edc9275cd352641cbd9
+  # for easier future-proofing and keeping this script simpler, I've just forced everyone to use QT6 instead
+  case "$__os_codename" in
+  bionic | impish | focal)
+    ppa_name="okirby/qt6-backports" && ppa_installer
+    ;;
+  esac
+
+  sudo apt install --no-install-recommends ca-certificates qt6-base-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
 
   #the following lines attempt to handle issues with installing on distros without systemd (namely AntiX)
   package_available libudev-dev #this will install on mainstream distros
@@ -35,18 +45,8 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
   fi
 
-  if test -d /usr/include/*-linux-gnu/qt6/; then
-    echo "QT6 packages found - since Dolphin will default to this when possible,"
-    echo "We'll need to install relevant dependencies..."
-    sleep 1
-    package_available qt6-base-private-dev
-    if [[ $? == "0" ]]; then
-      sudo apt install -y qt6-base-private-dev || error "Failed to install QT6 dependencies!"
-    else
-      error "Unknown error occurred..."
-    fi
-  fi
   ;;
+
 Fedora)
   sudo dnf install -y vulkan-loader vulkan-loader-devel cmake git gcc-c++ libXext-devel libgudev qt6-qtbase-devel qt6-qtbase-private-devel systemd-devel openal-soft-devel libevdev-devel libao-devel SOIL-devel libXrandr-devel pulseaudio-libs-devel bluez-libs-devel libusb-devel libXi-devel || error "Failed to install dependencies!"
   ;;
