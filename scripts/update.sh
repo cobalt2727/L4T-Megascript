@@ -202,9 +202,8 @@ if [[ $SystemFixUserInput == "yes" ]]; then
 
   case "$__os_codename" in
   bionic)
-    #note: add checks for the repo files here later - this takes a lot of time to scan for nothing if not installed
-    sudo ppa-purge theofficialgman/opt-qt-5.12.0-bionic-arm
-    sudo ppa-purge beineri/opt-qt-5.12.0-bionic
+    ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_purger
+    ppa_name="beineri/opt-qt-5.12.0-bionic" && ppa_purger
     ;;
   esac
 
