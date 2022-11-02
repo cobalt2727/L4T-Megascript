@@ -7,7 +7,7 @@ description="Do you want to remove unused programs (if any) and attempt to fix b
 \n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
 table=("no" "yes")
 userinput_func "$description" "${table[@]}"
-AptFixUserInput="$output"
+SystemFixUserInput="$output"
 
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
@@ -146,11 +146,11 @@ esac
 sudo chown $USER:$USER $HOME/.local/share/flatpak
 
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
-if [[ $AptFixUserInput == "yes" ]]; then
+if [[ $SystemFixUserInput == "yes" ]]; then
   echo
   echo
   echo
-  echo "Scanning for issues with APT packages..."
+  echo "Scanning for issues with system packages..."
   echo
   echo "If you receive a yes/no prompt in the following steps,"
   echo "Make sure you carefully read over the"
@@ -181,9 +181,28 @@ if [[ $AptFixUserInput == "yes" ]]; then
     fi
     ;;
   esac
-  
+  # and here's the neater way!
+  ##LLVM fixes to possibly be uncommented later - storing them here for reference, for now
+  # LLVM_VERSION_STRING=$(curl -s https://apt.llvm.org/llvm.sh | grep "CURRENT_LLVM_STABLE=")
+  # STABLE_LLVM=${LLVM_VERSION_STRING#*=}
+  # echo "stable LLVM is $STABLE_LLVM"
+  # LATEST_LLVM=$(($STABLE_LLVM + 1))
+  # echo "latest LLVM is $LATEST_LLVM"
+  # OLD_LLVM=$(($STABLE_LLVM - 1))
+  # echo "old LLVM is $OLD_LLVM"
+
+  # APT_LLVM_VERSION=$(echo $(dpkg -s llvm | grep -i version) | sed 's/.*\://' | awk -F\. '{print $1}')
+  # echo "version of LLVM from apt is $APT_LLVM_VERSION"
+  # if [ $OLD_LLVM == $APT_LLVM_VERSION ]; then
+  #   echo 'the "old" version of LLVM is default for the system - DO NOT REMOVE'
+  # else
+  #   echo "All clear to remove LLVM and Clang $OLD_LLVM"
+  # fi
+  # possibly come up with a way later to remove all versions between system version and OLD_LLVM?
+
   case "$__os_codename" in
   bionic)
+    #note: add checks for the repo files here later - this takes a lot of time to scan for nothing if not installed
     sudo ppa-purge theofficialgman/opt-qt-5.12.0-bionic-arm
     sudo ppa-purge beineri/opt-qt-5.12.0-bionic
     ;;
