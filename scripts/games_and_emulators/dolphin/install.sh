@@ -45,6 +45,13 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     sudo apt install -y libeudev-dev || error "Failed to install eudev development libraries!"
   fi
 
+  package_available vulkan-utils
+  if [[ $? == "0" ]]; then
+    sudo apt install -y vulkan-utils || error "Failed to install Vulkan development libraries!"
+  else #the package was renamed in later versions of Ubuntu, no idea why
+    sudo apt install -y vulkan-tools || error "Failed to install Vulkan development libraries!"
+  fi
+
   ;;
 
 Fedora)
