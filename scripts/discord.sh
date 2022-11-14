@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Discord $(uname -m) script started!"
 echo "CREDITS: https://github.com/SpacingBat3/WebCord"
 sleep 2
