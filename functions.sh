@@ -139,7 +139,7 @@ function LTS_check {
   source /etc/os-release
   if [[ $(echo $VERSION) == *"LTS"* ]]; then
     #the user's distro is an LTS
-    echo ""
+    return 0
   else
     #not LTS, so returning false
     return 1
