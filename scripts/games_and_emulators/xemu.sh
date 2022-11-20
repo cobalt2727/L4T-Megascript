@@ -47,5 +47,5 @@ sudo install -m 644 -D xemu/ui/icons/xemu_48x48.png /usr/local/share/icons/hicol
 sudo install -m 644 -D xemu/ui/icons/xemu_512x512.png /usr/local/share/icons/hicolor/512x512/apps/xemu.png #512
 sudo install -m 644 -D xemu/ui/icons/xemu_64x64.png /usr/local/share/icons/hicolor/64x64/apps/xemu.png     #64
 
-#install .desktop files themselves - possibly rewrite that first line if the file gets renamed as per my suggestion in https://github.com/AxioDL/metaforce/pull/438
+#install .desktop file itself
 sudo install -m 644 -D xemu/ui/xemu.desktop /usr/local/share/applications/xemu.desktop
