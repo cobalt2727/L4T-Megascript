@@ -71,14 +71,14 @@ bionic)
   fi
 
   sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
-  ;;
+  
   package_available libstdc++-12-dev
   if [[ $? == "0" ]]; then
     sudo apt install -y libstdc++-12-dev || error "Failed to install dependencies"
   else
     sudo apt install -y libstdc++-11-dev || error "Failed to install dependencies"
   fi
-
+  ;;
 esac
 
 package_available qt6-tools-dev
