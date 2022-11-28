@@ -68,7 +68,13 @@ git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull || error_user "Failed to download source code from GitHub!"
 
-git submodule update --init --recursive || error_user "Failed to download submodules from GitHub!"
+#https://dolphin-emu.org/blog/2021/07/21/integrated-gba/
+git submodule update --init Externals/mGBA || error_user "Failed to download source code from GitHub!"
+git submodule update --init Externals/spirv_cross || error_user "Failed to download source code from GitHub!"
+git submodule update --init Externals/zlib-ng || error_user "Failed to download source code from GitHub!"
+git submodule update --init Externals/libspng || error_user "Failed to download source code from GitHub!"
+git submodule update --init Externals/VulkanMemoryAllocator || error_user "Failed to download source code from GitHub!"
+git submodule update --init --recursive Externals/cubeb/ || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
