@@ -122,6 +122,6 @@ sudo cp -r metaforce/Runtime/platforms/freedesktop/*/ /usr/local/share/icons/hic
 sudo cp metaforce/Runtime/platforms/freedesktop/metaforce.desktop /usr/local/share/applications/metaforce.desktop
 
 #remove legacy files from older builds
-sudo rm /usr/local/bin/hecl /usr/local/bin/metaforce-gui /usr/local/bin/mkqticon /usr/local/bin/mkwmicon /usr/local/bin/visigen
+sudo rm /usr/local/bin/hecl /usr/local/bin/metaforce-gui /usr/local/bin/mkqticon /usr/local/bin/mkwmicon /usr/local/bin/visigen || true
 
 #maybe prompt user to delete build folder(s) considering how big they are?
