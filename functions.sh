@@ -514,6 +514,9 @@ function sudo {
 }
 export -f sudo
 
+# make sure pip works
+export PATH=$HOME/.local/bin:$PATH
+
 #####################################################################################
 # don't remove this line
 # it is used to verify that the entire functions file was sourced
