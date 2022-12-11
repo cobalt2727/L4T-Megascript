@@ -144,7 +144,8 @@ else
 fi
 
 #install some recommended dependencies - the fonts packages are there to support a lot of symbols and foreign language characters
-sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake git -y
+sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake git mesa-utils -y
+hash -r
 # fonts-noto-cjk fonts-noto-cjk-extra fonts-migmix fonts-noto-color-emoji
 
 if [[ $jetson_model ]]; then
@@ -160,6 +161,26 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
 
+if [[ $jetson_model ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; then
+  # installing tegra 32.3.1 Flatpak BSP and workarounds
+  sudo flatpak override --device=all
+  sudo flatpak override --share=network
+  sudo flatpak override --filesystem=/sys
+  echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-32-3-1" | sudo tee /etc/profile.d/flatpak_tegra.sh
+  cd /tmp
+  rm -f org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak
+  wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak || error "Failed to download org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
+
+  #Only try to remove flatpak app if it's installed.
+  if flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-tegra-32-3-1" ;then
+    sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-tegra-32-3-1" -y
+  fi
+
+  sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak -y || error "Failed to install org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
+
+  # install the gnome software center flatpak plugin
+  sudo apt install gnome-software-plugin-flatpak -y
+fi
 hash -r
 
 clear -x
