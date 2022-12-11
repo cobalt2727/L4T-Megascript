@@ -180,6 +180,25 @@ if [[ $jetson_model == "tegra-x1" ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; the
 
   # install the gnome software center flatpak plugin
   sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
+elif [[ $jetson_model == "tegra-x1" ]] && glxinfo | grep -qF "NVIDIA 32.7.3" ; then
+  # installing tegra 32.7.3 Flatpak BSP and workarounds
+  sudo flatpak override --device=all
+  sudo flatpak override --share=network
+  sudo flatpak override --filesystem=/sys
+  echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-32-7-3" | sudo tee /etc/profile.d/flatpak_tegra.sh
+  cd /tmp
+  rm -f org.freedesktop.Platform.GL.nvidia-tegra-32-7-3.flatpak
+  wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/tegra-x1/org.freedesktop.Platform.GL.nvidia-tegra-32-7-3.flatpak || error "Failed to download org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
+
+  #Only try to remove flatpak app if it's installed.
+  if flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-tegra-32-7-3" ;then
+    sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-tegra-32-7-3" -y
+  fi
+
+  sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-tegra-32-7-3.flatpak -y || error "Failed to install org.freedesktop.Platform.GL.nvidia-tegra-32-7-3"
+
+  # install the gnome software center flatpak plugin
+  sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
 fi
 hash -r
 
