@@ -161,7 +161,7 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
 
-if [[ $jetson_model ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; then
+if [[ $jetson_model == "tegra-x1" ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; then
   # installing tegra 32.3.1 Flatpak BSP and workarounds
   sudo flatpak override --device=all
   sudo flatpak override --share=network
