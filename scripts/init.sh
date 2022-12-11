@@ -179,7 +179,7 @@ if [[ $jetson_model ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; then
   sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak -y || error "Failed to install org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
 
   # install the gnome software center flatpak plugin
-  sudo apt install gnome-software-plugin-flatpak -y
+  sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
 fi
 hash -r
 
