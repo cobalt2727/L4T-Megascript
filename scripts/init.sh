@@ -169,7 +169,7 @@ if [[ $jetson_model == "tegra-x1" ]] && glxinfo | grep -qF "NVIDIA 32.3.1" ; the
   echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-32-3-1" | sudo tee /etc/profile.d/flatpak_tegra.sh
   cd /tmp
   rm -f org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak
-  wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak || error "Failed to download org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
+  wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/tegra-x1/org.freedesktop.Platform.GL.nvidia-tegra-32-3-1.flatpak || error "Failed to download org.freedesktop.Platform.GL.nvidia-tegra-32-3-1"
 
   #Only try to remove flatpak app if it's installed.
   if flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-tegra-32-3-1" ;then
