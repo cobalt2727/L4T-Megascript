@@ -53,39 +53,56 @@ function get_system {
   if [[ -e "/proc/device-tree/compatible" ]]; then
     CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
     if [[ ${CHIP} =~ "tegra186" ]]; then
+      __chip="t186"
       __platform="tegra-x2"
     elif [[ ${CHIP} =~ "tegra210" ]]; then
+      __chip="t210"
       __platform="tegra-x1"
     elif [[ ${CHIP} =~ "tegra194" ]]; then
+      __chip="t194"
       __platform="xavier"
     elif [[ ${CHIP} =~ "tegra234" ]]; then
+      __chip="t234"
       __platform="orin"
     elif [[ ${CHIP} =~ "tegra239" ]]; then
+      __chip="t239"
       __platform="switch-pro-chip"
     elif [[ ${CHIP} =~ "tegra" ]]; then
+      __chip="chip-unknown ${CHIP}"
       __platform="jetson-unknown"
     fi
+    jetson_chip_model="$__chip"
     jetson_model="$__platform"
+    export jetson_chip_model
     export jetson_model
   elif [[ -e "/sys/devices/soc0/family" ]]; then
     CHIP="$(tr -d '\0' </sys/devices/soc0/family)"
     if [[ ${CHIP} =~ "tegra20" ]]; then
+      __chip="t20"
       __platform="tegra-2"
     elif [[ ${CHIP} =~ "tegra30" ]]; then
+      __chip="t30"
       __platform="tegra-3"
     elif [[ ${CHIP} =~ "tegra114" ]]; then
+      __chip="t114"
       __platform="tegra-4"
     elif [[ ${CHIP} =~ "tegra124" ]]; then
+      __chip="t124"
       __platform="tegra-k1-32"
     elif [[ ${CHIP} =~ "tegra132" ]]; then
+      __chip="t132"
       __platform="tegra-k1-64"
     elif [[ ${CHIP} =~ "tegra210" ]]; then
+      __chip="t210"
       __platform="tegra-x1"
     fi
+    jetson_chip_model="$__chip"
     jetson_model="$__platform"
+    export jetson_chip_model
     export jetson_model
   fi
   unset __platform
+  unset __chip
 
   # set each variable individually since Fedora prints all output to one line
 
