@@ -16,8 +16,8 @@ else
   if [[ $dpkg_architecture == "amd64" ]]; then
     ppa_name="alexlarsson/flatpak" && ppa_installer
     sudo apt install flatpak -y
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub com.moonlight_stream.Moonlight -y
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak install flathub com.moonlight_stream.Moonlight -y
   else
     error_user "Error: your userspace architecture ($dpkg_architecture) is not supported by Moonlight (or we don't know how to install) and will fail to run"
   fi
