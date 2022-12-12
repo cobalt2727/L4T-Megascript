@@ -36,13 +36,13 @@
             "buildsystem": "simple",
             "build-commands": [
               "mkdir -p  ${FLATPAK_DEST}/nvidia_libs; \
-              ar x nvidia-l4t-3d-core_32.3.1-20191209225816_arm64.deb; \
+              ar x nvidia-l4t-3d-core*arm64.deb; \
               tar -xvf data.*; \
               rm control.* data.* debian-binary; \
-              ar x nvidia-l4t-core_32.3.1-20191209225816_arm64.deb; \
+              ar x nvidia-l4t-core*arm64.deb; \
               tar -xvf data.*; \
               rm control.* data.* debian-binary; \
-              ar x nvidia-l4t-wayland_32.3.1-20191209225816_arm64.deb; \
+              ar x nvidia-l4t-wayland*arm64.deb; \
               tar -xvf data.*; \
               rm control.* data.* debian-binary; \
               cp -r etc/nv_tegra_release ${FLATPAK_DEST}/nvidia_libs; \
