@@ -15,10 +15,11 @@ if command -v apt >/dev/null; then
     bionic)
       # I don't understand why filelock is needed on 18.04 specifically, but fine sure okay
       python3 -m pip install --upgrade pip filelock lastversion || error "Couldn't install dependencies"
+      ;;
     *)
       python3 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
+      ;;
     esac
-
 
     echo "Removing previous legacy Discord installs and inconsistent apt repo..."
     sudo dpkg -r electron-discord-webapp
