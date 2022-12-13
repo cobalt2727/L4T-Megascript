@@ -214,9 +214,8 @@ if [[ $SystemFixUserInput == "yes" ]]; then
   sudo apt update
   sudo dpkg --configure -a
   sudo apt --fix-broken install
-  sudo apt autoremove
-  sudo apt autopurge
-  sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') -y
+  sudo apt autoremove --purge
+  sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') #-y
 
   echo "Fixing flatpak issues (if any)..."
   sudo flatpak remove --unused
