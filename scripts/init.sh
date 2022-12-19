@@ -169,6 +169,10 @@ case "$jetson_chip_model" in
     sudo flatpak override --share=network
     sudo flatpak override --filesystem=/sys
     echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+    sudo sh -c "cat > /etc/sudoers.d/flatpak_tegra << _EOF_
+Defaults      env_keep += FLATPAK_GL_DRIVERS
+_EOF_"
+
     cd /tmp
     rm -f org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak
     wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}"
