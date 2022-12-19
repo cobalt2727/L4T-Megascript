@@ -153,6 +153,12 @@ export -f get_system
 get_system
 
 function LTS_check {
+  # if LTS_check; then
+  # 	echo "LTS"
+  # else
+  # 	echo "not LTS"
+  # fi
+  
   source /etc/os-release
   if [[ $(echo $VERSION) == *"LTS"* ]]; then
     #the user's distro is an LTS
@@ -164,11 +170,41 @@ function LTS_check {
 }
 export -f LTS_check
 
-# if LTS_check; then
-# 	echo "LTS"
-# else
-# 	echo "not LTS"
-# fi
+function PPA_check {
+  # this function is a modified version of https://gist.github.com/blade1989/9250261
+  # all I really did was remove the yes/no prompt and the section to install any packages
+  # so I guess you could call this version 0.4.1? -cobalt
+  # original credits are below:
+
+  #-----------------------------------------------
+  #	Author	    :   Imri Paloja
+  #	Email	    :   imri.paloja@gmail.com
+  #	HomePage    :   www.eurobytes.nl
+  #	Version	    :   0.4.0(Alpha, Be warned!)
+  #	Name        :   add-ppa
+  #-----------------------------------------------
+
+  if [ -d "/tmp/add-ppa/" ]; then
+    rm -r /tmp/add-ppa/
+  else
+    mkdir /tmp/add-ppa/
+  fi
+
+  mkdir -p /tmp/add-ppa/
+  wget --quiet "http://ppa.launchpad.net/$(echo $1 | sed -e 's/ppa://g')/ubuntu/dists" -O /tmp/add-ppa/support.html
+  grep "$(lsb_release -sc)" "/tmp/add-ppa/support.html" >>/tmp/add-ppa/found.txt
+  cat /tmp/add-ppa/found.txt | sed 's|</b>|-|g' | sed 's|<[^>]*>||g' >>/tmp/add-ppa/stripped_file.txt
+
+  if [[ -s /tmp/add-ppa/stripped_file.txt ]]; then
+    echo "$(lsb_release -sc) is supported!"
+    return 0
+  else
+    echo "$(lsb_release -sc) is not supported by $1"
+    return 1
+  fi
+rm -r /tmp/add-ppa/
+}
+export -f PPA_check
 
 function userinput_func {
   unset uniq_selection
