@@ -97,7 +97,7 @@ if ! pgrep virgl_test_ser*; then
 fi
 export STEAMOS=1
 export STEAM_RUNTIME=1
-GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox steam://open/minigameslist "$@"
+GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox -noreactlogin steam://open/minigameslist "$@"
 
 kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create steam launch script"
 
