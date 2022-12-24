@@ -13,8 +13,9 @@ if command -v apt >/dev/null; then
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
     case "$__os_codename" in
     bionic)
-      # I don't understand why filelock is needed on 18.04 specifically, but fine sure okay
-      python3 -m pip install --upgrade pip filelock lastversion || error "Couldn't install dependencies"
+      ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+      yes | python3.6 -m pip uninstall lastversion
+      python3.8 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
       ;;
     *)
       python3 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
