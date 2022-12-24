@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear -x
 
 echo "Box64 script started!"
