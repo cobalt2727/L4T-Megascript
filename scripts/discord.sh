@@ -14,6 +14,7 @@ if command -v apt >/dev/null; then
     case "$__os_codename" in
     bionic)
       ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+      sudo apt install -y python3.8
       yes | python3.6 -m pip uninstall lastversion
       python3.8 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
       ;;
