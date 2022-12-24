@@ -97,7 +97,7 @@ fi
 
 echo "Running APT updates..."
 sleep 1
-sudo apt upgrade -y
+sudo apt upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 
 if [ -f /etc/switchroot_version.conf ]; then
   swr_ver=$(cat /etc/switchroot_version.conf)
