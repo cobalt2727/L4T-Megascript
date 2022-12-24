@@ -24,7 +24,7 @@ bionic | focal) ppa_name="ubuntu-toolchain-r/test" && ppa_installer ;;
 esac
 
 sudo apt install zenity cmake git build-essential gcc-11 g++-11 -y || error "Could not install dependencies"
-cd
+cd ~
 rm -rf box64
 git clone --depth=1 https://github.com/ptitSeb/box64
 cd box64
