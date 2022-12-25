@@ -1,4 +1,4 @@
-fn="Initial Setup";;d="Installs many vital features like the joycon mouse, SDL2, updated build repos, etc";;sn="init.sh";;f="scripts";;selected="TRUE"
+fn="Initial Setup";;d="Installs many vital features like modern SDL2 2.26, updated build repos, etc";;sn="init.sh";;f="scripts";;selected="TRUE"
 
 fn="Auto Updater";;d="Update/fix system packages and programs installed via the Megascript (run this frequently!)";;sn="update.sh";;f="scripts";;selected="TRUE"
 

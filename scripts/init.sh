@@ -195,16 +195,16 @@ esac
 
 hash -r
 
-clear -x
-description="Do you want to install configurations that will let you use the joycons as a mouse?"
-table=("yes" "no")
-userinput_func "$description" "${table[@]}"
-if [[ $output == "yes" ]]; then
-  echo "Installing the Joycon Mouse..."
-  bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
-elif [[ $output == "no" ]]; then
-  echo "Going to the next option"
-fi
+# clear -x
+# description="Do you want to install configurations that will let you use the joycons as a mouse?"
+# table=("yes" "no")
+# userinput_func "$description" "${table[@]}"
+# if [[ $output == "yes" ]]; then
+#   echo "Installing the Joycon Mouse..."
+#   bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/joycon-mouse.sh)"
+# elif [[ $output == "no" ]]; then
+#   echo "Going to the next option"
+# fi
 
 clear -x
 description="Do you want to add a Application/Program/Game Helper? \
