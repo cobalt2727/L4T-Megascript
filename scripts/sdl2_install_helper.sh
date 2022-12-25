@@ -11,6 +11,12 @@ if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -
     rm -rf ./*
     wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.26.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll && wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-dev_2.26.1%2Bdfsg-1_arm64.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
     if [[ $(dpkg --print-foreign-architectures) == *"armhf"* ]]; then
+      case "$__os_codename" in
+      bionic)
+        # temporary PPA for pulseaudio 12.2, needed for multiarch on L4T 5.0.0
+        ppa_name="theofficialgman/pulseaudio-12.2-bionic" && ppa_installer
+        ;;
+      esac
       wget https://github.com/$repository_username/L4T-Megascript/raw/$repository_branch/assets/SDL2/libsdl2-2.0-0_2.26.1%2Bdfsg-1_armhf.deb --progress=bar:force:noscroll || error "Could not download files, make sure your internet is working"
     fi
     sudo apt install ./*.deb -y -f --allow-change-held-packages || error "SDL2 Packages Failed to install"
@@ -27,6 +33,12 @@ else
 fi
 
 if [[ "$dpkg_architecture" == "arm64" ]] && [[ $(dpkg --print-foreign-architectures) == *"armhf"* ]] && (apt-cache policy libsdl2-2.0-0:armhf | grep -q 'Installed: (none)' || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-2.0-0:armhf) lt 2.26.1)); then
+  case "$__os_codename" in
+  bionic)
+    # temporary PPA for pulseaudio 12.2, needed for multiarch on L4T 5.0.0
+    ppa_name="theofficialgman/pulseaudio-12.2-bionic" && ppa_installer
+    ;;
+  esac
   mkdir -p /tmp/sdl2
   cd /tmp/sdl2 || error "Could not change directory"
   rm -rf ./*

@@ -3,7 +3,11 @@
 case "$dpkg_architecture" in
 "arm64")
   case "$__os_codename" in
-  bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
+  bionic)
+    ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+    # temporary PPA for pulseaudio 12.2, needed for multiarch on L4T 5.0.0
+    ppa_name="theofficialgman/pulseaudio-12.2-bionic" && ppa_installer
+    ;;
   esac
   ;;
 "amd64")
