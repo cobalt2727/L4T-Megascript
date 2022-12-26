@@ -17,7 +17,7 @@ cd
 
 case "$__os_codename" in
 bionic)
-  ppa_name="rncbc/libs-bionic" && ppa_installer
+  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
   if [[ -f "/usr/bin/cmake" ]]; then
     #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
     sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
