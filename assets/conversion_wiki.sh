@@ -9,6 +9,10 @@ conversion() {
 ## Welcome to the L4T Megascript wiki! Use the sidebar on your right to navigate through here.
 ### (or start with the [initial setup](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup) )
 
+<p align="center">
+    <img src="https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/L4T_Megascript-logo.svg" height=256 alt="L4T-Megascript Logo"
+</p>
+
 ### Need some help or want to contribute?
 You're in luck - we've got a Discord server: <a href="https://discord.gg/abgW2AG87Z">
     Join the <img src="https://img.shields.io/discord/719014537277210704.svg?color=7289da&label=Discord%20server&logo=discord" alt="Join the Discord server"></a>
