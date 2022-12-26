@@ -341,6 +341,12 @@ else
   sleep 4
 fi
 
+echo "One more upgrade check for good measure..."
+#depending on the user's setup, the script could take a while
+#especially if they're using the helper script to run the updater and missing out on our sudo timer hack
+sudo apt update
+sudo apt upgrade -y
+
 sleep 1
 
 echo
