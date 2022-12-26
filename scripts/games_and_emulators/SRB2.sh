@@ -39,7 +39,7 @@ Fedora)
   ;;
 esac
 
-
+rm -rf master.zip SRB2 SRB2-master SRB2-Data.zip
 wget https://github.com/STJr/SRB2/archive/master.zip --progress=bar:force:noscroll
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2-A
@@ -69,6 +69,8 @@ cd ~/SRB2-DT
 mv music.dta patch.pk3 patch_music.pk3 player.dta srb2.pk3 zones.pk3 -t ~/SRB2-master/assets/installer
 cd ~/SRB2-master/build
 status "Compiling the game..."
+# hotfix for https://github.com/STJr/SRB2/issues/513
+sed -i '/target_compile_options(SRB2SDL2 PRIVATE -mno-ms-bitfields)/d' ../src/CMakeLists.txt
 cmake ..
 make -j$(nproc) || error "Compilation failed"
 status_green "Game compiled!"
