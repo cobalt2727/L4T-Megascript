@@ -122,13 +122,16 @@ focal)
   ;;
 esac
 
-# install SDL2
-echo "Installing SDL2..."
-bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
+status "Running APT updates..."
+if package_installed xserver-xorg-input-joystick; then
+  # upgrade xserver-xorg-input-joystick before other packages to workaround package conflicts
+  sudo apt install xserver-xorg-input-joystick -y
+fi
+sudo apt-get dist-upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 
-#updates whee
-sudo apt upgrade -y
-sudo apt --fix-broken install
+# install SDL2
+status "Installing SDL2..."
+bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
 
 #this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
 if [[ $jetson_model ]]; then

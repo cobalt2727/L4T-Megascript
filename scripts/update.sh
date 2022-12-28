@@ -95,53 +95,6 @@ fi
 
 #######################################################################
 
-echo "Running APT updates..."
-sleep 1
-sudo apt upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
-
-if [ -f /etc/switchroot_version.conf ]; then
-  swr_ver=$(cat /etc/switchroot_version.conf)
-  if [ $swr_ver == "3.4.0" ]; then
-    # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
-    # FIXME: future versions of Switchroot L4T Ubuntu will fix this and the check will be removed
-    if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
-      warning "Wifi was probably broken after an apt upgrade to linux-firmware"
-      warning "Replacing with known good version copied from L4T 3.4.0 updates files"
-      sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
-    fi
-  fi
-fi
-
-#this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
-# sudo apt install switch-multimedia -y
-sudo apt install python-minimal -y
-if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
-  sudo apt install unity-tweak-tool hud -y
-else
-  echo "Not using Unity as the current desktop, skipping theme manager install..."
-fi
-
-case "$__os_codename" in
-bionic)
-  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
-    echo "Continuing the installs"
-  else
-    echo "Force downgrading libc and related packages"
-    echo "libc 2.28 was previously required for the minecraft bedrock install"
-    echo "this is no longer the case so the hack is removed"
-    echo ""
-    echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
-    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
-    sudo rm -rf /etc/apt/preferences.d/zorinos*
-    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
-    sudo rm -rf /etc/apt/preferences.d/freetype*
-
-    sudo apt update
-    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
-  fi
-  ;;
-esac
-
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
 
@@ -238,6 +191,56 @@ else
 
   echo "Skipping apt fixes..."
 fi
+
+echo "Running APT updates..."
+if package_installed xserver-xorg-input-joystick; then
+  # upgrade xserver-xorg-input-joystick before other packages to workaround package conflicts
+  sudo apt install xserver-xorg-input-joystick -y
+fi
+sudo apt-get dist-upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+
+if [ -f /etc/switchroot_version.conf ]; then
+  swr_ver=$(cat /etc/switchroot_version.conf)
+  if [ $swr_ver == "3.4.0" ]; then
+    # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
+    # FIXME: future versions of Switchroot L4T Ubuntu will fix this and the check will be removed
+    if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
+      warning "Wifi was probably broken after an apt upgrade to linux-firmware"
+      warning "Replacing with known good version copied from L4T 3.4.0 updates files"
+      sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
+    fi
+  fi
+fi
+
+#this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
+# sudo apt install switch-multimedia -y
+sudo apt install python-minimal -y
+if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
+  sudo apt install unity-tweak-tool hud -y
+else
+  echo "Not using Unity as the current desktop, skipping theme manager install..."
+fi
+
+case "$__os_codename" in
+bionic)
+  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
+    echo "Continuing the installs"
+  else
+    echo "Force downgrading libc and related packages"
+    echo "libc 2.28 was previously required for the minecraft bedrock install"
+    echo "this is no longer the case so the hack is removed"
+    echo ""
+    echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
+    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
+    sudo rm -rf /etc/apt/preferences.d/zorinos*
+    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
+    sudo rm -rf /etc/apt/preferences.d/freetype*
+
+    sudo apt update
+    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
+  fi
+  ;;
+esac
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
