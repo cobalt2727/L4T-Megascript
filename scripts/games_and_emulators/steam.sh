@@ -25,12 +25,6 @@ fi
 
 sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
 ppa_name="kisak/kisak-mesa" && ppa_installer
-case "$__os_codename" in
-bionic)
-  # temporary PPA for pulseaudio 12.2, needed for multiarch on L4T 5.0.0
-  ppa_name="theofficialgman/pulseaudio-12.2-bionic" && ppa_installer
-  ;;
-esac
 
 # allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
 sudo sed -i "s/\"library_path\" : .*/\"library_path\" : \"libEGL_mesa.so.0\"/g" "/usr/share/glvnd/egl_vendor.d/50_mesa.json"
