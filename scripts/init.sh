@@ -123,10 +123,6 @@ focal)
 esac
 
 status "Running APT updates..."
-if package_installed xserver-xorg-input-joystick; then
-  # upgrade xserver-xorg-input-joystick before other packages to workaround package conflicts
-  sudo apt install xserver-xorg-input-joystick -y
-fi
 sudo apt-get dist-upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 
 # install SDL2
