@@ -97,6 +97,8 @@ fi
 
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
+#fix potential root-owned files from older NPM versions
+sudo chown -R 1001:1001 ~/.npm
 
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
 if [[ $SystemFixUserInput == "yes" ]]; then
