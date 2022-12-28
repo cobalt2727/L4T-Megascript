@@ -104,6 +104,7 @@ export STEAMOS=1
 export STEAM_RUNTIME=1
 GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox -noreactlogin steam://open/minigameslist "$@"
 
+rm -f /home/${USER}/Desktop/steam.desktop
 kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create steam launch script"
 
 # set execution bit
@@ -117,6 +118,7 @@ sudo sed -i 's:Exec=/usr/bin/steam:Exec=/usr/local/bin/steam:' /usr/local/share/
 
 # remove deb
 rm /tmp/steam.deb
+rm -f /home/${USER}/Desktop/steam.desktop
 
 if ! echo "$XDG_DATA_DIRS" | grep -q "/usr/local/share" || ! echo "$PATH" | grep -q "/usr/local/bin"; then
   warning "YOU NEED TO REBOOT before starting steam. This is because Steam is the first application on your system to be installed into the /usr/local folder."
