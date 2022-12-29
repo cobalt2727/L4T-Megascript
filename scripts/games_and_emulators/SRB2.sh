@@ -28,7 +28,7 @@ esac
 
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev freepats -y || error "Dependency installs failed"
+  sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev freepats libgles2-mesa-dev -y || error "Dependency installs failed"
   ;;
 Fedora)
   sudo dnf install -y wget cmake unzip git SDL2_mixer-devel libcurl-devel libopenmpt-devel game-music-emu-devel zlib-devel || error "Dependency installs failed"
