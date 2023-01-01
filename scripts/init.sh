@@ -58,6 +58,26 @@ if printf '%s\n' "$minimumver" "$__os_release" | sort -CV; then
   fi
 fi
 
+if package_installed "gnome-software-plugin-snap"; then
+  description="Do you want to remove the snap pluin from the gnome software store? If unsure, think of it as\
+\nbloatware from Canonical\
+\nIt's controversial for a few reasons:\
+\n - the store is closed source, which is a bit weird for a Linux company...\
+\n - programs installed from them are in containers,\
+\n   which means they won't run as well\
+\n - the biggest issue is that on Tegra hardware, there is no GPU hardware acceleration from snaps.\
+\nIt's recommended by us to switch from snaps to apt, flatpak, and\
+\nbuilding from source whenever possible.\
+\nSo as you can probably tell, we're extremely biased against\
+\nit and would recommend removing it. But the choice is yours:\
+\n \n Do you want to remove the gnome software store snap plugin?"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  if [[ $output == "yes" ]]; then
+    sudo apt remove gnome-software-plugin-snap -y
+  fi
+fi
+
 # check for bad machine-id from 3.0.0 L4T Ubuntu image and fix if necessary
 # also generate if user has somehow deleted their machine-id as well
 if [[ $(cat /var/lib/dbus/machine-id) == "52e66c64e2624539b94b31f8412c6a7d" ]]; then
