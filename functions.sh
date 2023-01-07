@@ -7,6 +7,8 @@
 #####################################################################################
 unset functions_downloaded
 
+export DIRECTORY="$HOME/L4T-Megascript"
+
 function get_system {
   # architecture, dpkg_architecture, jetson_model (if available), model, __os_id, __os_desc, __os_release, and __os_codename are always available in L4T-Megascript scripts without calling any function
   source /etc/os-release
@@ -552,6 +554,47 @@ apt_lock_wait() { #Wait until other apt processes are finished before proceeding
   done
 }
 export -f apt_lock_wait
+
+#miscellaneous low-level functions below
+runonce() { #run command only if it's never been run before. Useful for one-time migration or setting changes.
+  #Runs a script in the form of stdin
+  
+  script="$(< /dev/stdin)"
+  
+  runonce_hash="$(sha1sum <<<"$script" | awk '{print $1}')"
+
+  mkdir -p "${DIRECTORY}/data"
+  
+  if [ -s "${DIRECTORY}/data/runonce_hashes" ] && while read line; do [[ $line == "$runonce_hash" ]] && break; done < "${DIRECTORY}/data/runonce_hashes"; then
+    #hash found
+    #echo "runonce: '$script' already run before. Skipping."
+    true
+  else
+    #run the script.
+    bash <(echo "$script")
+    #if it succeeds, add the hash to the list to never run it again
+    if [ $? == 0 ];then
+      echo "$runonce_hash" >> "${DIRECTORY}/data/runonce_hashes"
+      echo "runonce(): '$script' succeeded. Added to list."
+    else
+      echo "runonce(): '$script' failed. Not adding hash to list."
+    fi
+    
+  fi
+  
+}
+export -f runonce
+
+sudo_popup() { #just like sudo on passwordless systems like PiOS, but displays a password dialog otherwise. Avoids displaying a password prompt to an invisible terminal.
+  if sudo -n true; then
+    # sudo is available (within sudo timer) or passwordless
+    sudo "$@"
+  else
+    # sudo is not available (not within sudo timer)
+    pkexec "$@"
+  fi
+}
+export -f sudo_popup
 
 # wrap sudo function so we can catch "sudo apt" and "sudo apt-get" usage. Sudo can't normally run functions so we can't just wrap "apt" or "apt-get" without changing every script
 function sudo {
