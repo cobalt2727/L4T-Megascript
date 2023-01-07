@@ -523,6 +523,12 @@ while [ $x == 1 ]; do
       sudo apt update
     fi
     install_post_depends
+
+    # run runonce entries
+    # this replaces the need for an initial setup script
+    status "Runing Initial Setup Runonce entries"
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/runonce-entries.sh)"
+
     rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do
       #shamelessly take (and adapt) from Pi-Apps https://github.com/Botspot/pi-apps/blob/20378324ce92ca1e7634db77adc747a18ab214b2/manage#L221
