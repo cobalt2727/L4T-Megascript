@@ -1,5 +1,7 @@
 # ignore all log files
 logs
+# ignore data folder
+data
 
 # random trash from the user's device
 .vscode
