@@ -86,11 +86,18 @@ fi
 # run pi-apps updater if available
 cd ~
 if test -f ~/pi-apps/updater; then
+  # pi-apps and the L4T-Megascript use many functions and variables with the same name.
+  # to avoid conflicts always unset the DIRECTORY variable and re-load our functions after running pi-apps
+  unset DIRECTORY
   if [[ $gui == "gui" ]]; then
     ~/pi-apps/updater gui
   else
     ~/pi-apps/updater cli
   fi
+  #load functions from github source
+  unset functions_downloaded
+  source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
+  [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 fi
 
 #######################################################################
