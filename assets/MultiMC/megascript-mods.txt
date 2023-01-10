@@ -10,3 +10,17 @@ lazydfu
 ferrite-core
 better-beds
 chunk-pregenerator-fabric
+moreculling
+puzzle
+reeses-sodium-options
+smooth-boot
+lazydfu
+yetanotherconfiglib
+lambdynamiclights
+indium
+memoryleakfix
+immediatelyfast
+fast-load
+exordium
+entityculling
+c2me-fabric
