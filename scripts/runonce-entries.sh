@@ -168,6 +168,15 @@ focal)
 esac
 EOF
 
+# add more helpful PPAs
+runonce <<"EOF"
+case "$__os_codename" in
+bionic|focal|jammy)
+  ppa_name="theofficialgman/gpu-tools" && ppa_installer
+  ;;
+esac
+EOF
+
 # upgrade the install once
 runonce <<"EOF"
 status "Running APT updates..."

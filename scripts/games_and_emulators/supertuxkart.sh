@@ -16,7 +16,7 @@ sudo apt install build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 \
   cmake extra-cmake-modules libopenal-dev libglew-dev libgles2-mesa-dev libboost-dev libboost-all-dev subversion \
   libbluetooth-dev libenet-dev libfreetype6-dev libharfbuzz-dev \
   libjpeg-dev libpng-dev \
-  libssl-dev nettle-dev pkg-config zlib1g-dev -y || error "Dependency installs failed"
+  libssl-dev nettle-dev pkg-config zlib1g-dev libshaderc-dev -y || error "Dependency installs failed"
 mkdir -p supertuxkart
 cd supertuxkart
 git clone https://github.com/supertuxkart/stk-code stk-code --depth=1 || (
