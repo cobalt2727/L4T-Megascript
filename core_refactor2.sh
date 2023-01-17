@@ -614,7 +614,7 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
 \nPLEASE view the log in terminal to find the error's cause.\
 \nThere is a VERY HIGH chance that YOU caused the error and it can be fixed with a simple google search.\
 \nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
-\nIf you send an error report, PLEASE contact us in the discord.\
+\nIf you send an error report, a web browser WILL open with an invite to our Discord server. You should join and announce yourself.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
           fi
@@ -625,9 +625,13 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
             ;;
           "Continue and Send Error")
             send_error "$logfile"
+            # spawn a web browser with the discord
+            setsid x-www-browser "https://discord.gg/abgW2AG87Z" >/dev/null 2>&1 &
             ;;
           "Exit and Send Error")
             send_error "$logfile"
+            # spawn a web browser with the discord
+            setsid x-www-browser "https://discord.gg/abgW2AG87Z" >/dev/null 2>&1 &
             exit
             ;;
           esac
