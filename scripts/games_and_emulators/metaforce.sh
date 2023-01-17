@@ -56,7 +56,18 @@ bionic)
     clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
   ;;
 *)
-  sudo apt install -y build-essential curl git ninja-build clang clang-tools clang-tidy clangd lld zlib1g-dev libcurl4-openssl-dev \
+  case "$__os_codename" in
+  jammy)
+    sudo apt install -y gcc-12 g++-12 || error "Failed to install dependencies!"
+    ;;
+  *)
+    sudo apt install -y clang clang-tools clang-tidy clangd || error "Failed to install dependencies!"
+    # move more clang-specific deps out of the below apt install chunk and into the above line
+    # is mlir clang-specific?
+    ;;
+  esac
+
+  sudo apt install -y build-essential curl git ninja-build lld zlib1g-dev libcurl4-openssl-dev \
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
     libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
     qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
@@ -71,7 +82,7 @@ bionic)
   fi
 
   sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
-  
+
   package_available libstdc++-12-dev
   if [[ $? == "0" ]]; then
     sudo apt install -y libstdc++-12-dev || error "Failed to install dependencies"
@@ -105,6 +116,10 @@ bionic)
   fi
   CC=clang-14 CXX=clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -G Ninja ../metaforce || error "Cmake failed!"
   CC=clang-14 CXX=clang++-14 ninja || error "Build failed!"
+  ;;
+jammy)
+  CC=gcc-12 CXX=g++-12 cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
+  CC=gcc-12 CXX=g++-12 ninja || error "Build failed!"
   ;;
 *)
   CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release -DMETAFORCE_VECTOR_ISA=native -G Ninja ../metaforce || error "Cmake failed!"
