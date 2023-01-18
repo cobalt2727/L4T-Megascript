@@ -14,7 +14,7 @@ case "$dpkg_architecture" in
   echo "Installing Dependencies"
   ;;
 *)
-  error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by box64 and will fail to compile"
+  error_user "Error: your cpu architecture ($dpkg_architecture) is not supported by box64 and will fail to compile"
   ;;
 esac
 
