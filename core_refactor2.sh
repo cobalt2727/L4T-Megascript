@@ -290,7 +290,7 @@ if [ -f /etc/switchroot_version.conf ]; then
   function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d%03d\n", $1,$2,$3,$4,$5); }'; }
   if [ $(version $swr_ver) -lt $(version $swr_ver_current) ]; then
     if [[ $gui == "gui" ]]; then
-      yad --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
+      yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "Welcome!" --text "Your L4T Ubuntu version is out of date! You have L4T $swr_ver and the currrent version is $swr_ver_current! \
       \n\n\Please update as soon as you can.\nThe instructions are at the 'Downloads' section of https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide. \
       \n\nA web browser will launch with the instructions after you hit OK! " --window-icon=/usr/share/icons/L4T-Megascript.png
       setsid x-www-browser "https://wiki.switchroot.org/en/Linux/Ubuntu-Install-Guide" >/dev/null 2>&1 &
@@ -327,18 +327,18 @@ while [ $x == 1 ]; do
       echo "This user is running an unknown jetson model: $(tr -d '\0' </proc/device-tree/compatible)" >/tmp/output.txt
       send_error "/tmp/output.txt"
     fi
-    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
-    yad --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
+    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\Device Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
     divisor="1024000"
     free_gb=$(echo "scale=2 ; $free / $divisor" | bc)
     if [[ $free -lt 2048000 ]]; then
-      yad --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
+      yad --class L4T-Megascript --name "L4T Megascript" --center --warning --width="500" --height="250" --title "Welcome!" --text "You have only $free_gb GB of free ram! \
       \n\n\Please consider closing out of any unnecessary programs before starting the Megascript." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
     if [ -z "$jetson_model" ]; then
-      yad --center --warning --width="500" --height="250" --title "Welcome!" --text "WARNING: You are NOT running a Nvidia Jetson or Nintendo Switch! \
+      yad --class L4T-Megascript --name "L4T Megascript" --center --warning --width="500" --height="250" --title "Welcome!" --text "WARNING: You are NOT running a Nvidia Jetson or Nintendo Switch! \
       \n\n\Beware that some scripts may fail or mess up your install, especially on non-ARM64 hardware." --window-icon=/usr/share/icons/L4T-Megascript.png --borders="20" --no-cancel --button=OK:0
     fi
     add_desktop_if
@@ -355,7 +355,7 @@ while [ $x == 1 ]; do
       # preset to exit the megascript
       output=1
       CATEGORY=$(
-        yad --center \
+        yad --class L4T-Megascript --name "L4T Megascript" --center \
           --width="250" \
           --height="350" \
           --title "Welcome to the L4T Megascript" \
@@ -379,7 +379,7 @@ while [ $x == 1 ]; do
         declare -n current_table="table_$CATEGORY"
         if [ "$CATEGORY" == "all_categories" ]; then
           CHOICE=$(
-            yad --center \
+            yad --class L4T-Megascript --name "L4T Megascript" --center \
               --width="1000" \
               --height="500" \
               --title "$category_space" \
@@ -405,7 +405,7 @@ while [ $x == 1 ]; do
           output="$?"
         else
           CHOICE=$(
-            yad --center \
+            yad --class L4T-Megascript --name "L4T Megascript" --center \
               --width="1000" \
               --height="500" \
               --title "$category_space" \
@@ -500,7 +500,7 @@ while [ $x == 1 ]; do
     echo "$update_output" | grep -qe '^Err:' -qe '^E:'
     if [[ $? == 0 ]]; then
       # apt update failed with an error
-      yad --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+      yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
       \n\n\Verify that you are connected to the internet. \
       \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
         --button="Exit the L4T-Megascript":0 \
@@ -675,7 +675,7 @@ megascript_elapsed_friendly=$(eval "echo $(date -ud "@$megascript_elapsed" +'$((
 if [[ $gui == "gui" ]]; then
   # hey, if you're reading this, odds are you probably helped make the thing. you can add your name to the credits in your PRs!
   echo -e "Thank you for using the L4T Megascript!\nStop by our Discord server at https://discord.gg/abgW2AG87Z for support.\n\nCredits:\nCobalt - Manager/Lead Dev\ntheofficialgman - Developer/GUI and CLI Management/RetroPie/Minecraft Handler\nLugsole - Contributor\nLang Kasempo - Contributor/Beta Tester\n\nthe Switchroot L4T team (https://switchroot.org/) - making the actual OS you're running right now\n\nThe Megascript ran for $megascript_elapsed_friendly" |
-    yad --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
+    yad --class L4T-Megascript --name "L4T Megascript" --show-uri --center --image "dialog-information" --borders="20" --title "Bye" \
       --text-info --fontname="@font@ 11" --wrap --width=800 --height=400 \
       --show-uri --window-icon=/usr/share/icons/L4T-Megascript.png \
       --button="Open the L4T-Megascript Wiki Page":1 \

@@ -5,4 +5,5 @@ Exec=bash -c 'bash <( wget -O - https://raw.githubusercontent.com/cobalt2727/L4T
 Icon=/usr/share/icons/L4T-Megascript.png
 Type=Application
 Categories=System
+StartupWMClass=L4T-Megascript
 Terminal=true

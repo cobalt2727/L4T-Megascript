@@ -215,13 +215,13 @@ function userinput_func {
   height_gui_buttons=$(echo $((height * 15)))
   if [[ $gui == "gui" ]]; then
     if [[ "${#@}" == "2" ]]; then
-      echo -e "$1" | yad --fixed --no-escape --undecorated --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
+      echo -e "$1" | yad --class L4T-Megascript --name "L4T Megascript" --fixed --no-escape --undecorated --show-uri --center --image "dialog-information" --borders="20" --title "User Info Prompt" \
         --text-info --fontname="@font@ 11" --wrap --width=800 --height=$height_gui \
         --window-icon=/usr/share/icons/L4T-Megascript.png \
         --button="$2":0
       output="$2"
     elif [[ "${#@}" == "3" ]]; then
-      yad --image "dialog-question" \
+      yad --class L4T-Megascript --name "L4T Megascript" --image "dialog-question" \
         --borders="20" --height=$height_gui_buttons --center --fixed --window-icon=/usr/share/icons/L4T-Megascript.png \
         --text="$1" \
         --button="$2":0 \
@@ -237,7 +237,7 @@ function userinput_func {
       done
       uniq_selection[0]=TRUE
       output=$(
-        yad --center --fixed --height=$height_gui --borders="20" \
+        yad --class L4T-Megascript --name "L4T Megascript" --center --fixed --height=$height_gui --borders="20" \
           --window-icon=/usr/share/icons/L4T-Megascript.png \
           --text "$1" \
           --list \
