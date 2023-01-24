@@ -49,7 +49,7 @@ then
 
     echo "Downloading and installing the most recent .rpm from SpacingBat3's repository..."
     # this command unfortunately doesn't work on Debian-based systems
-    sudo lastversion install webcord || error "Webcord install failed"
+    yes | sudo lastversion install webcord || error "Webcord install failed"
 
   else
     error_user "Your architecture ($architecture) is not supported."
