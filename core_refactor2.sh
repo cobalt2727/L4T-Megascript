@@ -155,35 +155,6 @@ elif grep -q fedora /etc/os-release; then
   fi
 fi
 
-function install_post_depends {
-  if grep -q debian /etc/os-release; then
-
-    ## Check SDL2 version
-    if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.0.14); then
-      echo "Installing SDL2 from binary..."
-      bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
-    fi
-
-    if [ -f /etc/switchroot_version.conf ]; then
-      swr_ver=$(cat /etc/switchroot_version.conf)
-      if [ $swr_ver == "3.4.0" ]; then
-        # check for bad wifi/bluetooth firmware, overwritten by linux-firmware upgrade
-        # FIXME: future versions of Switchroot L4T Ubuntu will fix this and the check will be removed
-        if [[ $(sha1sum /lib/firmware/brcm/brcmfmac4356-pcie.bin | awk '{print $1}') != "6e882df29189dbf1815e832066b4d6a18d65fce8" ]]; then
-          warning "Wifi was probably broken after an apt upgrade to linux-firmware"
-          warning "Replacing with known good version copied from L4T 3.4.0 updates files"
-          sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
-        fi
-      fi
-    fi
-
-  elif grep -q fedora /etc/os-release; then
-    #nothing needed here (yet?)
-    echo ""
-  fi
-
-}
-
 function add_desktop_if {
   test -f "/usr/share/applications/L4T-Megascript.desktop" || if [[ $gui == "gui" ]]; then
     zenity --info --width="500" --height="250" --title "Welcome!" --text "Looks like you don't have the L4T-Megascript.desktop file (the applications icon) \nPlease give your password at the prompt"
@@ -522,7 +493,6 @@ while [ $x == 1 ]; do
       sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
       sudo apt update
     fi
-    install_post_depends
 
     # run runonce entries
     # this replaces the need for an initial setup script
