@@ -197,18 +197,23 @@ EOF
 
 #flatpak fixup
 runonce <<"EOF"
-if [[ $jetson_model ]]; then
-  # fix up an issue with running flatpaks by enabling non-privileged user namespaces
-  # this is enabled in the kernel defconfig... no clue why it doesn't work
-  sudo chmod u+s /usr/libexec/flatpak-bwrap
-  sudo chown -R $USER ~/.local/share/flatpak
+if [ -f /etc/switchroot_version.conf ]; then
+  swr_ver=$(cat /etc/switchroot_version.conf)
+  if [[ $swr_ver == 3.*.* ]]; then
+    # fix up an issue with running flatpaks by enabling non-privileged user namespaces
+    # no clue why it doesn't work but works on L4T 5.0.0
+    sudo chmod u+s /usr/libexec/flatpak-bwrap
+  else
+    # reinstall flatpak package incase we messed with the permissions previously
+    sudo apt install --reinstall flatpak -y
+  fi
 fi
-
-#kinda hard to install flatpaks without flathub
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
 sudo chown $USER:$USER $HOME/.local/share/flatpak
+
+#kinda hard to install flatpaks without flathub
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 EOF
 
 runonce <<"EOF"
