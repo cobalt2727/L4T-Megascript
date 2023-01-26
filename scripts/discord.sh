@@ -7,7 +7,9 @@ sleep 2
 cd /tmp
 rm webcord*
 
-if command -v apt >/dev/null; then
+if
+  command -v apt >/dev/null
+then
   if [[ $dpkg_architecture == "amd64" ]] || [[ $dpkg_architecture == "arm64" ]] || [[ $dpkg_architecture == "armhf" ]]; then
     echo "Installing dependencies..."
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
