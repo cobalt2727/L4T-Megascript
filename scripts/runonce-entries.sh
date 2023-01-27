@@ -233,7 +233,7 @@ _EOF_"
 
     cd /tmp || error "Could not move to /tmp directory. Is your install corrupted?"
     rm -f org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak
-    wget --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}" || "Download failed"
+    wget --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}"
     sync
 
     #Only try to remove flatpak app if it's installed.
