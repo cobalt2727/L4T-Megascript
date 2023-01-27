@@ -43,7 +43,7 @@ sleep 2
 # ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 # #echo "5...............Install Project+ (builds correctly, performance untested, PROBABLY SLOW)"
 
-table=('Install Dolphin (use the updater on the main menu to update!)' "Run the RiiConnect24 Patcher")
+table=('Install Dolphin (use the updater on the main menu to update!)' "Install Dolphin WITHOUT performance settings")
 description="What would you like to do?\
 \nNote that a FIRST-TIME install of Dolphin can take up to 40-60 minutes on a Switch.\
 \n\nConnecting your Switch to a charger is recommended.\
@@ -56,42 +56,20 @@ if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)'
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
 
-elif [[ $output == "Run the RiiConnect24 Patcher" ]]; then
-  case "$__os_id" in
-  Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-    sudo apt install -y xdelta3 || error "Failed to install dependencies!"
-    ;;
-  Fedora)
-    sudo dnf install -y xdelta || error "Failed to install dependencies!"
-    ;;
-  *)
-    echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install the xdelta package yourself...\\e[39m"
-    sleep 5
-    ;;
-  esac
-  bash -c "$(curl -s https://raw.githubusercontent.com/RiiConnect24/RiiConnect24-Patcher/master/RiiConnect24Patcher.sh)"
+elif [[ $output == "Install Dolphin WITHOUT performance settings" ]]; then
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
 
 elif
-  [[ $userInput == 3 ]]
+  [[ $output == 3 ]]
 then
   echo "not ready yet"
   sleep 3
 ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/primehack.sh)"
 
-elif [[ $userInput == 4 ]]; then
+elif [[ $output == 4 ]]; then
   echo "not ready yet"
   sleep 3
 ##bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/slippi.sh)"
-
-elif [[ $userInput == 5 ]]; then
-  echo "Loading Project+ script..."
-  sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/projectplus.sh)" || exit $?
-
-elif [[ $userInput == 6 ]]; then
-  echo "not ready yet"
-  sleep 3
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/kirbyairridehackpack.sh)" || exit $?
 
 fi
 
