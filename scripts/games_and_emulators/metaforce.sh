@@ -97,6 +97,7 @@ if [[ $? == "0" ]]; then # this 22.04+ dep is really only needed for the submodu
   sudo apt install -y qt6-tools-dev libqt6svg6-dev libqt6core5compat6-dev qt6-tools-dev-tools qt6-declarative-dev qt6-l10n-tools || error "Failed to install QT6 development libraries!"
 fi
 
+cd ~
 git clone --recursive https://github.com/AxioDL/metaforce.git -j$(nproc)
 cd metaforce
 git pull -j$(nproc)
