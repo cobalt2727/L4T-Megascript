@@ -71,4 +71,7 @@ sudo chown $USER:$USER .ninja_*
 sudo ninja binfmt_misc_32
 sudo ninja binfmt_misc_64
 
-FEXRootFSFetcher -y || error "Couldn't download rootfs!"
+status_green "DEV NOTE: run this next step manually to troubleshoot any errors involving it - the output might not show up in the error log"
+yes 1 | FEXRootFSFetcher -y || error "Couldn't download rootfs!"
+
+echo "FEX successfully installed!"
