@@ -143,29 +143,14 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     fi
     ;;
   esac
-  # and here's the neater way!
-  ##LLVM fixes to possibly be uncommented later - storing them here for reference, for now
-  # LLVM_VERSION_STRING=$(curl -s https://apt.llvm.org/llvm.sh | grep "CURRENT_LLVM_STABLE=")
-  # STABLE_LLVM=${LLVM_VERSION_STRING#*=}
-  # echo "stable LLVM is $STABLE_LLVM"
-  # LATEST_LLVM=$(($STABLE_LLVM + 1))
-  # echo "latest LLVM is $LATEST_LLVM"
-  # OLD_LLVM=$(($STABLE_LLVM - 1))
-  # echo "old LLVM is $OLD_LLVM"
-
-  # APT_LLVM_VERSION=$(echo $(dpkg -s llvm | grep -i version) | sed 's/.*\://' | awk -F\. '{print $1}')
-  # echo "version of LLVM from apt is $APT_LLVM_VERSION"
-  # if [ $OLD_LLVM == $APT_LLVM_VERSION ]; then
-  #   echo 'the "old" version of LLVM is default for the system - DO NOT REMOVE'
-  # else
-  #   echo "All clear to remove LLVM and Clang $OLD_LLVM"
-  # fi
-  # possibly come up with a way later to remove all versions between system version and OLD_LLVM?
 
   case "$__os_codename" in
   bionic)
     ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_purger
     ppa_name="beineri/opt-qt-5.12.0-bionic" && ppa_purger
+    ;;
+  focal)
+    sudo apt install --reinstall -y python-is-python3
     ;;
   esac
 
