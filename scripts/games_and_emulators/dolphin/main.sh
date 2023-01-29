@@ -43,7 +43,7 @@ sleep 2
 # ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 # #echo "5...............Install Project+ (builds correctly, performance untested, PROBABLY SLOW)"
 
-table=('Install Dolphin (use the updater on the main menu to update!)' "Install Dolphin WITHOUT performance settings")
+table=('Install Dolphin (use our Auto Updater to update!)' "Install Dolphin WITHOUT performance settings")
 description="What would you like to do?\
 \nNote that a FIRST-TIME install of Dolphin can take up to 40-60 minutes on a Switch.\
 \n\nConnecting your Switch to a charger is recommended.\
