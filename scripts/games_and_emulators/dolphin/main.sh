@@ -50,7 +50,7 @@ description="What would you like to do?\
 \n\nYour Choices of Install are:"
 userinput_func "$description" "${table[@]}"
 
-if [[ $output == 'Install Dolphin (use the updater on the main menu to update!)' ]]; then
+if [[ $output == 'Install Dolphin (use our Auto Updater to update!)' ]]; then
   echo "Building from source with device-specific optimizations..."
   cd ~
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
