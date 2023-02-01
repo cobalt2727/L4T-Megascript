@@ -462,11 +462,7 @@ while [ $x == 1 ]; do
   # initialize sudo password and extent timeout so we never run out
   IFS=":"
   if [ ! -z "$CHOICE" ]; then
-    while true; do
-      sleep 60
-      sudo -v
-      kill -0 "$$" 2>/dev/null || exit
-    done &
+    systemd-inhibit bash -c "while true; do sleep 60; sudo -v; kill -0 "$$" 2>/dev/null || exit; done" &
     update_output=$(sudo apt update 2>&1 | tee /dev/tty)
     echo "$update_output" | grep -qe '^Err:' -qe '^E:'
     if [[ $? == 0 ]]; then
