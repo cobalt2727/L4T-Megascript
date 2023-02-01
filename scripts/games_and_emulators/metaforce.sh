@@ -53,7 +53,7 @@ bionic)
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
     libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
     qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
-    clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev || error "Failed to install dependencies!" #libfmt-dev
+    clang-14 clang++-14 libclang-14-dev libmlir-14-dev libstdc++-11-dev libvulkan1 libvulkan-dev libjack-jackd2-dev || error "Failed to install dependencies!" #libfmt-dev
   ;;
 *)
   case "$__os_codename" in
@@ -70,7 +70,7 @@ bionic)
   sudo apt install -y build-essential curl git ninja-build lld zlib1g-dev libcurl4-openssl-dev \
     libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
     libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
-    qtbase5-dev-tools libclang-dev || error "Failed to install dependencies!" #libfmt-dev
+    qtbase5-dev-tools libclang-dev libjack-jackd2-dev || error "Failed to install dependencies!" #libfmt-dev
   LLVM_VERSION=$(echo $(dpkg -s llvm | grep -i version) | sed 's/.*\://' | awk -F\. '{print $1}')
   package_available mlir-$LLVM_VERSION-tools
   if [[ $? == "0" ]]; then
