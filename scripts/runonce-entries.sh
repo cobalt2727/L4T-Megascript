@@ -242,6 +242,7 @@ _EOF_"
     fi
 
     sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak -y -vv || error "Failed to install org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}"
+    sudo flatpak pin --system runtime/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}/aarch64/1.4
 
     # install the gnome software center flatpak plugin
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
