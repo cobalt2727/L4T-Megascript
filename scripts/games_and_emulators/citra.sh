@@ -23,7 +23,7 @@ bionic)
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
     ppa_name="beineri/opt-qt-5.15.2-bionic"
   else
-    ppa_name="theofficialgman/opt-qt-5.15.4-bionic-arm"
+    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
   fi
   ppa_installer
   # sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
