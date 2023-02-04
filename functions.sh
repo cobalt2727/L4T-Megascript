@@ -12,6 +12,8 @@ export DIRECTORY="$HOME/L4T-Megascript"
 function get_system {
   # architecture, dpkg_architecture, jetson_model (if available), model, __os_id, __os_desc, __os_release, and __os_codename are always available in L4T-Megascript scripts without calling any function
   source /etc/os-release
+  __formal_distro_name="$NAME"
+  export __formal_distro_name
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
   export architecture
