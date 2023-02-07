@@ -11,7 +11,7 @@ cd /tmp || error "Could not move to /tmp folder"
 rm -rf ./htop
 git clone https://github.com/htop-dev/htop.git
 cd htop
-git checkout 3.0.5
+git checkout 3.2.2
 ./autogen.sh && ./configure && make -j$(nproc)
 sudo make install || error "Make install failed"
 rm -rf /tmp/htop
