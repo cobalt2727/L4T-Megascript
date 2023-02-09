@@ -144,7 +144,9 @@ function get_system {
     __os_release="$(lsb_release -s -r)"
     __os_codename="$(lsb_release -s -c)"
   fi
-
+  if [ $__os_id == "Nobara" ]; then
+    __os_id="Fedora"
+  fi
   export __os_id
   export __os_desc
   export __os_release
