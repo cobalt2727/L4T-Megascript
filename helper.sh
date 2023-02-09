@@ -29,11 +29,21 @@ function error_fatal {
   exit 1
 }
 
-dependencies='bash dialog gnutls-bin curl yad zenity lsb-release'
-# Install dependencies if necessary
-if ! dpkg -s $dependencies >/dev/null 2>&1; then
-  echo "We need to install some dependencies that the L4T-Megascript scripts expect to be available"
-  sudo apt install $dependencies -y
+if grep -q debian /etc/os-release; then
+  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release")
+  ## Install dependencies if necessary
+  dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
+    pkexec sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt upgrade -y; hash -r"
+  else
+    sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt upgrade -y; hash -r"
+  fi
+elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb")
+  if [[ $gui == "gui" ]]; then
+    pkexec sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; dnf upgrade -y; hash -r"
+  else
+    sudo sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; dnf upgrade -y; hash -r"
+  fi
 fi
 
 unset functions_downloaded
