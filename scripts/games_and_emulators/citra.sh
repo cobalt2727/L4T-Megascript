@@ -16,7 +16,7 @@ sleep 1
 
 case "$__os_codename" in
 bionic)
-  echo "Adding GCC/G++ 11 repo..."
+  echo "Adding GCC/G++ 10 repo..."
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   echo "Adding QT5.15 repo..."
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
@@ -27,7 +27,7 @@ bionic)
   fi
   ppa_installer
   # sudo apt install qt512-meta-minimal qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
-  sudo apt install gcc-11 g++-11 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
+  sudo apt install gcc-10 g++-10 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 focal)
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
@@ -57,7 +57,7 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
   ;;
 *)
   if grep -iE 'raspberry' <<<$model >/dev/null; then
