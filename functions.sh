@@ -20,24 +20,25 @@ function get_system {
   # dpkg_architecture is the default userspace cpu architecture (arm64, amd64, armhf, i386, etc)
   dpkg_architecture="$(dpkg --print-architecture)"
   export dpkg_architecture
-  # jetson model is the friendly name that we assign
-  jetson_model=""
-  # get model name
-  # https://github.com/dylanaraps/neofetch/blob/77f2afc37239d9494ce0f5d0f71f690f8b4d34e3/neofetch#L1232
+  # obtain model name
+  unset model
   if [[ -d /system/app/ && -d /system/priv-app ]]; then
     model="$(getprop ro.product.brand) $(getprop ro.product.model)"
-
-  elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
-    -f /sys/devices/virtual/dmi/id/product_version ]]; then
-    model="$(tr -d '\0' </sys/devices/virtual/dmi/id/product_name)"
-    model+=" $(tr -d '\0' </sys/devices/virtual/dmi/id/product_version)"
-
-  elif [[ -f /sys/firmware/devicetree/base/model ]]; then
-    model="$(tr -d '\0' </sys/firmware/devicetree/base/model)"
-
-  elif [[ -f /tmp/sysinfo/model ]]; then
-    model="$(tr -d '\0' </tmp/sysinfo/model)"
   fi
+  if [[ -z "$model" ]] && [[ -f /sys/devices/virtual/dmi/id/product_name ||
+          -f /sys/devices/virtual/dmi/id/product_version ]]; then
+    model="$(tr -d '\0' < /sys/devices/virtual/dmi/id/product_name)"
+    model+=" $(tr -d '\0' < /sys/devices/virtual/dmi/id/product_version)"
+  fi
+  if [[ -z "$model" ]] && [[ -f /sys/firmware/devicetree/base/model ]]; then
+    model="$(tr -d '\0' < /sys/firmware/devicetree/base/model)"
+  fi
+  if [[ -z "$model" ]] && [[ -f /tmp/sysinfo/model ]]; then
+      model="$(tr -d '\0' < /tmp/sysinfo/model)"
+  fi
+  unset jetson_model
+  unset jetson_chip_model
+  unset SOC_ID
   # Remove dummy OEM info.
   model=${model//To be filled by O.E.M./}
   model=${model//To Be Filled*/}
@@ -53,60 +54,88 @@ function get_system {
   model=${model//All Series/}
   model=${model//�/}
   export model
-  local __platform=""
+
+  # obtain jetson model name (if available)
+  # nvidia, in their official L4T (Linux for Tegra) releases 32.X and 34.X, set a distinct tegra family in the device tree /proc/device-tree/compatible
   if [[ -e "/proc/device-tree/compatible" ]]; then
-    CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
+    CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
     if [[ ${CHIP} =~ "tegra186" ]]; then
-      __chip="t186"
-      __platform="tegra-x2"
+      jetson_chip_model="t186"
+      jetson_model="tegra-x2"
     elif [[ ${CHIP} =~ "tegra210" ]]; then
-      __chip="t210"
-      __platform="tegra-x1"
+      jetson_chip_model="t210"
+      jetson_model="tegra-x1"
     elif [[ ${CHIP} =~ "tegra194" ]]; then
-      __chip="t194"
-      __platform="xavier"
+      jetson_chip_model="t194"
+      jetson_model="xavier"
     elif [[ ${CHIP} =~ "tegra234" ]]; then
-      __chip="t234"
-      __platform="orin"
+      jetson_chip_model="t234"
+      jetson_model="orin"
     elif [[ ${CHIP} =~ "tegra239" ]]; then
-      __chip="t239"
-      __platform="switch-pro-chip"
+      jetson_chip_model="t239"
+      jetson_model="switch-pro-chip"
     elif [[ ${CHIP} =~ "tegra" ]]; then
-      __chip="chip-unknown ${CHIP}"
-      __platform="jetson-unknown"
+      jetson_model="jetson-unknown"
+    elif [[ ${CHIP} =~ "rk3399" ]]; then
+      SOC_ID="rk3399"
+    elif [[ ${CHIP} =~ "rk3308" ]]; then
+      SOC_ID="rk3308"
+    elif [[ ${CHIP} =~ "rk3326" ]]; then
+      SOC_ID="rk3326"
+    elif [[ ${CHIP} =~ "rk3328" ]]; then
+      SOC_ID="rk3328"
+    elif [[ ${CHIP} =~ "rk3368" ]]; then
+      SOC_ID="rk3368"
+    elif [[ ${CHIP} =~ "rk3566" ]]; then
+      SOC_ID="rk3566"
+    elif [[ ${CHIP} =~ "rk3568" ]]; then
+      SOC_ID="rk3568"
+    elif [[ ${CHIP} =~ "g12b" ]]; then
+      SOC_ID="g12b"
+    elif [[ ${CHIP} =~ "g12b" ]]; then
+      SOC_ID="g12b"
+    elif [[ ${CHIP} =~ "g12b" ]]; then
+      SOC_ID="g12b"
+    elif [[ ${CHIP} =~ "bcm2711" ]]; then
+      SOC_ID="bcm2711"
+    elif [[ ${CHIP} =~ "bcm2837" ]]; then
+      SOC_ID="bcm2837"
+    elif [[ ${CHIP} =~ "bcm2836" ]]; then
+      SOC_ID="bcm2836"
+    elif [[ ${CHIP} =~ "bcm2835" ]]; then
+      SOC_ID="bcm2835"
     fi
-    jetson_chip_model="$__chip"
-    jetson_model="$__platform"
-    export jetson_chip_model
-    export jetson_model
+  # as part of the 2X.X L4T releases, the kernel is older and the tegra family is found in /sys/devices/soc0/family
   elif [[ -e "/sys/devices/soc0/family" ]]; then
-    CHIP="$(tr -d '\0' </sys/devices/soc0/family)"
+    CHIP="$(tr -d '\0' < /sys/devices/soc0/family)"
     if [[ ${CHIP} =~ "tegra20" ]]; then
-      __chip="t20"
-      __platform="tegra-2"
+      jetson_chip_model="t20"
+      jetson_model="tegra-2"
     elif [[ ${CHIP} =~ "tegra30" ]]; then
-      __chip="t30"
-      __platform="tegra-3"
+      jetson_chip_model="t30"
+      jetson_model="tegra-3"
     elif [[ ${CHIP} =~ "tegra114" ]]; then
-      __chip="t114"
-      __platform="tegra-4"
+      jetson_chip_model="t114"
+      jetson_model="tegra-4"
     elif [[ ${CHIP} =~ "tegra124" ]]; then
-      __chip="t124"
-      __platform="tegra-k1-32"
+      jetson_chip_model="t124"
+      jetson_model="tegra-k1-32"
     elif [[ ${CHIP} =~ "tegra132" ]]; then
-      __chip="t132"
-      __platform="tegra-k1-64"
+      jetson_chip_model="t132"
+      jetson_model="tegra-k1-64"
     elif [[ ${CHIP} =~ "tegra210" ]]; then
-      __chip="t210"
-      __platform="tegra-x1"
+      jetson_chip_model="t210"
+      jetson_model="tegra-x1"
     fi
-    jetson_chip_model="$__chip"
-    jetson_model="$__platform"
-    export jetson_chip_model
-    export jetson_model
   fi
-  unset __platform
-  unset __chip
+  if [ -n "$jetson_model" ]; then
+    SOC_ID="$jetson_model"
+  fi
+
+  export SOC_ID
+  export jetson_chip_model
+  export jetson_model
+  unset CHIP
 
   # set each variable individually since Fedora prints all output to one line
 
