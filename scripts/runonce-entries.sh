@@ -177,6 +177,43 @@ bionic|focal|jammy)
 esac
 EOF
 
+# downgrade glibc to 2.27 on bionic if hack is present from years ago
+runonce <<"EOF"
+case "$__os_codename" in
+bionic)
+  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
+    status_green "GLIBC Version is good. Continuing..."
+  else
+    status "Force downgrading libc and related packages"
+    status "libc 2.28 was previously required for the minecraft bedrock install"
+    status "this is no longer the case so the hack is removed"
+    warning "You may need to recompile other programs such as Dolphin if you see this message"
+    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
+    sudo rm -rf /etc/apt/preferences.d/zorinos*
+    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
+    sudo rm -rf /etc/apt/preferences.d/freetype*
+
+    sudo apt update
+    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
+  fi
+  ;;
+esac
+EOF
+
+# correct python issues
+runonce <<"EOF"
+case "$__os_codename" in
+bionic)
+  if [ -f /etc/alternatives/python ]; then
+    status "Fixing possibly broken Python setup (this was my fault)..."
+    sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
+  else
+    status_green "No issues detected with Python, skipping fix for that..."
+  fi
+  ;;
+esac
+EOF
+
 # upgrade the install once
 runonce <<"EOF"
 status "Running APT updates..."

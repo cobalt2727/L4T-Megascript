@@ -170,17 +170,6 @@ if [[ $SystemFixUserInput == "yes" ]]; then
   sudo flatpak repair
   flatpak repair --user
 
-  case "$__os_codename" in
-  bionic)
-    if [ -f /etc/alternatives/python ]; then
-      echo "Fixing possibly broken Python setup (this was my fault)..."
-      sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
-    else
-      echo "No issues detected with Python, skipping fix for that..."
-    fi
-    ;;
-  esac
-
 else
 
   echo "Skipping apt fixes..."
@@ -198,6 +187,7 @@ if [ -f /etc/switchroot_version.conf ]; then
       warning "Wifi was probably broken after an apt upgrade to linux-firmware"
       warning "Replacing with known good version copied from L4T 3.4.0 updates files"
       sudo wget -O /lib/firmware/brcm/brcmfmac4356-pcie.bin https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/assets/switch-firmware-3.4.0/brcm/brcmfmac4356-pcie.bin
+      warning "L4T 5.0.0 is available, you should Upgrade to it."
     fi
   fi
 fi
@@ -210,27 +200,6 @@ if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
 else
   echo "Not using Unity as the current desktop, skipping theme manager install..."
 fi
-
-case "$__os_codename" in
-bionic)
-  if $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libc6) lt 2.28); then
-    echo "Continuing the installs"
-  else
-    echo "Force downgrading libc and related packages"
-    echo "libc 2.28 was previously required for the minecraft bedrock install"
-    echo "this is no longer the case so the hack is removed"
-    echo ""
-    echo "You may need to recompile other programs such as Dolphin and BOX64 if you see this message"
-    sudo rm -rf /etc/apt/sources.list.d/zorinos-ubuntu-stable-bionic.list*
-    sudo rm -rf /etc/apt/preferences.d/zorinos*
-    sudo rm -rf /etc/apt/sources.list.d/debian-stable.list*
-    sudo rm -rf /etc/apt/preferences.d/freetype*
-
-    sudo apt update
-    sudo apt install libc-bin=2.27* libc-dev-bin=2.27* libc6=2.27* libc6-dbg=2.27* libc6-dev=2.27* libfreetype6=2.8* libfreetype6-dev=2.8* locales=2.27* -y --allow-downgrades
-  fi
-  ;;
-esac
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
