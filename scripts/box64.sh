@@ -20,6 +20,8 @@ case "$dpkg_architecture" in
     error "Failed to add KEY.gpg to APT keyring!"
   fi
 
+  sudo apt update
+
   if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]]; then
     sudo apt install -y box64-tegrax1 || exit 1
   elif [[ "$SOC_ID" == "rk3399" ]]; then
