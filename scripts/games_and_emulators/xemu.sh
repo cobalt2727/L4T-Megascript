@@ -27,9 +27,9 @@ bionic)
   CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native CC=gcc-11 CXX=g++-11 ./build.sh || error "Compilation failed!"
   ;;
 *)
+  python3 -m pip install --upgrade pip PyYAML
   #./build.sh
   CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native ./build.sh || error "Compilation failed!" #I don't think CXXFLAGS actually gets used, but I'm leaving it there in case the build script ever takes it into account
-  python3 -m pip install --upgrade pip PyYAML
   ;;
 esac
 
