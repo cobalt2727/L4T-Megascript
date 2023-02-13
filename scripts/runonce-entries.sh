@@ -205,8 +205,16 @@ runonce <<"EOF"
 case "$__os_codename" in
 bionic)
   if [ -f /etc/alternatives/python ]; then
-    status "Fixing possibly broken Python setup (this was my fault)..."
+    status "Fixing possibly broken Python setup..."
     sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
+  else
+    status_green "No issues detected with Python, skipping fix for that..."
+  fi
+  ;;
+focal | jammy)
+  if [ -f /etc/alternatives/python ]; then
+    status "Fixing possibly broken Python setup..."
+    sudo rm /etc/alternatives/python && sudo apt install --reinstall python3-minimal -y
   else
     status_green "No issues detected with Python, skipping fix for that..."
   fi

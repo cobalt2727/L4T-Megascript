@@ -192,9 +192,6 @@ if [ -f /etc/switchroot_version.conf ]; then
   fi
 fi
 
-#this is an apt package in the Switchroot repo, for documentation join their Discord https://discord.gg/9d66FYg and check https://discord.com/channels/521977609182117891/567232809475768320/858399411955433493
-# sudo apt install switch-multimedia -y
-sudo apt install python-minimal -y
 if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
   sudo apt install unity-tweak-tool hud -y
 else
