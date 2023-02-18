@@ -16,7 +16,7 @@ sleep 1
 
 case "$__os_codename" in
 bionic)
-  echo "Adding GCC/G++ 10 repo..."
+  echo "Adding GCC/G++ 10 repo..." #11 is available from here, but there's a compiler bug with QT 5.15.2, which we're stuck on
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   echo "Adding QT5.15 repo..."
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
@@ -30,6 +30,8 @@ bionic)
   sudo apt install gcc-10 g++-10 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 focal)
+  echo "Adding GCC/G++ 11 repo..."
+  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
     ppa_name="beineri/opt-qt-5.15.4-focal"
@@ -37,7 +39,7 @@ focal)
     ppa_name="cobalt2727/opt-qt-5.15.4-focal-arm"
   fi
   ppa_installer
-  sudo apt install gcc g++ qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
+  sudo apt install gcc-11 g++-11 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 esac
 
