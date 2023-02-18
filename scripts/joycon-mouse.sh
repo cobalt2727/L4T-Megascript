@@ -7,7 +7,7 @@ sudo rm -rf 50-joystick.conf
 
 echo "Installing dependencies..."
 case "$__os_id" in
-Raspbian | Debian | Ubuntu | Kali)
+Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
 
   sudo apt install xserver-xorg-input-joystick wget -y
 
