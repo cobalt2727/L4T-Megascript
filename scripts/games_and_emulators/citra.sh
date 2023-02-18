@@ -37,7 +37,7 @@ focal)
     ppa_name="cobalt2727/opt-qt-5.15.4-focal-arm"
   fi
   ppa_installer
-  sudo apt install gcc-11 g++-11 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
+  sudo apt install gcc g++ qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 esac
 
