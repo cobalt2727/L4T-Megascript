@@ -58,6 +58,8 @@ if [[ "$GITHUB_JOB" == "bionic-64bit" ]]; then
   sudo apt install -y ca-certificates
 fi
 
+sudo apt install -y curl wget
+
 #determine what type of input we received
 if [ -z "$name" ]; then
   error "No Helper Script name format passed to script. Exiting now."
