@@ -200,8 +200,8 @@ fi
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
-sudo flatpak update -y
-flatpak update --user -y
+sudo flatpak update -y --noninteractive
+flatpak update --user -y --noninteractive
 
 #echo "Updating NPM (if you have it)..."
 ##commenting this out until i figure out a better way to replace it with an updater for all NodeJS packages
