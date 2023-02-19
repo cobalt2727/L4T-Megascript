@@ -9,7 +9,7 @@
 #If a runonce entry is modified, then it will be run once more.
 
 #Set DIRECTORY variable if necessary
-if [ -z "$DIRECTORY" ];then
+if [ -z "$DIRECTORY" ]; then
   export DIRECTORY="$HOME/L4T-Megascript"
 fi
 
@@ -19,9 +19,8 @@ function error_fatal {
   exit 1
 }
 
-
 #Get functions if necessary
-if ! command -v runonce >/dev/null ;then
+if ! command -v runonce >/dev/null; then
   unset functions_downloaded
   source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
   [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, please fix your internet and try again!"
@@ -29,50 +28,57 @@ fi
 
 #remove snap store
 runonce <<"EOF"
-minimumver="20.04"
+if command -v snap; then
+  minimumver="20.04"
 
-if printf '%s\n' "$minimumver" "$__os_release" | sort -CV; then
-  # 20.04 and up has snaps, run the scripts
-  description="Do you want to remove the snap store? If unsure, think of it as\
-\nbloatware from Canonical\
-\nIt's controversial for a few reasons:\
-\n - the store is closed source, which is a bit weird for a Linux company...\
-\n - programs installed from them are in containers,\
-\n   which means they won't run as well\
-\n - the biggest issue, especially on a weaker device like\
-\n   the Tegra hardware you're using right now, is that\
-\n   it automatically updates snap packages whenever it wants\
-\n   to, with no input from the user - which can obviously\
-\n   slow anything you're doing at the moment down.\
-\nThat being said, if you've already been using this device for a while,\
-\nYou may want to keep it for now since you might have installed stuff\
-\nusing it. It's recommended by us to switch from snaps to apt, flatpak, and\
-\nbuilding from source whenever possible.\
-\nSo as you can probably tell, we're extremely biased against\
-\nit and would recommend removing it. But the choice is yours:\
-\n \n Do you want to remove the Snap Store?"
-  table=("yes" "no")
-  userinput_func "$description" "${table[@]}"
-  if [[ $output == "yes" ]]; then
-    echo -e "\e[32mRemoving the Snap store...\e[0m"
-    case "$__os_codename" in
-    focal | hirsute | impish)
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-      ;;
-    *)
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-      bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
-      ;;
-    esac
+  if printf '%s\n' "$minimumver" "$__os_release" | sort -CV; then
+    # 20.04 and up has snaps, run the scripts
+    description="Do you want to remove the snap store? If unsure, think of it as\
+  \nbloatware from Canonical\
+  \nIt's controversial for a few reasons:\
+  \n - the store is closed source, which is a bit weird for a Linux company...\
+  \n - programs installed from them are in containers,\
+  \n   which means they won't run as well\
+  \n - the biggest issue, especially on a weaker device like\
+  \n   the Tegra hardware you're using right now, is that\
+  \n   it automatically updates snap packages whenever it wants\
+  \n   to, with no input from the user - which can obviously\
+  \n   slow anything you're doing at the moment down.\
+  \nThat being said, if you've already been using this device for a while,\
+  \nYou may want to keep it for now since you might have installed stuff\
+  \nusing it. It's recommended by us to switch from snaps to apt, flatpak, and\
+  \nbuilding from source whenever possible.\
+  \nSo as you can probably tell, we're extremely biased against\
+  \nit and would recommend removing it. But the choice is yours:\
+  \n \n Do you want to remove the Snap Store?"
+    table=("yes" "no")
+    userinput_func "$description" "${table[@]}"
+    if [[ $output == "yes" ]]; then
+      echo -e "\e[32mRemoving the Snap store...\e[0m"
+      case "$__os_codename" in
+      # placeholder code in case we decide to remove the "only run this on 20.04 and up" bit
+      # we should probably add a check to make sure it doesn't remove snap if the user is on something like our free Oracle VMs
+      # bionic)
+      #   sudo apt purge snapd -y && sudo apt autoremove --purge -y
+      #   ;;
+      focal | hirsute | impish)
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+        ;;
+      *)
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
+        ;;
+      esac
 
-    echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
-    sleep 5
-    sudo apt purge snapd unattended-upgrades && sudo apt-mark hold snapd -y
-    sudo apt autoremove
-    sudo apt --fix-broken install
-  else
-    echo "Decided to keep the Snap store..."
-    echo "If you ever change your mind, run the initial setup script again"
+      echo -e "\e[33mRead the following carefully and make sure it's not breaking anything (besides snap, we want that to get purged) before confirming the next command...\e[0m"
+      sleep 5
+      sudo apt purge snapd unattended-upgrades && sudo apt-mark hold snapd -y
+      sudo apt autoremove
+      sudo apt --fix-broken install
+    else
+      echo "Decided to keep the Snap store..."
+      echo "If you ever change your mind, run the initial setup script again"
+    fi
   fi
 fi
 EOF
