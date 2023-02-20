@@ -30,7 +30,7 @@ bionic)
   sudo apt install gcc-10 g++-10 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 focal)
-  echo "Adding GCC/G++ 11 repo..."
+  echo "Adding GCC/G++ 10 repo..."
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
@@ -39,7 +39,7 @@ focal)
     ppa_name="cobalt2727/opt-qt-5.15.4-focal-arm"
   fi
   ppa_installer
-  sudo apt install gcc-11 g++-11 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
+  sudo apt install gcc-10 g++-10 qt515base qt515multimedia qt515gamepad -y || error "Could not install dependencies"
   ;;
 esac
 
@@ -59,6 +59,9 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic)
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+  ;;
+focal)
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
   ;;
 *)
