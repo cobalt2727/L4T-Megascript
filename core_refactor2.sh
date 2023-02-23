@@ -240,7 +240,15 @@ conversion() {
 hash -r
 hidden=()
 
-apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt)
+case "$__os_id" in
+Fedora)
+  apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps_fedora.txt)
+  ;;
+*)
+  apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt)
+  ;;
+esac
+
 apps=$(echo "$apps" | sed '/^$/d')
 length=$(echo "$apps" | wc -l | awk '{ print $1 }')
 
@@ -490,10 +498,17 @@ while [ $x == 1 ]; do
       sudo apt update
     fi
 
-    # run runonce entries
-    # this replaces the need for an initial setup script
-    status "Runing Initial Setup Runonce entries"
-    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/runonce-entries.sh)"
+    case "$__os_id" in
+    Fedora)
+      status "Skipping Initial Setup Runonce entries on $__os_id"
+      ;;
+    *)
+      # run runonce entries
+      # this replaces the need for an initial setup script
+      status "Runing Initial Setup Runonce entries"
+      bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/runonce-entries.sh)"
+      ;;
+    esac
 
     rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do
