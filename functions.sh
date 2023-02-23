@@ -441,11 +441,22 @@ format_logfile() { #remove ANSI escape sequences from a given file, and add OS i
 export -f format_logfile
 
 send_error() {
-  curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(
-    base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'
-    base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'
-    base64 -d <<<'WGpmVmhmCg==' | tr -d '\n'
-  )" &>/dev/null
+  case "$__os_id" in
+  Fedora)
+    curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(
+      base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZNVEEzT0RRek5qWXdOek13TWpBME1UY3lNUzl1WldwYQpUd289Cg==') | tr -d '\n'
+      base64 -d <<<'R2xxU1BLc212X1ZCT2twZ3BfdnJGRG51RTZPa1BSME41MGgxbkN5TVdnYkxndWczU0dwcVZIZHNHCg==' | tr -d '\n'
+      base64 -d <<<'NVFERzhmCg==' | tr -d '\n'
+    )" &>/dev/null 
+    ;;
+  *)
+    curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(
+      base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'
+      base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'
+      base64 -d <<<'WGpmVmhmCg==' | tr -d '\n'
+    )" &>/dev/null 
+    ;;
+  esac
 }
 export -f send_error
 
