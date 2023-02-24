@@ -8,23 +8,23 @@ echo "In addition, I've included an installer for a QT settings tool"
 echo "To automatically make QT apps follow the system theme."
 sleep 3
 
-if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
-  sudo apt install unity-tweak-tool indicator-bluetooth indicator-sound hud -y
-elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
-  sudo apt install gnome-tweaks -y
-  #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
-  #        sudo apt install mate-control-center -y
-else
-  echo "Not using a DE with a known theme manager, skipping theme manager install..." #plasma comes with this built in, but need to add lxappearance for corresponding DEs
-  # maybe check if Unity is installed here as a fallback - CLI installs won't detect ANY desktop using the above methods
-fi
-
 grep -v 'export QT_QPA_PLATFORMTHEME="gtk2"' ~/.profile >/tmp/.profile && mv /tmp/.profile ~/.profile #nuke the old bad config if it's found
 
-echo "Installing tools for management of QT5 settings and to build the theme installer..."
+echo "Installing tools for management of QT settings and to build the theme installer..."
 # check out /etc/X11/Xsession.d/99qt5ct after installing QT5CT for info on how environment variables are set up - the environment variable doesn't apply on Plasma, maybe disable it manually on LXQT?
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+  if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
+    sudo apt install unity-tweak-tool indicator-bluetooth indicator-sound hud -y
+  elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
+    sudo apt install gnome-tweaks -y
+    #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
+    #        sudo apt install mate-control-center -y
+  else
+    echo "Not using a DE with a known theme manager, skipping theme manager install..." #plasma comes with this built in, but need to add lxappearance for corresponding DEs
+    # maybe check if Unity is installed here as a fallback - CLI installs won't detect ANY desktop using the above methods
+  fi
+
   sudo apt install -y qt5ct git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils python3-dbus
 
   sudo apt install -y
@@ -70,20 +70,40 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     cd ~
   fi
 
-  ##### only uncomment the following line if it's discovered that the Debian package doesn't auto set this in an env var like the Ubuntu package does
-  # same goes for the Fedora package, of course
-  # grep -qxF 'export QT_QPA_PLATFORMTHEME=qt5ct' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=qt5ct' | sudo tee --append ~/.profile
   ;;
-Fedora)
-  #what RPM contains the GTK2 QT6 platform theme?
+Fedora | Nobara)
+  if echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
+    sudo dnf install gnome-tweaks -y
+    #elif echo $XDG_CURRENT_DESKTOP | grep -q 'whatever it is for the Mate desktop'; then
+    #        sudo dnf install mate-control-center -y
+  else
+    echo "Not using a DE with a known theme manager, skipping theme manager install..." #plasma comes with this built in, but need to add lxappearance for corresponding DEs
+    # maybe check if Unity is installed here as a fallback - CLI installs won't detect ANY desktop using the above methods
+  fi
+
   sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquickcontrols2-devel qt5-qtstyleplugins || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
-  #note to self: check if the RPM automatically sets up an environment variable like the Ubuntu package does
+
+    #GTK support for QT6
+    cd ~
+    git clone https://github.com/trialuser02/qt6gtk2
+    cd qt6gtk2 || error_user "Failed to download source code from GitHub!"
+    git pull
+    qmake6 . || error "qmake failed!"
+    make -j$(nproc) || error "make failed!"
+    sudo make install || error "make install failed!"
+    cd ~
+
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - please press Ctrl+C now, then manually install QT5CT (and QT6CT if possible) via your package manager.\\e[39m"
   sleep 10
   ;;
 esac
+
+  ##### only uncomment the following line if it's discovered that the Debian package doesn't auto set this in an env var like the Ubuntu package does
+  # same goes for the Fedora package, of course
+  # grep -qxF 'export QT_QPA_PLATFORMTHEME=qt5ct' ~/.profile || echo 'export QT_QPA_PLATFORMTHEME=qt5ct' | sudo tee --append ~/.profile
+
 
 echo "Setting QT themes to automatically follow GTK themes when NOT running on KDE Plasma..."
 mkdir -p ~/.config/qt5ct
@@ -106,10 +126,11 @@ echo ""
 echo "Please reboot or log out then back in to see QT applications match the (GTK) system theme!"
 sleep 5
 
-cd ~
-rm -rf ocs-url/
-##using my fork temporarily until the original maintainer merges my changes to fix manual builds
-git clone https://www.opencode.net/cobalt2727/ocs-url
+cd /tmp
+rm -rf /tmp/ocs-url/
+rm -rf ~/ocs-url #if you're reading this, it's probably been long enough since February 23 that this line should be removed.
+##using my fork because the original maintainer will likely never merge my changes to fix manual builds
+git clone https://www.opencode.net/cobalt2727/ocs-url --depth=1
 
 cd ocs-url || error_user "Failed to download source code from opencode.net!"
 
@@ -123,13 +144,13 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   #this line is broken on Debian 10, but with the proper PREFIX path (that I don't remember currently) this script WILL run correctly
   #version detection may be needed if Debian 11 hasn't fixed the qmake setup, but I haven't checked that
   #works on every Ubuntu version I've tested though -Cobalt
-  qmake PREFIX=/usr
+  qmake PREFIX=/usr || error "qmake failed!"
   ;;
-Fedora)
-  qmake-qt5 PREFIX=/usr
+Fedora | Nobara)
+  qmake-qt5 PREFIX=/usr || error "qmake failed!"
   ;;
 *)
-  qmake PREFIX=/usr #if you're hitting this line uh... good luck
+  qmake PREFIX=/usr || error "qmake AND distro detection failed!" #if you're hitting this line uh... good luck
   ;;
 esac
 
