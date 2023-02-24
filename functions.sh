@@ -16,6 +16,8 @@ function get_system {
   export __formal_distro_name
   __id_like="$ID_LIKE"
   export __id_like
+  __id="$ID"
+  export __id
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
   export architecture
