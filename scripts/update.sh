@@ -2,7 +2,6 @@
 
 clear -x
 echo "Updater script successfully started!"
-#!/bin/bash
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
 \n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
