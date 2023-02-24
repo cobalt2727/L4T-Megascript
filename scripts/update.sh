@@ -2,6 +2,7 @@
 
 clear -x
 echo "Updater script successfully started!"
+#!/bin/bash
 
 description="Do you want to remove unused programs (if any) and attempt to fix broken programs?\
 \n(Keyboard required to confirm when it checks later, but any menus like this have mouse/touch support. If you don't have a keyboard set up, just choose no.)"
@@ -154,15 +155,27 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     ;;
   esac
 
-  ##maintenance (not passing with -y to prevent potentially breaking something for a user)
-  sudo rm -rf /var/lib/apt/lists/
-  sudo apt clean
-  sudo apt autoclean
-  sudo apt update
-  sudo dpkg --configure -a
-  sudo apt --fix-broken install
-  sudo apt autoremove --purge
-  sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') #-y
+  if grep -q "debian" <<<"$__id_like"; then
+    ##maintenance (not passing with -y to prevent potentially breaking something for a user)
+
+    sudo rm -rf /var/lib/apt/lists/
+    sudo apt clean
+    sudo apt autoclean
+    sudo apt update
+    sudo dpkg --configure -a
+    sudo apt --fix-broken install
+    sudo apt autoremove --purge
+    sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') #-y
+  elif grep -q "fedora" <<<"$__id"; then
+    # roughly translated the debian side of this using https://wiki.archlinux.org/title/Pacman/Rosetta
+    sudo dnf clean all
+    sudo dnf check-update
+    sudo dnf repoquery --unsatisfied
+    sudo dnf remove
+    # sudo rpm -Va # this takes way too long, I have no idea when it would actually be used
+  else
+    error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"
+  fi
 
   echo "Fixing flatpak issues (if any)..."
   sudo flatpak remove --unused
@@ -175,8 +188,15 @@ else
   echo "Skipping apt fixes..."
 fi
 
-echo "Running APT updates..."
-sudo apt-get dist-upgrade -y || error "Temporarily turning on error reporting for apt upgrades to aid in bugfixing with Switchroot's 5.0 update! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+echo "Running system updates..."
+if grep -q "debian" <<<"$__id_like"; then
+  sudo apt-get dist-upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+elif grep -q "fedora" <<<"$__id"; then
+  # I feel like distro-sync would be a bad idea, haven't tested myself though
+  sudo dnf upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+else
+  error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"
+fi
 
 if [ -f /etc/switchroot_version.conf ]; then
   swr_ver=$(cat /etc/switchroot_version.conf)
@@ -202,10 +222,6 @@ echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
 sudo flatpak update -y --noninteractive
 flatpak update --user -y --noninteractive
-
-#echo "Updating NPM (if you have it)..."
-##commenting this out until i figure out a better way to replace it with an updater for all NodeJS packages
-#sudo npm install -g npm
 
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
@@ -303,8 +319,15 @@ fi
 echo "One more upgrade check for good measure..."
 #depending on the user's setup, the script could take a while
 #especially if they're using the helper script to run the updater and missing out on our sudo timer hack
-sudo apt update
-sudo apt upgrade -y
+if grep -q "debian" <<<"$__id_like"; then
+  sudo apt update
+  sudo apt upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+elif grep -q "fedora" <<<"$__id"; then
+  sudo dnf upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+else
+  error "This should be unreachable."
+fi
+
 
 sleep 1
 
