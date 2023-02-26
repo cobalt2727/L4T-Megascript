@@ -130,7 +130,7 @@ cd /tmp
 rm -rf /tmp/ocs-url/
 rm -rf ~/ocs-url #if you're reading this, it's probably been long enough since February 23 that this line should be removed.
 ##using my fork because the original maintainer will likely never merge my changes to fix manual builds
-git clone https://www.opencode.net/cobalt2727/ocs-url --depth=1
+git clone https://www.opencode.net/cobalt2727/ocs-url
 
 cd ocs-url || error_user "Failed to download source code from opencode.net!"
 
