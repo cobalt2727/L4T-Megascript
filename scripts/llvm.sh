@@ -6,7 +6,7 @@ if
 	command -v apt >/dev/null
 then
 	sudo apt install -y curl lsb-release wget software-properties-common gnupg || error "Couldn't install dependencies!"
-	LLVM_VERSION_STRING=$(curl -s https://apt.llvm.org/llvm.sh | grep "CURRENT_LLVM_STABLE=")
+	LLVM_VERSION_STRING=$(wget -O- -q https://apt.llvm.org/llvm.sh | grep "CURRENT_LLVM_STABLE=")
 	STABLE_LLVM=${LLVM_VERSION_STRING#*=}
 	echo "stable LLVM is $STABLE_LLVM" #this is really only needed to check what needs to be uninstalled, if anything
 	LATEST_LLVM=$(($STABLE_LLVM + 1))
@@ -16,7 +16,7 @@ then
 	OLDER_LLVM=$(($STABLE_LLVM - 2))
 	echo "older LLVM is $OLDER_LLVM"
 	APT_LLVM=$(echo $(dpkg -s llvm | grep -i version) | sed 's/.*\://' | awk -F\. '{print $1}')
-	echo "version of LLVM from apt is $APT_LLVM_VERSION"
+	echo "version of LLVM from apt is $APT_LLVM"
 
 	###EVENTS TO REMOVE OLD VERSIONS
 	if [ $OLD_LLVM == $APT_LLVM ]; then
@@ -44,7 +44,7 @@ then
 		curl https://apt.llvm.org/llvm.sh | sudo bash -s "all" || error "apt.llvm.org installer failed!"
 	fi
 
-	# check if APT_LLVM_VERSION == $STABLE_LLVM
+	# check if APT_LLVM == $STABLE_LLVM
 	# if true, do nothing, just install packages (REMOVE the llvm.org list if it exists!)
 elif
 	command -v dnf >/dev/null
