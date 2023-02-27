@@ -322,7 +322,7 @@ if grep -q "debian" <<<"$__id_like"; then
   sudo apt update
   sudo apt upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 elif grep -q "fedora" <<<"$__id"; then
-  sudo dnf upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+  sudo dnf --refresh upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 else
   error "This should be unreachable."
 fi
