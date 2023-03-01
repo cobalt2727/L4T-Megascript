@@ -1,9 +1,9 @@
 echo "LibreOffice script started!"
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
   ppa_name="libreoffice/ppa" && ppa_installer
-  sudo apt install -y --no-install-recommends libreoffice libxrender1 libreoffice-gtk || error "Failed to install dependencies"
+  sudo apt install -y --no-install-recommends libreoffice libxrender1 libreoffice-gtk2 libreoffice-gtk3 || error "Failed to install dependencies"
 
   if echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then
     sudo apt install -y --no-install-recommends libreoffice-gnome || error "Failed to install dependencies"
@@ -14,6 +14,9 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
 Fedora)
   sudo dnf install -y libreoffice
   ;;
+Debian)
+  sudo apt install -y --no-install-recommends libreoffice libxrender1 libreoffice-gtk2 libreoffice-gtk3 || error "Failed to install dependencies"
+;;
 *)
   error "Unknown distro detected"
   ;;
