@@ -277,6 +277,9 @@ case "$jetson_chip_model" in
     sudo flatpak override --device=all
     sudo flatpak override --share=network
     sudo flatpak override --filesystem=/sys
+    flatpak override --user --device=all
+    flatpak override --user --share=network
+    flatpak override --user --filesystem=/sys
     echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
     sudo sh -c "cat > /etc/sudoers.d/flatpak_tegra << _EOF_
 Defaults      env_keep += FLATPAK_GL_DRIVERS
