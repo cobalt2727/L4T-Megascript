@@ -85,8 +85,8 @@ sudo apt install --no-install-recommends -y /tmp/steam.deb || error "Failed to i
 hash -r
 
 # steam UDEV rules conflict with HID-Nintendo/joycond, so disable the rules for Switch Pro Controller
-sudo sed -i 's/^KERNEL=="hidraw\*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
-sudo sed -i 's/^KERNEL=="hidraw\*", KERNELS=="\*057E:2009\*", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", KERNELS=="*057E:2009*", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
+# sudo sed -i 's/^KERNEL=="hidraw\*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
+# sudo sed -i 's/^KERNEL=="hidraw\*", KERNELS=="\*057E:2009\*", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", KERNELS=="*057E:2009*", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
 
 sudo mkdir -p /usr/local/bin /usr/local/share/applications
 # if a matching name binary is found in /usr/local/bin it takes priority over /usr/bin
