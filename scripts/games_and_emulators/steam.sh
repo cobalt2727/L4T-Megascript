@@ -23,16 +23,19 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
   sudo apt update
 fi
 
+# add updated mesa ppa
 sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
 ppa_name="kisak/kisak-mesa" && ppa_installer
+# add theofficialgman updated libglvnd ppa on bionic
+case "$__os_codename" in
+bionic) ppa_name="theofficialgman/libglvnd" && ppa_installer ;;
+esac
 
 # allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
 sudo sed -i "s/\"library_path\" : .*/\"library_path\" : \"libEGL_mesa.so.0\"/g" "/usr/share/glvnd/egl_vendor.d/50_mesa.json"
 sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
-sudo apt-get dist-upgrade -y
-# if old mesa-common-dev is already installed, it causes conflicts on intial upgrade and an apt --fix-broken install is necessary to finish installation
-sudo apt --fix-broken install -y
+# upgrade mesa and libglvnd
 sudo apt-get dist-upgrade -y || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
 sudo apt install ninja-build python3 python3-pip libdrm-dev libgbm-dev -y || error "Could not install VIRGL build dependencies"
 hash -r
