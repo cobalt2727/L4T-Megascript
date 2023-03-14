@@ -177,6 +177,7 @@ if [[ $SystemFixUserInput == "yes" ]]; then
   fi
 
   echo "Fixing flatpak issues (if any)..."
+  sudo rm -rf ~/.local/share/flatpak/repo/tmp/cache/
   sudo flatpak remove --unused
   flatpak remove --unused
   sudo flatpak repair
