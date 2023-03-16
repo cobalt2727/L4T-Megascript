@@ -24,11 +24,16 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
 fi
 
 # add updated mesa ppa
-sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
-ppa_name="kisak/kisak-mesa" && ppa_installer
-# add theofficialgman updated libglvnd ppa on bionic
 case "$__os_codename" in
-bionic) ppa_name="theofficialgman/libglvnd" && ppa_installer ;;
+bionic)
+  # use stable mesa ppa on bionic as upstream intends to remove bionic from the fresh ppa
+  sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-kisak-mesa-*.list
+  ppa_name="kisak/turtle" && ppa_installer
+  ;;
+*)
+  sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
+  ppa_name="kisak/kisak-mesa" && ppa_installer
+  ;;
 esac
 
 # allow loading of MESA libraries (still uses ARM64 proprietary nvidia drivers)
