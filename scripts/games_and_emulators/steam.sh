@@ -88,7 +88,7 @@ bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Me
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
 
 echo "Installing steam.deb"
-wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O /tmp/steam.deb || error "Failed to download steam.deb"
+wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O /tmp/steam.deb || wget https://repo.steampowered.com/steam/archive/stable/steam_latest.deb -O /tmp/steam.deb || error "Failed to download steam.deb"
 sudo apt install --no-install-recommends -y /tmp/steam.deb || error "Failed to install steam.deb"
 hash -r
 
