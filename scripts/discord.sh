@@ -15,7 +15,7 @@ then
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
     case "$__os_codename" in
     bionic)
-      ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+      ppa_name="deadsnakes/ppa" && ppa_installer
       sudo apt install -y python3.8
       yes | python3.6 -m pip uninstall lastversion
       python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion || error "Couldn't install dependencies"

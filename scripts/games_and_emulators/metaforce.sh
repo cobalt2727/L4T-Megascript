@@ -41,7 +41,7 @@ bionic)
 
   echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
   curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ppa_name="deadsnakes/ppa" && ppa_installer
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     ppa_name="beineri/opt-qt-5.15.2-bionic"
   else

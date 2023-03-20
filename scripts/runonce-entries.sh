@@ -208,24 +208,22 @@ EOF
 
 # correct python issues
 runonce <<"EOF"
-case "$__os_codename" in
-bionic)
+package_available python-minimal
+if [[ $? == "0" ]]; then #the python-minimal package only exists on Ubuntu 18.04/Debian 10 and below, so it's a good identifier
   if [ -f /etc/alternatives/python ]; then
     status "Fixing possibly broken Python setup..."
     sudo rm /etc/alternatives/python && sudo apt install --reinstall python-minimal -y
   else
     status_green "No issues detected with Python, skipping fix for that..."
   fi
-  ;;
-focal | jammy)
+else
   if [ -f /etc/alternatives/python ]; then
     status "Fixing possibly broken Python setup..."
-    sudo rm /etc/alternatives/python && sudo apt install --reinstall python3-minimal -y
+    sudo rm /etc/alternatives/python && sudo apt install --reinstall python3-minimal python-is-python3 -y
   else
     status_green "No issues detected with Python, skipping fix for that..."
   fi
-  ;;
-esac
+fi
 EOF
 
 # upgrade the install once

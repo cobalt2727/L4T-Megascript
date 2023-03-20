@@ -40,7 +40,7 @@ if command -v apt >/dev/null; then
 
         # note: https://www.reddit.com/r/ProgrammerHumor/comments/8pdebc/only_god_and_i_knew/
 
-        ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+        ppa_name="deadsnakes/ppa" && ppa_installer
         sudo apt install python3.8 pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev -y || error "Could not install dependencies!"
         sudo apt purge meson -y
         yes | python3.6 -m pip uninstall meson

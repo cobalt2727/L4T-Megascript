@@ -85,6 +85,11 @@ Ubuntu)
     ;;
 
   esac
+  case "$__os_codename" in
+  bionic)
+    ppa_name="deadsnakes/ppa" && ppa_installer
+    ;;
+  esac
   # install dependencies
   sudo apt install -y build-essential libopenal1 x11-xserver-utils git clang cmake curl zlib1g-dev openjdk-8-jre openjdk-11-jdk openjdk-17-jre qtbase5-dev || error "Failed to install dependencies"
   hash -r

@@ -19,8 +19,8 @@ git submodule update --init genconfig/ tomlplusplus/ #may be needed to manually 
 
 case "$__os_codename" in
 bionic)
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
-  #ppa_name="ubuntu-toolchain-r/ppa" && ppa_installer
+  ppa_name="deadsnakes/ppa" && ppa_installer
+  #ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   sudo apt install python3.8 gcc-11 g++-11 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
   sed -i -e 's/python3 /python3.8 /g' build.sh                                           #this is hacky, yes, but hey, it works
   python3.8 -m pip install --upgrade pip meson PyYAML
