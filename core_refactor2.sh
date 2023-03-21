@@ -107,27 +107,6 @@ function online_check {
   done
 }
 
-# check and offer fix for i386 architecture being present on arm64 devices
-if [ "$(dpkg --print-architecture)" == "arm64" ]; then
-  if dpkg --print-foreign-architectures | grep -q 'i386\|amd64'; then
-    # using zenity since it could happpen that this is a users first run of the megascript and yad isn't present
-    zenity \
-      --height="200" --width="400" \
-      --question --text="ERROR: The $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') package architecture(s) has been detected on your system.\
-\n\nYour $model is an ARM64 device and can NOT run $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') packages.\
-\nScripts designed to run on x86 such as PlayOnLinux usually cause this and should never be run.\
-\n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt." \
-      --ok-label="Fix install: Remove i386/amd64 architecture" \
-      --cancel-label="Keep my install broken: Keep i386/amd64 architecture"
-    if [[ $? == 0 ]]; then
-      pkexec sh -c "dpkg --remove-architecture i386; dpkg --remove-architecture amd64; apt update"
-    else
-      warning "Skipped $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture removal, its up to you if your APT or install is broken."
-      has_foreign=1
-    fi
-  fi
-fi
-
 function add_desktop {
   #create .desktop file for the megascript
   sudo rm -rf /tmp/L4T-Megascript.desktop
@@ -139,6 +118,28 @@ function add_desktop {
 FUNC=$(declare -f add_desktop)
 
 if grep -q debian /etc/os-release; then
+
+  # check and offer fix for i386 architecture being present on arm64 devices
+  if [ "$(dpkg --print-architecture)" == "arm64" ]; then
+    if dpkg --print-foreign-architectures | grep -q 'i386\|amd64'; then
+      # using zenity since it could happpen that this is a users first run of the megascript and yad isn't present
+      zenity \
+        --height="200" --width="400" \
+        --question --text="ERROR: The $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') package architecture(s) has been detected on your system.\
+\n\nYour $model is an ARM64 device and can NOT run $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') packages.\
+\nScripts designed to run on x86 such as PlayOnLinux usually cause this and should never be run.\
+\n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt." \
+        --ok-label="Fix install: Remove i386/amd64 architecture" \
+        --cancel-label="Keep my install broken: Keep i386/amd64 architecture"
+      if [[ $? == 0 ]]; then
+        pkexec sh -c "dpkg --remove-architecture i386; dpkg --remove-architecture amd64; apt update"
+      else
+        warning "Skipped $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture removal, its up to you if your APT or install is broken."
+        has_foreign=1
+      fi
+    fi
+  fi
+
   dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release")
   ## Install dependencies if necessary
   dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
