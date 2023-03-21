@@ -90,6 +90,16 @@ source <(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/mas
 # run runonce entries
 # this replaces the need for an initial setup script
 status "Runing Initial Setup Runonce entries"
+if [ -v $repository_username ] || [ $repository_username == cobalt2727 ]; then
+  export repository_username=cobalt2727
+else
+  echo "Developer Mode Enabled! Repository = $repository_username"
+fi
+if [ -v $repository_branch ] || [ $repository_branch == master ]; then
+  export repository_branch=master
+else
+  echo "Developer Mode Enabled! Branch = $repository_branch"
+fi
 bash -c "$(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/scripts/runonce-entries.sh)"
 
 bash <( curl https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/helper.sh ) "$name"
