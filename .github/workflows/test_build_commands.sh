@@ -44,12 +44,20 @@ if [[ "$GITHUB_JOB" == "bionic-64bit" ]]; then
   # add ld conf files
   echo "/usr/lib/aarch64-linux-gnu/tegra-egl" | sudo tee /etc/ld.so.conf.d/aarch64-linux-gnu_EGL.conf
   echo "/usr/lib/aarch64-linux-gnu/tegra" | sudo tee /etc/ld.so.conf.d/aarch64-linux-gnu_GL.conf
+  # skip joycond postinst
+  sudo rm /var/lib/dpkg/info/joycond.postinst -f
+  sudo dpkg --configure joycond
 fi
 
 if [[ "$GITHUB_JOB" == "focal-64bit" ]]; then
   # fix nvidia jank
   # update sources list for t194
   sudo sed -i "s/<SOC>/t194/" /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
+fi
+
+if [[ "$GITHUB_JOB" == "jammy-64bit" ]]; then
+  # remove packages that won't work in the chroot
+  sudo apt remove -y linux-image-*-raspi linux-modules-*-raspi linux-image-raspi linux-raspi linux-headers-raspi
 fi
 
 sudo apt update
