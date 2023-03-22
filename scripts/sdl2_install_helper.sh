@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #make sure this is updated
-#note that this is an apt package in the Switchroot repository, its ok for it to fail on other devices
-sudo apt install joycond -y
+#note that this is an apt package in the Switchroot repository
+package_available joycond && sudo apt install joycond -y
 
 if ! package_installed "libsdl2-dev" || $(dpkg --compare-versions $(dpkg-query -f='${Version}' --show libsdl2-dev) lt 2.26.1); then
   if [[ "$dpkg_architecture" == "arm64" ]]; then
