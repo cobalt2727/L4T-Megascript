@@ -20,7 +20,7 @@ sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 case "$dpkg_architecture" in
 "arm64")
-  sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list
+  sudo wget https://raw.githubusercontent.com/ryanfortner/box86-debs/c1f02bf85a6221d05c6389cbae7e933f5e82d2fd/box86.list -O /etc/apt/sources.list.d/box86.list
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box86.list
     error "Failed to add box86.list file!"
