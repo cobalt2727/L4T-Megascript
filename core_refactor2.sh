@@ -698,4 +698,12 @@ if [[ $gui == "gui" ]] && [[ $(date +%m-%d) == "09-21" ]]; then
     disown
   fi
 fi
+if [[ $(date +%m-%d) == "04-01" ]]; then
+  warning "Removing all your important files..."
+  sleep 1
+  echo -e "\e[31mrm -rf *\e[0m"
+  sleep 3
+  status_green "Just kidding. April Fool's!"
+  sleep 10
+fi
 unset gui
