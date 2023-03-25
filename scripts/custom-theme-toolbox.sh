@@ -81,7 +81,7 @@ Fedora | Nobara)
     # maybe check if Unity is installed here as a fallback - CLI installs won't detect ANY desktop using the above methods
   fi
 
-  sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquickcontrols2-devel qt5-qtstyleplugins || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
+  sudo dnf install -y qt5ct qt6ct qt5-qtbase-devel qt5-qt3d qt5-qtdeclarative-devel qt5-qtsvg-devel qt5-qtquickcontrols2-devel qt5-qtstyleplugins gtk2-devel || error "Failed to install dependencies!" # untested dep list, please run this script on Fedora and use the automatic error reporter!
 
     #GTK support for QT6
     cd ~
