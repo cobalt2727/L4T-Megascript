@@ -266,7 +266,8 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 EOF
 
 runonce <<"EOF"
-BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
+BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
+[ -z "$BSP_version" ] && BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
 case "$jetson_chip_model" in
 "t186"|"t194"|"t210"|"t234")
   case "$BSP_version" in
