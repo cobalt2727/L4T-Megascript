@@ -132,9 +132,15 @@ EOF
 # fix ppa for out of date repos
 runonce <<"EOF"
 case "$__os_codename" in
+bionic|focal|jammy)
+  ppa_name="alexlarsson/flatpak"
+  ppa_dist="$__os_codename"
+  sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
+  ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap"
+esac
+
+case "$__os_codename" in
 bionic)
-  #bionic's flatpak package is out of date
-  ppa_name="alexlarsson/flatpak" && ppa_installer
   #bionic cmake is very old, use theofficialgman ppa for cmake
   ppa_name="theofficialgman/cmake-bionic" && ppa_installer
   if [[ -f "/usr/bin/cmake" ]]; then

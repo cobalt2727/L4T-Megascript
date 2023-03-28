@@ -140,7 +140,7 @@ if grep -q debian /etc/os-release; then
     fi
   fi
 
-  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release")
+  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release" "software-properties-common")
   ## Install dependencies if necessary
   dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
     pkexec sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
