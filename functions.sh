@@ -346,9 +346,9 @@ ubuntu_ppa_installer() {
     status "Skipping $ppa_name PPA, already added"
   else
     status "Adding $ppa_name PPA"
-    sudo add-apt-repository "ppa:$ppa_name" -y
+    sudo add-apt-repository "ppa:$ppa_name" -y || exit 1
     apt_lock_wait
-    sudo apt update
+    sudo apt update || exit 1
   fi
 }
 export -f ubuntu_ppa_installer
@@ -372,7 +372,7 @@ debian_ppa_installer() {
       error "Failed to sign the $ppa_name PPA!"
     fi
     apt_lock_wait
-    sudo apt update
+    sudo apt update || exit 1
   fi
 }
 export -f debian_ppa_installer
