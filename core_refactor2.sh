@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export gui=$1
 clear -x
 echo "These are here because I'm a lazy coder and i want an easy reference for text formatting in the menu - if you're able to read this inside the program, something is very wrong."
