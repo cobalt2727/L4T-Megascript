@@ -21,7 +21,7 @@ case "$dpkg_architecture" in
   type2="armhf"
   ;;
 "i386")
-  type="x86-" #the - at the end keeps i386 users from downloading both i386 and x86_64 files
+  type="x86"
   type2="i386"
   ;;
 "amd64")
@@ -49,7 +49,8 @@ bionic)
   ;;
 esac
 
-lastversion --assets --filter Minecraft_Bedrock_Launcher-$type-*.AppImage download https://github.com/ChristopherHX/linux-packaging-scripts || error "Couldn't download AppImage!"
+#the -v after arch detection fixes x86 devices locating both x86 and x86_64
+lastversion --assets --filter $type-v download https://github.com/minecraft-linux/appimage-builder || error "Couldn't download AppImage!"
 mv *.AppImage MC.AppImage
 chmod +x *.AppImage
 curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_$type2" | cut -d : -f 2,3 | tr -d \" | wget -i -
