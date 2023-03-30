@@ -36,7 +36,20 @@ case "$dpkg_architecture" in
   exit 2
   ;;
 esac
-curl https://api.github.com/repos/ChristopherHX/linux-packaging-scripts/releases/latest | grep "browser_download_url.*Launcher-$type" | cut -d : -f 2,3 | tr -d \" | wget -i -
+
+case "$__os_codename" in
+bionic)
+  ppa_name="deadsnakes/ppa" && ppa_installer
+  sudo apt install -y python3.8
+  yes | python3.6 -m pip uninstall lastversion
+  python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion || error "Couldn't install dependencies"
+  ;;
+*)
+  python3 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
+  ;;
+esac
+
+lastversion --assets --filter Minecraft_Bedrock_Launcher-$type-*.AppImage download https://github.com/ChristopherHX/linux-packaging-scripts || error "Couldn't download AppImage!"
 mv *.AppImage MC.AppImage
 chmod +x *.AppImage
 curl https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest | grep "browser_download_url.*bionic_$type2" | cut -d : -f 2,3 | tr -d \" | wget -i -
