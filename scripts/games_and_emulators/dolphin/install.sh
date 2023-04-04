@@ -93,6 +93,7 @@ git submodule update --init Externals/VulkanMemoryAllocator || error_user "Faile
 git submodule update --init --recursive Externals/cubeb/ || error_user "Failed to download submodules from GitHub!"
 git submodule update --init Externals/implot || error_user "Failed to download submodules from GitHub!"
 git submodule update --init Externals/gtest || error_user "Failed to download submodules from GitHub!"
+git submodule update --init Externals/rcheevos || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
