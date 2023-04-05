@@ -18,7 +18,8 @@ function get_system {
   __id="$ID"
   export __id
   if [ $__id == "debian" ]; then
-  __id_like="debian"
+    __id_like="debian"
+  fi
   export __id_like
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
@@ -32,15 +33,15 @@ function get_system {
     model="$(getprop ro.product.brand) $(getprop ro.product.model)"
   fi
   if [[ -z "$model" ]] && [[ -f /sys/devices/virtual/dmi/id/product_name ||
-          -f /sys/devices/virtual/dmi/id/product_version ]]; then
-    model="$(tr -d '\0' < /sys/devices/virtual/dmi/id/product_name)"
-    model+=" $(tr -d '\0' < /sys/devices/virtual/dmi/id/product_version)"
+    -f /sys/devices/virtual/dmi/id/product_version ]]; then
+    model="$(tr -d '\0' </sys/devices/virtual/dmi/id/product_name)"
+    model+=" $(tr -d '\0' </sys/devices/virtual/dmi/id/product_version)"
   fi
   if [[ -z "$model" ]] && [[ -f /sys/firmware/devicetree/base/model ]]; then
-    model="$(tr -d '\0' < /sys/firmware/devicetree/base/model)"
+    model="$(tr -d '\0' </sys/firmware/devicetree/base/model)"
   fi
   if [[ -z "$model" ]] && [[ -f /tmp/sysinfo/model ]]; then
-      model="$(tr -d '\0' < /tmp/sysinfo/model)"
+    model="$(tr -d '\0' </tmp/sysinfo/model)"
   fi
   unset jetson_model
   unset jetson_chip_model
@@ -64,7 +65,7 @@ function get_system {
   # obtain jetson model name (if available)
   # nvidia, in their official L4T (Linux for Tegra) releases 32.X and 34.X, set a distinct tegra family in the device tree /proc/device-tree/compatible
   if [[ -e "/proc/device-tree/compatible" ]]; then
-    CHIP="$(tr -d '\0' < /proc/device-tree/compatible)"
+    CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
     if [[ ${CHIP} =~ "tegra186" ]]; then
       jetson_chip_model="t186"
       jetson_model="tegra-x2"
@@ -113,7 +114,7 @@ function get_system {
     fi
   # as part of the 2X.X L4T releases, the kernel is older and the tegra family is found in /sys/devices/soc0/family
   elif [[ -e "/sys/devices/soc0/family" ]]; then
-    CHIP="$(tr -d '\0' < /sys/devices/soc0/family)"
+    CHIP="$(tr -d '\0' </sys/devices/soc0/family)"
     if [[ ${CHIP} =~ "tegra20" ]]; then
       jetson_chip_model="t20"
       jetson_model="tegra-2"
@@ -186,7 +187,6 @@ function get_system {
   export __os_desc
   export __os_release
   export __os_codename
-
 }
 export -f get_system
 
@@ -243,7 +243,7 @@ function PPA_check {
     echo "$(lsb_release -sc) is not supported by $1"
     return 1
   fi
-rm -r /tmp/add-ppa/
+  rm -r /tmp/add-ppa/
 }
 export -f PPA_check
 
@@ -369,7 +369,7 @@ debian_ppa_installer() {
     status "Adding $ppa_name PPA"
     echo "deb https://ppa.launchpadcontent.net/${ppa_name}/ubuntu ${ppa_dist} main" | sudo tee /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list || error "Failed to add repository to sources.list!"
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$key"
-    if [ $? != 0 ];then
+    if [ $? != 0 ]; then
       sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
       error "Failed to sign the $ppa_name PPA!"
     fi
@@ -647,13 +647,13 @@ export -f apt_lock_wait
 runonce() { #run command only if it's never been run before. Useful for one-time migration or setting changes.
   #Runs a script in the form of stdin
 
-  script="$(< /dev/stdin)"
+  script="$(</dev/stdin)"
 
   runonce_hash="$(sha1sum <<<"$script" | awk '{print $1}')"
 
   mkdir -p "${DIRECTORY}/data"
 
-  if [ -s "${DIRECTORY}/data/runonce_hashes" ] && while read line; do [[ $line == "$runonce_hash" ]] && break; done < "${DIRECTORY}/data/runonce_hashes"; then
+  if [ -s "${DIRECTORY}/data/runonce_hashes" ] && while read line; do [[ $line == "$runonce_hash" ]] && break; done <"${DIRECTORY}/data/runonce_hashes"; then
     #hash found
     #echo "runonce: '$script' already run before. Skipping."
     true
@@ -661,8 +661,8 @@ runonce() { #run command only if it's never been run before. Useful for one-time
     #run the script.
     bash <(echo "$script")
     #if it succeeds, add the hash to the list to never run it again
-    if [ $? == 0 ];then
-      echo "$runonce_hash" >> "${DIRECTORY}/data/runonce_hashes"
+    if [ $? == 0 ]; then
+      echo "$runonce_hash" >>"${DIRECTORY}/data/runonce_hashes"
       echo "runonce(): '$script' succeeded. Added to list."
     else
       echo "runonce(): '$script' failed. Not adding hash to list."
