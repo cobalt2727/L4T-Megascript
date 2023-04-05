@@ -18,6 +18,8 @@ function get_system {
   export __id_like
   __id="$ID"
   export __id
+  if [ $__id == "debian" ]; then
+  __id_like="debian"
   # architecture is the native cpu architecture (aarch64, armv7l, armv6l, x86_64, i386, etc)
   architecture="$(uname -m)"
   export architecture
@@ -197,7 +199,7 @@ function LTS_check {
   # else
   # 	echo "not LTS"
   # fi
-  
+
   source /etc/os-release
   if [[ $(echo $VERSION) == *"LTS"* ]]; then
     #the user's distro is an LTS
@@ -492,14 +494,14 @@ send_error() {
       base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZNVEEzT0RRek5qWXdOek13TWpBME1UY3lNUzl1WldwYQpUd289Cg==') | tr -d '\n'
       base64 -d <<<'R2xxU1BLc212X1ZCT2twZ3BfdnJGRG51RTZPa1BSME41MGgxbkN5TVdnYkxndWczU0dwcVZIZHNHCg==' | tr -d '\n'
       base64 -d <<<'NVFERzhmCg==' | tr -d '\n'
-    )" &>/dev/null 
+    )" &>/dev/null
     ;;
   *)
     curl -F "file=@\"$1\";filename=\"$(basename $1 | sed 's/\.log.*/.txt/g')\"" "$(
       base64 -d <<<$(base64 -d <<<'YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZPVGN3TkRBd016RTJPVGt5TXprM016a3pMemswYmxSWgo=') | tr -d '\n'
       base64 -d <<<'SUk1TjJQbnJ5dndWamwxaS1keTFXQnBSaDdJTXpVSnliRWo0TmZpTUR2WTE2S2ExU0Rkc2tpLXYx' | tr -d '\n'
       base64 -d <<<'WGpmVmhmCg==' | tr -d '\n'
-    )" &>/dev/null 
+    )" &>/dev/null
     ;;
   esac
 }
@@ -644,13 +646,13 @@ export -f apt_lock_wait
 #miscellaneous low-level functions below
 runonce() { #run command only if it's never been run before. Useful for one-time migration or setting changes.
   #Runs a script in the form of stdin
-  
+
   script="$(< /dev/stdin)"
-  
+
   runonce_hash="$(sha1sum <<<"$script" | awk '{print $1}')"
 
   mkdir -p "${DIRECTORY}/data"
-  
+
   if [ -s "${DIRECTORY}/data/runonce_hashes" ] && while read line; do [[ $line == "$runonce_hash" ]] && break; done < "${DIRECTORY}/data/runonce_hashes"; then
     #hash found
     #echo "runonce: '$script' already run before. Skipping."
@@ -665,9 +667,9 @@ runonce() { #run command only if it's never been run before. Useful for one-time
     else
       echo "runonce(): '$script' failed. Not adding hash to list."
     fi
-    
+
   fi
-  
+
 }
 export -f runonce
 
