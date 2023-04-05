@@ -59,6 +59,7 @@ bionic)
   case "$__os_codename" in
   bionic)
     ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+    ;;
   jammy)
     sudo apt install -y gcc-12 g++-12 || error "Failed to install dependencies!"
     ;;
