@@ -164,6 +164,9 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     sudo dpkg --configure -a
     sudo apt --fix-broken install
     sudo apt autoremove --purge
+    clear -x
+    description="Please carefully examine the output of the command\nthat's about to run, and make sure it doesn't remove\nanythingyou *need* without providing a replacement.\nYou accept responsibility by confirming the next command."
+    table=("I understand")
     sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') #-y
   elif grep -q "fedora" <<<"$__id"; then
     # roughly translated the debian side of this using https://wiki.archlinux.org/title/Pacman/Rosetta
@@ -171,6 +174,11 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     sudo dnf check-update
     sudo dnf repoquery --unsatisfied
     sudo dnf remove
+    clear -x
+    description="Please carefully examine the output of the command\nthat's about to run, and make sure it doesn't remove\nanythingyou *need* without providing a replacement.\nYou accept responsibility by confirming the next command."
+    table=("I understand")
+    userinput_func "$description" "${table[@]}"
+    sudo dnf --refresh --best --allowerasing upgrade
     # sudo rpm -Va # this takes way too long, I have no idea when it would actually be used
   else
     error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"
