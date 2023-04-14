@@ -143,6 +143,9 @@ runonce() {
 #correct switchroot apt key if necessary
 runonce <<"EOF"
 if grep -q debian /etc/os-release; then
+  export LANG="C.UTF-8"
+  export LANGUAGE="C.UTF-8"
+  export LC_ALL="C.UTF-8"
   apt-key list 2>/dev/null | grep -q 'expired] Switchroot Apt Repo Automated Signing Key'
   if [ $? == 0 ]; then
     if [[ $gui == "gui" ]]; then
