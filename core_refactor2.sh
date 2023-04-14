@@ -119,6 +119,44 @@ function add_desktop {
 }
 FUNC=$(declare -f add_desktop)
 
+#we can not source the functions script now since some dependencies may not be available yet on the users install
+#however we need to run the apt-key fix now before attempting to install dependencies now
+#so provide a minimal runonce fuction early
+runonce() {
+  DIRECTORY="$HOME/L4T-Megascript"
+  script="$(</dev/stdin)"
+  runonce_hash="$(sha1sum <<<"$script" | awk '{print $1}')"
+  mkdir -p "${DIRECTORY}/data"
+  if [ -s "${DIRECTORY}/data/runonce_hashes" ] && while read line; do [[ $line == "$runonce_hash" ]] && break; done <"${DIRECTORY}/data/runonce_hashes"; then
+    true
+  else
+    bash <(echo "$script")
+    if [ $? == 0 ]; then
+      echo "$runonce_hash" >>"${DIRECTORY}/data/runonce_hashes"
+      echo "runonce(): '$script' succeeded. Added to list."
+    else
+      echo "runonce(): '$script' failed. Not adding hash to list."
+    fi
+  fi
+}
+
+#correct switchroot apt key if necessary
+runonce <<"EOF"
+if grep -q debian /etc/os-release; then
+  apt-key list 2>/dev/null | grep -q 'expired] Switchroot Apt Repo Automated Signing Key'
+  if [ $? == 0 ]; then
+    if [[ $gui == "gui" ]]; then
+      echo -e "\e[96mThe Switchroot Apt Repo Signing Key has expired. Please provide your password in the popup to update it.\e[0m"
+      pkexec sh -c "apt-key del 92813F6A23DB6DFC && wget -O - https://newrepo.switchroot.org/pubkey | apt-key add -"
+    else
+      echo -e "\e[96mThe Switchroot Apt Repo Signing Key has expired. Please provide your password if requested to update it.\e[0m"
+      sudo apt-key del 92813F6A23DB6DFC
+      wget -O - https://newrepo.switchroot.org/pubkey | sudo apt-key add -
+    fi
+  fi
+fi
+EOF
+
 if grep -q debian /etc/os-release; then
 
   # check and offer fix for i386 architecture being present on arm64 devices
