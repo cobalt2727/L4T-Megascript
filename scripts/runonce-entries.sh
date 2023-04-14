@@ -26,6 +26,26 @@ if ! command -v runonce >/dev/null; then
   [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, please fix your internet and try again!"
 fi
 
+#correct switchroot apt key if necessary
+runonce <<"EOF"
+if grep -q debian /etc/os-release; then
+  export LANG="C.UTF-8"
+  export LANGUAGE="C.UTF-8"
+  export LC_ALL="C.UTF-8"
+  apt-key list 2>/dev/null | grep -q 'expired] Switchroot Apt Repo Automated Signing Key'
+  if [ $? == 0 ]; then
+    if [[ $gui == "gui" ]]; then
+      echo -e "\e[96mThe Switchroot Apt Repo Signing Key has expired. Please provide your password in the popup to update it.\e[0m"
+      pkexec sh -c "apt-key del 92813F6A23DB6DFC && wget -O - https://newrepo.switchroot.org/pubkey | apt-key add -"
+    else
+      echo -e "\e[96mThe Switchroot Apt Repo Signing Key has expired. Please provide your password if requested to update it.\e[0m"
+      sudo apt-key del 92813F6A23DB6DFC
+      wget -O - https://newrepo.switchroot.org/pubkey | sudo apt-key add -
+    fi
+  fi
+fi
+EOF
+
 #remove snap store
 runonce <<"EOF"
 if command -v snap; then
