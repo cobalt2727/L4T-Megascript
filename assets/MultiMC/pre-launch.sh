@@ -32,18 +32,18 @@ fi
 
 ### make sure to comment this out if the mod script is working. staring here ###
 
-#     echo "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes"
-#     echo "See L4T-Megascript Discord for more info"
-#     echo "Issue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150"
-#     echo -e "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API changes.\
-#  See L4T-Megascript Discord for more info. When this is fixed, this notice will be removed and the script will automatically update and function again.\
-# \n\nIssue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/150" | yad --image "dialog-info" \
-#     --borders="20" --center --fixed\
-#     --window-icon=/usr/share/icons/L4T-Megascript.png \
-#     --text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=20 --timeout-indicator=bottom\
-#     --show-uri \
-#     --button="OK, Skipping Mod Installation Script":0
-#     exit 0
+echo "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API v1 removal."
+echo "See L4T-Megascript Discord for more info"
+echo "Issue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/206"
+echo -e "Skipping automatic mod installation script as minecraft-mod-manager is currently broken due to Modrinth API v1 removal.\
+See L4T-Megascript Discord for more info. When this is fixed, this notice will be removed and the script will automatically update and function again.\
+\n\nIssue tracked here: https://github.com/Senth/minecraft-mod-manager/issues/206" | yad --image "dialog-info" \
+--borders="20" --center --fixed \
+--class L4T-Megascript --name "L4T Megascript" --window-icon=/usr/share/icons/L4T-Megascript.png \
+--text-info --fontname="@font@ 11" --wrap --width=800 --height=250 --timeout=20 --timeout-indicator=bottom \
+--show-uri \
+--button="OK, Skipping Mod Installation Script":0
+exit 0
 
 ### ends here ###
 
