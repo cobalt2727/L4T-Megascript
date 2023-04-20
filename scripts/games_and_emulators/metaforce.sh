@@ -95,10 +95,10 @@ bionic)
   ;;
 esac
 
-package_available qt6-tools-dev
-if [[ $? == "0" ]]; then # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored (until we get errors about it)
-  sudo apt install -y qt6-tools-dev libqt6svg6-dev libqt6core5compat6-dev qt6-tools-dev-tools qt6-declarative-dev qt6-l10n-tools || error "Failed to install QT6 development libraries!"
-fi
+#package_available qt6-tools-dev
+#if [[ $? == "0" ]]; then # this 22.04+ dep is really only needed for the submodule https://github.com/AxioDL/amuse/ - it can be safely ignored (until we get errors about it)
+#  sudo apt install -y qt6-tools-dev libqt6svg6-dev libqt6core5compat6-dev qt6-tools-dev-tools qt6-declarative-dev qt6-l10n-tools || error "Failed to install QT6 development libraries!"
+#fi
 
 cd ~
 git clone --recursive https://github.com/AxioDL/metaforce.git -j$(nproc)
