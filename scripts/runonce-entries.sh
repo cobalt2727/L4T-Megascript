@@ -327,7 +327,7 @@ _EOF_"
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
   *)
-    warning "You are not running L4T 32.3.1, 32.7.3, 35.1.0, or 35.2.1. Flatpak GPU hardware acceleration is not available." ;;
+    warning "You are not running L4T 32.3.1, 32.7.3, 35.1.0, 35.2.1, or 35.3.1. Flatpak GPU hardware acceleration is not available." ;;
   esac
   ;;
 esac
