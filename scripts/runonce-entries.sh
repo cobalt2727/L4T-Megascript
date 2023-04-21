@@ -297,7 +297,7 @@ BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so |
 case "$jetson_chip_model" in
 "t186"|"t194"|"t210"|"t234")
   case "$BSP_version" in
-  "32.3.1"|"32.7.3"|"35.1.0"|"35.2.1")
+  "32.3.1"|"32.7.3"|"35.1.0"|"35.2.1"|"35.3.1")
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     sudo flatpak override --share=network
