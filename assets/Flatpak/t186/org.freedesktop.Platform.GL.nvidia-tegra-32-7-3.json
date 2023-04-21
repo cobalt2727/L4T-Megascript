@@ -29,11 +29,6 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://repo.download.nvidia.com/jetson/t186/pool/main/n/nvidia-l4t-libvulkan/nvidia-l4t-libvulkan_32.7.3-20221122092958_arm64.deb",
-                    "sha1": "337c532880d028df0e0b6a2d64572f21e6d70f23"
-                },
-                {
-                    "type": "file",
                     "url": "https://repo.download.nvidia.com/jetson/t186/pool/main/n/nvidia-l4t-wayland/nvidia-l4t-wayland_32.7.3-20221122092958_arm64.deb",
                     "sha1": "5def511f9650eb509bfa9a3dc1a8a8abbf9e6209"
                 }
@@ -45,9 +40,6 @@
               tar -I zstd -xvf data.*; \
               rm control.* data.* debian-binary; \
               ar x nvidia-l4t-core*arm64.deb; \
-              tar -I zstd -xvf data.*; \
-              rm control.* data.* debian-binary; \
-              ar x nvidia-l4t-libvulkan*arm64.deb; \
               tar -I zstd -xvf data.*; \
               rm control.* data.* debian-binary; \
               ar x nvidia-l4t-wayland*arm64.deb; \
