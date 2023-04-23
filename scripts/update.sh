@@ -122,6 +122,13 @@ if [[ $SystemFixUserInput == "yes" ]]; then
   echo "fine, but double-check packages to be safe."
   sleep 5
 
+
+  #hotfix for users breaking their own install
+  # only run on nintendo switch systems (previously named icosa or icosa_emmc but now named Nintendo Switch (20XX))
+  if echo "$model" | grep -q [Ss]witch || echo "$model" | grep -q [Ii]cosa; then
+    sudo apt purge flash-kernel -y
+  fi
+
   # the LLVM apt repo we use updated from 13 to 14 in February, wiping out residual files from old 13 installs
   # there's probably a neater way to do this...
   case "$__os_codename" in
