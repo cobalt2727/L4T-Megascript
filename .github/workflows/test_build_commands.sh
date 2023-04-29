@@ -78,11 +78,17 @@ if [[ "$GITHUB_JOB" == "bionic-64bit" ]]; then
 fi
 
 if grep -q debian /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release" "software-properties-common")
-  sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
+  sudo apt update
+  sudo apt-get dist-upgrade -y
+  sudo apt-get install bash dialog gnutls-bin curl yad zenity lsb-release software-properties-common -y
+  hash -r
+  sudo apt update
+  sudo apt upgrade -y
+  hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb" "libxkbcommon-devel")
-  sudo sh -c "dnf upgrade --refresh -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
+  sudo dnf --refresh --best --allowerasing -y upgrade
+  sudo dnf install bash dialog gnutls curl yad zenity redhat-lsb libxkbcommon-devel -y
+  hash -r
 fi
 
 #determine what type of input we received
