@@ -41,6 +41,10 @@ on:
         description: 'Build on RPI PopOS Jammy 64bit'
         required: true
         type: boolean
+      fedora_37_64:
+        description: 'Build on L4S Fedora 37 64bit'
+        required: true
+        type: boolean
 
 run-name: Testing ${{ inputs.name }}
 
@@ -222,6 +226,30 @@ jobs:
           bind_mount_repository: yes
           image_additional_mb: 5000
           cpu: cortex-a7:cortex-a72
+          copy_repository_path: /home/runner/L4T-Megascript
+          export_github_env: yes
+          import_github_env: true
+          shell: /bin/bash
+          commands: |
+            export name="${{ inputs.name }}"
+            ./.github/workflows/test_build_commands.sh
+
+  fedora-37-64bit:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.fedora_37_64 }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test installing app on fedora 37 arm64
+        uses: theofficialgman/arm-runner-action@v8
+        with:
+          base_image: https://download.azka.li/stable/fedora/switch-fedora-2023-04-26.7z
+          # add special arguments for switchroot image format
+          bootpartition:
+          rootpartition: 1
+          bind_mount_repository: yes
+          image_additional_mb: 5000
+          # use TX1 ARM CPU cores
+          cpu: cortex-a7:cortex-a57
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true

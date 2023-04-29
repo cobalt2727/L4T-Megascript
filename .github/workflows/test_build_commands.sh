@@ -70,13 +70,19 @@ if [[ "$GITHUB_JOB" == "jammy-64bit" ]]; then
   sudo apt remove -y linux-image-*-raspi linux-modules-*-raspi linux-image-raspi linux-raspi linux-headers-raspi
 fi
 
-sudo apt update
+case "$__os_id" in
+[Ff]edora) sudo dnf --refresh updateinfo ;;
+*) sudo apt update ;;
+esac
 if [[ "$GITHUB_JOB" == "bionic-64bit" ]]; then
   # update certificate chain
   sudo apt install -y ca-certificates
 fi
 
-sudo apt install -y curl wget
+case "$__os_id" in
+[Ff]edora) sudo dnf -y install --best curl wget ;;
+*) sudo apt install -y curl wget ;;
+esac
 
 #determine what type of input we received
 if [ -z "$name" ]; then
