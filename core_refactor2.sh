@@ -22,7 +22,7 @@ echo -e "\x1B[31mHello World\e[0m"
 clear -x
 x=1
 unset has_foreign
-unset broken_apt
+unset broken_repo
 unset has_weak_wifi
 
 #Set terminal title
@@ -523,44 +523,58 @@ while [ $x == 1 ]; do
   IFS=":"
   if [ ! -z "$CHOICE" ]; then
     systemd-inhibit bash -c "while true; do sleep 60; sudo -v; kill -0 "$$" 2>/dev/null || exit; done" &
-    update_output=$(sudo apt update 2>&1 | tee /dev/tty)
-    echo "$update_output" | grep -qe '^Err:' -qe '^E:'
-    if [[ $? == 0 ]]; then
-      # apt update failed with an error
-      yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
-      \n\n\Verify that you are connected to the internet. \
-      \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
-        --button="Exit the L4T-Megascript":0 \
-        --button="Continue and ignore ERROR":1
-      if [[ $? -ne 0 ]]; then
-        # write that user has broken APT in ALL megascript logs
-        broken_apt=1
-      else
-        exit
-      fi
-    fi
-    grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-    grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
-    if [[ $? == 1 ]]; then
-      # fix for error (for some reason was never pulled into bionic...)
-      # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
-      # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
-      # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
-      sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-      sudo apt update
-    fi
-
     case "$__os_id" in
-    Fedora)
-      status "Skipping Initial Setup Runonce entries on $__os_id"
+    Fedora) 
+      sudo dnf --refresh check-update
+      if [[ $? == 1 ]]; then
+        # dnf check-update failed with an error
+        yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
+        \n\n\Verify that you are connected to the internet. \
+        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+          --button="Exit the L4T-Megascript":0 \
+          --button="Continue and ignore ERROR":1
+        if [[ $? -ne 0 ]]; then
+          # write that user has broken repo in ALL megascript logs
+          broken_repo=1
+        else
+          exit
+        fi
+      fi
       ;;
-    *)
-      # run runonce entries
-      # this replaces the need for an initial setup script
-      status "Runing Initial Setup Runonce entries"
-      bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/runonce-entries.sh)"
+    *) 
+      update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+      echo "$update_output" | grep -qe '^Err:' -qe '^E:'
+      if [[ $? == 0 ]]; then
+        # apt update failed with an error
+        yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+        \n\n\Verify that you are connected to the internet. \
+        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+          --button="Exit the L4T-Megascript":0 \
+          --button="Continue and ignore ERROR":1
+        if [[ $? -ne 0 ]]; then
+          # write that user has broken repo in ALL megascript logs
+          broken_repo=1
+        else
+          exit
+        fi
+      fi
+      grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+      grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
+      if [[ $? == 1 ]]; then
+        # fix for error (for some reason was never pulled into bionic...)
+        # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
+        # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
+        # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
+        sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+        sudo apt update
+      fi      
       ;;
     esac
+
+    # run runonce entries
+    # this replaces the need for an initial setup script
+    status "Runing Initial Setup Runonce entries"
+    bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/runonce-entries.sh)"
 
     rm -rf /tmp/megascript_times.txt
     for word in $CHOICE; do
@@ -595,9 +609,12 @@ while [ $x == 1 ]; do
           sudo -E bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/${folder[$word]}/${scripts[$word]} || echo 'error_user "Your internet seems to have died.... we could not download the script"')" &> >(tee -a "$logfile")
           script_exit_code="$?"
         fi
-        if [ ! -z $broken_apt ]; then
-          # user knowingly has a broken apt and has continued, add this to all log output
-          sed -i "1iUSER HAS BROKEN APT" $logfile
+        if [ ! -z $broken_repo ]; then
+          # user knowingly has a broken repo and has continued, add this to all log output
+          case "$__os_id" in
+          Fedora) sed -i "1iUSER HAS BROKEN DNF" $logfile ;;
+          *) sed -i "1iUSER HAS BROKEN APT" $logfile ;;
+          esac
         fi
         if [ ! -z $has_foreign ]; then
           # user knowingly has foreign architectures and has continued, add this to all log output
