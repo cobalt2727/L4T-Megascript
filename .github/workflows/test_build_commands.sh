@@ -70,19 +70,20 @@ if [[ "$GITHUB_JOB" == "jammy-64bit" ]]; then
   sudo apt remove -y linux-image-*-raspi linux-modules-*-raspi linux-image-raspi linux-raspi linux-headers-raspi
 fi
 
-case "$__os_id" in
-[Ff]edora) sudo dnf --refresh updateinfo ;;
-*) sudo apt update ;;
-esac
+
 if [[ "$GITHUB_JOB" == "bionic-64bit" ]]; then
   # update certificate chain
+  sudo apt update
   sudo apt install -y ca-certificates
 fi
 
-case "$__os_id" in
-[Ff]edora) sudo dnf -y install --best curl wget ;;
-*) sudo apt install -y curl wget ;;
-esac
+if grep -q debian /etc/os-release; then
+  dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release" "software-properties-common")
+  sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt upgrade -y; hash -r"
+elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb" "libxkbcommon-devel")
+  sudo sh -c "dnf upgrade --refresh -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf upgrade -y; hash -r"
+fi
 
 #determine what type of input we received
 if [ -z "$name" ]; then
