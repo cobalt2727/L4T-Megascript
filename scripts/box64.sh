@@ -13,7 +13,7 @@ case "$dpkg_architecture" in
   fi
 
   sudo rm -f /usr/share/keyrings/box64-debs-archive-keyring.gpg
-  curl -fsSL https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/box64-debs-archive-keyring.gpg
+  curl -fsSL https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg >/dev/null
 
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box64.list

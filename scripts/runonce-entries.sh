@@ -264,6 +264,13 @@ else
 fi
 EOF
 
+#correct home ownership of gnupg repo
+runonce <<"EOF"
+  if [ -d ~/.gnupg ] && stat -c "%U %G" ~/.gnupg/* | grep -q "root"; then
+    sudo chown -R $USER:$USER ~/.gnupg
+  fi
+EOF
+
 # upgrade the install once
 runonce <<"EOF"
 status "Running APT updates..."

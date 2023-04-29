@@ -27,7 +27,7 @@ case "$dpkg_architecture" in
   fi
 
   sudo rm -f /usr/share/keyrings/box86-debs-archive-keyring.gpg
-  curl -fsSL https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/box86-debs-archive-keyring.gpg
+  curl -fsSL https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box86-debs-archive-keyring.gpg >/dev/null
 
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box86.list
