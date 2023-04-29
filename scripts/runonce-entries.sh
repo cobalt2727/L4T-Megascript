@@ -26,6 +26,18 @@ if ! command -v runonce >/dev/null; then
   [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet! Exiting the Megascript, please fix your internet and try again!"
 fi
 
+case "$__os_id" in
+[Ff]edora)
+############## fedora runonce entries start here ##############
+# upgrade the install once
+runonce <<"EOF"
+status "Running DNF updates..."
+sudo dnf --refresh --best --allowerasing -y upgrade || error "Temporarily turning on error reporting for dnf upgrades to aid in bugfixing with L4S Fedora! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+EOF
+############## fedora runonce entries end here ##############
+;;
+*)
+############## non-fedora runonce entries start here ##############
 #correct switchroot apt key if necessary
 runonce <<"EOF"
 if grep -q debian /etc/os-release; then
@@ -334,5 +346,7 @@ esac
 
 hash -r
 EOF
-
+;;
+esac
+############## non-fedora runonce entries end here ##############
 true
