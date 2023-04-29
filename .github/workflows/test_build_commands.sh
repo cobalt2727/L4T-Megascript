@@ -100,6 +100,12 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/cobalt2727/L4T-Megascript/master/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
+# print release info to terminal
+status "__os_id: $__os_id"
+status "__os_desc: $__os_desc"
+status "__os_release: $__os_release"
+status "__os_codename: $__os_codename"
+
 # run runonce entries
 # this replaces the need for an initial setup script
 status "Runing Initial Setup Runonce entries"
