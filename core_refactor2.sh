@@ -285,7 +285,7 @@ hash -r
 hidden=()
 
 case "$__os_id" in
-Fedora)
+[Ff]edora)
   apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps_fedora.txt)
   ;;
 *)
