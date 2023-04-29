@@ -223,6 +223,14 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
+if ! command -v lsb_release &>/dev/null; then
+  echo "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again." | yad --center --window-icon="${DIRECTORY}/icons/logo.png" \
+  --width=700 --height=300 --text-info --title="Error" \
+  --image="${DIRECTORY}/icons/error.png" --image-on-top --fontname=12 \
+  --button='OK'
+  error "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again."  
+fi
+
 # "click" HITS link
 # records the daily and total number of megascript script runs
 # fake url to give to HITS, it could be anything: https://github.com/cobalt2727/L4T-Megascript/hits
