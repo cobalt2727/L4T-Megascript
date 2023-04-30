@@ -212,6 +212,23 @@ focal)
 esac
 EOF
 
+# add ppas for debian
+runonce <<"EOF"
+case "$__os_codename" in
+buster|bullseye)
+  debian_ppa_installer "theofficialgman/cmake-bionic" "bionic" "0ACACB5D1E74E484" || exit 1
+  ;;
+esac
+case "$__os_codename" in
+buster)
+  debian_ppa_installer "theofficialgman/flatpak-no-bwrap" "bionic" "0ACACB5D1E74E484" || exit 1
+  ;;
+bullseye)
+  debian_ppa_installer "theofficialgman/flatpak-no-bwrap" "focal" "0ACACB5D1E74E484" || exit 1
+  ;;
+esac
+EOF
+
 # add more helpful PPAs
 runonce <<"EOF"
 case "$__os_codename" in
