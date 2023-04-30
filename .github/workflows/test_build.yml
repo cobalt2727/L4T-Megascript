@@ -177,6 +177,14 @@ jobs:
     if: ${{ inputs.focal_64 }}
     steps:
       - uses: actions/checkout@v3
+      - name: Clear up some disk space
+        run: |
+          # Workaround to provide additional free space for testing.
+          #   https://github.com/actions/virtual-environments/issues/2840
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Test installing app on focal arm64
         uses: theofficialgman/arm-runner-action@v9
         with:
