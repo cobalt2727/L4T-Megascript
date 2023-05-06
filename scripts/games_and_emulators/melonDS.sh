@@ -55,7 +55,7 @@ sleep 1
 cd ~
 git clone https://github.com/Arisotura/melonDS.git
 cd melonDS
-git pull || error "Could Not Pull Latest MelonDS Source Code, verify your ~/melonDS directory hasn't been modified. You can detete the ~/melonDS folder to attempt to fix this error."
+git pull || error "Could Not Pull Latest MelonDS Source Code, verify your ~/melonDS directory hasn't been modified. You can delete the ~/melonDS folder to attempt to fix this error."
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt

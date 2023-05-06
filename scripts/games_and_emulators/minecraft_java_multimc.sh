@@ -222,8 +222,8 @@ git clone --recursive https://github.com/MultiMC/Launcher.git src # You can clon
 cd src
 git remote set-url origin https://github.com/MultiMC/Launcher.git
 git checkout --recurse-submodules develop || error "Could not checkout develop branch"
-git pull --recurse-submodules || error "Could Not Pull Latest MultiMC Source Code, verify your ~/MultiMC/src directory hasn't been modified. You can detete the  ~/MultiMC/src folder to attempt to fix this error."
-git checkout --recurse-submodules 6bfa07e728865d8d31a43ef5231b2461d55fc4b3 || error "Could Not Checkout MultiMC Source Code commit, verify your ~/MultiMC/src directory hasn't been modified. You can detete the  ~/MultiMC/src folder to attempt to fix this error and run this script again."
+git pull --recurse-submodules || error "Could Not Pull Latest MultiMC Source Code, verify your ~/MultiMC/src directory hasn't been modified. You can delete the  ~/MultiMC/src folder to attempt to fix this error."
+git checkout --recurse-submodules 6bfa07e728865d8d31a43ef5231b2461d55fc4b3 || error "Could Not Checkout MultiMC Source Code commit, verify your ~/MultiMC/src directory hasn't been modified. You can delete the  ~/MultiMC/src folder to attempt to fix this error and run this script again."
 
 # add secrets files
 mkdir -p secrets
