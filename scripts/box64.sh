@@ -8,7 +8,9 @@ case "$dpkg_architecture" in
 "arm64")
 
   if dpkg -l box64 &>/dev/null ;then
-    sudo apt purge -y --allow-change-held-packages box64
+    if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]] || [[ "$SOC_ID" == "rk3399" ]]; then
+      sudo apt purge -y --allow-change-held-packages box64
+    fi
   fi
   sudo wget https://raw.githubusercontent.com/ryanfortner/box64-debs/4a4bf6e7933b237de75712810240ab301a50f0a8/box64.list -O /etc/apt/sources.list.d/box64.list
   if [ $? != 0 ];then
@@ -35,6 +37,7 @@ case "$dpkg_architecture" in
   else
     warning "There is no box64 pre-build for your device $SOC_ID $model"
     warning "Installing the RPI4 tuned box64 build as a fallback (no crypto extensions enabled)"
+    sleep 1
     sudo apt install -y box64 || exit 1
   fi
   ;;
