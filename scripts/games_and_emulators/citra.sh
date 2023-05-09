@@ -11,7 +11,11 @@ echo "Citra script successfully started!"
 echo "Credits: https://citra-emu.org/wiki/building-for-linux/"
 sleep 3
 
-echo "Running updates..."
+echo "Cleaning up unneeded files from old versions, if found..."
+# https://github.com/citra-emu/citra/issues/6397
+sudo rm -rf /usr/local/include/Zydis/ /usr/local/include/dynarmic/ /usr/local/include/fmt/ /usr/local/include/mcl/ /usr/local/include/tsl/ /usr/local/include/xbyak/ /usr/local/lib/cmake/ /usr/local/lib/libZydis.a /usr/local/lib/libdynarmic.a /usr/local/lib/libfmt.a /usr/local/lib/libmcl.a /usr/local/lib/pkgconfig/fmt.pc /usr/local/share/cmake/tsl-robin-map/ 
+
+echo "Installing dependencies..."
 sleep 1
 
 case "$__os_codename" in
@@ -31,8 +35,6 @@ bionic | focal)
   ;;
 esac
 
-echo "Installing dependencies..."
-sleep 1
 sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev 	qt6-multimedia-dev libqt6multimedia6 libfdk-aac-dev build-essential cmake libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev -y || error "Could not install dependencies"
 
 echo "Building Citra..."
