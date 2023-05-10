@@ -28,10 +28,10 @@ bionic | focal)
   ppa_name="okirby/qt6-backports" && ppa_installer
   ppa_name="okirby/qt6-testing" && ppa_installer
 
-  sudo apt install gcc-10 g++-10
+  sudo apt install -y gcc-10 g++-10 || error "Could not install dependencies"
   ;;
 *)
-  sudo apt install gcc g++
+  sudo apt install -y gcc g++ || error "Could not install dependencies"
   ;;
 esac
 
