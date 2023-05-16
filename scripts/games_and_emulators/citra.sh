@@ -20,7 +20,7 @@ sleep 1
 
 case "$__os_codename" in
 bionic | focal)
-  echo "Adding GCC/G++ 10 repo..." #11 is available from here, but there's a compiler bug with QT 5.15.2, which we're stuck on
+  echo "Adding GCC/G++ 11 repo..."
   ppa_name="ubuntu-toolchain-r/test" && ppa_installer
   echo "Adding QT6 repo..."
   #it's not redneck if it works.
@@ -28,7 +28,7 @@ bionic | focal)
   ppa_name="okirby/qt6-backports" && ppa_installer
   ppa_name="okirby/qt6-testing" && ppa_installer
 
-  sudo apt install -y gcc-10 g++-10 || error "Could not install dependencies"
+  sudo apt install -y gcc-11 g++-11 || error "Could not install dependencies"
   ;;
 *)
   sudo apt install -y gcc g++ || error "Could not install dependencies"
@@ -49,7 +49,7 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_FFMPEG_AUDIO_DECODER=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
   ;;
 *)
   if grep -iE 'raspberry' <<<$model >/dev/null; then
