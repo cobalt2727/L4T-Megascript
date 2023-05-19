@@ -35,7 +35,7 @@ bionic | focal)
   ;;
 esac
 
-sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev -y || error "Could not install dependencies"
+sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev ffmpeg libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev libboost-dev -y || error "Could not install dependencies"
 
 echo "Building Citra..."
 sleep 1
