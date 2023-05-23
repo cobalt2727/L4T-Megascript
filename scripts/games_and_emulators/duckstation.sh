@@ -38,5 +38,30 @@ esac
 # make -j$(nproc)
 cmake --build . --parallel || error "Compilation failed"
 
+cd ~
+#install duckstation itself
+sudo cp -r duckstation/build/bin/ /usr/local/
+
+#download icons and desktop file
+mkdir duckstationicons
+cd duckstationicons
+wget https://archive.org/download/icons_202305/icons.zip
+unzip icons.zip
+
+#install icons for .desktop files
+sudo install -m 644 -D duckstationicons/SVG.svg /usr/local/share/icons/hicolor/scalable/apps/duckstation.svg
+
+sudo install -m 644 -D duckstationicons/128.svg /usr/local/share/icons/hicolor/128x128/apps/duckstation.png #128
+sudo install -m 644 -D duckstationicons/16.png /usr/local/share/icons/hicolor/16x16/apps/duckstation.png    #16
+sudo install -m 644 -D duckstationicons/24.png /usr/local/share/icons/hicolor/24x24/apps/duckstation.png    #24
+sudo install -m 644 -D duckstationicons/256.png /usr/local/share/icons/hicolor/256x256/apps/duckstation.png #256
+sudo install -m 644 -D duckstationicons/32.png /usr/local/share/icons/hicolor/32x32/apps/duckstation.png    #32
+sudo install -m 644 -D duckstationicons/48.png /usr/local/share/icons/hicolor/48x48/apps/duckstation.png    #48
+sudo install -m 644 -D duckstationicons/512.png /usr/local/share/icons/hicolor/512x512/apps/duckstation.png #512
+sudo install -m 644 -D duckstationicons/64.png /usr/local/share/icons/hicolor/64x64/apps/duckstation.png    #64
+
+#install .desktop file itself
+sudo install -m 644 -D duckstationicons/DuckStation.desktop /usr/local/share/applications/DuckStation.desktop
+
+#done
 echo "Done!"
-echo "this script doesn't install Duckstation properly yet, please run it from ~/duckstation/build/bin/duckstation-qt"
