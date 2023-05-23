@@ -47,6 +47,7 @@ mkdir duckstationicons
 cd duckstationicons
 wget https://archive.org/download/icons_202305/icons.zip
 unzip icons.zip
+cd ..
 
 #install icons for .desktop files
 sudo install -m 644 -D duckstationicons/svg.svg /usr/local/share/icons/hicolor/scalable/apps/duckstation-qt.svg
