@@ -9,14 +9,15 @@ sudo wget https://repo.modloader64.com/launcher/update/app.zip
 sudo unzip app.zip
 sudo rm app.zip
 cd /usr/local/share/applications
-sudo cat <<EOF > supermodel.desktop
+sudo bash -c 'cat <<EOF > modloader64.desktop
 [Desktop Entry]
 Version=1.0
 Type=Application
-Terminal=true
-Exec=supermodel
-Name=Supermodel
-Comment=A Sega Model 3 Arcade Emulator
+Terminal=false
+Exec=electron /usr/local/bin/app/index.js
+Name=ModLoader64
+Comment=ModLoader64 is a network capable mod loading system for Nintendo 64 games.
+Icon=/usr/local/bin/app/ml64.png
 Categories=Game;Emulator;
-EOF
-echo "The emulator can be found at ~/Supermodel3/bin/supermodel - enjoy!"
+Name[en_US]=ModLoader64
+EOF'
