@@ -7,7 +7,7 @@ package_available qt5-default
 if [[ $? == "0" ]]; then
   sudo apt install -y qt5-default || error "Failed to install dependencies!"
 fi
-
+cd ~
 git clone https://github.com/jpd002/Play-
 cd Play-/
 
@@ -21,7 +21,7 @@ echo "Building..."
 cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native || error "Cmake failed!"
 cmake --build . -j$(nproc) || error "Build failed!"
 
-sudo make install || "Make install failed!"
+sudo make install || error "Make install failed!"
 
 echo "Done!"
 sleep 2
