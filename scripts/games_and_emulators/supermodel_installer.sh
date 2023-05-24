@@ -25,5 +25,14 @@ make -f Makefiles/Makefile.UNIX
 
 sudo install -D bin/supermodel /usr/local/bin/supermodel
 cd /usr/local/share/applications
-sudo wget https://download1649.mediafire.com/wkme04q3h4fgt3LmI2vRk6zLr-2-eYccJwMWzbOYnywqZAPOVWELoERIHqsl8SY-Dt59O_gjuhXFIvcTE6NtIUdGQMie-xZZ0hpnbHB3FLnS5R0BwZUCLHiT0nHoBOqLwqIMTefu50X-FVe-bkTlaY9HVXxhT1PMsmxbeN6PLb5bFoqU/2if46mq5msv3019/supermodel.desktop
+sudo bash -c 'cat <<EOF > supermodel.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=supermodel
+Name=Supermodel
+Comment=A Sega Model 3 Arcade Emulator
+Categories=Game;Emulator;
+EOF'
 echo "The emulator can be found at ~/Supermodel3/bin/supermodel - enjoy!"
