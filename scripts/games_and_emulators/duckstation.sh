@@ -43,8 +43,7 @@ cd ..
 sudo cp -r duckstation/build/bin/ /usr/local/
 
 #download icons and desktop file
-mkdir duckstationicons
-cd duckstationicons
+cd /tmp/
 wget https://archive.org/download/icons_202305/icons.zip
 unzip icons.zip
 cd ..
