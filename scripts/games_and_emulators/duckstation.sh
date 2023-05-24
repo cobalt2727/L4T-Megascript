@@ -40,6 +40,7 @@ cmake --build . --parallel || error "Compilation failed"
 
 cd ..
 #install duckstation itself
+cd ..
 sudo cp -r duckstation/build/bin/ /usr/local/
 
 #download icons and desktop file
