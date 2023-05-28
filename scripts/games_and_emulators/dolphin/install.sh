@@ -29,7 +29,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     ;;
   esac
 
-  sudo apt install --no-install-recommends ca-certificates qt6-base-private-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
+  sudo apt install --no-install-recommends ca-certificates qt6-base-private-dev libqt6svg6-dev git cmake make gcc g++ pkg-config udev libudev1 libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libxi-dev libxrandr-dev libevdev-dev libsfml-dev libminiupnpc-dev libmbedtls-dev libcurl4-openssl-dev libhidapi-dev libbluetooth-dev libasound2-dev libpulse-dev libpugixml-dev libbz2-dev libzstd-dev liblzo2-dev libpng-dev libusb-1.0-0-dev gettext -y || error "Failed to install dependencies!"
 
   #the following lines attempt to handle issues with installing on distros without systemd (namely AntiX)
   package_available libudev-dev #this will install on mainstream distros
