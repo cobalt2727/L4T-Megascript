@@ -35,6 +35,12 @@ case "$dpkg_architecture" in
   fi
 
   sudo apt update
+
+  # remove deprecated package name
+  if package_installed box86 ; then
+    sudo apt purge -y --allow-change-held-packages box86
+  fi
+
   sudo apt install -y libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libgtk2.0-0:armhf libstdc++6:armhf libpng16-16:armhf libcal3d12v5:armhf libopenal1:armhf libcurl4:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Could install box86 dependencies"
 
   if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]]; then
@@ -42,11 +48,17 @@ case "$dpkg_architecture" in
   elif [[ "$SOC_ID" == "rk3399" ]]; then
     sudo apt install -y box86-rk3399:armhf || exit 1
   elif [[ "$SOC_ID" == "bcm2711" ]]; then
-    sudo apt install -y box86:armhf || exit 1
+    sudo apt install -y box86-rpi4arm64:armhf || exit 1
+  elif [[ "$SOC_ID" == "bcm2837" ]]; then
+    sudo apt install -y box86-rpi3arm64:armhf || exit 1
+  elif cat /proc/cpuinfo | grep -q aes; then
+    warning "There is no box86 pre-build for your device $SOC_ID $model"
+    warning "Installing the generic arm box86 build as a fallback (crypto extensions enabled)"
+    sudo apt install -y box86-generic-arm:armhf || exit 1
   else
     warning "There is no box86 pre-build for your device $SOC_ID $model"
     warning "Installing the RPI4 tuned box86 build as a fallback (no crypto extensions enabled)"
-    sudo apt install -y box86:armhf || exit 1
+    sudo apt install -y box86-rpi4arm64:armhf || exit 1
   fi
   ;;
 "amd64")
