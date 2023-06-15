@@ -54,7 +54,7 @@ sudo wget -O duckstation-qt.png https://cdn2.steamgriddb.com/file/sgdb-cdn/icon/
 cd /usr/local/share/icons/hicolor/24x24/apps
 sudo wget -O duckstation-qt.png https://cdn2.steamgriddb.com/file/sgdb-cdn/icon/e1f581b9f9af4ca9be996aa40da6759e/32/24x24.png
 cd /usr/local/share/icons/hicolor/256x256/apps
-sudo wget -O duckstation-qt.png https://static-s.aa-cdn.net/img/gp/20600014002217/0lQAIz9NFGArLCmXVfyLXwJlBuUPPMKg_rTdcrvtlTM17LLSuujzYfBy7Q9qUi7tiQ?v=1
+sudo wget -O duckstation-qt.png https://static-s.aa-cdn.net/img/gp/20600014002217/0lQAIz9NFGArLCmXVfyLXwJlBuUPPMKg_rTdcrvtlTM17LLSuujzYfBy7Q9qUi7tiQ
 cd /usr/local/share/icons/hicolor/32x32/apps
 sudo wget -O duckstation-qt.png https://cdn2.steamgriddb.com/file/sgdb-cdn/icon/e1f581b9f9af4ca9be996aa40da6759e/32/32x32.png
 cd /usr/local/share/icons/hicolor/48x48/apps
@@ -62,9 +62,9 @@ sudo wget -O duckstation-qt.png https://cdn2.steamgriddb.com/file/sgdb-cdn/icon/
 cd /usr/local/share/icons/hicolor/512x512/apps
 sudo wget -O duckstation-qt.png https://play-lh.googleusercontent.com/0lQAIz9NFGArLCmXVfyLXwJlBuUPPMKg_rTdcrvtlTM17LLSuujzYfBy7Q9qUi7tiQ 
 cd /usr/local/share/icons/hicolor/64x64/apps
-sudo wget -O duckstation-qt.png ttps://cdn2.steamgriddb.com/file/sgdb-cdn/icon/e1f581b9f9af4ca9be996aa40da6759e/32/64x64.png
+sudo wget -O duckstation-qt.png https://cdn2.steamgriddb.com/file/sgdb-cdn/icon/e1f581b9f9af4ca9be996aa40da6759e/32/64x64.png
 cd /usr/local/share/icons/hicolor/8x8/apps
-sudo wget -O duckstation-qt.png https://cdn-images.imagevenue.com/71/c7/71/ME16HPQS_o.png
+sudo wget -O duckstation-qt.png https://media.forgecdn.net/attachments/thumbnails/642/362/310/172/2023-04-02_17.png
 
 #install .desktop file itself
 cd /usr/local/share/applications
