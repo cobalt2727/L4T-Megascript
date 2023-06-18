@@ -26,7 +26,7 @@ on:
         required: true
         type: boolean
       bionic_64:
-        description: 'Build on Switchroot Ubuntu 5.1.0 Bionic 64bit'
+        description: 'Build on Switchroot Ubuntu 5.1.1 Bionic 64bit'
         required: true
         type: boolean
       focal_64:
@@ -156,7 +156,7 @@ jobs:
       - name: Test installing app on bionic arm64
         uses: theofficialgman/arm-runner-action@v9
         with:
-          base_image: https://download.switchroot.org/ubuntu/switchroot-ubuntu-5.1.0-2023-04-22.7z
+          base_image: https://download.switchroot.org/ubuntu/switchroot-ubuntu-5.1.1-2023-06-12.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
