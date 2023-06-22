@@ -144,49 +144,67 @@ function get_system {
   export jetson_model
   unset CHIP
 
-  # set each variable individually since Fedora prints all output to one line
+  # add upstream and original lsb-release info for all scripts to use
+
+  # _os_original_* variables are only set for downstream releases (eg: Pop!_OS, Linux Mint, and KDE Neon)
+  # this allows for scripts to simply check for the existance of _os_original_* variables and operate differently if found
+  # note: Pop!_OS, Linux Mint, and KDE Neon are NOT official Ubuntu flavors (like Kubuntu, Ubuntu MATE, Ubuntu Kylin, Ubuntu Budgie, Lubuntu, Ubuntu Studio, Ubuntu Unity, and Xubuntu)
+  # official Ubuntu flavors use ONLY the official Ubuntu repositories and are directly supported by Ubuntu. These other releases are simply "based" on Ubuntu, much like Raspbian and PiOS are "based" on Debian.
 
   # first check if lsb_release has an upstream option -u
   # if not, check if there is an upstream-release file
   # if not, check if there is a lsb-release.diverted file
   # if not, assume that this is not a ubuntu derivative
-  if lsb_release -a -u &>/dev/null; then
-    # This is a Ubuntu Derivative, checking the upstream-release version info
-    __os_id="$(lsb_release -s -i -u)"
-    __os_desc="$(lsb_release -s -d -u)"
-    __os_release="$(lsb_release -s -r -u)"
-    __os_codename="$(lsb_release -s -c -u)"
-  elif [ -f /etc/upstream-release/lsb-release ]; then
-    # ubuntu 22.04+ linux mint no longer includes the lsb_release -u option
-    # add a parser for the /etc/upstream-release/lsb-release file
-    source /etc/upstream-release/lsb-release
-    __os_id="$DISTRIB_ID"
-    __os_desc="$DISTRIB_DESCRIPTION"
-    __os_release="$DISTRIB_RELEASE"
-    __os_codename="$DISTRIB_CODENAME"
-    unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
-  elif [ -f /etc/lsb-release.diverted ]; then
-    # ubuntu 22.04+ popOS no longer includes the /etc/upstream-release/lsb-release or the lsb_release -u option
-    # add a parser for the new /etc/lsb-release.diverted file
-    source /etc/lsb-release.diverted
-    __os_id="$DISTRIB_ID"
-    __os_desc="$DISTRIB_DESCRIPTION"
-    __os_release="$DISTRIB_RELEASE"
-    __os_codename="$DISTRIB_CODENAME"
-    unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
-  else
-    __os_id="$(lsb_release -s -i)"
-    __os_desc="$(lsb_release -s -d)"
-    __os_release="$(lsb_release -s -r)"
-    __os_codename="$(lsb_release -s -c)"
+  # use mapfile to temporarily store release info for speed
+  if [ -z "$__os_id" ] || [ -z "$__os_desc" ] || [ -z "$__os_release" ] || [ -z "$__os_codename" ]; then
+    if lsb_release -a -u &>/dev/null; then
+      # This is a Ubuntu Derivative, checking the upstream-release version info
+      mapfile -t os_u < <(lsb_release -s -i -d -r -c -u)
+      export __os_id="${os_u[0]}"
+      export __os_desc="${os_u[1]}"
+      export __os_release="${os_u[2]}"
+      export __os_codename="${os_u[3]}"
+      mapfile -t os < <(lsb_release -s -i -d -r -c)
+      export __os_original_id="${os[0]}"
+      export __os_original_desc="${os[1]}"
+      export __os_original_release="${os[2]}"
+      export __os_original_codename="${os[3]}"
+    elif [ -f /etc/upstream-release/lsb-release ]; then
+      # ubuntu 22.04+ Linux Mint no longer includes the lsb_release -u option
+      # add a parser for the /etc/upstream-release/lsb-release file
+      source /etc/upstream-release/lsb-release
+      export __os_id="$DISTRIB_ID"
+      export __os_desc="$DISTRIB_DESCRIPTION"
+      export __os_release="$DISTRIB_RELEASE"
+      export __os_codename="$DISTRIB_CODENAME"
+      mapfile -t os < <(lsb_release -s -i -d -r -c)
+      export __os_original_id="${os[0]}"
+      export __os_original_desc="${os[1]}"
+      export __os_original_release="${os[2]}"
+      export __os_original_codename="${os[3]}"
+      unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
+    elif [ -f /etc/lsb-release.diverted ]; then
+      # ubuntu 22.04+ Pop!_OS no longer includes the /etc/upstream-release/lsb-release or the lsb_release -u option
+      # add a parser for the new /etc/lsb-release.diverted file
+      source /etc/lsb-release.diverted
+      export __os_id="$DISTRIB_ID"
+      export __os_desc="$DISTRIB_DESCRIPTION"
+      export __os_release="$DISTRIB_RELEASE"
+      export __os_codename="$DISTRIB_CODENAME"
+      mapfile -t os < <(lsb_release -s -i -d -r -c)
+      export __os_original_id="${os[0]}"
+      export __os_original_desc="${os[1]}"
+      export __os_original_release="${os[2]}"
+      export __os_original_codename="${os[3]}"
+      unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
+    else
+      mapfile -t os < <(lsb_release -s -i -d -r -c)
+      export __os_id="${os[0]}"
+      export __os_desc="${os[1]}"
+      export __os_release="${os[2]}"
+      export __os_codename="${os[3]}"
+    fi
   fi
-  if [ $__os_id == "Nobara" ]; then
-    __os_id="Fedora"
-  fi
-  export __os_id
-  export __os_desc
-  export __os_release
-  export __os_codename
 }
 export -f get_system
 
@@ -338,12 +356,12 @@ function ppa_installer {
 }
 export -f ppa_installer
 
-ubuntu_ppa_installer() {
+ubuntu_ppa_installer() { #setup a PPA on an Ubuntu distro. Arguments: ppa_name
   local ppa_name="$1"
   [ -z "$1" ] && error "ubuntu_ppa_installer(): This function is used to add a ppa to a ubuntu based install but a required input argument was missing."
   local ppa_grep="$ppa_name"
   [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
-  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
+  local ppa_added=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*.list | grep -v deb-src | grep deb | grep -v '#' | grep "$ppa_grep" | wc -l)
   if [[ $ppa_added -eq "1" ]]; then
     status "Skipping $ppa_name PPA, already added"
   else
@@ -351,6 +369,17 @@ ubuntu_ppa_installer() {
     sudo add-apt-repository "ppa:$ppa_name" -y || exit 1
     apt_lock_wait
     sudo apt update || exit 1
+  fi
+  # check if ppa .list filename does not exist under the current distro codename
+  # on a distro upgrade the .list filename is not updated and add-apt-repository can re-use the old filename
+  local ppa_dist="$__os_codename"
+  local standard_filename="/etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list" 
+  if [[ ! -f "$standard_filename" ]] && ls /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-*.list 1> /dev/null; then
+    local original_filename="$(ls /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-*.list | head -1)"
+    # change the filename to match the current distro codename
+    sudo mv "$original_filename" "$standard_filename"
+    sudo rm -f "$original_filename".distUpgrade
+    sudo rm -f "$original_filename".save
   fi
 }
 export -f ubuntu_ppa_installer
