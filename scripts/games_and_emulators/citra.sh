@@ -43,7 +43,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   ;;
 
 Fedora)
-  sudo dnf install -y cmake SDL2-devel openssl-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel gcc-c++
+  sudo dnf install -y cmake SDL2-devel openssl-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel gcc-c++ || error "Could not install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
