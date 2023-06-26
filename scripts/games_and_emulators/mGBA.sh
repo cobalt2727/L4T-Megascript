@@ -38,16 +38,16 @@ sleep 1
 cd ~
 git clone https://github.com/mgba-emu/mgba
 cd mgba
-git pull || error "Could Not Pull Latest mGBA Source Code, verify your ~/mGBA directory hasn't been modified. You can delete the ~/melonDS folder to attempt to fix this error."
+git pull || error "Could Not Pull Latest Source Code"
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic)
-  cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 || error "Cmake failed"
   ;;
 *)
-  cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_INSTALL_PREFIX:PATH=/usr
+  cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native || error "Cmake failed"
   ;;
 esac
 make -j$(nproc) || error "Compilation failed"
