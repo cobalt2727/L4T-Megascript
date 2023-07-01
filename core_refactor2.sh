@@ -530,15 +530,9 @@ while [ $x == 1 ]; do
         # dnf check-update failed with an error
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
-          --button="Exit the L4T-Megascript":0 \
-          --button="Continue and ignore ERROR":1
-        if [[ $? -ne 0 ]]; then
-          # write that user has broken repo in ALL megascript logs
-          broken_repo=1
-        else
-          exit
-        fi
+        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORS so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+          --button="Exit the L4T-Megascript":0
+        exit
       fi
       ;;
     *) 
