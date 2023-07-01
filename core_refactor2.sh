@@ -543,14 +543,8 @@ while [ $x == 1 ]; do
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
         \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
-          --button="Exit the L4T-Megascript":0 \
-          --button="Continue and ignore ERROR":1
-        if [[ $? -ne 0 ]]; then
-          # write that user has broken repo in ALL megascript logs
-          broken_repo=1
-        else
-          exit
-        fi
+          --button="Exit the L4T-Megascript":0
+        exit
       fi
       grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
       grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
