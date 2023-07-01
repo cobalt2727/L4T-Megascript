@@ -530,7 +530,7 @@ while [ $x == 1 ]; do
         # dnf check-update failed with an error
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORS so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
           --button="Exit the L4T-Megascript":0
         exit
       fi
@@ -542,7 +542,7 @@ while [ $x == 1 ]; do
         # apt update failed with an error
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs.\nPlease exit now and fix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
           --button="Exit the L4T-Megascript":0
         exit
       fi
