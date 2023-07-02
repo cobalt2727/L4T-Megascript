@@ -1,0 +1,60 @@
+{
+    "id": "org.freedesktop.Platform.GL.nvidia-tegra-32-7-4",
+    "branch": "1.4",
+    "runtime": "org.freedesktop.Platform",
+    "build-extension": true,
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "21.08",
+    "sdk-extensions": [],
+    "separate-locales": false,
+    "cleanup": [ ],
+    "finish-args": [
+        "--device=all",
+        "--share=network",
+        "--filesystem=/sys"
+    ],
+    "modules": [
+        {
+            "name": "BSP",
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t186/pool/main/n/nvidia-l4t-3d-core/nvidia-l4t-3d-core_32.7.4-20230608211515_arm64.deb",
+                    "sha1": "10272a6093d939a2fa587f3243f473611b9e30ce"
+                },
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t186/pool/main/n/nvidia-l4t-core/nvidia-l4t-core_32.7.4-20230608211515_arm64.deb",
+                    "sha1": "938ff50df5db5c88e6b8daea2ecec0ad096a8617"
+                },
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t186/pool/main/n/nvidia-l4t-wayland/nvidia-l4t-wayland_32.7.4-20230608211515_arm64.deb",
+                    "sha1": "2b34e2d4174f1784e3945c8d6daf3af3cb085992"
+                }
+            ],
+            "buildsystem": "simple",
+            "build-commands": [
+              "mkdir -p  ${FLATPAK_DEST}/nvidia_libs; \
+              ar x nvidia-l4t-3d-core*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              ar x nvidia-l4t-core*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              ar x nvidia-l4t-wayland*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              cp -r etc/nv_tegra_release ${FLATPAK_DEST}/nvidia_libs; \
+              install -Dm755 usr/lib/aarch64-linux-gnu/libdrm_nvdc.so  ${FLATPAK_DEST}/nvidia_libs; \
+              install -Dm755 usr/lib/aarch64-linux-gnu/tegra/* usr/lib/aarch64-linux-gnu/tegra-egl/* ${FLATPAK_DEST}/nvidia_libs; \
+              mkdir -p ${FLATPAK_DEST}/vulkan/icd.d ${FLATPAK_DEST}/glvnd/egl_vendor.d ${FLATPAK_DEST}/egl/egl_external_platform.d; \
+              ln -s ../../nvidia_libs/nvidia_icd.json ${FLATPAK_DEST}/vulkan/icd.d; \
+              ln -s ../../nvidia_libs/nvidia.json ${FLATPAK_DEST}/glvnd/egl_vendor.d ; \
+              ln -s libnvidia-egl-wayland.so ${FLATPAK_DEST}/nvidia_libs/libnvidia-egl-wayland.so.1; \
+              cp usr/share/egl/egl_external_platform.d/nvidia_wayland.json ${FLATPAK_DEST}/egl/egl_external_platform.d/; \
+              ln -s nvidia_libs ${FLATPAK_DEST}/lib"
+            ]
+        }
+    ]
+}
