@@ -333,7 +333,7 @@ BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so |
 case "$jetson_chip_model" in
 "t186"|"t194"|"t210"|"t234")
   case "$BSP_version" in
-  "32.3.1"|"32.7.3"|"35.1.0"|"35.2.1"|"35.3.1")
+  "32.3.1"|"32.7.3"|"32.7.4"|"35.1.0"|"35.2.1"|"35.3.1")
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     sudo flatpak override --share=network
@@ -363,7 +363,10 @@ _EOF_"
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
   *)
-    warning "You are not running L4T 32.3.1, 32.7.3, 35.1.0, 35.2.1, or 35.3.1. Flatpak GPU hardware acceleration is not available." ;;
+    warning "Your version of L4T ($BSP_version) is not currently supported. Flatpak GPU hardware acceleration is not available."
+    echo "$jetson_chip_model - $BSP_version Unsupported BSP version detected for Flatpak hardware acceleration." >/tmp/output.txt
+    send_error "/tmp/output.txt"
+    ;;
   esac
   ;;
 esac
