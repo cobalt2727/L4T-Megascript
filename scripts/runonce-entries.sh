@@ -308,16 +308,22 @@ EOF
 
 #flatpak fixup
 runonce <<"EOF"
+BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
+[ -z "$BSP_version" ] && BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
 if [ -f /etc/switchroot_version.conf ]; then
   swr_ver=$(cat /etc/switchroot_version.conf)
   if [[ $swr_ver == 3.*.* ]]; then
     # fix up an issue with running flatpaks by enabling non-privileged user namespaces
-    # no clue why it doesn't work but works on L4T 5.0.0
+    # SWR does not have CONFIG_NAMESPACES and CONFIG_USER_NS enabled in the kernel on 3.X.X
     sudo chmod u+s /usr/libexec/flatpak-bwrap
   else
     # reinstall flatpak package incase we messed with the permissions previously
     sudo apt install --reinstall flatpak -y
   fi
+elif [[ "$BSP_version" == 32.*.* ]]; then
+  # fix up an issue with running flatpaks by enabling non-privileged user namespaces
+  # L4T R32 does not have CONFIG_NAMESPACES and CONFIG_USER_NS enabled in the kernel
+  sudo chmod u+s /usr/libexec/flatpak-bwrap
 fi
 
 #fix error at https://forum.xfce.org/viewtopic.php?id=12752
