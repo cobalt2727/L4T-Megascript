@@ -669,6 +669,12 @@ apt_lock_wait() { #Wait until other apt processes are finished before proceeding
     echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
     sleep 1
   done
+  
+  #Try to install a non-existent package to see if apt fails due to a lock-file. Repeat until no errors mention 'Could not get lock'
+  while sudo -E apt install lkqecjhxwqekc 2>&1 | grep -q 'Could not get lock' ;do
+    echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
+    sleep 1
+  done
 }
 export -f apt_lock_wait
 
