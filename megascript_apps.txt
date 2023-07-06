@@ -58,7 +58,7 @@ fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators"
 
 fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="development"
 
-# fn="VSCode";;d="Code editor redefined and optimized for building/debugging modern web + cloud applications";;sn="vscode.sh";;f="development"
+fn="VSCode";;d="Code editor redefined and optimized for building/debugging modern web + cloud applications";;sn="vscode.sh";;f="development"
 
 fn="Sublime Text";;d="Sublime Text is a sophisticated text editor for code, markup and prose";;sn="sublime-text.sh";;f="development"
 
