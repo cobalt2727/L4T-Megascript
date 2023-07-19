@@ -4,9 +4,15 @@ clear -x
 echo "Xemu script started!"
 
 # Install dependencies
+case "$__os_codename" in
+bionic)
+  # ppa that contains libslirp
+  ppa_name="theofficialgman/melonds-depends" && ppa_installer
+  ;;
+esac
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  sudo apt install -y build-essential libsdl2-dev libepoxy-dev libpixman-1-dev libgtk-3-dev libssl-dev libsamplerate0-dev libpcap-dev ninja-build python3 gcc g++ libaio-dev || error "Could not install dependencies!"
+  sudo apt install -y build-essential libsdl2-dev libepoxy-dev libpixman-1-dev libgtk-3-dev libssl-dev libsamplerate0-dev libpcap-dev ninja-build python3 gcc g++ libaio-dev libslirp-dev || error "Could not install dependencies!"
   #this script updates SDL2 for aarch64 devices and does nothing for others
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)"
   ;;
