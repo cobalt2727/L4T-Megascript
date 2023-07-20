@@ -198,11 +198,10 @@ function get_system {
       export __os_original_codename="${os[3]}"
       unset DISTRIB_ID DISTRIB_DESCRIPTION DISTRIB_RELEASE DISTRIB_CODENAME
     else
-      mapfile -t os < <(lsb_release -s -i -d -r -c)
-      export __os_id="${os[0]}"
-      export __os_desc="${os[1]}"
-      export __os_release="${os[2]}"
-      export __os_codename="${os[3]}"
+      export __os_id="$(lsb_release -s -i)"
+      export __os_desc="$(lsb_release -s -d)"
+      export __os_release="$(lsb_release -s -r)"
+      export __os_codename="$(lsb_release -s -c)"
     fi
   fi
 }
