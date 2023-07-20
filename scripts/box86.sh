@@ -20,14 +20,15 @@ sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 case "$dpkg_architecture" in
 "arm64")
-  sudo wget https://raw.githubusercontent.com/ryanfortner/box86-debs/c1f02bf85a6221d05c6389cbae7e933f5e82d2fd/box86.list -O /etc/apt/sources.list.d/box86.list
+  sudo wget https://github.com/Pi-Apps-Coders/box86-debs/raw/master/box86.list -O /etc/apt/sources.list.d/box86.list
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box86.list
     error "Failed to add box86.list file!"
   fi
 
-  sudo rm -f /usr/share/keyrings/box86-debs-archive-keyring.gpg
-  curl -fsSL https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box86-debs-archive-keyring.gpg >/dev/null
+  sudo rm -f /usr/share/keyrings/box86-debs-archive-keyring.gpg /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg
+  sudo mkdir -p /etc/apt/trusted.gpg.d
+  wget -qO- https://Pi-Apps-Coders.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg > /dev/null
 
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box86.list
