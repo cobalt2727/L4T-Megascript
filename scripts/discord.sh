@@ -44,7 +44,7 @@ then
   # I'm not including 32-bit arm here despite Webcord (currently) providing downloads for it because
   # 1. Fedora deprecated it https://arm.fedoraproject.org/
   # 2. I'm too lazy to parse out armv7l and armv7hl
-  if [[ $architecture == "arm64" ]] || [[ $architecture == "x86_64" ]]; then
+  if [[ $architecture == "aarch64" ]] || [[ $architecture == "x86_64" ]]; then
     echo "Installing dependencies..."
     sudo yum -y install https://extras.getpagespeed.com/release-latest.rpm
     sudo yum -y install lastversion
