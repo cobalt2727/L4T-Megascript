@@ -11,13 +11,13 @@ if [[ $jetson_model ]]; then
   curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-l4t/setup.deb.sh' | sudo -E bash
   # replace apt source to bionic as its the only one hosted (allows moonlight to be installed on ubuntu focal, hirsute, etc on switch)
   sudo sed -i 's/ubuntu.*/ubuntu bionic main/' '/etc/apt/sources.list.d/moonlight-game-streaming-moonlight-l4t.list'
-  sudo apt install moonlight-qt -y
+  sudo apt install moonlight-qt -y || error "Failed to install Moonlight!"
 else
   if [[ $dpkg_architecture == "amd64" ]]; then
     ppa_name="alexlarsson/flatpak" && ppa_installer
     sudo apt install flatpak -y
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    sudo flatpak install flathub com.moonlight_stream.Moonlight -y
+    sudo flatpak install flathub com.moonlight_stream.Moonlight -y || error "Failed to install Moonlight!"
   else
     error_user "Error: your userspace architecture ($dpkg_architecture) is not supported by Moonlight (or we don't know how to install) and will fail to run"
   fi
