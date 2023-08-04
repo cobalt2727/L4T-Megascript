@@ -118,7 +118,7 @@ EOF
 #remove gnome software snap plugin
 runonce <<"EOF"
 if package_installed "gnome-software-plugin-snap"; then
-  description="Do you want to remove the snap pluin from the gnome software store? If unsure, think of it as\
+  description="Do you want to remove the snap plugin from the gnome software store? If unsure, think of it as\
 \nbloatware from Canonical\
 \nIt's controversial for a few reasons:\
 \n - the store is closed source, which is a bit weird for a Linux company...\
