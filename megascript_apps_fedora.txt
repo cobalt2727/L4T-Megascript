@@ -1,5 +1,3 @@
-# fn="Initial Setup";;d="Installs many vital features like Flatpak support, modern SDL2 2.26, updated build repos, etc";;sn="init.sh";;f="scripts";;selected="TRUE"
-
 fn="Auto Updater";;d="Update/fix system packages and programs installed via the Megascript (run this frequently!)";;sn="update.sh";;f="scripts";;selected="TRUE"
 
 # fn="Pi-Apps";;d="An appstore containing 150+ apps compatible with L4T. The most popular app store for ARM computers.";;sn="pi-apps.sh";;f="scripts";;selected="TRUE"
