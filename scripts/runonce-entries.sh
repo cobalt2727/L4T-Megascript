@@ -191,7 +191,7 @@ focal)
   echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
   sudo apt-get update
   sudo rm -f /usr/share/keyrings/kitware-archive-keyring.gpg
-  sudo apt-get install kitware-archive-keyring -y
+  sudo apt-get install kitware-archive-keyring -y --reinstall
   if [ $? != 0 ]; then
     anything_installed_from_repo "https://apt.kitware.com/ubuntu/"
     if [ $? != 0 ]; then
