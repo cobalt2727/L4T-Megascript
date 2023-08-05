@@ -87,8 +87,8 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   ;;
 Fedora)
   # this is so much nicer.
-  sudo dnf install systemd-devel cmake vulkan-headers ninja-build clang-devel llvm-devel libpng-devel || error "Failed to install dependencies"
-  sudo dnf groupinstall "Development Tools" "Development Libraries" || error "Failed to install dependencies"
+  sudo dnf install -y systemd-devel cmake vulkan-headers ninja-build clang-devel llvm-devel libpng-devel || error "Failed to install dependencies"
+  sudo dnf groupinstall "Development Tools" "Development Libraries" -y || error "Failed to install dependencies"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
