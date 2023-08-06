@@ -26,13 +26,13 @@ fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dol
 
 # fn="Minecraft Bedrock";;d="Android Minecraft Bedrock version. Ownership of the Google Play version required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
 
-# fn="Metaforce";;d="(WARNING - this script is experimental) An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1 with KB/M controls or a Wii U GC Adapter";;sn="metaforce.sh";;f="games_and_emulators"
+fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1";;sn="metaforce.sh";;f="games_and_emulators"
 
 # fn="OpenMW";;d="An open source re-implementation and extension of the Gamebryo engine for Morrowind.";;sn="openmw.sh";;f="games_and_emulators"
 
 # fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
-# fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
+fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
 
 # fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
 
@@ -50,7 +50,7 @@ fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified
 
 # fn="SuperTuxKart";;d='SuperTuxKart is a free kart racing game that focuses on fun and not on realistic kart physics';;sn="supertuxkart.sh";;f="games_and_emulators"
 
-# fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators"
+fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators"
 
 # fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="development"
 
