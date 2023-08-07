@@ -333,13 +333,22 @@ sudo chown $USER:$USER $HOME/.local/share/flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 EOF
 
+# newer Nvidia Jetpack that have the /sys/module/nvidia module no longer need any overrides
+if [ -f /sys/module/nvidia/version ] && [ -f /etc/profile.d/flatpak_tegra.sh ] ; then
+sudo flatpak override --reset
+flatpak override --reset
+sudo rm -f /etc/profile.d/flatpak_tegra.sh
+sudo rm -f /etc/sudoers.d/flatpak_tegra
+fi
+
 runonce <<"EOF"
-BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
+[ -f /sys/module/nvidia/version ] && BSP_version="$(cat /sys/module/nvidia/version)"
+[ -z "$BSP_version" ] && BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
 [ -z "$BSP_version" ] && BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
 case "$jetson_chip_model" in
 "t186"|"t194"|"t210"|"t234")
   case "$BSP_version" in
-  "32.3.1"|"32.7.3"|"32.7.4"|"35.1.0"|"35.2.1"|"35.3.1"|"35.4.1")
+  "32.3.1"|"32.7.3"|"32.7.4"|"35.1.0"|"35.2.1"|"35.3.1")
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     sudo flatpak override --share=network
@@ -364,6 +373,27 @@ _EOF_"
 
     sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}.flatpak -y -vv || error "Failed to install org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}"
     sudo flatpak pin --system runtime/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}/aarch64/1.4
+
+    # install the gnome software center flatpak plugin
+    sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
+    ;;
+  "35.4.1")
+    # installing tegra Flatpak BSP
+    cd /tmp || error "Could not move to /tmp directory. Is your install corrupted?"
+    rm -f org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak
+    wget --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}"
+    sync
+
+    #Only try to remove flatpak app if it's installed.
+    if flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}" ;then
+      sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}" -y -vv
+      sudo flatpak pin --remove runtime/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}/aarch64/1.4 || true
+    elif flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}" ;then
+      sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}" -y -vv
+    fi
+
+    sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak -y -vv || error "Failed to install org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}"
+    sudo flatpak pin --system runtime/org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}/aarch64/1.4
 
     # install the gnome software center flatpak plugin
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
