@@ -378,6 +378,12 @@ _EOF_"
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
   "35.4.1")
+    if [ ! -f /sys/module/nvidia/version ]; then
+      echo "export FLATPAK_GL_DRIVERS=nvidia-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+      sudo sh -c "cat > /etc/sudoers.d/flatpak_tegra << _EOF_
+Defaults      env_keep += FLATPAK_GL_DRIVERS
+_EOF_"
+    fi
     # installing tegra Flatpak BSP
     cd /tmp || error "Could not move to /tmp directory. Is your install corrupted?"
     rm -f org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak
