@@ -406,7 +406,8 @@ _EOF_"
     ;;
   *)
     warning "Your version of L4T ($BSP_version) is not currently supported. Flatpak GPU hardware acceleration is not available."
-    echo "$jetson_chip_model - $BSP_version Unsupported BSP version detected for Flatpak hardware acceleration." >/tmp/output.txt
+    warning 'The current supported jetson chip models are t186/t194/t210/t234 on L4T 32.3.1/32.7.3/32.7.4/35.1.0/35.2.1/35.3.1/35.4.1'
+    echo "$jetson_chip_model - $model - $__os_desc - $BSP_version Unsupported BSP version detected for Flatpak hardware acceleration." >/tmp/output.txt
     send_error "/tmp/output.txt"
     ;;
   esac
