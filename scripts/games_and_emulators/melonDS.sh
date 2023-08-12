@@ -40,9 +40,9 @@ bionic)
 *)
   package_available qt5-default
   if [[ $? == "0" ]]; then
-    sudo apt install -y qt5-default qtmultimedia5-dev || error "Failed to install dependencies"
+    sudo apt install -y qt5-default qtbase5-private-dev qtmultimedia5-dev || error "Failed to install dependencies"
   else
-    sudo apt install -y qtbase5-dev qtbase5-private-dev qtchooser qtmultimedia5-dev || error "Failed to install dependencies"
+    sudo apt install -y qtbase5-dev qtchooser qtbase5-private-dev qtmultimedia5-dev || error "Failed to install dependencies"
   fi
 esac
 
