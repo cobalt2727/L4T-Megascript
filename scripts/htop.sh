@@ -6,7 +6,7 @@ if package_installed htop ;then
   sudo apt purge -y --autoremove htop
 fi
 
-sudo apt install libncursesw*-dev dh-autoreconf -y || error "Could not install packages"
+sudo apt install build-essential libncursesw*-dev dh-autoreconf -y || error "Could not install packages"
 cd /tmp || error "Could not move to /tmp folder"
 rm -rf ./htop
 git clone https://github.com/htop-dev/htop.git
