@@ -589,6 +589,43 @@ package_dependencies() { #outputs the list of dependencies for the $1 package
 }
 export -f package_dependencies
 
+package_latest_version() { #returns the latest available versions of the specified package-name. Doesn't matter if it's installed or not.
+  local package="$1"
+  [ -z "$package" ] && error "package_latest_version(): no package specified!"
+  
+  # use slower but more accurate apt list command to get package version for current architecture
+  apt-cache policy "$package" 2>/dev/null | grep "Candidate: " | awk '{print $2}'
+  #grep -rx "Package: $package" /var/lib/apt/lists --exclude="lock" --exclude-dir="partial" --after 4 | grep -o 'Version: .*' | awk '{print $2}' | sort -rV | head -n1
+}
+
+export -f package_latest_version
+
+package_is_new_enough() { #check if the $1 package has an available version greater than or equal to $2
+  local package="$1"
+  [ -z "$package" ] && error "package_is_new_enough(): no package specified!"
+  
+  local compare_version="$2"
+  [ -z "$package" ] && error "package_is_new_enough(): no comparison version number specified!"
+  
+  #determine the latest available version for the specified package
+  local package_version="$(package_latest_version "$package")"
+  
+  #if version value not found, return 1 now
+  if [ -z "$package_version" ];then
+    return 1
+  fi
+  
+  #given both the package_version and compare_version, see if the greater of the two is the available package's version
+  if [ "$(echo "$package_version"$'\n'"$compare_version" | sort -rV | head -n1)" == "$package_version" ];then
+    #if so, indicate success
+    return 0
+  else
+    return 1
+  fi
+}
+
+export -f package_is_new_enough
+
 anything_installed_from_repo() { #Given an apt repository URL, determine if any packages from it are currently installed
   [ -z "$1" ] && error "anything_installed_from_repo: A repository URL must be specified."
 

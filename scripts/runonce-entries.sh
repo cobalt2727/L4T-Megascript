@@ -163,13 +163,16 @@ EOF
 
 # fix ppa for out of date repos
 runonce <<"EOF"
-case "$__os_codename" in
-bionic|focal|jammy)
-  ppa_name="alexlarsson/flatpak"
-  ppa_dist="$__os_codename"
-  sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
-  ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap"
-esac
+if ! package_is_new_enough flatpak 1.14.4 ;then
+  case "$__os_codename" in
+  bionic|focal|jammy)
+    ppa_name="alexlarsson/flatpak"
+    ppa_dist="$__os_codename"
+    sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
+    ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap"
+    ;;
+  esac
+fi
 
 case "$__os_codename" in
 bionic)
