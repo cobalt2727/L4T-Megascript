@@ -9,7 +9,7 @@ echo "Supermodel 3 (Sega Model 3 emulator) script started!"
 ###get rid of that last echo after the above is completed
 
 echo "Installing dependencies..."
-sudo apt install -y gcc g++ build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-net-dev subversion
+sudo apt install -y build-essential libsdl2-2.0-0 libsdl2-dev libsdl2-net-dev subversion
 
 svn checkout https://svn.code.sf.net/p/model3emu/code/trunk Supermodel3
 

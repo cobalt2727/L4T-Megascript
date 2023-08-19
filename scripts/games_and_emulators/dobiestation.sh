@@ -4,7 +4,7 @@ echo "DobieStation script started!"
 
 #no dependencies listed on repo, this is guesswork, guaranteed to be missing things -Cobalt
 #all I know is the setup I already had built it correctly
-sudo apt install -y git build-essential cmake qt5-qmake gcc g++ || error "Could not install dependencies"
+sudo apt install -y git build-essential cmake qt5-qmake build-essential || error "Could not install dependencies"
 
 case "$__os_codename" in
 bionic)
