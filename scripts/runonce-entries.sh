@@ -345,6 +345,7 @@ sudo rm -f /etc/sudoers.d/flatpak_tegra
 fi
 
 runonce <<"EOF"
+if ! package_installed switch-flatpak ; then
 [ -f /sys/module/nvidia/version ] && BSP_version="$(cat /sys/module/nvidia/version)"
 [ -z "$BSP_version" ] && BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
 [ -z "$BSP_version" ] && BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
@@ -359,7 +360,18 @@ case "$jetson_chip_model" in
     flatpak override --user --device=all
     flatpak override --user --share=network
     flatpak override --user --filesystem=/sys
-    echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+    
+    echo "export FLATPAK_GL_DRIVERS=${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+    sudo tee -a /etc/profile.d/flatpak_tegra.sh << '_EOF_'
+if command -v flatpak > /dev/null && [ -n "$DESKTOP_SESSION" ]; then
+    if [ ! -f ~/.local/share/flatpak/overrides/global ]; then
+  	    flatpak override --user --device=all --share=network --filesystem=/sys
+    elif ! (grep -q "shared=network;" ~/.local/share/flatpak/overrides/global && grep -q "devices=all;" ~/.local/share/flatpak/overrides/global && grep -q "filesystems=/sys;" ~/.local/share/flatpak/overrides/global) ; then
+        flatpak override --user --device=all --share=network --filesystem=/sys
+    fi
+fi
+_EOF_
+
     sudo sh -c "cat > /etc/sudoers.d/flatpak_tegra << _EOF_
 Defaults      env_keep += FLATPAK_GL_DRIVERS
 _EOF_"
@@ -418,6 +430,7 @@ _EOF_"
 esac
 
 hash -r
+fi
 EOF
 ;;
 esac
