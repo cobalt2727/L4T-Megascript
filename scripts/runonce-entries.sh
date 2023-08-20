@@ -311,6 +311,7 @@ EOF
 
 #flatpak fixup
 runonce <<"EOF"
+! package_installed flatpak && sudo apt install flatpak -y
 BSP_version="$(strings /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so | grep -E "nvidia id: NVIDIA GLX Module  [0-9]+.[0-9]+.[0-9]+.*$" | awk '{print $6}')"
 [ -z "$BSP_version" ] && BSP_version="$(glxinfo -B | grep -E "NVIDIA [0-9]+.[0-9]+.[0-9]+$" | head -n1 | awk '{print $(NF)}')"
 if [ -f /etc/switchroot_version.conf ]; then
