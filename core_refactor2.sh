@@ -231,6 +231,21 @@ if ! command -v lsb_release &>/dev/null; then
   error "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again."  
 fi
 
+case "$__os_id" in
+Fedora)
+  true
+  ;;
+*)
+  if ! is_supported_system ; then
+    userinput_func "$(is_supported_system)
+
+The L4T-Megascript will now exit." "OK"
+
+    error "The L4T-Megascript will now exit."
+  fi
+  ;;
+esac
+
 # "click" HITS link
 # records the daily and total number of megascript script runs
 # fake url to give to HITS, it could be anything: https://github.com/cobalt2727/L4T-Megascript/hits

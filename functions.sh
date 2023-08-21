@@ -549,6 +549,44 @@ add_english() { # add en_US locale for more accurate error
 }
 export -f add_english
 
+
+is_supported_system() { #return 0 if system is supported, otherwise return 1
+  if [ "$__os_codename" == focal ] && ( echo "$model" | grep -q "Nintendo Switch" || echo "$model" | grep -q [Ii]cosa ) ; then
+    echo "Switchroot does not support Ubuntu Focal on Nintendo Switch."
+    echo "Please reflash L4T Ubuntu Bionic or L4T Ubuntu Jammy (Beta)."
+    return 1
+  elif local frankendebian="$(apt-get indextargets --no-release-info --format '$(SITE) $(RELEASE)' | sort -u | awk 'NF==2 {print}' | grep "raspbian.raspberrypi.org/raspbian\|archive.raspberrypi.org/debian\|\
+debian.org/debian\|security.debian.org/\|\
+ports.ubuntu.com\|esm.ubuntu.com/apps/ubuntu\|esm.ubuntu.com/infra/ubuntu\|\
+repo.huaweicloud.com/debian\|repo.huaweicloud.com/ubuntu-ports\|\
+apt.pop-os.org\|\
+apt.armbian.com" | grep -v $__os_codename)" && [ ! -z "$frankendebian" ];then
+    echo "Congratulations, Linux tinkerer, you broke your system. You have made your system a FrankenDebian.
+This website explains your mistake in more detail: https://wiki.debian.org/DontBreakDebian
+Your current reported release (${__os_codename^}) should not be combined with other releases.
+Specifically, the issue is $(wc -l <<<"$frankendebian" | grep -q 1 && echo 'this line' || echo 'these lines'):"
+    local IFS=$'\n'
+    for line in $frankendebian ;do
+      local site="$(echo "$line" | awk '{print $1}')"
+      local release="$(echo "$line" | awk '{print $2}')"
+      echo -e "\e[4m$line\e[24m in $(apt-get indextargets --no-release-info --format '$(SOURCESENTRY)' "Release: $release" "Site: $site" | awk -F':' '{print $1}' | sort -u)"
+    done
+    echo "Your system might be recoverable if you did this recently and have not performed an apt upgrade yet, but otherwise you should probably reinstall your OS."
+    return 1
+  elif ! package_available init; then
+    echo "Congratulations, Linux tinkerer, you broke your system. The init package can not be found, which means you have removed the default debian sources from your system.
+All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
+    return 1
+  elif [ -z "$(apt-get indextargets --no-release-info --format '$(SITE) $(RELEASE)' | sort -u | awk 'NF==2 {print}')" ];then
+    echo "Congratulations, Linux tinkerer, you broke your system. You have removed ALL debian sources from your system.
+All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
+    return 1
+  else
+    return 0
+  fi
+}
+export -f is_supported_system
+
 ### pi-apps functions
 
 #package functions
