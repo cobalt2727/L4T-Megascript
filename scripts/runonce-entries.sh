@@ -362,7 +362,7 @@ case "$jetson_chip_model" in
     flatpak override --user --share=network
     flatpak override --user --filesystem=/sys
     
-    echo "export FLATPAK_GL_DRIVERS=${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+    echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
     sudo tee -a /etc/profile.d/flatpak_tegra.sh << '_EOF_'
 if command -v flatpak > /dev/null && [ -n "$DESKTOP_SESSION" ]; then
     if [ ! -f ~/.local/share/flatpak/overrides/global ]; then
