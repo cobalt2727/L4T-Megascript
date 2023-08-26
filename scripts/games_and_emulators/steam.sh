@@ -44,7 +44,11 @@ sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 sudo apt-get dist-upgrade -y || error "Could not upgrade MESA (needed for Steam VirtualGL hardware acceleration)"
 sudo apt install ninja-build python3 python3-pip libdrm-dev libgbm-dev pkg-config -y || error "Could not install VIRGL build dependencies"
 hash -r
-sudo -H python3 -m pip install --upgrade meson || error "Could not install meson VIRGL build dependency"
+if package_is_new_enough meson 0.55.0 ;then
+  sudo apt install meson -y || error "Could not install meson VIRGL build dependency"
+else
+  sudo -H python3 -m pip install --upgrade meson || error "Could not install meson VIRGL build dependency"
+fi
 hash -r
 
 case "$__os_codename" in
