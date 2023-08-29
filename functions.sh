@@ -407,6 +407,33 @@ debian_ppa_installer() {
 }
 export -f debian_ppa_installer
 
+pipx_install() {
+  # install pipx keeping in mind distro issues
+  # pipx <= 0.16.1 is compatible with 3.7 <= python3 < 3.9
+  # pipx >= 0.16.1 is compatible with python3 >= 3.7
+  # some distros lack pipx entirely
+  # some distros (raspbian bullseye specifically) have incompatible combinations of pipx (0.12.3) and python3 (3.9) versions, necessitating pipx to be installed/upgraded from pip
+  # pipx 1.0.0 is the first stable release and has some features that we would like to assume are available, install it from pip if the distro package is too old
+  if package_available pipx && package_is_new_enough pipx 1.0.0 ;then
+    sudo apt install -y pipx python3-venv || exit 1
+  elif package_is_new_enough python3 3.7 ; then
+    sudo apt install -y python3-venv || exit 1
+    sudo -H python3 -m pip install --upgrade pipx || exit 1
+  elif package_available python3.8 ;then
+    sudo apt install -y python3.8 python3.8-venv || exit 1
+    sudo -H python3.8 -m pip install --upgrade pipx || exit 1
+  else
+    error "pipx is not available so cannot install powerline-shell to python venv"
+  fi
+  sudo PIPX_HOME=/usr/local/pipx PIPX_BIN_DIR=/usr/local/bin pipx install "$@" || error "Failed to install $* with pipx"
+}
+export -f pipx_install
+
+pipx_uninstall() {
+  sudo PIPX_HOME=/usr/local/pipx PIPX_BIN_DIR=/usr/local/bin pipx uninstall "$@" || error "Failed to uninstall $* with pipx"
+}
+export -f pipx_uninstall
+
 function ppa_purger {
   local ppa_grep="$ppa_name"
   [[ "${ppa_name}" != */ ]] && local ppa_grep="${ppa_name}/"
