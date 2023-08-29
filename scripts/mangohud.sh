@@ -19,7 +19,8 @@ cd /tmp
 rm -rf MangoHud
 git clone https://github.com/theofficialgman/MangoHud.git --depth=1 -b master-l4t
 cd MangoHud
-meson build --prefix /usr -Dappend_libdir_mangohud=false -Dwith_xnvctrl=disabled || error "Could Not Build Source"
+meson build --prefix /usr -Dappend_libdir_mangohud=false -Dwith_xnvctrl=disabled || error "Could Not Configure Source"
+ninja -C build || error "Could Not Build Mangohud"
 sudo ninja -C build install || error "Could Not Install Mangohud"
 rm -rf MangoHud
 cd ~
