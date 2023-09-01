@@ -598,7 +598,7 @@ Specifically, the issue is $(wc -l <<<"$frankendebian" | grep -q 1 && echo 'this
       local release="$(echo "$line" | awk '{print $2}')"
       echo -e "\e[4m$line\e[24m in $(apt-get indextargets --no-release-info --format '$(SOURCESENTRY)' "Release: $release" "Site: $site" | awk -F':' '{print $1}' | sort -u)"
     done
-    echo "Your system might be recoverable if you did this recently and have not performed an apt upgrade yet, but otherwise you should probably reinstall your OS."
+    echo "Your system might be recoverable if you did this recently and have not performed an apt dist-upgrade yet, but otherwise you should probably reinstall your OS."
     return 1
   elif ! package_available init; then
     echo "Congratulations, Linux tinkerer, you broke your system. The init package can not be found, which means you have removed the default debian sources from your system.

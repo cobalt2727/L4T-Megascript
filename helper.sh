@@ -33,9 +33,9 @@ if grep -q debian /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release" "software-properties-common")
   ## Install dependencies if necessary
   dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
-    pkexec sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt upgrade -y; hash -r"
+    pkexec sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt dist-upgrade -y; hash -r"
   else
-    sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt upgrade -y; hash -r"
+    sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt dist-upgrade -y; hash -r"
   fi
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb")

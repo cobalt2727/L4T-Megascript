@@ -336,7 +336,7 @@ echo "One more upgrade check for good measure..."
 #especially if they're using the helper script to run the updater and missing out on our sudo timer hack
 if grep -q "debian" <<<"$__id_like"; then
   sudo apt update
-  sudo apt upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+  sudo apt dist-upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 elif grep -q "fedora" <<<"$__id"; then
   sudo dnf --refresh upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 else

@@ -79,7 +79,7 @@ if grep -q debian /etc/os-release; then
   sudo apt-get install bash dialog gnutls-bin curl yad zenity lsb-release software-properties-common -y
   hash -r
   sudo apt update
-  sudo apt upgrade -y
+  sudo apt dist-upgrade -y
   hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   sudo dnf --refresh --best --allowerasing -y upgrade
