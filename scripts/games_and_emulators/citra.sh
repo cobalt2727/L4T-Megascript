@@ -30,11 +30,13 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
     ppa_name="okirby/qt6-backports" && ppa_installer
     ppa_name="okirby/qt6-testing" && ppa_installer
+    #installs LLVM-14 toolchain
+    curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
 
-    sudo apt install -y gcc-11 g++-11 || error "Could not install dependencies"
+    sudo apt install -y libstdc++-11-dev libstdc++6 libclang-14-dev gcc-11 g++-11 clang-14 llvm-14 || error "Could not install dependencies"
     ;;
   *)
-    sudo apt install -y gcc g++ || error "Could not install dependencies"
+    sudo apt install -y clang llvm || error "Could not install dependencies"
     ;;
   esac
 
@@ -63,16 +65,15 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 || error "Calling cmake failed"
   ;;
 *)
   if grep -iE 'raspberry' <<<$model >/dev/null; then
     #   https://github.com/citra-emu/citra/issues/5921
     warning "You're running a Raspberry Pi, building without ASM since Broadcom is allergic to cryptography extensions..."
-    sleep 1
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCRYPTOPP_OPT_DISABLE_ASM=1
+    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCRYPTOPP_OPT_DISABLE_ASM=1 -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
   else
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
+    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
   fi
   ;;
 esac
