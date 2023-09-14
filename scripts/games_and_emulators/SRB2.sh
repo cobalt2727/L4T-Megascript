@@ -69,8 +69,6 @@ cd ~/SRB2-DT
 mv music.dta patch.pk3 patch_music.pk3 player.dta srb2.pk3 zones.pk3 -t ~/SRB2-master/assets/installer
 cd ~/SRB2-master/build
 status "Compiling the game..."
-# hotfix for https://github.com/STJr/SRB2/issues/513
-sed -i '/target_compile_options(SRB2SDL2 PRIVATE -mno-ms-bitfields)/d' ../src/CMakeLists.txt
 cmake ..
 make -j$(nproc) || error "Compilation failed"
 status_green "Game compiled!"
