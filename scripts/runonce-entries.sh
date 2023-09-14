@@ -305,7 +305,7 @@ EOF
 
 #install some recommended dependencies
 runonce <<"EOF"
-sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libjsoncpp1 libuv1 cmake git mesa-utils -y
+sudo apt install apt-utils subversion wget flatpak qt5-style-plugins gnutls-bin cmake-data libuv1 cmake git mesa-utils -y
 hash -r
 EOF
 
