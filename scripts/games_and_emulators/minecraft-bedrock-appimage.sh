@@ -40,13 +40,15 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   #   #just for good measure
   #   sudo apt remove -y mcpelauncher-manifest mcpelauncher-ui-manifest
   # else
-  sudo apt install -y mcpelauncher-manifest mcpelauncher-ui-manifest || error "Failed to install dependencies"
+  sudo apt install -y mcpelauncher-manifest mcpelauncher-ui-manifest msa-manifest || error "Failed to install dependencies"
   # fi
 
   ;;
 
 Fedora)
   echo -e "[minecraft-linux-pkg]\nname=minecraft-linux-pkg\nbaseurl=https://minecraft-linux.github.io/pkg/fedora-$__os_release\nenabled=1\ncountme=1\nrepo_gpgcheck=0\ntype=rpm\ngpgcheck=1\nskip_if_unavailable=False\ngpgkey=https://minecraft-linux.github.io/pkg/deb/pubkey.gpg" | sudo tee /etc/yum.repos.d/minecraft-linux-pkg.repo
+
+  sudo dnf install -y mcpelauncher-manifest mcpelauncher-ui-manifest msa-manifest || error "Failed to install dependencies"
   ;;
 *)
   lsb_release
