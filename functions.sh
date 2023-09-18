@@ -25,8 +25,12 @@ function get_system {
   architecture="$(uname -m)"
   export architecture
   # dpkg_architecture is the default userspace cpu architecture (arm64, amd64, armhf, i386, etc)
-  dpkg_architecture="$(dpkg --print-architecture)"
-  export dpkg_architecture
+  if
+    command -v dpkg >/dev/null
+  then
+    dpkg_architecture="$(dpkg --print-architecture)"
+    export dpkg_architecture
+  fi
   # obtain model name
   unset model
   if [[ -d /system/app/ && -d /system/priv-app ]]; then
