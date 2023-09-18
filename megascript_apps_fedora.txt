@@ -24,7 +24,7 @@ fn="Dolphin";;d="Gamecube and Wii emulator, latest development version";;sn="dol
 
 # fn="MultiMC (Minecraft Java)";;d="Minecraft Launcher, Instance, and Mod Manager";;sn="minecraft_java_multimc.sh";;f="games_and_emulators"
 
-# fn="Minecraft Bedrock";;d="Android Minecraft Bedrock version. Ownership of the Google Play version required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
+fn="Minecraft Bedrock";;d="Android Minecraft Bedrock version. Ownership of the Google Play version required (1.16.X and up for ARM64 only systems)";;sn="minecraft-bedrock-appimage.sh";;f="games_and_emulators"
 
 fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube/Wii games, currently only supports Metroid Prime 1";;sn="metaforce.sh";;f="games_and_emulators"
 
