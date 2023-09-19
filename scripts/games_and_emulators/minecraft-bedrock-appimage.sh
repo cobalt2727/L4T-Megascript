@@ -33,6 +33,8 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
 
   echo "deb [arch=$(dpkg --print-architecture)] https://minecraft-linux.github.io/pkg/deb $__os_codename main" | sudo tee /etc/apt/sources.list.d/minecraft-linux-pkg.list
 
+  sudo apt update || error "Failed to update dependencies - did the Minecraft repo install correctly?"
+
   ###########the QT6 launcher is currently commented out - it currently just coredumps when trying to log in on 22.04
   # package_available mcpelauncher-ui-manifest-qt6
   # if [[ $? == "0" ]]; then
