@@ -34,7 +34,13 @@ fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube
 
 fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
 
+# fn="DuckStation";;d="DuckStation is a PS1 Emulator aiming for the best accuracy and game support.";;sn="duckstation.sh";;f="games_and_emulators"
+
+# fn="DobieStation";;d="A dog-themed PS2 emulator.";;sn="dobiestation.sh";;f="games_and_emulators"
+
 # fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
+
+# fn="mGBA";;d="A new generation of Game Boy Advance emulation";;sn="mGBA.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
