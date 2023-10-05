@@ -34,7 +34,13 @@ fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube
 
 fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
 
+# fn="DuckStation";;d="DuckStation is a PS1 Emulator aiming for the best accuracy and game support.";;sn="duckstation.sh";;f="games_and_emulators"
+
+# fn="DobieStation";;d="A dog-themed PS2 emulator.";;sn="dobiestation.sh";;f="games_and_emulators"
+
 # fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
+
+# fn="mGBA";;d="A new generation of Game Boy Advance emulation";;sn="mGBA.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
@@ -45,6 +51,8 @@ fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified
 # fn="Celeste (Pico-8 Port)";;d="A tight platforming game which lead to the development of Celeste";;sn="celeste_install.sh";;f="games_and_emulators"
 
 # fn="Flappy Bird";;d="A game about a bird flying in between warp pipes";;sn="flappy_install.sh";;f="games_and_emulators"
+
+# fn="Steam";;d='WARNING: This emulates the x86_64 Linux version of Steam using Box64/86. Expect VERY poor performance on x86 32bit (Windows and Linux) games.';;sn="steam.sh";;f="games_and_emulators"
 
 # fn="SuperTux";;d='A 2D jump and run sidescroller game in a style similar to the original Super Mario games';;sn="ST2.sh";;f="games_and_emulators"
 
@@ -93,3 +101,19 @@ fn="Github CLI";;d="GitHub's official command line tool";;sn="github-cli.sh";;f=
 # fn="Unity Desktop";;d="Unity is a graphical shell for the GNOME desktop environment originally developed by Canonical Ltd. for its Ubuntu operating system";;sn="unity.sh";;f="desktop_environments"
 
 # fn="XFCE";;d="XFCE aims to be fast and lightweight while still being visually appealing and easy to use";;sn="xfce.sh";;f="desktop_environments"
+
+# fn="Gnome Display Manager";;d="The GNOME Display Manager (GDM) is a program that manages graphical display servers and handles graphical user logins.";;sn="gdm3.sh";;f="display_managers"
+
+# fn="Simple Desktop Display Manager";;d="Simple Desktop Display Manager (SDDM) is a cross-desktop X11 and Wayland display manager.";;sn="sddm.sh";;f="display_managers"
+
+# fn="LXDE Display Manager";;d="LXDE Display Manager (LXDM) is a lightweight display manager for the LXDE desktop environment.";;sn="lxdm.sh";;f="display_managers"
+
+# fn="X Window Display Manager";;d="The X Window Display Manager (XDM) is the default display manager for the X Window System.";;sn="xdm.sh";;f="display_managers"
+
+# fn="LightDM";;d="LightDM is a cross-desktop display manager. It was built as a relatively light-weight and highly customizable alternative to GDM.";;sn="lightdm.sh";;f="display_managers"
+
+# fn="Simple Log in Manager";;d="Simple Login Manager (SLiM) is a graphical login manager for X11 that aims to be simple, fast and independent from the various desktop environments.";;sn="slim.sh";;f="display_managers"
+
+# fn="WINGs Display Manager";;d="WINGs Display Manager (WDM) is a a display manager created using the WINGs widget-set used in Window Maker.";;sn="wdm.sh";;f="display_managers"
+
+# fn="NoDM";;d="NoDM is a minimal display manager that simply logs in as a given user and starts an X session, without asking for username or password.";;sn="nodm.sh";;f="display_managers"

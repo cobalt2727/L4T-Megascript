@@ -40,6 +40,30 @@ if test -f /usr/local/bin/melonDS; then
   MelonDSUserInput="$output"
 fi
 
+MGBAUserInput="no"
+if test -f /usr/local/bin/mGBA; then
+  description="Do you want to update mGBA? (May take 5 to 20 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  MGBAUserInput="$output"
+fi
+
+DuckStationUserInput="no"
+if test -f /usr/local/bin/mGBA; then
+  description="Do you want to update DuckStation? (May take 5 to 40 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  DuckStationUserInput="$output"
+fi
+
+DobieStationUserInput="no"
+if test -f /usr/local/bin/mGBA; then
+  description="Do you want to update DobieStation? (May take 5 to 40 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  DobieStationUserInput="$output"
+fi
+
 MetaforceUserInput="no"
 if test -f /usr/local/bin/metaforce; then
   description="Do you want to update Metaforce? (May take 5 minutes to 3+ hours)"
@@ -267,6 +291,30 @@ if [[ $MelonDSUserInput == "yes" ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/melonDS.sh)" || exit $?
 else
   echo "Skipping melonDS update..."
+fi
+
+if [[ $MGBAUserInput == "yes" ]]; then
+  echo "Updating mGBA..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/mGBA.sh)" || exit $?
+else
+  echo "Skipping mGBA update..."
+fi
+
+if [[ $DuckStationUserInput == "yes" ]]; then
+  echo "Updating DuckStation..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/duckstation.sh)" || exit $?
+else
+  echo "Skipping DuckStation update..."
+fi
+
+if [[ $DobieStationUserInput == "yes" ]]; then
+  echo "Updating DobieStation..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dobiestation.sh)" || exit $?
+else
+  echo "Skipping DobieStation update..."
 fi
 
 if [[ $MetaforceUserInput == "yes" ]]; then
