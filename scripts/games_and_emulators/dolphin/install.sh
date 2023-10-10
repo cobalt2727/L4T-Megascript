@@ -95,6 +95,7 @@ git submodule update --init Externals/implot || error_user "Failed to download s
 git submodule update --init Externals/gtest || error_user "Failed to download submodules from GitHub!"
 git submodule update --init Externals/rcheevos || error_user "Failed to download submodules from GitHub!"
 git submodule update --init Externals/fmt || error_user "Failed to download submodules from GitHub!"
+git submodule update --init Externals/lz4 || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
