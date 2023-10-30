@@ -57,7 +57,11 @@ rm -rf "~/.local/share/sm64pc/sm64config.txt"
 cd /tmp || error "You don't have a /tmp folder....HOW?"
 rm -rf sm64ex
 rm -rf SM64
-sudo apt install build-essential git python3 libglew-dev libgles-dev libsdl2-dev subversion -y || error "Dependency installs failed"
+if package_available libgles-dev ; then
+  sudo apt install build-essential git python3 libglew-dev libgles-dev libsdl2-dev subversion -y || error "Dependency installs failed"
+else
+  sudo apt install build-essential git python3 libglew-dev libgles2-mesa-dev libsdl2-dev subversion -y || error "Dependency installs failed"
+fi
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
 git clone https://github.com/sm64pc/sm64ex.git
 cd sm64ex || error "Could not find folder"
