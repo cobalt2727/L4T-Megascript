@@ -84,18 +84,19 @@ git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull || error_user "Failed to download source code from GitHub!"
 
-#https://dolphin-emu.org/blog/2021/07/21/integrated-gba/
-git submodule update --init Externals/mGBA || error_user "Failed to download source code from GitHub!"
-git submodule update --init Externals/spirv_cross || error_user "Failed to download source code from GitHub!"
-git submodule update --init Externals/zlib-ng || error_user "Failed to download source code from GitHub!"
-git submodule update --init Externals/libspng || error_user "Failed to download source code from GitHub!"
-git submodule update --init Externals/VulkanMemoryAllocator || error_user "Failed to download source code from GitHub!"
-git submodule update --init --recursive Externals/cubeb/ || error_user "Failed to download submodules from GitHub!"
-git submodule update --init Externals/implot || error_user "Failed to download submodules from GitHub!"
-git submodule update --init Externals/gtest || error_user "Failed to download submodules from GitHub!"
-git submodule update --init Externals/rcheevos || error_user "Failed to download submodules from GitHub!"
-git submodule update --init Externals/fmt || error_user "Failed to download submodules from GitHub!"
-git submodule update --init Externals/lz4 || error_user "Failed to download submodules from GitHub!"
+git submodule update --init --recursive \
+Externals/mGBA \
+Externals/spirv_cross \
+Externals/zlib-ng \
+Externals/libspng \
+Externals/VulkanMemoryAllocator \
+Externals/cubeb \
+Externals/implot \
+Externals/gtest \
+Externals/rcheevos \
+Externals/fmt \
+Externals/lz4 \
+|| error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
