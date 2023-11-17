@@ -14,9 +14,9 @@ if [[ $jetson_model ]]; then
   sudo apt update
   if ! package_available libssl1.1 ; then
     cd /tmp
-    wget http://ports.ubuntu.com/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.20_arm64.deb || error "Failed to download libssl1.1 from Focal"
-    sudo apt install ./libssl1.1_1.1.1f-1ubuntu2.19_arm64.deb -y || error "Failed to install libssl1.1 from Focal"
-    rm -f libssl1.1_1.1.1f-1ubuntu2.19_arm64.deb
+    wget http://ports.ubuntu.com/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.20_arm64.deb -O libssl1.1.deb || error "Failed to download libssl1.1 from Focal"
+    sudo apt install ./libssl1.1.deb -y || error "Failed to install libssl1.1 from Focal"
+    rm -f libssl1.1.deb
   fi
   sudo apt install moonlight-qt -y || error "Failed to install Moonlight!"
 else
