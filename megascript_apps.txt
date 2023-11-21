@@ -4,7 +4,7 @@ fn="Pi-Apps";;d="An appstore containing 150+ apps compatible with L4T. The most 
 
 fn="moonlight-qt";;d='Stream games from your PC (NVIDIA GPUs use GeForce Experience on Windows (or Sunshine on Linux) AMD GPUs use Sunshine on Windows/Linux)!';;sn="moonlight.sh";;f="scripts"
 
-fn="Discord (Webcord)";;d="Discord Web App made in Electron";;sn="discord.sh";;f="scripts"
+# fn="Discord (Webcord)";;d="Discord Web App made in Electron";;sn="discord.sh";;f="scripts"
 
 # fn="Kodi";;d="Free and open source media player";;e='echo "scripts not ready yet"';;f="scripts"
 
