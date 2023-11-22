@@ -68,13 +68,7 @@ bionic | focal)
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 || error "Calling cmake failed"
   ;;
 *)
-  if grep -iE 'raspberry' <<<$model >/dev/null; then
-    #   https://github.com/citra-emu/citra/issues/5921
-    warning "You're running a Raspberry Pi, building without ASM since Broadcom is allergic to cryptography extensions..."
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCRYPTOPP_OPT_DISABLE_ASM=1 -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
-  else
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
-  fi
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
   ;;
 esac
 
