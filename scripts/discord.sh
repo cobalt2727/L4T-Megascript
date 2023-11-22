@@ -19,8 +19,10 @@ then
       sudo apt install -y python3.8
 
       #fix edge case with broken folder ownership that popped up in our GitHub Actions runs
-      mkdir -p ~/.cache/pip
-      sudo chown -R $USER:$USER ~/.cache/pip
+      mkdir -p ~/.cache/
+      mkdir -p ~/.cache/pip/
+      sudo chown -R $USER:$USER ~/.cache/
+      sudo chown -R $USER:$USER ~/.cache/pip/
       
       yes | python3.6 -m pip uninstall lastversion
       python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion || error "Couldn't install dependencies"
