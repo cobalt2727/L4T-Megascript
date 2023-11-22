@@ -16,7 +16,7 @@ then
     case "$__os_codename" in
     bionic)
       ppa_name="deadsnakes/ppa" && ppa_installer
-      sudo apt install -y python3.8
+      sudo apt install -y python3.8 python3.8-dev
 
       #fix edge case with broken folder ownership that popped up in our GitHub Actions runs
       mkdir -p ~/.cache/
