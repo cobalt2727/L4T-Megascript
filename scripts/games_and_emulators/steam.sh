@@ -33,6 +33,7 @@ bionic)
 noble|mantic|lunar)
   # skip
   true
+  ;;
 *)
   sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
   ppa_name="kisak/kisak-mesa" && ppa_installer
