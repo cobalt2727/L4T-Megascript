@@ -10,6 +10,11 @@ rm -r supertux2.sh
 cd ~/.local/share/supertux2
 mv profile1 -t ~/
 cd
+case "$__os_codename" in
+bionic)
+  sudo apt install -y gcc-8 g++-8 || error "Failed to install dependencies!"
+;;
+esac
 sudo apt install git build-essential libfreetype* libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev curl libcurl4 libcurl4-openssl-dev libvorbis-dev libogg-dev cmake extra-cmake-modules libopenal-dev libglew-dev libgles2-mesa-dev libboost-dev libboost-all-dev libglm-dev subversion libpng-dev libpng++-dev -y || error "Failed to install dependencies!"
 git clone --recursive https://github.com/SuperTux/supertux
 svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/ST2
@@ -23,7 +28,14 @@ echo
 echo "Compiling the game..."
 sleep 1
 echo
-cmake .. -DCMAKE_BUILD_TYPE=RELEASE
+case "$__os_codename" in
+bionic)
+  cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8
+  ;;
+*)
+  cmake .. -DCMAKE_BUILD_TYPE=RELEASE
+  ;;
+esac
 make -j$(nproc)
 echo
 echo "Game compiled!"
