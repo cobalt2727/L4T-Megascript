@@ -97,6 +97,7 @@ Externals/rcheevos \
 Externals/fmt \
 Externals/lz4 \
 Externals/xxhash \
+Externals/enet \
 || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
