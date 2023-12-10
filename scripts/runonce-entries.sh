@@ -424,6 +424,21 @@ _EOF_"
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     flatpak override --user --device=all
+    
+    echo "export FLATPAK_GL_DRIVERS=nvidia-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
+    sudo tee -a /etc/profile.d/flatpak_tegra.sh << '_EOF_'
+if command -v flatpak > /dev/null && [ -n "$DESKTOP_SESSION" ]; then
+    if [ ! -f ~/.local/share/flatpak/overrides/global ]; then
+  	    flatpak override --user --device=all
+    elif ! grep -q "devices=all;" ~/.local/share/flatpak/overrides/global ; then
+        flatpak override --user --device=all
+    fi
+fi
+_EOF_
+
+    sudo sh -c "cat > /etc/sudoers.d/flatpak_tegra << _EOF_
+Defaults      env_keep += FLATPAK_GL_DRIVERS
+_EOF_"
     cd /tmp || error "Could not move to /tmp directory. Is your install corrupted?"
     rm -f org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak
     wget --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}"
