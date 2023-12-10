@@ -420,6 +420,29 @@ _EOF_"
     # install the gnome software center flatpak plugin
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
+  "540.2.0")
+    # installing tegra Flatpak BSP and workarounds
+    sudo flatpak override --device=all
+    flatpak override --user --device=all
+    cd /tmp || error "Could not move to /tmp directory. Is your install corrupted?"
+    rm -f org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak
+    wget --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/Flatpak/$jetson_chip_model/org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak || error "Failed to download $jetson_chip_model org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}"
+    sync
+
+    #Only try to remove flatpak app if it's installed.
+    if flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}" ;then
+      sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}" -y -vv
+      sudo flatpak pin --remove runtime/org.freedesktop.Platform.GL.nvidia-tegra-${BSP_version//./-}/aarch64/1.4 || true
+    elif flatpak list | grep -qF "org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}" ;then
+      sudo flatpak uninstall "org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}" -y -vv
+    fi
+
+    sudo flatpak install --system ./org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}.flatpak -y -vv || error "Failed to install org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}"
+    sudo flatpak pin --system runtime/org.freedesktop.Platform.GL.nvidia-${BSP_version//./-}/aarch64/1.4
+
+    # install the gnome software center flatpak plugin
+    sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
+    ;;
   *)
     warning "Your version of L4T ($BSP_version) is not currently supported. Flatpak GPU hardware acceleration is not available."
     warning 'The current supported jetson chip models are t186/t194/t210/t234 on L4T 32.3.1/32.7.3/32.7.4/35.1.0/35.2.1/35.3.1/35.4.1'
