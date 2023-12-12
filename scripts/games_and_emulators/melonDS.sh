@@ -44,6 +44,8 @@ bionic)
   else
     sudo apt install -y qtbase5-dev qtchooser qtbase5-private-dev qtmultimedia5-dev || error "Failed to install dependencies"
   fi
+  sudo apt install -y cmake gcc g++ || error "Could not install dependencies"
+  ;;
 esac
 
 echo "Installing dependencies..."
