@@ -9,16 +9,6 @@ sleep 1
 
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  case "$__os_codename" in
-  bionic)
-    ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
-    if [[ -f "/usr/bin/cmake" ]]; then
-      #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-      sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-    fi
-    hash -r
-    ;;
-  esac
 
   # as of the following commit on October 30th, Dolphin requires QT 5.15 or higher (with the addition of setPlaceholderText)
   # https://github.com/dolphin-emu/dolphin/commit/053320b7cf5e1f4363c20edc9275cd352641cbd9

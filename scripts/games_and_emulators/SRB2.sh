@@ -15,17 +15,6 @@ cd ~/RetroPie/roms/ports
 rm SRB2_retropie.sh
 cd
 
-case "$__os_codename" in
-bionic)
-  ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
-  if [[ -f "/usr/bin/cmake" ]]; then
-    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-    hash -r
-  fi
-  ;;
-esac
-
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
   sudo apt install wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev freepats libgles2-mesa-dev -y || error "Dependency installs failed"
