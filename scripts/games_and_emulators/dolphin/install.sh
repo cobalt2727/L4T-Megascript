@@ -11,7 +11,7 @@ case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
   case "$__os_codename" in
   bionic)
-    ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+    ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
     if [[ -f "/usr/bin/cmake" ]]; then
       #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
       sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
@@ -25,7 +25,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   # for easier future-proofing and keeping this script simpler, I've just forced everyone to use QT6 instead
   case "$__os_codename" in
   bionic | impish | focal)
-    ppa_name="okirby/qt6-backports" && ppa_installer
+    ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
     ;;
   esac
 
@@ -115,7 +115,7 @@ bionic | focal)
   echo "That being said, we need to get you a newer compiler to prevent some bugs."
   #to be fair, the only *known* bug here (for now) is that emulated Wii remote cursors don't work with GCC 7 builds
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install gcc-11 g++-11 -y || error "Failed to install dependencies!"
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
@@ -127,9 +127,9 @@ xenial)
   echo "Ubuntu 16.04 detected... good luck, you'll need it"
   sleep 2
   echo "Adding Cmake 3.13 PPA..."
-  ppa_name="freim/cmake-3.13" && ppa_installer
+  ubuntu_ppa_installer "freim/cmake-3.13" || error "PPA failed to install"
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 9..."
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install cmake gcc-9 g++-9 -y
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"

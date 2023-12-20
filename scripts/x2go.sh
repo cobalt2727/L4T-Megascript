@@ -3,7 +3,7 @@
 echo "X2Go script started!"
 
 if grep -q ubuntu /etc/os-release; then
-  ppa_name="x2go/ppa" && ppa_installer
+  ubuntu_ppa_installer "x2go/ppa" || error "PPA failed to install"
   sudo apt install -y x2goserver x2goclient x2gobroker-daemon x2godesktopsharing pyhoca-gui pyhoca-cli
 
 elif grep -q debian /etc/os-release; then

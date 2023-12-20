@@ -2,11 +2,11 @@ cd ~
 
 case "$__os_codename" in
 impish | focal | bionic)
-  ppa_name="okirby/qt6-backports" && ppa_installer
+  ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
   echo "Installing dependencies..."
   case "$__os_codename" in
   focal | bionic)
-    ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+    ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
     sudo apt install gcc-11 g++-11 -y || error "Could not install dependencies"
     ;;
   *) ;;

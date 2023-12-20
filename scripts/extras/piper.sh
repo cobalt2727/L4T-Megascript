@@ -10,7 +10,7 @@ if command -v apt >/dev/null; then
   if PPA_check; then
     # TODO: convince PPA maintainers to fix 18.04 or remove it from the PPA
     echo "Installing Piper from the PPA..."
-    ppa_name="libratbag-piper/piper-libratbag-git" && ppa_installer
+    ubuntu_ppa_installer "libratbag-piper/piper-libratbag-git" || error "PPA failed to install"
     sudo apt install -y piper || error "Failed to install Piper!"
 
   else
@@ -40,7 +40,7 @@ if command -v apt >/dev/null; then
 
         # note: https://www.reddit.com/r/ProgrammerHumor/comments/8pdebc/only_god_and_i_knew/
 
-        ppa_name="deadsnakes/ppa" && ppa_installer
+        ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
         sudo apt install python3.8 pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev -y || error "Could not install dependencies!"
         sudo apt purge meson -y
         yes | python3.6 -m pip uninstall meson

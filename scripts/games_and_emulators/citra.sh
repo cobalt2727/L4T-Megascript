@@ -24,12 +24,12 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   case "$__os_codename" in
   bionic | focal)
     echo "Adding GCC/G++ 11 repo..."
-    ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+    ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
     echo "Adding QT6 repo..."
     #it's not redneck if it works.
     #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
-    ppa_name="okirby/qt6-backports" && ppa_installer
-    ppa_name="okirby/qt6-testing" && ppa_installer
+    ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
+    ubuntu_ppa_installer "okirby/qt6-testing" || error "PPA failed to install"
     #installs LLVM-14 toolchain
     curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
 

@@ -23,16 +23,16 @@ bionic)
 
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
-    ppa_name="beineri/opt-qt-5.15.2-bionic"
+    ubuntu_ppa_installer "beineri/opt-qt-5.15.2-bionic"
   else
-    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+    ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-bionic-arm"
   fi
   ppa_installer
-  ppa_name="theofficialgman/melonds-depends" && ppa_installer
-  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+  ubuntu_ppa_installer "theofficialgman/melonds-depends" || error "PPA failed to install"
+  ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
 
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
   # sudo apt install cmake gcc-11 g++-11 qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
   sudo apt install -y cmake gcc-11 g++-11 qt515base qt515multimedia qt515gamepad || error "Could not install dependencies"

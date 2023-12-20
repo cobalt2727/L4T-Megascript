@@ -22,7 +22,7 @@ bionic | focal)
   #installs latest stable LLVM toolchain
   curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
 
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install -y libstdc++-11-dev libstdc++6 libclang-14-dev gcc-11 g++-11 clang-14 || error "Failed to install dependencies!"
   ;;
 *)

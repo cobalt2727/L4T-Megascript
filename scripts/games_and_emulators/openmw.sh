@@ -12,7 +12,7 @@ echo "Adding OpenMW PPA"
 case "$__os_codename" in
 bionic) echo "The build available in this PPA doesn't work on 18.04, but it contains important development libraries for compiling." ;;
 esac
-ppa_name="openmw/openmw" && ppa_installer
+ubuntu_ppa_installer "openmw/openmw" || error "PPA failed to install"
 
 case "$__os_codename" in
 bionic)
@@ -21,14 +21,14 @@ bionic)
   echo "theofficialgman has done his PPA Qt5 wizardry"
   echo "enjoy OpenMW on Ubuntu Bionic, Focal, Hirsute, and beyond"
 
-  ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+  ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-bionic-arm"
   ppa_installer
   sudo apt install qt5153d qt515base qt515declarative qt515gamepad \
     qt515graphicaleffects qt515imageformats qt515multimedia \
     qt515xmlpatterns -y || error "Could not install dependencies"
 
   echo "Installing GCC/G++ 11..."
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install gcc-11 g++-11 -y
 
   echo "Installing dependencies..."

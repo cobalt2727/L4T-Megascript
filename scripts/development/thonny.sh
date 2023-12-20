@@ -7,7 +7,7 @@ echo "Installing dependencies..."
 
 case "$__os_codename" in
 bionic)
-  ppa_name="deadsnakes/ppa" && ppa_installer
+  ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
   sudo apt install python3.8 libpython3.8 -y
   ;;
 focal)

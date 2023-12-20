@@ -1,12 +1,12 @@
 echo "Started Prusaslicer Build Script"
 echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
 case "$__os_codename" in
 bionic)
   echo "Adding Boost 1.67 PPA..."
-  ppa_name="theofficialgman/boost1.67-bionic" && ppa_installer
+  ubuntu_ppa_installer "theofficialgman/boost1.67-bionic" || error "PPA failed to install"
   sudo apt update
   sudo apt install libboost1.67-all-dev libcgal-dev -y || error "Dependencies failed to install"
   sudo tee /usr/lib/aarch64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake <<'EOF' >>/dev/null

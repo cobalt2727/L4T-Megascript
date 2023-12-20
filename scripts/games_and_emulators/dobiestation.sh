@@ -11,10 +11,10 @@ bionic)
   #honestly, default QT probably works fine, but...
   case "$dpkg_architecture" in "arm64"|"armhf")
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
-    ppa_name="beineri/opt-qt-5.15.2-bionic"
+    ubuntu_ppa_installer "beineri/opt-qt-5.15.2-bionic"
     ;;
   *)
-    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+    ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-bionic-arm"
     ;;
   esac
   ppa_installer

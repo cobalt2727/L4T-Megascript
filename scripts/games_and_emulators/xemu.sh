@@ -7,7 +7,7 @@ echo "Xemu script started!"
 case "$__os_codename" in
 bionic)
   # ppa that contains libslirp
-  ppa_name="theofficialgman/melonds-depends" && ppa_installer
+  ubuntu_ppa_installer "theofficialgman/melonds-depends" || error "PPA failed to install"
   ;;
 esac
 case "$__os_id" in
@@ -36,8 +36,8 @@ git submodule update --init genconfig/ tomlplusplus/ #may be needed to manually 
 
 case "$__os_codename" in
 bionic)
-  ppa_name="deadsnakes/ppa" && ppa_installer
-  ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+  ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install python3.8 gcc-11 g++-11 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
   sed -i -e 's/python3 /python3.8 /g' build.sh                                           #this is hacky, yes, but hey, it works
   python3.8 -m pip install --upgrade pip meson PyYAML

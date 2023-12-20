@@ -72,7 +72,7 @@ Ubuntu)
       status "Skipping OpenJDK PPA, already added"
     else
       status "Adding OpenJDK PPA, needed for Minecraft 1.17+"
-      ppa_name="openjdk-r/ppa" && ppa_installer
+      ubuntu_ppa_installer "openjdk-r/ppa" || error "PPA failed to install"
     fi
     ;;
   *)
@@ -87,7 +87,7 @@ Ubuntu)
   esac
   case "$__os_codename" in
   bionic)
-    ppa_name="deadsnakes/ppa" && ppa_installer
+    ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
     ;;
   esac
   # install dependencies

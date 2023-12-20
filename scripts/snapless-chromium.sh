@@ -17,7 +17,7 @@ bionic)
       sudo snap remove chromium
     fi
 
-    ppa_name="saiarcot895/chromium-beta" && ppa_installer
+    ubuntu_ppa_installer "saiarcot895/chromium-beta" || error "PPA failed to install"
 
     sudo apt install --reinstall chromium-browser -y
     sudo apt --fix-broken install -y

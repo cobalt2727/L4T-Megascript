@@ -43,7 +43,7 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     #add if statement for supported versions on next line?
     case "$__os_codename" in
     bionic | focal | impish)
-      ppa_name="okirby/qt6-backports" && ppa_installer
+      ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
       ;;
     esac
 

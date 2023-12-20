@@ -21,7 +21,7 @@ if [[ $jetson_model ]]; then
   sudo apt install moonlight-qt -y || error "Failed to install Moonlight!"
 else
   if [[ $dpkg_architecture == "amd64" ]]; then
-    ppa_name="alexlarsson/flatpak" && ppa_installer
+    ubuntu_ppa_installer "alexlarsson/flatpak" || error "PPA failed to install"
     sudo apt install flatpak -y
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak install flathub com.moonlight_stream.Moonlight -y || error "Failed to install Moonlight!"

@@ -28,7 +28,7 @@ case "$__os_codename" in
 bionic)
   # use stable mesa ppa on bionic as upstream intends to remove bionic from the fresh ppa
   sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-kisak-mesa-*.list
-  ppa_name="kisak/turtle" && ppa_installer
+  ubuntu_ppa_installer "kisak/turtle" || error "PPA failed to install"
   ;;
 noble|mantic|lunar)
   # skip
@@ -36,7 +36,7 @@ noble|mantic|lunar)
   ;;
 *)
   sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
-  ppa_name="kisak/kisak-mesa" && ppa_installer
+  ubuntu_ppa_installer "kisak/kisak-mesa" || error "PPA failed to install"
   ;;
 esac
 

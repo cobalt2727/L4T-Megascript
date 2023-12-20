@@ -51,10 +51,10 @@ case "$dpkg_architecture" in
   # newer releases of ubuntu have gcc-11 in the normal repos
   # older releases of ubuntu are not supported
   case "$__os_codename" in
-  bionic) ppa_name="theofficialgman/cmake-bionic" && ppa_installer ;;
+  bionic) ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install" ;;
   esac
   case "$__os_codename" in
-  bionic | focal) ppa_name="ubuntu-toolchain-r/test" && ppa_installer ;;
+  bionic | focal) ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install" ;;
   esac
 
   sudo apt install zenity cmake git build-essential gcc-11 g++-11 -y || error "Could not install dependencies"

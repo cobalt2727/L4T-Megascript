@@ -166,7 +166,7 @@ runonce <<"EOF"
 if ! package_is_new_enough flatpak 1.14.4 ;then
   case "$__os_codename" in
   bionic|focal|jammy)
-    ppa_name="alexlarsson/flatpak"
+    ubuntu_ppa_installer "alexlarsson/flatpak"
     ppa_dist="$__os_codename"
     sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
     ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap"
@@ -177,7 +177,7 @@ fi
 case "$__os_codename" in
 bionic)
   #bionic cmake is very old, use theofficialgman ppa for cmake
-  ppa_name="theofficialgman/cmake-bionic" && ppa_installer
+  ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
   if [[ -f "/usr/bin/cmake" ]]; then
     #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
     sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
@@ -185,7 +185,7 @@ bionic)
   hash -r
   ;;
 xenial)
-  ppa_name="alexlarsson/flatpak" && ppa_installer
+  ubuntu_ppa_installer "alexlarsson/flatpak" || error "PPA failed to install"
   ;;
 focal)
   # use kitware apt repo for 20.04 as it has x86/x64_64 and armhf/arm64 support (armhf/arm64 not available from this repo for bionic which is why its not used there)
@@ -236,7 +236,7 @@ EOF
 runonce <<"EOF"
 case "$__os_codename" in
 bionic|focal|jammy)
-  ppa_name="theofficialgman/gpu-tools" && ppa_installer
+  ubuntu_ppa_installer "theofficialgman/gpu-tools" || error "PPA failed to install"
   ;;
 esac
 EOF

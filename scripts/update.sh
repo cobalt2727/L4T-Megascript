@@ -153,8 +153,8 @@ if [[ $SystemFixUserInput == "yes" ]]; then
 
   case "$__os_codename" in
   bionic)
-    ppa_name="theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_purger
-    ppa_name="beineri/opt-qt-5.12.0-bionic" && ppa_purger
+    ubuntu_ppa_installer "theofficialgman/opt-qt-5.12.0-bionic-arm" && ppa_purger
+    ubuntu_ppa_installer "beineri/opt-qt-5.12.0-bionic" && ppa_purger
     ;;
   focal)
     sudo apt install --reinstall -y python-is-python3

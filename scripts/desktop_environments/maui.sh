@@ -8,15 +8,15 @@ case "$__os_codename" in
 bionic)
   if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
     warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
-    ppa_name="beineri/opt-qt-5.15.2-bionic"
+    ubuntu_ppa_installer "beineri/opt-qt-5.15.2-bionic"
   else
-    ppa_name="theofficialgman/opt-qt-5.15.2-bionic-arm"
+    ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-bionic-arm"
   fi
   ppa_installer
   sudo apt install -y qt515base #|| error "Could not install dependencies"
 ###commented out because this doesn't exist yet
 # elif grep -q focal /etc/os-release
-#   ppa_name="theofficialgman/opt-qt-5.15.2-focal-arm" && ppa_installer
+#   ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-focal-arm" || error "PPA failed to install"
 #   sudo apt install -y qt515base #|| error "Could not install dependencies"
   ;;
 *)

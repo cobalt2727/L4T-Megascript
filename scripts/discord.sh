@@ -15,7 +15,7 @@ then
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
     case "$__os_codename" in
     bionic)
-      ppa_name="deadsnakes/ppa" && ppa_installer
+      ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
       sudo apt install -y python3.8 python3.8-dev
 
       #fix edge case with broken folder ownership that popped up in our GitHub Actions runs

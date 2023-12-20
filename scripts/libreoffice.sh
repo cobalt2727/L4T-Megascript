@@ -2,7 +2,7 @@ echo "LibreOffice script started!"
 
 case "$__os_id" in
 Ubuntu)
-  ppa_name="libreoffice/ppa" && ppa_installer
+  ubuntu_ppa_installer "libreoffice/ppa" || error "PPA failed to install"
   sudo apt install -y --no-install-recommends libreoffice libxrender1 libreoffice-gtk3 || error "Failed to install dependencies"
 
   if echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then

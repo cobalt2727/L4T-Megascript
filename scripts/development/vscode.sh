@@ -6,7 +6,7 @@ echo "Installing the $arch build of Visual Studio Code directly from Microsoft..
 sleep 1
 
 ##need a newer debugger?
-ppa_name="ubuntu-toolchain-r/test" && ppa_installer
+ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 ##i'd be surprised if the first two weren't already installed, but...
 sudo apt install wget gpg gdb -y
 
