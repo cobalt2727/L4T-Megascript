@@ -9,14 +9,6 @@ on:
         description: 'Helper Script name format'
         required: true
         default: ''
-      buster_32:
-        description: 'Build on PiOS Buster 32bit'
-        required: true
-        type: boolean
-      bullseye_32:
-        description: 'Build on PiOS Bullseye 32bit'
-        required: true
-        type: boolean
       buster_64:
         description: 'Build on PiOS Buster 64bit'
         required: true
@@ -58,87 +50,43 @@ run-name: Testing ${{ inputs.name }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  buster-32bit:
+  buster-64bit:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     timeout-minutes: 720
-    if: ${{ inputs.buster_32 }}
-
+    if: ${{ inputs.buster_64 }}
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: Test installing app on buster armhf
+      - name: Test installing app on buster arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          # this is a buster armhf image
-          base_image: https://downloads.raspberrypi.org/raspios_oldstable_armhf/images/raspios_oldstable_armhf-2023-05-03/2023-05-03-raspios-buster-armhf.img.xz
+          # this is a buster arm64 image
+          base_image: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-05-28/2021-05-07-raspios-buster-arm64.zip
           # bind mount the directory so any changes propogate to outside the chroot
           bind_mount_repository: yes
 
           # give the image more space
           image_additional_mb: 5000
-
+          
           # set CPUs to use
           cpu: cortex-a7:cortex-a72
-
+          
           # user runner name as default path
           copy_repository_path: /home/runner/L4T-Megascript
-
+          
           # export github env back to outside the chroot
           export_github_env: yes
-
+          
           import_github_env: true
 
           # set shell to bash
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
-            echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
-            ./.github/workflows/test_build_commands.sh
-
-  bullseye-32bit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.bullseye_32 }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test installing app on bullseye armhf
-        uses: theofficialgman/arm-runner-action@v12
-        with:
-          base_image: https://downloads.raspberrypi.org/raspios_oldstable_armhf/images/raspios_oldstable_armhf-2023-12-06/2023-12-05-raspios-bullseye-armhf.img.xz
-          bind_mount_repository: yes
-          image_additional_mb: 5000
-          cpu: cortex-a7:cortex-a72
-          copy_repository_path: /home/runner/L4T-Megascript
-          export_github_env: yes
-          import_github_env: true
-          shell: /bin/bash
-          commands: |
-            export name="${{ inputs.name }}"
-            echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
-            ./.github/workflows/test_build_commands.sh
-
-  buster-64bit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.buster_64 }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test installing app on buster arm64
-        uses: theofficialgman/arm-runner-action@v12
-        with:
-          base_image: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-05-28/2021-05-07-raspios-buster-arm64.zip
-          bind_mount_repository: yes
-          image_additional_mb: 5000
-          cpu: cortex-a7:cortex-a72
-          copy_repository_path: /home/runner/L4T-Megascript
-          export_github_env: yes
-          import_github_env: true
-          shell: /bin/bash
-          commands: |
-            export name="${{ inputs.name }}"
+            # since stable Debian releases tend to have outdated libraries, we'll enable the backports repo here to get some slightly newer stuff needed for a few scripts
             echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
