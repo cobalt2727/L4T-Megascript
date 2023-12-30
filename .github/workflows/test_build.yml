@@ -87,6 +87,7 @@ jobs:
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   bullseye-32bit:
@@ -108,6 +109,7 @@ jobs:
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   buster-64bit:
@@ -129,6 +131,7 @@ jobs:
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   bullseye-64bit:
