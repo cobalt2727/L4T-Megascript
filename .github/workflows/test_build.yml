@@ -150,6 +150,7 @@ jobs:
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   bionic-64bit:
