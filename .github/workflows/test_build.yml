@@ -25,6 +25,14 @@ on:
         description: 'Build on PiOS Bullseye 64bit'
         required: true
         type: boolean
+      bookworm_32:
+        description: 'Build on PiOS Bookworm 32bit'
+        required: true
+        type: boolean
+      bookworm_64:
+        description: 'Build on PiOS Bookworm 64bit'
+        required: true
+        type: boolean
       bionic_64:
         description: 'Build on Switchroot Ubuntu 5.1.1 Bionic 64bit'
         required: true
@@ -154,6 +162,50 @@ jobs:
           commands: |
             export name="${{ inputs.name }}"
             echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
+            ./.github/workflows/test_build_commands.sh
+
+  bookworm-32bit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720
+    if: ${{ inputs.bullseye_64 }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test installing app on bookworm armhf
+        uses: theofficialgman/arm-runner-action@v12
+        with:
+          base_image: https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2023-12-06/2023-12-05-raspios-bookworm-armhf.img.xz
+          bind_mount_repository: yes
+          image_additional_mb: 5000
+          cpu: cortex-a7:cortex-a72
+          copy_repository_path: /home/runner/L4T-Megascript
+          export_github_env: yes
+          import_github_env: true
+          shell: /bin/bash
+          commands: |
+            export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
+            ./.github/workflows/test_build_commands.sh
+
+  bookworm-64bit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720
+    if: ${{ inputs.bullseye_64 }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test installing app on bookworm arm64
+        uses: theofficialgman/arm-runner-action@v12
+        with:
+          base_image: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64.img.xz
+          bind_mount_repository: yes
+          image_additional_mb: 5000
+          cpu: cortex-a7:cortex-a72
+          copy_repository_path: /home/runner/L4T-Megascript
+          export_github_env: yes
+          import_github_env: true
+          shell: /bin/bash
+          commands: |
+            export name="${{ inputs.name }}"
+            echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   bionic-64bit:
