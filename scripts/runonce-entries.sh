@@ -166,14 +166,15 @@ runonce <<"EOF"
 if ! package_is_new_enough flatpak 1.14.4 ;then
   case "$__os_codename" in
   bionic|focal|jammy)
-    ubuntu_ppa_installer "alexlarsson/flatpak"
-    ppa_dist="$__os_codename"
-    sudo rm -f /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list
-    ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap"
+    sudo rm -f /etc/apt/sources.list.d/alexlarsson-ubuntu-flatpak-$__os_codename.list
+    ubuntu_ppa_installer "theofficialgman/flatpak-no-bwrap" || error "PPA failed to install"
     ;;
   esac
 fi
+true
+EOF
 
+runonce <<"EOF"
 case "$__os_codename" in
 bionic)
   #bionic cmake is very old, use theofficialgman ppa for cmake
