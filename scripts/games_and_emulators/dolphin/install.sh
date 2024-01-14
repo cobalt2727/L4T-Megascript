@@ -88,6 +88,7 @@ Externals/fmt \
 Externals/lz4 \
 Externals/xxhash \
 Externals/enet \
+Externals/SDL \
 || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
