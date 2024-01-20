@@ -31,7 +31,13 @@ esac
 rm -rf master.zip SRB2 SRB2-master SRB2-Data.zip
 wget https://github.com/STJr/SRB2/archive/master.zip --progress=bar:force:noscroll
 wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2) -O SRB2-Data.zip
-svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SRB2-A
+mkdir -p ~/SRB2-A
+cd ~/SRB2-A
+wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2.sh
+wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2Icon.png
+wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/Sonic%20Robo%20Blast%202.desktop
+wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/config.cfg
+cd
 mkdir -p SRB2
 cd
 unzip master.zip
@@ -53,7 +59,7 @@ mv SRB2.sh SRB2Icon.png -t ~/SRB2
 sudo mv "Sonic Robo Blast 2.desktop" -t /usr/share/applications
 cd ~
 rm master.zip*
-rm -r SRB2-A
+rm -rf SRB2-A
 cd ~/SRB2-DT
 mv music.dta patch.pk3 patch_music.pk3 player.dta srb2.pk3 zones.pk3 -t ~/SRB2-master/assets/installer
 cd ~/SRB2-master/build
@@ -65,8 +71,8 @@ status "Erasing temporary build files to save space..."
 cd ~/SRB2-master
 mv assets build -t ~/SRB2
 cd ~
-rm -r SRB2-DT
-rm -r SRB2-master
+rm -rf SRB2-DT
+rm -rf SRB2-master
 sudo mv SRB2 -t /usr/share
 status_green "Game installed!"
 warning "[NOTE] Remember NOT to move the SRB2 folder or any file inside it or the game will stop working."
