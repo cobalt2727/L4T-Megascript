@@ -69,7 +69,7 @@ sudo mv *.desktop /usr/share/applications/ || error "The game installed, but we 
 mv -vn config.cfg ~/.srb2/config.cfg || error "The game installed, but we couldn't properly set up one or more desktop files!"
 
 #hardly anyone will use this but I'm putting it in anyway. it's neat.
-xdg-open /usr/local/SRB2/
+xdg-open /usr/local/SRB2/ || echo ""
 sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt && sudo touch /usr/local/SRB2/adedserv.cfg
 
 status "Erasing temporary build files to save space..."
