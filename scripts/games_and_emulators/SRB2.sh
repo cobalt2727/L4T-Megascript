@@ -30,7 +30,8 @@ esac
 
 cd /tmp
 # lastversion download stjr/srb2 --assets --filter Full.zip
-wget -q --show-progress --progress=bar:force:noscroll $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2)unzip -o SRB2-v*-Full.zip "*.dta" "*.pk3" "*.dat" "models/*" -d SRB2-Assets/
+wget -q --show-progress --progress=bar:force:noscroll $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2)
+unzip -o SRB2-v*-Full.zip "*.dta" "*.pk3" "*.dat" "models/*" -d SRB2-Assets/
 sudo rm SRB2-v*-Full.zip
 
 #lastversion download stjr/srb2 --source
