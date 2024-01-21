@@ -30,8 +30,7 @@ esac
 
 cd /tmp
 # lastversion download stjr/srb2 --assets --filter Full.zip
-wget $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2)
-unzip -o SRB2-v*-Full.zip "*.dta" "*.pk3" "*.dat" "models/*" -d SRB2-Assets/
+wget -q --show-progress --progress=bar:force:noscroll $(curl --silent "https://api.github.com/repos/STJr/SRB2/releases/latest" | grep "SRB2" | grep "Full" | cut -c 31- | cut -d '"' -f 2)unzip -o SRB2-v*-Full.zip "*.dta" "*.pk3" "*.dat" "models/*" -d SRB2-Assets/
 sudo rm SRB2-v*-Full.zip
 
 #lastversion download stjr/srb2 --source
@@ -56,11 +55,11 @@ status "Setting up desktop files..."
 #create a blank dedicated server script file so people aren't confused where to put it
 mkdir -p /tmp/SRB2-Megascript-Assets/
 cd /tmp/SRB2-Megascript-Assets/
-wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2.sh
-wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2Icon.png
-wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/Sonic%20Robo%20Blast%202.desktop
-wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/config.cfg
-wget https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/dedicated-server-howto.txt
+wget -q --show-progress --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2.sh
+wget -q --show-progress --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/SRB2Icon.png
+wget -q --show-progress --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/Sonic%20Robo%20Blast%202.desktop
+wget -q --show-progress --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/config.cfg
+wget -q --show-progress --progress=bar:force:noscroll https://github.com/cobalt2727/L4T-Megascript/raw/master/assets/SRB2-A/dedicated-server-howto.txt
 
 sudo mv SRB2.sh /usr/local/SRB2/SRB2.sh || error "The game installed, but we couldn't properly set up one or more desktop files!"
 sudo mv SRB2Icon.png /usr/local/SRB2/SRB2Icon.png || error "The game installed, but we couldn't properly set up one or more desktop files!"
@@ -74,6 +73,7 @@ xdg-open /usr/local/SRB2/
 sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt && sudo touch /usr/local/SRB2/adedserv.cfg
 
 status "Erasing temporary build files to save space..."
+sudo rm -rf /usr/local/SRB2/models #custom character models belong in ~/.srb2/models/ - wiping this to prevent non-empty directory errors on the next line is safe.
 sudo mv /tmp/SRB2-Assets/* /usr/local/SRB2/ || error "The game installed, but we couldn't properly set up one or more desktop files!"
 sudo rm -rf /tmp/SRB2* /tmp/srb2*
 echo
