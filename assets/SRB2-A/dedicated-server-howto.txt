@@ -1,0 +1,13 @@
+To start up a dedicated server with the SRB2 build you installed from the L4T Megascript, type the following in a terminal:
+
+/usr/local/SRB2/lsdlsrb2 -dedicated
+
+More parameters can be added by following the documentation at https://wiki.srb2.org/wiki/Dedicated_server
+You'll need sudo permissions if you want to modify the blank adedserv.cfg we've created in /usr/local/SRB2/ for you.
+
+Addons for the server should be stored in ~/.srb2/addons/ (the .srb2 folder is hidden in most file managers).
+From there just add a line like the following to adedserv.cfg to auto-load the given mod on startup:
+
+addfile myModFileName.pk3
+
+You can make a dedicated server automatically start on bootup/login/a given schedule/etc with a cronjob (look this up!)

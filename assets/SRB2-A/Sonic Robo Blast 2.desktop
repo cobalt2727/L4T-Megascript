@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Icon=/usr/share/SRB2/SRB2Icon.png
+Icon=/usr/local/SRB2/SRB2Icon.png
 Name=Sonic Robo Blast 2
 Comment=A free 3D Sonic the Hedgehog fangame closely inspired by the original Sonic games on the Sega Genesis.
-Exec=bash -c 'cd /usr/share/SRB2/assets/installer; /usr/share/SRB2/SRB2.sh'
+Exec=bash -c 'cd /usr/local/SRB2; /usr/local/SRB2/SRB2.sh'
 Terminal=false
 Categories=Game
