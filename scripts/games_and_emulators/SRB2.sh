@@ -67,7 +67,7 @@ sudo mv SRB2Icon.png /usr/local/SRB2/SRB2Icon.png || error "The game installed, 
 #why would I bother testing if I formatted spaces correctly when I can just wildcard
 sudo mv *.desktop /usr/share/applications/ || error "The game installed, but we couldn't properly set up one or more desktop files!"
 #don't break the user's configs if they already have one in there
-test -f ~/.srb2/config.cfg || mv config.cfg ~/.srb2/config.cfg || error "The game installed, but we couldn't properly set up one or more desktop files!"
+test -f ~/.srb2/config.cfg || mv config.cfg ~/.srb2/ || error "The game installed, but we couldn't properly set up one or more desktop files!"
 
 #hardly anyone will use this but I'm putting it in anyway. it's neat.
 xdg-open /usr/local/SRB2/ || echo ""
