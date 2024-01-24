@@ -8,7 +8,13 @@ echo "Installing dependencies..."
 
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  sudo apt install make git libass-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-regex-dev libboost-locale-dev libboost-thread-dev libopengl0 libicu-dev libwxgtk3.0-gtk3-dev zlib1g-dev fontconfig luajit libffms2-dev libfftw3-dev libhunspell-dev libopenal-dev uchardet libuchardet-dev intltool autopoint --no-install-recommends -y || error "Failed to install dependencies!"
+  sudo apt install gcc g++ make git libass-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-regex-dev libboost-locale-dev libboost-thread-dev libopengl0 libicu-dev zlib1g-dev fontconfig luajit libffms2-dev libfftw3-dev libhunspell-dev libopenal-dev uchardet libuchardet-dev intltool autopoint --no-install-recommends -y || error "Failed to install dependencies!"
+  package_available libwxgtk-media3.0-gtk3-dev
+  if [[ $? == "0" ]]; then
+    sudo apt install -y libwxgtk-media3.0-gtk3-dev || error "Failed to install dependencies"
+  else
+    sudo apt install -y libwxgtk-media3.2-dev || error "Failed to install dependencies"
+  fi
   ;;
 Fedora)
   #TODO
