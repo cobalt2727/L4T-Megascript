@@ -33,7 +33,7 @@ on:
         required: true
         type: boolean
       focal_64:
-        description: 'Nvidia Jetpack 35.3.1 Focal'
+        description: 'Nvidia Jetpack 35.4.1 Focal'
         required: true
         type: boolean
       l4t_jammy_64:
@@ -247,7 +247,7 @@ jobs:
       - name: Test installing app on focal arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v3.1/sd_card_b49/jp511-xnx-sd-card-image.zip
+          base_image: https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v4.1/jp512-xnx-sd-card-image.zip
           bootpartition:
           rootpartition: 1
           bind_mount_repository: yes
