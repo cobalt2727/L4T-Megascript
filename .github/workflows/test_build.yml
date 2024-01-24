@@ -273,9 +273,6 @@ jobs:
         uses: theofficialgman/arm-runner-action@v12
         with:
           base_image: https://cdimage.ubuntu.com/daily-preinstalled/current/noble-preinstalled-desktop-arm64+raspi.img.xz
-          # add special arguments for switchroot image format
-          bootpartition:
-          rootpartition: 1
           bind_mount_repository: yes
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
