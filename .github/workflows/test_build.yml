@@ -10,42 +10,42 @@ on:
         required: true
         default: ''
       buster:
-        description: 'Build on PiOS Buster'
+        description: 'PiOS Buster'
         required: true
         type: boolean
       bullseye:
-        description: 'Build on PiOS Bullseye'
+        description: 'PiOS Bullseye'
         required: true
         type: boolean
       bookworm:
-        description: 'Build on PiOS Bookworm'
+        description: 'PiOS Bookworm'
         required: true
         type: boolean        
       architecture:
         type: choice
-        description: 'For Buster/Bullseye/Bookworm, test on 32bit, 64bit, or Both if available'
+        description: 'For Buster/Bullseye/Bookworm, test on 64bit, 32bit, or Both if available'
         options:
-        - 32bit
         - 64bit
+        - 32bit
         - Both
       bionic_64:
-        description: 'Build on Switchroot Ubuntu 5.1.1 Bionic 64bit'
+        description: 'Switchroot Ubuntu 5.1.1 Bionic 64bit'
         required: true
         type: boolean
       focal_64:
-        description: 'Build on Nvidia Jetpack 35.3.1 Focal 64bit'
+        description: 'Nvidia Jetpack 35.3.1 Focal 64bit'
         required: true
         type: boolean
       l4t_jammy_64:
-        description: 'Build on L4T Ubuntu Jammy 64bit'
+        description: 'L4T Ubuntu Jammy 64bit'
         required: true
         type: boolean
       fedora_37_64:
-        description: 'Build on L4S Fedora 37 64bit'
+        description: 'L4S Fedora 37 64bit'
         required: true
         type: boolean
       noble_64:
-        description: 'Build on RPI Ubuntu Noble 64bit'
+        description: 'RPI Ubuntu Noble 64bit'
         required: true
         type: boolean
 
