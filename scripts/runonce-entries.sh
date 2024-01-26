@@ -469,6 +469,7 @@ _EOF_"
   ;;
 esac
 
+
 hash -r
 fi
 EOF
