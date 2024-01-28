@@ -8,7 +8,7 @@ function install {
   status "Downloading the files and installing needed dependencies..."
   sleep 3
   #download git
-  sudo apt install git dialog unzip xmlstarlet lsb-release crudini python3-pyudev -y || error "Could not install dependencies"
+  sudo apt install git dialog unzip xmlstarlet lsb-release crudini python3-pyudev jq -y || error "Could not install dependencies"
   sudo apt install joycond -y
 
   cd ~
@@ -199,12 +199,13 @@ function install_binaries {
     cd "/tmp/Retropie-Binaries"
     mkdir $jetson_model
     cd $jetson_model
-    repo_folders=($(svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/))
+    command -v jq >/dev/null || sudo apt install -y jq
+    repo_folders=($(curl -sL -H "Accept: application/vnd.github+json" https://api.github.com/repos/theofficialgman/RetroPie-Binaries/contents/Binaries/$jetson_model | jq -r ".[].name"))
     for folder in ${repo_folders[@]}; do
       if [[ $folder == */ ]]; then
         folder=${folder::-1}
         status "Downloading Precompiled Binaries version info from Megascript for $folder"
-        repo_files=($(svn ls https://github.com/theofficialgman/RetroPie-Binaries/trunk/Binaries/$jetson_model/$folder/))
+        repo_files=($(curl -sL -H "Accept: application/vnd.github+json" https://api.github.com/repos/theofficialgman/RetroPie-Binaries/contents/Binaries/$jetson_model/$folder | jq -r ".[].name"))
         mkdir $folder
         cd $folder
         sudo mkdir -p /opt/retropie/$folder
