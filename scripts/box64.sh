@@ -30,6 +30,8 @@ case "$dpkg_architecture" in
 
   if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]]; then
     sudo apt install -y box64-tegrax1 || exit 1
+  elif [[ "$SOC_ID" == "tegra194" ]]; then
+    sudo apt install -y box64-t194 || exit 1
   elif [[ "$SOC_ID" == "rk3399" ]]; then
     sudo apt install -y box64-rk3399 || exit 1
   elif [[ "$SOC_ID" == "bcm2711" ]]; then
