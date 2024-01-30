@@ -6,7 +6,7 @@ echo "Box64 script started!"
 
 case "$dpkg_architecture" in
 "arm64")
-  sudo wget https://github.com/Pi-Apps-Coders/box64-debs/raw/master/box64.list -O /etc/apt/sources.list.d/box64.list
+  sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box64.list
     error "Failed to add box64.list file!"
@@ -14,7 +14,7 @@ case "$dpkg_architecture" in
 
   sudo rm -f /usr/share/keyrings/box64-debs-archive-keyring.gpg /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg
   sudo mkdir -p /etc/apt/trusted.gpg.d
-  wget -qO- https://Pi-Apps-Coders.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg > /dev/null
+  wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg > /dev/null
 
   if [ $? != 0 ];then
     sudo rm -f /etc/apt/sources.list.d/box64.list
