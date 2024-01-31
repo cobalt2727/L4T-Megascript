@@ -52,14 +52,9 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
     jammy)
       sudo apt install -y gcc-12 g++-12 || error "Failed to install dependencies!"
       ;;
-    *)
-      sudo apt install -y clang clang-tools clang-tidy clangd || error "Failed to install dependencies!"
-      # move more clang-specific deps out of the below apt install chunk and into the above line
-      # is mlir clang-specific?
-      ;;
     esac
 
-    sudo apt install -y build-essential curl git ninja-build lld zlib1g-dev libcurl4-openssl-dev \
+    sudo apt install -y clang clang-tools clang-tidy clangd build-essential curl git ninja-build lld zlib1g-dev libcurl4-openssl-dev \
       libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev libudev-dev \
       libpng-dev libncurses5-dev cmake libx11-xcb-dev python3 python-is-python3 qtbase5-dev qtchooser qt5-qmake \
       qtbase5-dev-tools libclang-dev libjack-jackd2-dev libxinerama-dev libxcursor-dev || error "Failed to install dependencies!" #libfmt-dev
