@@ -373,7 +373,7 @@ while [ $x == 1 ]; do
       echo "This user is running an unknown jetson model: $(tr -d '\0' </proc/device-tree/compatible)" >/tmp/output.txt
       send_error "/tmp/output.txt"
     fi
-    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program.\nRun the initial setup script if this is your first time!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
+    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "Welcome back to the main menu of the L4T Megascript, $USER!\n\nAdd a check from the choices in the GUI and then press INSTALL to configure the specified program." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --borders="20" --fixed --title "Welcome!" --text "You have $available_space of space left on your SD card! Make sure you don't use too much! \
     \n\n\Device Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0
     free=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
