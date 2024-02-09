@@ -74,22 +74,10 @@ git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull || error_user "Failed to download source code from GitHub!"
 
-git submodule update --init --recursive \
-Externals/mGBA \
-Externals/spirv_cross \
-Externals/zlib-ng \
-Externals/libspng \
-Externals/VulkanMemoryAllocator \
-Externals/cubeb \
-Externals/implot \
-Externals/gtest \
-Externals/rcheevos \
-Externals/fmt \
-Externals/lz4 \
-Externals/xxhash \
-Externals/enet \
-Externals/SDL \
-|| error_user "Failed to download submodules from GitHub!"
+git -c submodule."Externals/Qt".update=none \
+-c submodule."Externals/FFmpeg-bin".update=none \
+-c submodule."Externals/libadrenotools".update=none \
+submodule update --init --recursive || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
