@@ -1,7 +1,8 @@
 [Desktop Entry]
 Type=Application
-Icon=/usr/share/SRB2Kart/SRB2KartIcon.png
+Icon=/usr/local/SRB2Kart/SRB2KartIcon.png
 Name=Sonic Robo Blast 2 Kart
-Exec=bash -c 'cd /usr/share/SRB2Kart/assets/installer; /usr/share/SRB2Kart/SRB2Kart.sh'
+Comment=A kart racing mod based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2, based on a modified version of Doom Legacy.
+Exec=bash -c 'cd /usr/local/SRB2Kart; /usr/local/SRB2Kart/SRB2Kart.sh'
 Terminal=false
 Categories=Game

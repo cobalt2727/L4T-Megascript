@@ -1,1 +1,1 @@
-/usr/share/SRB2Kart/bin/srb2kart -opengl use_joystick1
+/usr/local/SRB2Kart/srb2kart -opengl use_joystick1
