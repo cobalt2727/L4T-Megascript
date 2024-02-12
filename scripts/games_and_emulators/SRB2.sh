@@ -73,6 +73,9 @@ test -f ~/.srb2/config.cfg || mv config.cfg ~/.srb2/config.cfg || error "The gam
 xdg-open /usr/local/SRB2/ || echo ""
 sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt && sudo touch /usr/local/SRB2/adedserv.cfg
 
+#why does 'sudo make install' not cover this properly.
+sudo cp /tmp/SRB2-Source-Code/assets/installer/models/ /usr/local/SRB2/models
+
 status "Erasing temporary build files to save space..."
 sudo rm -rf /tmp/SRB2* /tmp/srb2*
 echo
