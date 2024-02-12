@@ -12,6 +12,7 @@ cd /usr/share/applications
 sudo rm "Sonic Robo Blast 2.desktop"
 cd ~/RetroPie/roms/ports
 rm SRB2_retropie.sh
+sudo rm -rf /usr/local/SRB2/models
 cd ~
 
 status "Installing dependencies..."
@@ -73,8 +74,6 @@ xdg-open /usr/local/SRB2/ || echo ""
 sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt && sudo touch /usr/local/SRB2/adedserv.cfg
 
 status "Erasing temporary build files to save space..."
-sudo rm -rf /usr/local/SRB2/models #custom character models belong in ~/.srb2/models/ - wiping this to prevent non-empty directory errors on the next line is safe.
-#sudo mv /tmp/SRB2-Assets/* /usr/local/SRB2/ || error "The game installed, but we couldn't properly set up one or more desktop files!"
 sudo rm -rf /tmp/SRB2* /tmp/srb2*
 echo
 
