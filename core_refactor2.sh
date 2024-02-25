@@ -223,6 +223,10 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
+mkdir -p ~/L4T-Megascript/pi-apps/
+wget -O "$HOME/L4T-Megascript/pi-apps/api" https://raw.githubusercontent.com/Botspot/pi-apps/master/api
+chmod +x "$HOME/L4T-Megascript/pi-apps/api"
+
 if ! command -v lsb_release &>/dev/null; then
   echo "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again." | yad --center --window-icon="${DIRECTORY}/icons/logo.png" \
   --width=700 --height=300 --text-info --title="Error" \
@@ -629,6 +633,14 @@ while [ $x == 1 ]; do
         fi
         sed -i "1iDevice Info:\n\nOS: $PRETTY_NAME\nKernel Architecture: $architecture\nUserspace Architecture: $dpkg_architecture\nModel Name: $jetson_model $model" $logfile
         if [ "$script_exit_code" != 0 ]; then
+          # run pi-apps log diagnose function
+          if [ -f "$HOME/L4T-Megascript/pi-apps/api" ]; then
+            #given the app's logfile, categorize the error and set the error_type variable
+            diagnosis="$("$HOME/L4T-Megascript/pi-apps/api" log_diagnose "$logfile" "allowwrite")"
+
+            error_type="$(echo "$diagnosis" | head -n1)" #first line of diagnosis is the type of error
+            error_caption="$(echo "$diagnosis" | tail -n +2)" #subsequent lines of diagnosis are caption(s)
+          fi
           # check for internet connection died errors
           unset internet_died
           if grep -qF "Could not resolve host: github.com" "$logfile"; then
@@ -654,6 +666,11 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
 \nDo NOT complain about this. FIX your wifi, move closer to your router, or use Ethernet for a more stable connection.\
 \nError reporting has been disabled.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript? DO NOT CONTINUE until you fix your internet."
+            table=("Continue" "Exit")
+          elif [[ "$error_type" =~ ^(system|internet|package)$ ]];then
+            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+\nError reporting has been disabled since this is not an issue with the L4T-Megascript.\
+\n\n$error_caption"
             table=("Continue" "Exit")
           elif [[ "$script_exit_code" == 2 ]]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
