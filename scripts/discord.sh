@@ -56,9 +56,19 @@ then
     sudo yum -y install https://extras.getpagespeed.com/release-latest.rpm
     sudo yum -y install lastversion
 
+    # bootleg $dpkg_architecture on Fedora for the only two use cases we expect
+    fedoraArch=""
+    if grep -q "x86_64" <<<$(uname -m); then
+      fedoraArch="x86_64" #yes, really.
+    elif grep -q "aarch64" <<<$(uname -m); then
+      fedoraArch="arm64"
+    else
+      error_user "Your architecture $(uname -m) is not supported by this script!"
+    fi
+
     echo "Downloading and installing the most recent .rpm from SpacingBat3's repository..."
     # this command unfortunately doesn't work on Debian-based systems
-    yes | sudo lastversion install webcord || error "Webcord install failed"
+    yes | sudo lastversion install webcord --filter $fedoraArch.rpm || error "Webcord install failed"
 
   else
     error_user "Your architecture ($architecture) is not supported."
