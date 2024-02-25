@@ -15,7 +15,6 @@ then
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
     case "$__os_codename" in
     bionic)
-      ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
       sudo apt install -y python3.8 python3.8-dev
 
       #fix edge case with broken folder ownership that popped up in our GitHub Actions runs
@@ -28,7 +27,7 @@ then
       python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion || error "Couldn't install dependencies"
       ;;
     *)
-      python3 -m pip install --upgrade pip lastversion || error "Couldn't install dependencies"
+      python3 -m pip install --upgrade --force-reinstall pip lastversion || error "Couldn't install dependencies"
       ;;
     esac
 
