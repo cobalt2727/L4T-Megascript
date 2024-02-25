@@ -670,7 +670,8 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           elif [[ "$error_type" =~ ^(system|internet|package)$ ]];then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
 \nError reporting has been disabled since this is not an issue with the L4T-Megascript.\
-\n\n$error_caption"
+\n\n$error_caption\
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue" "Exit")
           elif [[ "$script_exit_code" == 2 ]]; then
             description="OH NO! The ${scripts[$word]} script exited with an error code!\
