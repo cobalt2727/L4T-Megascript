@@ -29,8 +29,8 @@ Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE
   case "$__os_codename" in
   bionic)
     echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."
-    curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
     ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+    curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
     if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
       ubuntu_ppa_installer "beineri/opt-qt-5.15.2-bionic"
     else
