@@ -65,12 +65,17 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 || error "Calling cmake failed"
-  ;;
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
 *)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ || error "Calling cmake failed"
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
   ;;
 esac
+if [ "$?" != 0 ]; then
+  # add debug logs about integrity of repo
+  git fsck --no-dangling --full
+  git submodule foreach --recursive git fsck --no-dangling --full
+  error "Calling cmake failed"
+fi
 
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
