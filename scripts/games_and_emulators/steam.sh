@@ -114,7 +114,7 @@ fi
 export STEAMOS=1
 export STEAM_RUNTIME=1
 export DBUS_FATAL_WARNINGS=0
-GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox -noreactlogin steam://open/minigameslist "$@"
+GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox "$@"
 
 rm -f /home/${USER}/Desktop/steam.desktop
 kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create steam launch script"
