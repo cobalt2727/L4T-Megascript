@@ -1,42 +1,44 @@
 #!/bin/bash
 
-##Import config files
-cd ~
-
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  sudo apt install subversion -y || error "Failed to install dependencies!"
+  #newer Git means we can utilize sparse checkouts, filters, etc. this script used to use svn to download repo subfolders before GitHub cut that off
+  ppa_name="git-core/ppa" && ppa_installer
+  sudo apt install git -y || error "Failed to install dependencies!"
   ;;
 Fedora)
-  sudo dnf install subversion -y || error "Failed to install dependencies!"
+  sudo dnf install git -y || error "Failed to install dependencies!"
   ;;
 *)
-  echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
+  echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install Git yourself from the package manager if you haven't already...\\e[39m"
   sleep 5
   ;;
 esac
 
-cd .config/
-mkdir -p dolphin-emu
-svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/Dolphin-Config
-cd Dolphin-Config/
-ls
-mv * ../dolphin-emu/
-cd ..
-rm -rf Dolphin-Config/
-cd ~
+cd /tmp
+rm -rf L4T-Megascript/
+git clone --filter=blob:none --sparse https://github.com/cobalt2727/L4T-Megascript
+cd L4T-Megascript/
+git sparse-checkout add assets/Dolphin-Config
+git sparse-checkout add assets/Dolphin || error "Could not download config files for Dolphin!"
+cd assets/
 
-##Import themes, game-specific settings, etc
-##why does dolphin store these separately from the above files on Linux smh
-cd .local/share/
-mkdir -p dolphin-emu
-cd dolphin-emu/
-svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/Dolphin
-cd Dolphin/
-mv * ..
+##Import config files
+cd Dolphin-Config/
+mkdir -p ~/.config/dolphin-emu/
+ls
+cp -r * ~/.config/dolphin-emu/
 cd ..
-rm -rf Dolphin/
+
+##Import themes, game-specific configs, etc
+cd Dolphin/
+mkdir -p ~/.local/share/dolphin-emu/
+ls
+cp -r * ~/.local/share/dolphin-emu/
+
+##Clean up download
 cd ~
+rm -rf /tmp/L4T-Megascript/
 
 ##Enable Switch/Wii U Gamecube adpater use
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
