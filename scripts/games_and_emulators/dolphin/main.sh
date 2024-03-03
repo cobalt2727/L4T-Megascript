@@ -33,7 +33,6 @@ sudo udevadm control --reload-rules
 sudo systemctl restart udev.service
 cd ~
 
-echo "What would you like to do?"
 echo -e "\e[36mNote that a FIRST-TIME install can take up to 40-60 minutes on a Switch.\e[0m"
 echo -e "\e[1;31mConnect your Switch to a charger!\e[0m"
 echo -e "\e[1;33mPlease close down ALL OTHER PROGRAMS while installing Dolphin to prevent crashes.\e[0m"
@@ -43,16 +42,17 @@ sleep 2
 # ##echo "3...............Build other variants of Dolphin from source (Primehack, Project+, etc)"
 # #echo "5...............Install Project+ (builds correctly, performance untested, PROBABLY SLOW)"
 
-table=('Install Dolphin (use our Auto Updater to update!)' "Install Dolphin WITHOUT performance settings")
+table=('Install Dolphin WITH performance settings' "Install Dolphin WITHOUT performance settings")
 description="What would you like to do?\
 \nNote that a FIRST-TIME install of Dolphin can take up to 40-60 minutes on a Switch.\
 \n\nConnecting your Switch to a charger is recommended.\
+\nUsing our performance settings will REPLACE your configuration (game save data unaffected).\
 \n\nYour Choices of Install are:"
 userinput_func "$description" "${table[@]}"
 
+echo "Building from source with device-specific optimizations..."
+cd ~
 if [[ $output == 'Install Dolphin (use our Auto Updater to update!)' ]]; then
-  echo "Building from source with device-specific optimizations..."
-  cd ~
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
 
