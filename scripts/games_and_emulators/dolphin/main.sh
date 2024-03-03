@@ -52,7 +52,7 @@ userinput_func "$description" "${table[@]}"
 
 echo "Building from source with device-specific optimizations..."
 cd ~
-if [[ $output == 'Install Dolphin (use our Auto Updater to update!)' ]]; then
+if [[ $output == 'Install Dolphin WITH performance settings' ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/config.sh)" || exit $?
 
