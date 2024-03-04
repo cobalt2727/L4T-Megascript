@@ -12,17 +12,8 @@ SystemFixUserInput="$output"
 ############UPDATER SCANNERS - SEE BELOW FOR MANUAL UPDATERS###########
 ##add more of these later!
 
-#tests if the Citra Emulator program exists, then asks to re-run the installer script if it's found, binding the user's response to DolphinUserInput
+#tests if the Dolphin Emulator program exists, then asks to re-run the installer script if it's found, binding the user's response to DolphinUserInput
 #reset the variable first to be safe...
-CitraUserInput="no"
-if test -f /usr/local/bin/citra-qt; then
-  description="Do you want to update Citra? (May take 5 to 40 minutes)"
-  table=("yes" "no")
-  userinput_func "$description" "${table[@]}"
-  CitraUserInput="$output"
-fi
-
-#Same as above, but for Dolphin, using the dolphin-emu binary as the test
 DolphinUserInput="no"
 if test -f /usr/local/bin/dolphin-emu; then
   description="Do you want to update Dolphin? (May take 5 to 40 minutes)"
@@ -242,14 +233,6 @@ echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
 
 #################MANUAL UPDATERS - SEE ABOVE FOR SCANNERS#################
-
-if [[ $CitraUserInput == "yes" ]]; then
-  echo "Updating Citra..."
-  sleep 5
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)" || exit $?
-else
-  echo "Skipping Citra update..."
-fi
 
 if [[ $DolphinUserInput == "yes" ]]; then
   echo "Updating Dolphin..."
