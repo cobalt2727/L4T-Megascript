@@ -32,8 +32,6 @@ fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube
 
 # fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
-fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
-
 # fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
