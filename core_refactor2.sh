@@ -191,7 +191,7 @@ if grep -q debian /etc/os-release; then
     sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt dist-upgrade -y; hash -r"
   fi
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb" "libxkbcommon-devel" "git")
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release" "libxkbcommon-devel" "git")
   if [[ $gui == "gui" ]]; then
     pkexec sh -c "dnf --refresh --best --allowerasing -y upgrade; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf --refresh --best --allowerasing -y upgrade; hash -r"
   else

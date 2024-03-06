@@ -83,7 +83,7 @@ if grep -q debian /etc/os-release; then
   hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   sudo dnf --refresh --best --allowerasing -y upgrade
-  sudo dnf install bash dialog gnutls curl yad zenity redhat-lsb libxkbcommon-devel -y
+  sudo dnf install bash dialog gnutls curl yad zenity lsb_release libxkbcommon-devel -y
   hash -r
 fi
 

@@ -38,7 +38,7 @@ if grep -q debian /etc/os-release; then
     sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; apt update; apt dist-upgrade -y; hash -r"
   fi
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "redhat-lsb")
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release")
   if [[ $gui == "gui" ]]; then
     pkexec sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; dnf upgrade -y; hash -r"
   else
