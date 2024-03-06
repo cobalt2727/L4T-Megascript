@@ -17,7 +17,7 @@ impish | focal | bionic)
   ;;
 esac
 
-sudo apt install -y cmake libsdl2-dev libxrandr-dev pkg-config qt6-base-dev qt6-base-private-dev qt6-base-dev-tools qt6-tools-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build qt6-l10n-tools qt6-tools-dev-tools || error "Could not install dependencies"
+sudo apt install -y gcc g++ cmake libsdl2-dev libxrandr-dev pkg-config qt6-base-dev qt6-base-private-dev qt6-base-dev-tools qt6-tools-dev libevdev-dev git libcurl4-gnutls-dev libgbm-dev libdrm-dev ninja-build qt6-l10n-tools qt6-tools-dev-tools || error "Could not install dependencies"
 
 git clone https://github.com/stenzek/duckstation
 cd duckstation
