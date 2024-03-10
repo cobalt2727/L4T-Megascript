@@ -98,6 +98,11 @@ sudo chown $USER:$USER $HOME/.local/share/flatpak
 #fix potential root-owned files from older NPM versions
 sudo chown -R 1001:1001 ~/.npm
 
+if [ -f /etc/apt/sources.list.d/flatpak-ubuntu-stable-jammy.list ]; then
+  warning "Removing flatpak-stable apt repo as it is not necessary on Ubuntu Jammy and causes conflicts. Do not add it back."
+  sudo rm -f /etc/apt/sources.list.d/flatpak-ubuntu-stable-jammy.list
+fi
+
 ##this is outside all the other y/n prompt runs at the bottom since you obviously need functioning repositories to do anything else
 if [[ $SystemFixUserInput == "yes" ]]; then
   echo
