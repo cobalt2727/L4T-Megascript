@@ -582,16 +582,21 @@ export -f add_english
 
 
 is_supported_system() { #return 0 if system is supported, otherwise return 1
-  if [ "$__os_codename" == focal ] && ( echo "$model" | grep -q "Nintendo Switch" || echo "$model" | grep -q [Ii]cosa ) ; then
-    echo "Switchroot does not support Ubuntu Focal on Nintendo Switch."
-    echo "Please reflash L4T Ubuntu Bionic or L4T Ubuntu Jammy (Beta)."
-    return 1
-  elif local frankendebian="$(apt-get indextargets --no-release-info --format '$(SITE) $(RELEASE)' | sort -u | awk 'NF==2 {print}' | grep "raspbian.raspberrypi.org/raspbian\|archive.raspberrypi.org/debian\|\
+  local PRETTY_NAME="$(cat /etc/os-release | grep PRETTY_NAME | tr -d '"' | awk -F= '{print $2}')"
+  local AVAILABLE_REPOS="$(apt-get indextargets --no-release-info --format '$(SITE) $(RELEASE) $(TARGET_OF)' | sort -u | awk '{if ($3=="deb") print $1" "$2 }')"
+  local DEFAULT_REPOS="$(echo "$AVAILABLE_REPOS" | grep "raspbian.raspberrypi.org/raspbian\|archive.raspberrypi.org/debian\|\
+raspbian.raspberrypi.com/raspbian\|archive.raspberrypi.com/debian\|\
 debian.org/debian\|security.debian.org/\|\
 ports.ubuntu.com\|esm.ubuntu.com/apps/ubuntu\|esm.ubuntu.com/infra/ubuntu\|\
 repo.huaweicloud.com/debian\|repo.huaweicloud.com/ubuntu-ports\|\
+deb-multimedia.org|\
 apt.pop-os.org\|\
-apt.armbian.com" | grep -v $__os_codename)" && [ ! -z "$frankendebian" ];then
+apt.armbian.com")"
+  if [ "$__os_codename" == focal ] && ( echo "$model" | grep -q "Nintendo Switch" || echo "$model" | grep -q [Ii]cosa ) ; then
+    echo "Switchroot does not support Ubuntu Focal on Nintendo Switch."
+    echo "Please reflash L4T Ubuntu Bionic or L4T Ubuntu Jammy."
+    return 1
+  elif local frankendebian="$(echo "$DEFAULT_REPOS" | grep -v $__os_codename)" && [ ! -z "$frankendebian" ];then
     echo "Congratulations, Linux tinkerer, you broke your system. You have made your system a FrankenDebian.
 This website explains your mistake in more detail: https://wiki.debian.org/DontBreakDebian
 Your current reported release (${__os_codename^}) should not be combined with other releases.
@@ -602,15 +607,27 @@ Specifically, the issue is $(wc -l <<<"$frankendebian" | grep -q 1 && echo 'this
       local release="$(echo "$line" | awk '{print $2}')"
       echo -e "\e[4m$line\e[24m in $(apt-get indextargets --no-release-info --format '$(SOURCESENTRY)' "Release: $release" "Site: $site" | awk -F':' '{print $1}' | sort -u)"
     done
-    echo "Your system might be recoverable if you did this recently and have not performed an apt dist-upgrade yet, but otherwise you should probably reinstall your OS."
+    echo "Your system might be recoverable if you did this recently and have not performed an apt upgrade yet, but otherwise you should probably reinstall your OS."
     return 1
   elif ! package_available init; then
     echo "Congratulations, Linux tinkerer, you broke your system. The init package can not be found, which means you have removed the default debian sources from your system.
 All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
     return 1
-  elif [ -z "$(apt-get indextargets --no-release-info --format '$(SITE) $(RELEASE)' | sort -u | awk 'NF==2 {print}')" ];then
+  elif [ -z "$AVAILABLE_REPOS" ];then
     echo "Congratulations, Linux tinkerer, you broke your system. You have removed ALL debian sources from your system.
 All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
+  elif [ "$__os_id" == "Ubuntu" ] && ! ( echo "$DEFAULT_REPOS" | grep -q $__os_codename && \
+    echo "$DEFAULT_REPOS" | grep -q $__os_codename-updates && \
+    echo "$DEFAULT_REPOS" | grep -q $__os_codename-security ); then
+    echo "MISSING Default Ubuntu Repositories!
+L4T-Megascript does NOT support systems without ALL of $__os_codename, $__os_codename-updates, and $__os_codename-security dists present in the sources.list
+Please refer to the default sources.list for Ubuntu and restore all required dists."
+    return 1
+  elif ! apt-get --dry-run check &>/dev/null ; then
+    echo "Congratulations, Linux tinkerer, you broke your system. There are packages on your system that are in a broken state.
+Refer to the output below for any potential solutions.
+
+$(apt-get --dry-run check)"
     return 1
   else
     return 0
