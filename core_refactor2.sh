@@ -554,7 +554,13 @@ while [ $x == 1 ]; do
         exit
       fi
       ;;
-    *) 
+    *)
+      #An apt repository's Packages file can be corrupted so that an apt update will silently fail. See: https://bugs.launchpad.net/ubuntu/+source/apt/+bug/1809174
+      #This line will fix the problem by removing any zero-size Packages files.
+      removal_list="$(find /var/lib/apt/lists -type f -name '*Packages' -size 0 2>/dev/null)"
+      if [ ! -z "$removal_list" ]; then
+        echo "$removal_list" | xargs sudo rm -f
+      fi
       update_output=$(sudo apt update 2>&1 | tee /dev/tty)
       echo "$update_output" | grep -qe '^Err:' -qe '^E:'
       if [[ $? == 0 ]]; then
