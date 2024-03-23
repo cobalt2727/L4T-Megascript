@@ -97,7 +97,7 @@ bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Me
 
 echo "Installing steam.deb"
 wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O /tmp/steam.deb || wget https://repo.steampowered.com/steam/archive/stable/steam_latest.deb -O /tmp/steam.deb || error "Failed to download steam.deb"
-sudo apt install --no-install-recommends -y /tmp/steam.deb || error "Failed to install steam.deb"
+sudo apt install --no-install-recommends --reinstall -y /tmp/steam.deb || error "Failed to install steam.deb"
 hash -r
 
 # steam UDEV rules conflict with HID-Nintendo/joycond, so disable the rules for Switch Pro Controller
