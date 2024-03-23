@@ -161,6 +161,16 @@ if [ -f /etc/switchroot_version.conf ]; then
 fi
 EOF
 
+#fix conflicting box86/box64 .list and .sources file
+runonce <<"EOF"
+if [ -f /etc/apt/sources.list.d/box64.list ] && [ -f /etc/apt/sources.list.d/box64.sources ]; then
+  sudo rm -f /etc/apt/sources.list.d/box64.list
+fi
+if [ -f /etc/apt/sources.list.d/box86.list ] && [ -f /etc/apt/sources.list.d/box86.sources ]; then
+  sudo rm -f /etc/apt/sources.list.d/box86.list
+fi
+EOF
+
 # fix ppa for out of date repos
 runonce <<"EOF"
 if ! package_is_new_enough flatpak 1.14.4 ;then
