@@ -411,6 +411,79 @@ debian_ppa_installer() {
 }
 export -f debian_ppa_installer
 
+add_external_repo() { # add an external apt repo and its gpg key.
+  # follows https://wiki.debian.org/DebianRepository/UseThirdParty specification with deb822 format https://repolib.readthedocs.io/en/latest/deb822-format.html
+  # required inputs
+  local reponame="$1"
+  local pubkeyurl="$2"
+  local uris="$3"
+  local suites="$4"
+  # potentially optional inputs
+  # components is not used when suite is an absolute path
+  local components="$5"
+  # additional options can be specified as the 6th, 7th, 8th, etc argument (eg: "Architectures: arm64")
+
+  # check if all needed vars are set  
+  [ -z "$reponame" ] && error "add_external_repo: reponame not set"
+  [ -z "$uris" ] && error "add_external_repo: uris not set"
+  [ -z "$suites" ] && error "add_external_repo: suites not set"
+  [ -z "$pubkeyurl" ] && error "add_external_repo: pubkeyurl not set"
+
+  # exit if reponame or uri or suite contains space
+  if [[ $reponame = *" "* ]] || [[ $uris = *" "* ]] || [[ $suites = *" "* ]]; then
+    error "add_external_repo: provided reponame contains a space."
+  fi
+
+  # check if links are valid
+  wget -q --spider "$pubkeyurl" || error "add_external_repo: pubkeyurl isn't a valid link"
+
+  # make apt keyring directory if it doesn't exist
+  if [ ! -d /usr/share/keyrings ]; then
+    sudo mkdir -p /usr/share/keyrings || error "add_external_repo: failed to create apt keyring directory."
+  fi
+
+  # check if .list file already exists
+  if [ -f /etc/apt/sources.list.d/${reponame}.list ]; then
+    sudo rm -f /etc/apt/sources.list.d/${reponame}.list || error "add_external_repo: failed to remove conflicting .list file."
+  fi
+
+  # check if .sources file already exists
+  if [ -f /etc/apt/sources.list.d/${reponame}.sources ]; then
+    sudo rm -f /etc/apt/sources.list.d/${reponame}.sources || error "add_external_repo: failed to remove conflicting .sources file."
+  fi
+
+  # download gpg key from specified url
+  if [ -f /usr/share/keyrings/${reponame}-archive-keyring.gpg ]; then
+    sudo rm -f /usr/share/keyrings/${reponame}-archive-keyring.gpg
+  fi 
+  wget -qO- "$pubkeyurl" | sudo gpg --dearmor -o /usr/share/keyrings/${reponame}-archive-keyring.gpg
+
+  if [ $? != 0 ];then
+    sudo rm -f /etc/apt/sources.list.d/${reponame}.sources
+    sudo rm -f /usr/share/keyrings/${reponame}-archive-keyring.gpg
+    error "add_external_repo: download from specified pubkeyurl failed."
+  fi
+
+  # create .sources file
+  echo "Types: deb
+URIs: $uris
+Suites: $suites" | sudo tee /etc/apt/sources.list.d/${reponame}.sources >/dev/null
+  if [ ! -z "$components" ]; then
+    echo "Components: $components" | sudo tee -a /etc/apt/sources.list.d/${reponame}.sources >/dev/null
+  fi
+  for input in "${@: 6}"; do
+    echo "$input" | sudo tee -a /etc/apt/sources.list.d/${reponame}.sources >/dev/null
+  done
+  echo "Signed-By: /usr/share/keyrings/${reponame}-archive-keyring.gpg" | sudo tee -a /etc/apt/sources.list.d/${reponame}.sources >/dev/null
+
+  if [ $? != 0 ];then
+    sudo rm -f /etc/apt/sources.list.d/${reponame}.sources
+    sudo rm -f /usr/share/keyrings/${reponame}-archive-keyring.gpg
+    error "add_external_repo: failed to create ${reponame}.list file"
+  fi
+}
+export -f add_external_repo
+
 pipx_install() {
   # install pipx keeping in mind distro issues
   # pipx <= 0.16.1 is compatible with 3.7 <= python3 < 3.9

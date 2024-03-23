@@ -20,20 +20,10 @@ sudo sed -i 's:^DISABLE_MESA_EGL="1":DISABLE_MESA_EGL="0":' /etc/systemd/nv.sh
 
 case "$dpkg_architecture" in
 "arm64")
-  sudo wget https://github.com/Pi-Apps-Coders/box86-debs/raw/master/box86.list -O /etc/apt/sources.list.d/box86.list
-  if [ $? != 0 ];then
-    sudo rm -f /etc/apt/sources.list.d/box86.list
-    error "Failed to add box86.list file!"
-  fi
+  add_external_repo "box86" "https://pi-apps-coders.github.io/box86-debs/KEY.gpg" "https://Pi-Apps-Coders.github.io/box86-debs/debian" "./" || exit 1
 
+  # remove deprecated keyring files
   sudo rm -f /usr/share/keyrings/box86-debs-archive-keyring.gpg /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg
-  sudo mkdir -p /etc/apt/trusted.gpg.d
-  wget -qO- https://Pi-Apps-Coders.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg > /dev/null
-
-  if [ $? != 0 ];then
-    sudo rm -f /etc/apt/sources.list.d/box86.list
-    error "Failed to add KEY.gpg to APT keyring!"
-  fi
 
   sudo apt update
 
