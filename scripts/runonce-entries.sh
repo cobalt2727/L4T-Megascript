@@ -252,6 +252,15 @@ bionic|focal|jammy)
 esac
 EOF
 
+# add git ppa
+runonce <<"EOF"
+case "$__os_codename" in
+xenial|bionic|focal|jammy|noble)
+  ubuntu_ppa_installer "git-core/ppa" || error "PPA failed to install"
+  ;;
+esac
+EOF
+
 # downgrade glibc to 2.27 on bionic if hack is present from years ago
 runonce <<"EOF"
 case "$__os_codename" in

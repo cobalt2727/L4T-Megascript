@@ -2,8 +2,6 @@
 
 case "$__os_id" in
 Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
-  #newer Git means we can utilize sparse checkouts, filters, etc. this script used to use svn to download repo subfolders before GitHub cut that off
-  ppa_name="git-core/ppa" && ppa_installer
   sudo apt install git -y || error "Failed to install dependencies!"
   ;;
 Fedora)
