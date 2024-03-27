@@ -62,7 +62,17 @@ if package_available libgles-dev ; then
 else
   sudo apt install build-essential git python3 libglew-dev libgles2-mesa-dev libsdl2-dev subversion -y || error "Dependency installs failed"
 fi
-svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
+
+#svn export https://github.com/$repository_username/L4T-Megascript/trunk/assets/SM64
+rm -rf L4T-Megascript/
+git clone --filter=blob:none --sparse https://github.com/cobalt2727/L4T-Megascript
+cd L4T-Megascript/
+git sparse-checkout add assets/SM64 || error "Could not download config files for Dolphin!"
+cd assets/
+cp -r * /tmp/
+cd /tmp
+rm -rf L4T-Megascript/
+
 git clone https://github.com/sm64pc/sm64ex.git
 cd sm64ex || error "Could not find folder"
 git pull || error "Could not pull latest source code"
@@ -97,7 +107,9 @@ echo
 sudo mv "/tmp/SM64/Super Mario 64.desktop" -t /usr/share/applications
 mkdir -p ~/.local/share/sm64ex
 cd ~/.local/share/sm64ex || error "Could not find folder"
-svn export https://github.com/gabomdq/SDL_GameControllerDB/trunk/gamecontrollerdb.txt
+# svn export https://github.com/gabomdq/SDL_GameControllerDB/trunk/gamecontrollerdb.txt
+# never mind the outdated GitHub username, WHY was that an svn command before???????
+wget https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/master/gamecontrollerdb.txt
 mv /tmp/SM64/sm64config.txt -t ~/.local/share/sm64ex
 rm -rf /tmp/SM64
 
