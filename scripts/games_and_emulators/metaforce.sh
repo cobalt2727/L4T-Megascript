@@ -25,7 +25,7 @@ esac
 
 echo "Installing dependencies..."
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   case "$__os_codename" in
   bionic)
     echo "18.04 detected - let's get you a newer version of Clang/LLVM/QT..."

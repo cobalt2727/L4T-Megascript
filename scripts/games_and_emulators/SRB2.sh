@@ -17,7 +17,7 @@ cd ~
 
 status "Installing dependencies..."
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   sudo apt install gcc g++ wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev freepats libgles2-mesa-dev -y || error "Dependency installs failed"
   ;;
 Fedora)

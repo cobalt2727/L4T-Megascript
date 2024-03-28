@@ -8,7 +8,7 @@ echo "Installing dependencies..."
 sleep 1
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
 
   # as of the following commit on October 30th, Dolphin requires QT 5.15 or higher (with the addition of setPlaceholderText)
   # https://github.com/dolphin-emu/dolphin/commit/053320b7cf5e1f4363c20edc9275cd352641cbd9

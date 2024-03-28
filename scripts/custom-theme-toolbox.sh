@@ -13,7 +13,7 @@ grep -v 'export QT_QPA_PLATFORMTHEME="gtk2"' ~/.profile >/tmp/.profile && mv /tm
 echo "Installing tools for management of QT settings and to build the theme installer..."
 # check out /etc/X11/Xsession.d/99qt5ct after installing QT5CT for info on how environment variables are set up - the environment variable doesn't apply on Plasma, maybe disable it manually on LXQT?
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   if [[ $(echo $XDG_CURRENT_DESKTOP) = 'Unity:Unity7:ubuntu' ]]; then
     sudo apt install unity-tweak-tool indicator-bluetooth indicator-sound hud -y
   elif echo $XDG_CURRENT_DESKTOP | grep -q 'GNOME'; then #multiple gnome variants exist out there, hence the different syntax - this'll also work on DEs like Budgie
@@ -140,7 +140,7 @@ git checkout patch-1
 ./scripts/prepare
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   #this line is broken on Debian 10, but with the proper PREFIX path (that I don't remember currently) this script WILL run correctly
   #version detection may be needed if Debian 11 hasn't fixed the qmake setup, but I haven't checked that
   #works on every Ubuntu version I've tested though -Cobalt

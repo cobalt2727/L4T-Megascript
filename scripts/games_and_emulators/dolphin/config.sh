@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   sudo apt install git -y || error "Failed to install dependencies!"
   ;;
 Fedora)
@@ -45,7 +45,7 @@ sudo rm -f /etc/udev/rules.d/51-usb-devices.rules
 sudo wget https://raw.githubusercontent.com/dolphin-emu/dolphin/master/Data/51-usb-device.rules -O /etc/udev/rules.d/51-usb-devices.rules
 sudo udevadm control --reload-rules
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   sudo systemctl restart udev.service
   ;;
 esac

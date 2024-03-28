@@ -7,7 +7,7 @@ sleep 1
 echo "Installing support for Wii U/Switch Nintendo Gamecube controller adapters..."
 # previous line this massive case statement replaced: sudo apt install udev libudev1 libudev-dev -y || error "Failed to install dependencies!"
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   package_available libudev-dev #this will install on mainstream distros
   if [[ $? == "0" ]]; then
     sudo apt install -y libudev-dev udev || error "Failed to install udev development libraries!"

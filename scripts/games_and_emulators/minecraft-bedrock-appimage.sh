@@ -9,7 +9,7 @@ sleep 1
 cd ~
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
   #the rewrite to use the repo cut off a few rare edge cases such as:
   # 32-bit architectures
   # Debian versions lower than 10

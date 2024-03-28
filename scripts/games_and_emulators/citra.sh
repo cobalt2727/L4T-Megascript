@@ -19,7 +19,7 @@ echo "Installing dependencies..."
 sleep 1
 
 case "$__os_id" in
-Raspbian | Debian | LinuxMint | Linuxmint | Ubuntu | [Nn]eon | Pop | Zorin | [eE]lementary | [jJ]ing[Oo][sS])
+Raspbian | Debian | Ubuntu)
 
   case "$__os_codename" in
   bionic | focal)
