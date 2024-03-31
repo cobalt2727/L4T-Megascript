@@ -667,7 +667,7 @@ apt.pop-os.org\|\
 apt.armbian.com")"
   if [ "$__os_codename" == focal ] && ( echo "$model" | grep -q "Nintendo Switch" || echo "$model" | grep -q [Ii]cosa ) ; then
     echo "Switchroot does not support Ubuntu Focal on Nintendo Switch."
-    echo "Please reflash L4T Ubuntu Bionic or L4T Ubuntu Jammy."
+    echo "Please install Switchroot Ubuntu Bionic or Switchroot Ubuntu Jammy."
     return 1
   elif local frankendebian="$(echo "$DEFAULT_REPOS" | grep -v $__os_codename)" && [ ! -z "$frankendebian" ];then
     echo "Congratulations, Linux tinkerer, you broke your system. You have made your system a FrankenDebian.
@@ -695,6 +695,14 @@ All apt based application installs will fail. Unless you have a backup of your /
     echo "MISSING Default Ubuntu Repositories!
 L4T-Megascript does NOT support systems without ALL of $__os_codename, $__os_codename-updates, and $__os_codename-security dists and main and universe components present in the sources.list
 Please refer to the default sources.list for Ubuntu and restore all required dists and components."
+    return 1
+  elif [ -f /etc/switchroot_version.conf ] && [ "$__os_id" == "Ubuntu" ] && ([ "$__os_codename" == "jammy" ] || [ "$__os_codename" == "noble" ]) && ! echo "$AVAILABLE_REPOS" | grep -q "https://theofficialgman.github.io/l4t-debs l4t $__os_codename"; then
+    echo "MISSING Default Switchroot Repository!
+Please reflash Switchroot Ubuntu ${__os_codename^}."
+    return 1
+  elif [ -f /etc/switchroot_version.conf ] && [ "$__os_id" == "Ubuntu" ] && [ "$__os_codename" == "bionic" ] && ! echo "$AVAILABLE_REPOS" | grep -q "https://newrepo.switchroot.org switchroot unstable"; then
+    echo "MISSING Default Switchroot Repository!
+Please reflash Switchroot Ubuntu ${__os_codename^}."
     return 1
   elif ! apt-get --dry-run check &>/dev/null ; then
     echo "Congratulations, Linux tinkerer, you broke your system. There are packages on your system that are in a broken state.
