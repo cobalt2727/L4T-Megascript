@@ -186,9 +186,18 @@ if grep -q debian /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls-bin" "curl" "yad" "zenity" "lsb-release" "software-properties-common" "git")
   ## Install dependencies if necessary
   dpkg -s "${dependencies[@]}" >/dev/null 2>&1 || if [[ $gui == "gui" ]]; then
-    pkexec sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt dist-upgrade -y; hash -r"
+    pkexec sh -c "apt update && apt-get dist-upgrade -y && apt-get install $(echo "${dependencies[@]}") -y && hash -r && $FUNC && repository_branch=$repository_branch && repository_username=$repository_username && add_desktop && apt update && apt dist-upgrade -y && hash -r"
   else
-    sudo sh -c "apt update; apt-get dist-upgrade -y; apt-get install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; apt update; apt dist-upgrade -y; hash -r"
+    sudo sh -c "apt update && apt-get dist-upgrade -y && apt-get install $(echo "${dependencies[@]}") -y && hash -r && $FUNC && repository_branch=$repository_branch && repository_username=$repository_username && add_desktop && apt update && apt dist-upgrade -y && hash -r"
+  fi
+
+  if [[ "$?" != 0 ]]; then
+    zenity \
+      --height="200" --width="400" \
+      --error --text="Required L4T-Megascript dependencies could not be installed.
+\nSee the log above for errors that the L4T-Megascript ran into on your system.
+\nIf you need help, copy the log and ask for help on our Discord!"
+    exit
   fi
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release" "libxkbcommon-devel" "git")
