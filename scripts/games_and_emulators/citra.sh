@@ -56,7 +56,10 @@ esac
 echo "Building Citra..."
 sleep 1
 cd ~
-git clone --recurse-submodules -j$(nproc) https://github.com/citra-emu/citra
+if [ -d "$HOME/citra" ] && (cd "$HOME/citra"; git remote get-url origin | grep -q "citra-emu/citra"); then
+  rm -rf ~/citra
+fi
+git clone --recurse-submodules -j$(nproc) https://github.com/PabloMK7/citra.git
 cd citra
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
@@ -65,10 +68,10 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
   ;;
 *)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCITRA_ENABLE_BUNDLE_TARGET=OFF -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
   ;;
 esac
 if [ "$?" != 0 ]; then
