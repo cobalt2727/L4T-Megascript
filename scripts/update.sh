@@ -23,6 +23,14 @@ if test -f /usr/local/bin/dolphin-emu; then
 fi
 
 #and so on and so forth.
+CitraUserInput="no"
+if test -f /usr/local/bin/citra-qt; then
+  description="Do you want to update Citra? (May take 5 to 40 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  CitraUserInput="$output"
+fi
+
 MelonDSUserInput="no"
 if test -f /usr/local/bin/melonDS; then
   description="Do you want to update melonDS? (May take 5 to 20 minutes)"
@@ -247,6 +255,14 @@ if [[ $DolphinUserInput == "yes" ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/dolphin/install.sh)" || exit $?
 else
   echo "Skipping Dolphin update..."
+fi
+
+if [[ $CitraUserInput == "yes" ]]; then
+  echo "Updating Citra..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)" || exit $?
+else
+  echo "Skipping Citra update..."
 fi
 
 if [[ $MelonDSUserInput == "yes" ]]; then
