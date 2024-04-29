@@ -255,7 +255,7 @@ EOF
 # add git ppa
 runonce <<"EOF"
 case "$__os_codename" in
-xenial|bionic|focal|jammy|noble)
+xenial|bionic|focal|jammy)
   ubuntu_ppa_installer "git-core/ppa" || error "PPA failed to install"
   ;;
 esac
