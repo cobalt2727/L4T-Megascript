@@ -90,7 +90,7 @@ rm -rf /tmp/virglrenderer
 # install sdl2
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/sdl2_install_helper.sh)" || error "Could not install SDL2"
 # installing dependencies
-sudo apt install -y libegl1-mesa:armhf libglx-mesa0:armhf libgles2-mesa:armhf libsdl2-2.0-0:arm64 libsdl2-2.0-0:armhf libsdl2-mixer-2.0-0:arm64 libgtk3-nocsd0:armhf libnss3:armhf libnm0:armhf libdbus-glib-1-2:armhf libudev1:armhf libnspr4:armhf libgudev-1.0-0:armhf libxtst6:armhf libsm6:armhf libice6:armhf libusb-1.0-0:armhf libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libxtst6 libsm6 libice6 libusb-1.0-0 || error "Could not install steam dependencies"
+sudo apt install -y libegl1:armhf libglx-mesa0:armhf libgles2:armhf libsdl2-2.0-0:arm64 libsdl2-2.0-0:armhf libsdl2-mixer-2.0-0:arm64 libgtk3-nocsd0:armhf libnss3:armhf libnm0:armhf libdbus-glib-1-2:armhf libudev1:armhf libnspr4:armhf libgudev-1.0-0:armhf libxtst6:armhf libsm6:armhf libice6:armhf libusb-1.0-0:armhf libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libxtst6 libsm6 libice6 libusb-1.0-0 || error "Could not install steam dependencies"
 
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box86.sh)" || exit $?
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
