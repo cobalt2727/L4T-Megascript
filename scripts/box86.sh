@@ -54,7 +54,7 @@ case "$dpkg_architecture" in
     box86_depends+=('libpng16-16:armhf')
   fi
 
-  sudo apt install -y ${box86_depends[@]} libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libstdc++6:armhf libopenal1:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Could install box86 dependencies"
+  sudo apt install -y ${box86_depends[@]} libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libstdc++6:armhf libopenal1:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Couldn't install box86 dependencies"
 
   if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]]; then
     sudo apt install -y box86-tegrax1:armhf || exit 1
@@ -78,7 +78,7 @@ case "$dpkg_architecture" in
   cd ~
   # gcc 7 produces errors when compiling on arm/arm64 on both box86 and box86
   # there is no available gcc-11 armhf cross compiler so the gcc-8 armhf cross compiler is used and it works fine
-  sudo apt install -y cmake git build-essential gcc-8-arm-linux-gnueabihf libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libgtk2.0-0:armhf libstdc++6:armhf libpng16-16:armhf libcal3d12v5:armhf libopenal1:armhf libcurl4:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Could install box86 dependencies"
+  sudo apt install -y cmake git build-essential gcc-8-arm-linux-gnueabihf libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libgtk2.0-0:armhf libstdc++6:armhf libpng16-16:armhf libcal3d12v5:armhf libopenal1:armhf libcurl4:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Couldn't install box86 dependencies"
 
   rm -rf box86
   git clone --depth=1 https://github.com/ptitSeb/box86.git
