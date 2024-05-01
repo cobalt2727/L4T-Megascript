@@ -67,7 +67,46 @@ if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+
   unset i
 fi
 
-sudo apt update
+case "$__os_id" in
+Fedora) 
+  sudo dnf --refresh check-update
+  if [[ $? == 1 ]]; then
+    # dnf check-update failed with an error
+    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
+    \n\n\Verify that you are connected to the internet. \
+    \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --button="Exit the L4T-Megascript":0
+    exit
+  fi
+  ;;
+*)
+  #An apt repository's Packages file can be corrupted so that an apt update will silently fail. See: https://bugs.launchpad.net/ubuntu/+source/apt/+bug/1809174
+  #This line will fix the problem by removing any zero-size Packages files.
+  removal_list="$(find /var/lib/apt/lists -type f -name '*Packages' -size 0 2>/dev/null)"
+  if [ ! -z "$removal_list" ]; then
+    echo "$removal_list" | xargs sudo rm -f
+  fi
+  grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+  grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
+  if [[ $? == 1 ]]; then
+    # fix for error (for some reason was never pulled into bionic...)
+    # http://launchpadlibrarian.net/384348932/appstream_0.12.2-1_0.12.2-2.diff.gz patch is seen at the bottom here
+    # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
+    # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
+    sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
+  fi     
+  update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+  echo "$update_output" | grep -qe '^Err:' -qe '^E:'
+  if [[ $? == 0 ]]; then
+    # apt update failed with an error
+    yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+    \n\n\Verify that you are connected to the internet. \
+    \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+      --button="Exit the L4T-Megascript":0
+    exit 1
+  fi   
+  ;;
+esac
 $2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)" &> >(tee -a "$logfile")
 
 if [ "$?" != 0 ]; then

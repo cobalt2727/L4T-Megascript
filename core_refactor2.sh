@@ -570,16 +570,6 @@ while [ $x == 1 ]; do
       if [ ! -z "$removal_list" ]; then
         echo "$removal_list" | xargs sudo rm -f
       fi
-      update_output=$(sudo apt update 2>&1 | tee /dev/tty)
-      echo "$update_output" | grep -qe '^Err:' -qe '^E:'
-      if [[ $? == 0 ]]; then
-        # apt update failed with an error
-        yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
-        \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
-          --button="Exit the L4T-Megascript":0
-        exit
-      fi
       grep -q '/dev/null | true;' /etc/apt/apt.conf.d/50appstream && sudo sed -i 's%/dev/null | true;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
       grep -q '/dev/null || true;' /etc/apt/apt.conf.d/50appstream
       if [[ $? == 1 ]]; then
@@ -588,8 +578,17 @@ while [ $x == 1 ]; do
         # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
         # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
         sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-        sudo apt update
-      fi      
+      fi     
+      update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+      echo "$update_output" | grep -qe '^Err:' -qe '^E:'
+      if [[ $? == 0 ]]; then
+        # apt update failed with an error
+        yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
+        \n\n\Verify that you are connected to the internet. \
+        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+          --button="Exit the L4T-Megascript":0
+        exit 1
+      fi   
       ;;
     esac
 
