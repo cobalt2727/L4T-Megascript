@@ -232,6 +232,8 @@ unset functions_downloaded
 source <(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/functions.sh)
 [[ ! -z ${functions_downloaded+z} ]] && status "Functions Loaded" || error_fatal "Oh no! Something happened to your internet connection! Exiting the Megascript - please fix your internet and try again!"
 
+add_english
+
 mkdir -p ~/L4T-Megascript/pi-apps/
 wget -O "$HOME/L4T-Megascript/pi-apps/api" https://raw.githubusercontent.com/Botspot/pi-apps/master/api
 chmod +x "$HOME/L4T-Megascript/pi-apps/api"
@@ -493,7 +495,6 @@ while [ $x == 1 ]; do
           while ! sudo -n true; do
             zenity --password 2>/dev/null | sudo -S echo "" 2>&1 >/dev/null
           done
-          add_english
         elif [[ "$output" == "0" ]] && [[ "$CHOICE" == "" ]]; then
           CHOICE=""
         elif [[ "$output" == "2" ]]; then
@@ -540,7 +541,6 @@ while [ $x == 1 ]; do
       continue
     else
       sudo -S echo ""
-      add_english
     fi
 
     echo "you have chosen $CHOICE"
