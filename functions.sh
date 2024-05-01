@@ -739,11 +739,19 @@ package_installed() { #exit 0 if $1 package is installed, otherwise exit 1
 }
 export -f package_installed
 
-package_available() { #determine if the specified package-name exists in a repository
-  local package="$1"
+package_available() { #determine if the specified package-name exists in a local repository for the current dpkg architecture
+  local package="$(awk -F: '{print $1}' <<<"$1")"
+  local dpkg_arch="$(awk -F: '{print $2}' <<<"$2")"
+  [ -z "$dpkg_arch" ] && dpkg_arch="$(dpkg --print-architecture)"
   [ -z "$package" ] && error "package_available(): no package name specified!"
-  #using grep to do this is nearly instantaneous, rather than apt-cache which takes several seconds
-  grep -rq "^Package: $package"'$' /var/lib/apt/lists/ 2>/dev/null
+  local output="$(apt-cache policy "$package":"$dpkg_arch" | grep "Candidate:")"
+  if [ -z "$output" ]; then
+    return 1
+  elif echo "$output" | grep -q "Candidate: (none)"; then
+    return 1
+  else
+    return 0
+  fi
 }
 export -f package_available
 

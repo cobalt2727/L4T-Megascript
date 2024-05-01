@@ -32,7 +32,29 @@ case "$dpkg_architecture" in
     sudo apt purge -y --allow-change-held-packages box86
   fi
 
-  sudo apt install -y libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libgtk2.0-0:armhf libstdc++6:armhf libpng16-16:armhf libcal3d12v5:armhf libopenal1:armhf libcurl4:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Could install box86 dependencies"
+  box86_depends=()
+  if package_available libcal3d12t64:armhf; then
+    box86_depends+=('libcal3d12t64:armhf')
+  else
+    box86_depends+=('libcal3d12v5:armhf')
+  fi
+  if package_available libgtk2.0-0t64:armhf; then
+    box86_depends+=('libgtk2.0-0t64:armhf')
+  else
+    box86_depends+=('libgtk2.0-0:armhf')
+  fi
+  if package_available libcurl4t64:armhf; then
+    box86_depends+=('libcurl4t64:armhf')
+  else
+    box86_depends+=('libcurl4:armhf')
+  fi
+  if package_available libpng16-16t64:armhf; then
+    box86_depends+=('libpng16-16t64:armhf')
+  else
+    box86_depends+=('libpng16-16:armhf')
+  fi
+
+  sudo apt install -y ${box86_depends[@]} libsdl2-image-2.0-0:armhf libsdl2-net-2.0-0:armhf libsdl2-2.0-0:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf libstdc++6:armhf libopenal1:armhf osspd:armhf libjpeg62:armhf libudev1:armhf || error "Could install box86 dependencies"
 
   if [[ "$SOC_ID" == "tegra-x1" ]] || [[ "$SOC_ID" == "tegra-x2" ]]; then
     sudo apt install -y box86-tegrax1:armhf || exit 1
