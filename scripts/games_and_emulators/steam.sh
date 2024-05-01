@@ -133,7 +133,9 @@ rm /tmp/steam.deb
 rm -f /home/${USER}/Desktop/steam.desktop
 
 if ! echo "$XDG_DATA_DIRS" | grep -q "/usr/local/share" || ! echo "$PATH" | grep -q "/usr/local/bin"; then
+  yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --borders="20" --fixed --title "WARNING!" --text "YOU NEED TO REBOOT before starting steam.\n\nThis is because Steam is the first application on your system to be installed into the /usr/local folder.\n\nIf you do NOT you WILL get unrecoverable ERRORS!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 --timeout=300
   warning "YOU NEED TO REBOOT before starting steam. This is because Steam is the first application on your system to be installed into the /usr/local folder."
 else
+  yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="300" --height="150" --borders="20" --fixed --title "WARNING!" --text "You should restart your system before trying to launch Steam otherwise errors may occur." --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 --timeout=300
   warning "You should restart your system before trying to launch Steam otherwise errors may occur."
 fi
