@@ -9,10 +9,6 @@ on:
         description: 'Helper Script name format'
         required: true
         default: ''
-      buster:
-        description: 'PiOS Buster'
-        required: true
-        type: boolean
       bullseye:
         description: 'PiOS Bullseye'
         required: true
@@ -28,16 +24,20 @@ on:
         - 64bit
         - 32bit
         - Both
-      bionic_64:
-        description: 'Switchroot Ubuntu Bionic'
+      l4t_bionic_64:
+        description: 'Build on Switchroot Ubuntu Bionic 64bit'
         required: true
         type: boolean
-      focal_64:
-        description: 'Nvidia Jetpack 35.4.1 Focal'
+      l4t_focal_64:
+        description: 'Build on Nvidia Jetpack 35.3.1 Focal 64bit'
         required: true
         type: boolean
       l4t_jammy_64:
-        description: 'Switchroot Ubuntu Jammy'
+        description: 'Build on Switchroot Ubuntu Jammy 64bit'
+        required: true
+        type: boolean
+      l4t_noble_64:
+        description: 'Build on Switchroot Ubuntu Noble 64bit'
         required: true
         type: boolean
       fedora_39_64:
@@ -53,46 +53,6 @@ run-name: Testing ${{ inputs.name }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  buster-32bit:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.buster && ( inputs.architecture == '32bit' || inputs.architecture == 'Both' ) }}
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - name: Test installing app on buster armhf
-        uses: theofficialgman/arm-runner-action@v12
-        with:
-          # this is a buster armhf image
-          base_image: https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2023-05-03/2023-05-03-raspios-bullseye-armhf.img.xz
-          # bind mount the directory so any changes propogate to outside the chroot
-          bind_mount_repository: yes
-
-          # give the image more space
-          image_additional_mb: 5000
-          
-          # set CPUs to use
-          cpu: cortex-a7:cortex-a72
-          
-          # user runner name as default path
-          copy_repository_path: /home/runner/L4T-Megascript
-          
-          # export github env back to outside the chroot
-          export_github_env: yes
-          
-          import_github_env: true
-
-          # set shell to bash
-          shell: /bin/bash
-          commands: |
-            export name="${{ inputs.name }}"
-            # since stable Debian releases tend to have outdated libraries, we'll enable the backports repo here to get some slightly newer stuff needed for a few scripts
-            echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
-            ./.github/workflows/test_build_commands.sh
-
   bullseye-32bit:
     runs-on: ubuntu-latest
     if: ${{ inputs.bullseye && ( inputs.architecture == '32bit' || inputs.architecture == 'Both' ) }}
@@ -106,7 +66,7 @@ jobs:
           image_additional_mb: 5000
           cpu: cortex-a7:cortex-a72
           cpu_info: cpuinfo/raspberrypi_4b
-          copy_repository_path: /home/runner/pi-apps
+          copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
           shell: /bin/bash
@@ -129,36 +89,13 @@ jobs:
           image_additional_mb: 5000
           cpu: cortex-a7:cortex-a72
           cpu_info: cpuinfo/raspberrypi_4b
-          copy_repository_path: /home/runner/pi-apps
-          export_github_env: yes
-          import_github_env: true
-          shell: /bin/bash
-          commands: |
-            export name="${{ inputs.name }}"
-            echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
-            ./.github/workflows/test_build_commands.sh
-
-  buster-64bit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.buster && ( inputs.architecture == '64bit' || inputs.architecture == 'Both' ) }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test installing app on buster arm64
-        uses: theofficialgman/arm-runner-action@v12
-        with:
-          base_image: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-05-28/2021-05-07-raspios-buster-arm64.zip
-          bind_mount_repository: yes
-          image_additional_mb: 5000          
-          cpu: cortex-a7:cortex-a72
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
           shell: /bin/bash
           commands: |
             export name="${{ inputs.name }}"
-            # since stable Debian releases tend to have outdated libraries, we'll enable the backports repo here to get some slightly newer stuff needed for a few scripts
-            echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
+            echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
   bullseye-64bit:
@@ -205,13 +142,12 @@ jobs:
             echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
             ./.github/workflows/test_build_commands.sh
 
-  bionic-64bit:
+  l4t-bionic-64bit:
     runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.bionic_64 }}
+    if: ${{ inputs.l4t_bionic_64 }}
     steps:
       - uses: actions/checkout@v3
-      - name: Test installing app on bionic arm64
+      - name: Test installing app on L4T bionic arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
           base_image: https://download.switchroot.org/ubuntu/switchroot-ubuntu-5.1.1-2023-06-12.7z
@@ -230,10 +166,9 @@ jobs:
             export name="${{ inputs.name }}"
             ./.github/workflows/test_build_commands.sh
 
-  focal-64bit:
+  l4t-focal-64bit:
     runs-on: ubuntu-latest
-    timeout-minutes: 720
-    if: ${{ inputs.focal_64 }}
+    if: ${{ inputs.l4t_focal_64 }}
     steps:
       - uses: actions/checkout@v3
       - name: Clear up some disk space
@@ -244,10 +179,10 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-      - name: Test installing app on focal arm64
+      - name: Test installing app on L4T focal arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v4.1/jp512-xnx-sd-card-image.zip
+          base_image: https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v3.1/sd_card_b49/jp511-xnx-sd-card-image.zip
           bootpartition:
           rootpartition: 1
           bind_mount_repository: yes
@@ -264,7 +199,6 @@ jobs:
 
   l4t-jammy-64bit:
     runs-on: ubuntu-latest
-    timeout-minutes: 720
     if: ${{ inputs.l4t_jammy_64 }}
     steps:
       - uses: actions/checkout@v3
@@ -272,6 +206,30 @@ jobs:
         uses: theofficialgman/arm-runner-action@v12
         with:
           base_image: https://download.switchroot.org/ubuntu-jammy/theofficialgman-ubuntu-jammy-5.1.2-2024-03-29.7z
+          # add special arguments for switchroot image format
+          bootpartition:
+          rootpartition: 1
+          bind_mount_repository: yes
+          image_additional_mb: 5000
+          # use TX1 ARM CPU cores
+          cpu: cortex-a7:cortex-a57
+          copy_repository_path: /home/runner/L4T-Megascript
+          export_github_env: yes
+          import_github_env: true
+          shell: /bin/bash
+          commands: |
+            export name="${{ inputs.name }}"
+            ./.github/workflows/test_build_commands.sh
+
+  l4t-noble-64bit:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.l4t_noble_64 }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test installing app on L4T noble arm64
+        uses: theofficialgman/arm-runner-action@v12
+        with:
+          base_image: https://github.com/theofficialgman/testing/releases/download/gmans-releases/theofficialgman-ubuntu-noble-5.1.2-2024-04-28.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
@@ -329,7 +287,7 @@ jobs:
       - name: Test installing app on L4T noble arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://cdimage.ubuntu.com/daily-preinstalled/current/noble-preinstalled-desktop-arm64+raspi.img.xz
+          base_image: https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-preinstalled-desktop-arm64+raspi.img.xz
           bind_mount_repository: yes
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
