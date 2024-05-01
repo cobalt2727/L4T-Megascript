@@ -5,8 +5,13 @@ arch=$(dpkg --print-architecture)
 echo "Installing the $arch build of Visual Studio Code directly from Microsoft..."
 sleep 1
 
-##need a newer debugger?
-ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+
+case "$__os_codename" in
+bionic|focal|jammy)
+  ##need a newer debugger?
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+  ;;
+esac
 ##i'd be surprised if the first two weren't already installed, but...
 sudo apt install wget gpg gdb -y
 

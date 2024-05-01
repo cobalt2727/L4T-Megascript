@@ -1,7 +1,7 @@
 echo "Started Prusaslicer Build Script"
 echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+package_available gcc-11 || ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
 case "$__os_codename" in
 bionic)
