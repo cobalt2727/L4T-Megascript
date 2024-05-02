@@ -25,7 +25,7 @@ Raspbian | Debian | Ubuntu)
     # maybe check if Unity is installed here as a fallback - CLI installs won't detect ANY desktop using the above methods
   fi
 
-  sudo apt install -y qt5ct git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils python3-dbus
+  sudo apt install -y build-essential qt5ct git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils python3-dbus
 
   sudo apt install -y
   package_available qt5-default
