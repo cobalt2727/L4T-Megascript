@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on bullseye armhf
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2023-05-03/2023-05-03-raspios-bullseye-armhf.img.xz
           bind_mount_repository: yes
@@ -82,7 +82,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on bookworm armhf
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://downloads.raspberrypi.com/raspios_armhf/images/raspios_armhf-2023-12-06/2023-12-05-raspios-bookworm-armhf.img.xz
           bind_mount_repository: yes
@@ -105,7 +105,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on bullseye arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://downloads.raspberrypi.org/raspios_oldstable_arm64/images/raspios_oldstable_arm64-2023-12-06/2023-12-05-raspios-bullseye-arm64.img.xz
           bind_mount_repository: yes
@@ -127,7 +127,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on bookworm arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64.img.xz
           bind_mount_repository: yes
@@ -148,7 +148,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on L4T bionic arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://download.switchroot.org/ubuntu/switchroot-ubuntu-5.1.1-2023-06-12.7z
           # add special arguments for switchroot image format
@@ -158,6 +158,8 @@ jobs:
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
           cpu: cortex-a7:cortex-a57
+          cpu_info: cpuinfo/nintendo_switch_2017
+          compatible: compatible/nintendo_switch_2017
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
@@ -180,7 +182,7 @@ jobs:
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Test installing app on L4T focal arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v3.1/sd_card_b49/jp511-xnx-sd-card-image.zip
           bootpartition:
@@ -203,7 +205,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on L4T jammy arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://download.switchroot.org/ubuntu-jammy/theofficialgman-ubuntu-jammy-5.1.2-2024-03-29.7z
           # add special arguments for switchroot image format
@@ -213,6 +215,8 @@ jobs:
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
           cpu: cortex-a7:cortex-a57
+          cpu_info: cpuinfo/nintendo_switch_2017
+          compatible: compatible/nintendo_switch_2017
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
@@ -227,7 +231,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on L4T noble arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://github.com/theofficialgman/testing/releases/download/gmans-releases/theofficialgman-ubuntu-noble-5.1.2-2024-04-28.7z
           # add special arguments for switchroot image format
@@ -237,6 +241,8 @@ jobs:
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
           cpu: cortex-a7:cortex-a57
+          cpu_info: cpuinfo/nintendo_switch_2017
+          compatible: compatible/nintendo_switch_2017
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
@@ -260,7 +266,7 @@ jobs:
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Test installing app on fedora 39 arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://download.azka.li/stable/fedora/switch-kde-2024-04-29.7z
           # add special arguments for switchroot image format
@@ -270,6 +276,8 @@ jobs:
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
           cpu: cortex-a7:cortex-a57
+          cpu_info: cpuinfo/nintendo_switch_2017
+          compatible: compatible/nintendo_switch_2017
           copy_repository_path: /home/runner/L4T-Megascript
           export_github_env: yes
           import_github_env: true
@@ -285,7 +293,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test installing app on L4T noble arm64
-        uses: theofficialgman/arm-runner-action@v12
+        uses: theofficialgman/arm-runner-action@v13
         with:
           base_image: https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-preinstalled-desktop-arm64+raspi.img.xz
           bind_mount_repository: yes
