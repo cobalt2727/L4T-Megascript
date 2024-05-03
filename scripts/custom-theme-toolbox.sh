@@ -28,15 +28,13 @@ Raspbian | Debian | Ubuntu)
   sudo apt install -y build-essential qt5ct git qt5-qmake make qml-module-qtquick-controls qtdeclarative5-dev libqt5svg5-dev libcanberra-gtk-module xdg-desktop-portal xdg-utils python3-dbus
 
   sudo apt install -y
-  package_available qt5-default
-  if [[ $? == "0" ]]; then
+  if package_available qt5-default ; then
     sudo apt install -y qt5-default || error "Failed to install dependencies"
   fi
 
-  package_available qt6ct
-  if [[ $? == "0" ]]; then
+  if package_available qt6ct ; then
     echo "Installing QT6CT for management of QT6 settings..."
-    sudo apt install -y qt6ct qt6-gtk-platformtheme qt6-xdgdesktopportal-platformtheme || error "Failed to install QT6 settings!"
+    sudo apt install -y qt6ct qt6-xdgdesktopportal-platformtheme || error "Failed to install QT6 settings!"
   else
     echo "Compiling QT6CT for management of QT6 settings..."
     # use Owen Kirby's QT6 PPA when testing this
@@ -49,25 +47,28 @@ Raspbian | Debian | Ubuntu)
 
     sudo apt install -y qt6-base-dev libqt6svg6-dev qt6-tools-dev libgtk2.0-dev qt6-base-private-dev qt6-l10n-tools || error "Failed to install dependencies!" #this is definitely missing dependencies, add more
 
-    #GTK support for QT6
-    cd ~
-    git clone https://github.com/trialuser02/qt6gtk2
-    cd qt6gtk2 || error_user "Failed to download source code from GitHub!"
-    git pull
-    qmake6 . || error "qmake failed!"
-    make -j$(nproc) || error "make failed!"
-    sudo make install || error "make install failed!"
-    cd ~
-
     #theme selection tool for QT6
-    cd ~
-    git clone https://github.com/trialuser02/qt6ct
+    cd /tmp
+    git clone --depth=1 https://github.com/trialuser02/qt6ct
     cd qt6ct || error_user "Failed to download source code from GitHub!"
-    git pull
     qmake6 . || error "qmake failed!"
     make -j$(nproc) || error "make failed!"
     sudo make install || error "make install failed!"
-    cd ~
+  fi
+
+  if package_available qt6-gtk2-platformtheme ; then
+    if ! package_installed qt6-gtk2-platformtheme ; then
+      sudo apt install qt6-gtk2-platformtheme -y || error "Failed to install QT6 GTK2 Platform theme"
+    fi
+  else
+    #GTK support for QT6
+    cd /tmp
+    rm -rf qt6gtk2
+    git clone --depth=1 https://github.com/trialuser02/qt6gtk2
+    cd qt6gtk2 || error_user "Failed to download source code from GitHub!"
+    qmake6 . || error "qmake failed!"
+    make -j$(nproc) || error "make failed!"
+    sudo make install || error "make install failed!"
   fi
 
   ;;
