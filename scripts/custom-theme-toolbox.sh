@@ -54,6 +54,8 @@ Raspbian | Debian | Ubuntu)
     qmake6 . || error "qmake failed!"
     make -j$(nproc) || error "make failed!"
     sudo make install || error "make install failed!"
+    cd ..
+    rm -rf /tmp/qt6ct
   fi
 
   if package_available qt6-gtk2-platformtheme ; then
@@ -69,6 +71,8 @@ Raspbian | Debian | Ubuntu)
     qmake6 . || error "qmake failed!"
     make -j$(nproc) || error "make failed!"
     sudo make install || error "make install failed!"
+    cd ..
+    rm -rf /tmp/qt6gtk2
   fi
 
   ;;
