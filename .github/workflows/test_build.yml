@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.bullseye && ( inputs.architecture == '32bit' || inputs.architecture == 'Both' ) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on bullseye armhf
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.bookworm && ( inputs.architecture == '32bit' || inputs.architecture == 'Both' ) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on bookworm armhf
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -103,7 +103,7 @@ jobs:
     timeout-minutes: 720
     if: ${{ inputs.bullseye && ( inputs.architecture == '64bit' || inputs.architecture == 'Both' ) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on bullseye arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -125,7 +125,7 @@ jobs:
     timeout-minutes: 720
     if: ${{ inputs.bookworm && ( inputs.architecture == '64bit' || inputs.architecture == 'Both' ) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on bookworm arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -146,7 +146,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.l4t_bionic_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on L4T bionic arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.l4t_focal_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Clear up some disk space
         run: |
           # Workaround to provide additional free space for testing.
@@ -201,7 +201,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.l4t_jammy_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on L4T jammy arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -225,7 +225,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.l4t_noble_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on L4T noble arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -250,7 +250,7 @@ jobs:
     timeout-minutes: 720
     if: ${{ inputs.fedora_39_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Clear up some disk space
         run: |
           # Workaround to provide additional free space for testing.
@@ -283,7 +283,7 @@ jobs:
     timeout-minutes: 720
     if: ${{ inputs.noble_64 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Test installing app on L4T noble arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
