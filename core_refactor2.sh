@@ -169,7 +169,7 @@ if grep -q debian /etc/os-release; then
       zenity \
         --height="200" --width="400" \
         --question --text="ERROR: The $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') package architecture(s) has been detected on your system.\
-\n\nYour $model is an ARM64 device and can NOT run $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') packages.\
+\n\nYou are running an ARM64 device and can NOT run $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') packages.\
 \nScripts designed to run on x86 such as PlayOnLinux usually cause this and should never be run.\
 \n\nContinuing without removal of the $(dpkg --print-foreign-architectures | xargs | sed 's/armhf//g') architecture will likely break apt." \
         --ok-label="Fix install: Remove i386/amd64 architecture" \
