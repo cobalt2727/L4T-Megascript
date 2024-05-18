@@ -100,6 +100,11 @@ wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O /tmp/steam.de
 sudo apt install --no-install-recommends --reinstall -y /tmp/steam.deb || error "Failed to install steam.deb"
 hash -r
 
+# remove steam update notifier
+# this is a racecondition whether this will happen before the daemon finds the file and makes update available notitification
+# removing the file does prevent the "start steam" prompt from showing even if the user has been notified that there is an update
+sudo rm -f /var/lib/update-notifier/user.d/steam-install-notify
+
 # steam UDEV rules conflict with HID-Nintendo/joycond, so disable the rules for Switch Pro Controller
 # sudo sed -i 's/^KERNEL=="hidraw\*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
 # sudo sed -i 's/^KERNEL=="hidraw\*", KERNELS=="\*057E:2009\*", MODE="0660", TAG+="uaccess"/#KERNEL=="hidraw*", KERNELS=="*057E:2009*", MODE="0660", TAG+="uaccess"/g' /lib/udev/rules.d/60-steam-input.rules
@@ -127,6 +132,10 @@ sudo chmod +x /usr/local/bin/steam
 # if a matching name .desktop file is found in /usr/local/share/applications it takes priority over /usr/share/applications
 sudo cp /usr/share/applications/steam.desktop /usr/local/share/applications/steam.desktop
 sudo sed -i 's:Exec=/usr/bin/steam:Exec=/usr/local/bin/steam:' /usr/local/share/applications/steam.desktop
+
+# remove official steam.desktop
+# this will prevent users from installing steam and launching it before /usr/local/share/applications/ is in the application search path
+sudo rm -f /usr/share/applications/steam.desktop
 
 # remove deb
 rm /tmp/steam.deb
