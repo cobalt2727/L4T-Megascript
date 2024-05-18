@@ -141,5 +141,6 @@ sudo rm -f /usr/share/applications/steam.desktop
 rm /tmp/steam.deb
 rm -f /home/${USER}/Desktop/steam.desktop
 
-yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --borders="20" --fixed --title "WARNING!" --text "YOU NEED TO REBOOT before starting steam.\n\nDo NOT run Steam via any popups!\n\nIf you do NOT REBOOT you WILL get unrecoverable ERRORS!" --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 --timeout=300
-warning "YOU NEED TO REBOOT before starting steam. Do NOT run Steam via any popups!"
+yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --borders="20" --fixed --title 'WARNING!' --text 'YOU NEED TO REBOOT before starting steam.\n\nDo NOT run Steam via any popups!\n\nIf you do NOT REBOOT you WILL get unrecoverable ERRORS!' --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 &
+disown
+warning 'YOU NEED TO REBOOT before starting steam. Do NOT run Steam via any popups!'
