@@ -9,7 +9,7 @@ else
   error "glslang-tools is not available so mangohud can not be compiled and installed"
 fi
 
-sudo apt install ninja-build git build-essential python3-mako -y || error "Could not install apt dependencies"
+sudo apt install ninja-build git build-essential cmake libx11-dev libwayland-dev libdbus-1-dev libxkbcommon-dev python3-mako -y || error "Could not install apt dependencies"
 if package_is_new_enough meson 0.60.0 ;then
   sudo apt install -y meson || error "Could not install apt dependencies"
 else
