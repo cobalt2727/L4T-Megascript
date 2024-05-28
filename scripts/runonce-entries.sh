@@ -440,7 +440,7 @@ _EOF_"
     # install the gnome software center flatpak plugin
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
-  "540.2.0")
+  "540.2.0"|"540.3.0")
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     flatpak override --user --device=all
