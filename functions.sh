@@ -70,12 +70,27 @@ function get_system {
   # nvidia, in their official L4T (Linux for Tegra) releases 32.X and 34.X, set a distinct tegra family in the device tree /proc/device-tree/compatible
   if [[ -e "/proc/device-tree/compatible" ]]; then
     CHIP="$(tr -d '\0' </proc/device-tree/compatible)"
-    if [[ ${CHIP} =~ "tegra186" ]]; then
-      jetson_chip_model="t186"
-      jetson_model="tegra-x2"
+    if [[ ${CHIP} =~ "tegra20" ]]; then
+      jetson_chip_model="t20"
+      jetson_model="tegra-2"
+    elif [[ ${CHIP} =~ "tegra30" ]]; then
+      jetson_chip_model="t30"
+      jetson_model="tegra-3"
+    elif [[ ${CHIP} =~ "tegra114" ]]; then
+      jetson_chip_model="t114"
+      jetson_model="tegra-4"
+    elif [[ ${CHIP} =~ "tegra124" ]]; then
+      jetson_chip_model="t124"
+      jetson_model="tegra-k1-32"
+    elif [[ ${CHIP} =~ "tegra132" ]]; then
+      jetson_chip_model="t132"
+      jetson_model="tegra-k1-64"
     elif [[ ${CHIP} =~ "tegra210" ]]; then
       jetson_chip_model="t210"
       jetson_model="tegra-x1"
+    elif [[ ${CHIP} =~ "tegra186" ]]; then
+      jetson_chip_model="t186"
+      jetson_model="tegra-x2"
     elif [[ ${CHIP} =~ "tegra194" ]]; then
       jetson_chip_model="t194"
       jetson_model="xavier"
