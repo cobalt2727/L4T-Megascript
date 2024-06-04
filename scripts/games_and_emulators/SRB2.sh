@@ -21,7 +21,7 @@ Raspbian | Debian | Ubuntu)
   sudo apt install gcc g++ wget libsdl2-dev libsdl2-mixer-dev cmake extra-cmake-modules subversion libupnp-dev libgme-dev libopenmpt-dev curl libcurl4-gnutls-dev libpng-dev freepats libgles2-mesa-dev -y || error "Dependency installs failed"
   ;;
 Fedora)
-  sudo dnf install -y wget cmake unzip git git-lfs SDL2-devel SDL2_mixer-devel libcurl-devel libopenmpt-devel game-music-emu-devel libpng-devel zlib-devel || error "Dependency installs failed"
+  sudo dnf install -y wget cmake gcc unzip git git-lfs SDL2-devel SDL2_mixer-devel libcurl-devel libopenmpt-devel game-music-emu-devel libpng-devel zlib-devel || error "Dependency installs failed"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.srb2.org/wiki/Source_code_compiling/CMake if you haven't already...\\e[39m"
