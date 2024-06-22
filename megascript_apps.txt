@@ -36,6 +36,8 @@ fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
 
 fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
 
+fn="mGBA";;d="A new generation of Game Boy Advance emulation";;sn="mGBA.sh";;f="games_and_emulators"
+
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
 fn="SRB2Kart";;d="A kart racing game using SRB2 as a base";;sn="SRB2Kart.sh";;f="games_and_emulators"
