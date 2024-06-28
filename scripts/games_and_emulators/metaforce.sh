@@ -49,6 +49,9 @@ Raspbian | Debian | Ubuntu)
     jammy)
       sudo apt install -y gcc-12 g++-12 || error "Failed to install dependencies!"
       ;;
+    focal) #need libstdc++
+      ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+      ;;
     esac
 
     sudo apt install -y clang clang-tools clang-tidy clangd build-essential curl git ninja-build lld zlib1g-dev libcurl4-openssl-dev \
