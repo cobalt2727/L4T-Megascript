@@ -75,11 +75,11 @@ Raspbian | Debian | Ubuntu)
     fi
     ;;
   esac
-  sudo apt install udev libudev1 libudev-dev -y
+  sudo apt install udev libudev1 libudev-dev python3-markupsafe -y
   ;;
 Fedora)
   # this is so much nicer.
-  sudo dnf install -y systemd-devel cmake vulkan-headers ninja-build clang-devel llvm-devel libpng-devel || error "Failed to install dependencies"
+  sudo dnf install -y systemd-devel cmake vulkan-headers ninja-build clang-devel llvm-devel libpng-devel python-markupsafe || error "Failed to install dependencies"
   sudo dnf groupinstall "Development Tools" "Development Libraries" -y || error "Failed to install dependencies"
   ;;
 *)
