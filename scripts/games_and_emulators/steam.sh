@@ -119,7 +119,7 @@ fi
 export STEAMOS=1
 export STEAM_RUNTIME=1
 export DBUS_FATAL_WARNINGS=0
-GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox "$@"
+GALLIUM_DRIVER=virpipe BOX64_LOG=1 BOX86_LOG=1 BOX64_TRACE_FILE=stderr BOX86_TRACE_FILE=stderr BOX64_EMULATED_LIBS=libmpg123.so.0 /usr/lib/steam/bin_steam.sh -no-cef-sandbox "$@"
 
 rm -f /home/${USER}/Desktop/steam.desktop
 kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create steam launch script"
@@ -130,7 +130,7 @@ sudo chmod +x /usr/local/bin/steam
 # copy official steam.desktop file to /usr/local and edit it
 # we can't edit the official steam.desktop file since this will get overwritten on a steam update
 # if a matching name .desktop file is found in /usr/local/share/applications it takes priority over /usr/share/applications
-sudo cp /usr/share/applications/steam.desktop /usr/local/share/applications/steam.desktop
+sudo mv -f /usr/share/applications/steam.desktop /usr/local/share/applications/steam.desktop
 sudo sed -i 's:Exec=/usr/bin/steam:Exec=/usr/local/bin/steam:' /usr/local/share/applications/steam.desktop
 
 # remove official steam.desktop
