@@ -513,7 +513,7 @@ pipx_install() {
     sudo -H python3 -m pip install --upgrade pipx || exit 1
   elif package_available python3.8 ;then
     sudo apt install -y python3.8 python3.8-venv || exit 1
-    sudo -H python3.8 -m pip install --upgrade filelock pipx || exit 1
+    sudo -H python3.8 -m pip install --upgrade filelock pipx setuptools || exit 1
   else
     error "pipx is not available so cannot install powerline-shell to python venv"
   fi
