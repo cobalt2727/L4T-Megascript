@@ -518,7 +518,7 @@ pipx_install() {
   else
     error "pipx is not available so cannot install powerline-shell to python venv"
   fi
-  sudo PIPX_HOME=/usr/local/pipx PIPX_BIN_DIR=/usr/local/bin pipx install "$@" || error "Failed to install $* with pipx"
+  sudo PIPX_HOME=/usr/local/pipx PIPX_BIN_DIR=/usr/local/bin pipx install --force "$@" || error "Failed to install $* with pipx"
 }
 export -f pipx_install
 
