@@ -22,7 +22,7 @@ then
       mkdir -p ~/.cache/pip/
       sudo chown -R $USER:$USER ~/.cache/
       sudo chown -R $USER:$USER ~/.cache/pip/
-      
+
       yes | python3.6 -m pip uninstall lastversion
       python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion setuptools || error "Couldn't install dependencies"
       ;;
