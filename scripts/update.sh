@@ -39,12 +39,12 @@ if test -f /usr/local/bin/melonDS; then
   MelonDSUserInput="$output"
 fi
 
-MGBAUserInput="no"
+mGBAUserInput="no"
 if test -f /usr/local/bin/mGBA; then
   description="Do you want to update mGBA? (May take 5 to 20 minutes)"
   table=("yes" "no")
   userinput_func "$description" "${table[@]}"
-  MGBAUserInput="$output"
+  mGBAUserInput="$output"
 fi
 
 MetaforceUserInput="no"
@@ -281,7 +281,7 @@ else
   echo "Skipping melonDS update..."
 fi
 
-if [[ $GBAUserInput == "yes" ]]; then
+if [[ $mGBAUserInput == "yes" ]]; then
   echo "Updating mGBA..."
   sleep 5
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/mGBA.sh)" || exit $?
