@@ -42,6 +42,7 @@ _EOF_"
   sudo ./retropie_packages.sh mupen64plus
   # sudo ./retropie_packages.sh lr-duckstation
   sudo ./retropie_packages.sh lzdoom
+  sudo ./retropie_packages.sh supermodel3
   # sudo ./retropie_packages.sh scraper
   # sudo ./retropie_packages.sh skyscraper
   # sudo ./retropie_packages.sh usbromservice
