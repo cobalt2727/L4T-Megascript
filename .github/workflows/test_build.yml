@@ -262,7 +262,7 @@ jobs:
       - name: Test installing app on fedora 39 arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://download.switchroot.org/fedora-39/switch-kde-2024-05-28.7z
+          base_image: https://download.switchroot.org/fedora-39/switch-kde-2024-07-11.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
