@@ -13,6 +13,7 @@ then
   if [[ $dpkg_architecture == "amd64" ]] || [[ $dpkg_architecture == "arm64" ]] || [[ $dpkg_architecture == "armhf" ]]; then
     echo "Installing dependencies..."
     sudo apt install git curl python3-pip -y || error "Couldn't install dependencies"
+    pipx_install
     case "$__os_codename" in
     bionic)
       sudo apt install -y python3.8 python3.8-dev
