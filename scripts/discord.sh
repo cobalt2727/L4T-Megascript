@@ -29,7 +29,7 @@ then
       echo "Installing dependencies..."
       ;;
     esac
-    pipx_install pip pipx lastversion
+    pipx_install lastversion
 
     echo "Removing previous legacy Discord installs and inconsistent apt repo..."
     sudo dpkg -r electron-discord-webapp
