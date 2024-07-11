@@ -24,10 +24,10 @@ then
       sudo chown -R $USER:$USER ~/.cache/pip/
 
       yes | python3.6 -m pip uninstall lastversion
-      python3.8 -m pip install --upgrade --force-reinstall pip filelock lastversion setuptools || error "Couldn't install dependencies"
+      python3.8 -m pipx install --upgrade --force-reinstall pip filelock lastversion setuptools || error "Couldn't install dependencies"
       ;;
     *)
-      python3 -m pip install --upgrade --force-reinstall pip lastversion || error "Couldn't install dependencies"
+      python3 -m pipx install --upgrade --force-reinstall pip lastversion || error "Couldn't install dependencies"
       ;;
     esac
 
