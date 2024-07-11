@@ -25,12 +25,12 @@ then
       sudo chown -R $USER:$USER ~/.cache/pip/
 
       yes | python3.6 -m pip uninstall lastversion
-      python3.8 -m pipx install --force pip pipx lastversion || error "Couldn't install dependencies"
       ;;
     *)
-      python3 -m pipx install --force pip pipx lastversion || error "Couldn't install dependencies"
+      echo "Installing dependencies..."
       ;;
     esac
+    pipx_install pip pipx lastversion
 
     echo "Removing previous legacy Discord installs and inconsistent apt repo..."
     sudo dpkg -r electron-discord-webapp
