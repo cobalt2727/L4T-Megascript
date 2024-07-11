@@ -202,9 +202,9 @@ if grep -q debian /etc/os-release; then
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release" "libxkbcommon-devel" "git")
   if [[ $gui == "gui" ]]; then
-    pkexec sh -c "dnf --refresh --best --allowerasing -y upgrade; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf --refresh --best --allowerasing -y upgrade; hash -r"
+    pkexec sh -c "dnf install $(echo "${dependencies[@]}") -y --refresh; hash -r;"
   else
-    sudo sh -c "dnf --refresh --best --allowerasing -y upgrade; dnf install $(echo "${dependencies[@]}") -y; hash -r; $FUNC; repository_branch=$repository_branch; repository_username=$repository_username; add_desktop; dnf --refresh --best --allowerasing -y upgrade; hash -r"
+    sudo sh -c "dnf install $(echo "${dependencies[@]}") -y --refresh; hash -r;"
   fi
 fi
 
