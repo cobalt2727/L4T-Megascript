@@ -1,11 +1,5 @@
 #!/bin/bash
 
-function error {
-  echo -e "\\e[91m$1\\e[39m"
-  sleep 3
-  exit 1
-}
-
 clear -x
 echo "MelonDS script successfully started!"
 echo "Credits: https://github.com/Arisotura/melonDS"
