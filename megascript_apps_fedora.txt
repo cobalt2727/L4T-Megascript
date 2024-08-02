@@ -60,7 +60,7 @@ fn="VSCode";;d="Code editor redefined and optimized for building/debugging moder
 
 fn="Github CLI";;d="GitHub's official command line tool";;sn="github-cli.sh";;f="development"
 
-# fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mouse, scripts and macros";;sn="antimicrox.sh";;f="extras"
+fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mouse, scripts and macros";;sn="antimicrox.sh";;f="extras"
 
 # fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
