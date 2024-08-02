@@ -11,7 +11,7 @@ if command -v apt >/dev/null; then
     fi
 
     sudo apt install -y git build-essential cmake extra-cmake-modules \
-      qt515base libsdl2-dev libxi-dev libxtst-dev \
+      qt515base qt515tools libsdl2-dev libxi-dev libxtst-dev \
       libx11-dev itstool gettext python3-libxml2 || error "Could not install dependencies"
     ;;
   *)
