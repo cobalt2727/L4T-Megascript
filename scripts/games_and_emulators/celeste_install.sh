@@ -9,7 +9,7 @@ git clone https://github.com/lemon32767/ccleste.git --depth=1 && cd ccleste || e
 rm -rf gamecontrollerdb.txt
 status "Compiling the game"
 make -j$(nproc) || error "Compilation failed"
-wget https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+wget https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/master/gamecontrollerdb.txt
 
 path="/usr/local/share/celeste"
 

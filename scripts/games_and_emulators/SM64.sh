@@ -107,8 +107,6 @@ echo
 sudo mv "/tmp/SM64/Super Mario 64.desktop" -t /usr/share/applications
 mkdir -p ~/.local/share/sm64ex
 cd ~/.local/share/sm64ex || error "Could not find folder"
-# svn export https://github.com/gabomdq/SDL_GameControllerDB/trunk/gamecontrollerdb.txt
-# never mind the outdated GitHub username, WHY was that an svn command before???????
 wget https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/master/gamecontrollerdb.txt
 mv /tmp/SM64/sm64config.txt -t ~/.local/share/sm64ex
 rm -rf /tmp/SM64
