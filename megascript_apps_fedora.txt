@@ -64,6 +64,8 @@ fn="AntiMicroX";;d="A graphical program used to map gamepad keys to keyboard, mo
 
 # fn="Barrier";;d="Share your mouse and keyboard between multiple computers";;sn="barrier.sh";;f="extras"
 
+fn="KeePassXC";;d="A modern, secure, and open-source password manager that stores and manages your most sensitive information.";;sn="KeePassXC.sh";;f="extras"
+
 # fn="ALL THE SHOVELWARE";;d="(WARNING: THIS IS LIKE 19 GB) Literally just installs all packages starting with games";;sn="almost_nineteen_entire_gigabytes_of_shovelware.sh";;f="extras"
 
 # fn="Piper";;d="Graphical application to configure input devices, mostly gaming mice";;sn="piper.sh";;f="extras"
