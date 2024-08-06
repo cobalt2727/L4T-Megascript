@@ -14,7 +14,7 @@ else
 	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=armv8-a+fp+simd" arch=arm64 -j4
 
 	sudo cp icon.svg /usr/share/pixmaps/godot.svg
-	sudo cp bin/godot.x11.opt.tools.arm64.llvm /usr/bin/godot3
+	sudo cp bin/godot.x11.opt.tools.arm64.llvm /usr/local/bin/godot3
 	touch /tmp/godot/godot3.desktop
 	echo "[Desktop Entry]
 Name=Godot Engine
