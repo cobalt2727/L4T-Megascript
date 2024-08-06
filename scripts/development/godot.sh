@@ -8,9 +8,7 @@ else
 
 	mkdir /tmp/godot
 	cd /tmp/godot
-	wget https://github.com/godotengine/godot/releases/download/3.5.2-stable/godot-3.5.2-stable.tar.xz
-	tar -xf godot-3.5.2-stable.tar.xz
-	cd godot-3.5.2-stable
+	lastversion extract godot -b 3
 
 	echo "Building godot, this may take a few hours..."
 	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=armv8-a+fp+simd" arch=arm64 -j4
