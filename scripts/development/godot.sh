@@ -2,8 +2,9 @@ if which godot3 > /dev/null 2>&1; then
 	echo "Godot already exists!"
 	sleep 2
 else
-	sudo apt-get install build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm clang xz-utils wget
-
+	sudo apt-get install build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm clang xz-utils wget python3-pip
+	pipx_install lastversion
+ 
 	sudo sed -i '1s/.*/#! \/usr\/bin\/python3/' /usr/bin/scons
 
 	mkdir /tmp/godot
