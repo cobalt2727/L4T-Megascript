@@ -14,7 +14,8 @@ else
 	echo "Building godot, this may take a few hours..."
 	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=armv8-a+fp+simd" arch=arm64 -j4
 
-	sudo cp icon.svg /usr/share/pixmaps/godot.svg
+	sudo mkdir /usr/local/share/pixmaps
+	sudo cp icon.svg /usr/local/share/pixmaps/godot.svg
 	sudo cp bin/godot.x11.opt.tools.arm64.llvm /usr/local/bin/godot3
 	touch /tmp/godot/godot3.desktop
 	echo "[Desktop Entry]
@@ -27,7 +28,8 @@ Terminal=false
 Type=Application
 MimeType=application/x-godot-project;
 Categories=Development;IDE;" > /tmp/godot/godot3.desktop
-	sudo cp /tmp/godot/godot3.desktop /usr/share/applications/godot3.desktop
+	sudo mkdir /usr/local/share/applications
+	sudo cp /tmp/godot/godot3.desktop /usr/local/share/applications/godot3.desktop
 
 	echo "Cleaning up..."
 	rm -rf /tmp/godot
