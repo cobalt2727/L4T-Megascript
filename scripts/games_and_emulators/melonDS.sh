@@ -44,7 +44,7 @@ esac
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt install cmake extra-cmake-modules libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev libslirp-dev libarchive-dev libepoxy-dev libzstd-dev libwayland-dev -y || error "Could not install dependencies"
+sudo apt install cmake extra-cmake-modules libcurl4-openssl-dev libpcap0.8-dev libsdl2-dev libslirp-dev libarchive-dev libepoxy-dev libzstd-dev libwayland-dev libenet-dev -y || error "Could not install dependencies"
 
 echo "Building MelonDS..."
 sleep 1
