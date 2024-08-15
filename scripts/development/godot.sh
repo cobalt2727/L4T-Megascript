@@ -12,7 +12,7 @@ else
 	lastversion extract godot -b 3
 
 	echo "Building godot, this may take a few hours..."
-	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=armv8-a+fp+simd" arch=arm64 -j4
+	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=native" arch=arm64 -j$(nproc)
 
 	sudo mkdir /usr/local/share/pixmaps
 	sudo cp icon.svg /usr/local/share/pixmaps/godot.svg
