@@ -1,8 +1,11 @@
+#!/bin/bash
+#TODO: Fedora support
+
 if which godot3 > /dev/null 2>&1; then
 	echo "Godot already exists!"
 	sleep 2
 else
-	sudo apt-get install build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm clang xz-utils wget python3-pip
+	sudo apt install -y build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm clang xz-utils wget python3-pip
 	pipx_install lastversion
  
 	sudo sed -i '1s/.*/#! \/usr\/bin\/python3/' /usr/bin/scons
@@ -11,7 +14,8 @@ else
 	cd /tmp/godot
 	lastversion extract godot -b 3
 
-	echo "Building godot, this may take a few hours..."
+	echo "Building Godot, this may take a few hours..."
+ 	#TODO: do we really need to manually specify the arch?
 	scons platform=x11 target=release_debug tools=yes use_llvm=yes CCFLAGS="-march=native" arch=arm64 -j$(nproc)
 
 	sudo mkdir /usr/local/share/pixmaps
