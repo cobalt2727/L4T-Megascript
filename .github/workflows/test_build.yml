@@ -16,7 +16,7 @@ on:
       bookworm:
         description: 'PiOS Bookworm'
         required: true
-        type: boolean        
+        type: boolean
       architecture:
         type: choice
         description: 'For Buster/Bullseye/Bookworm, test on 64bit, 32bit, or Both if available'
@@ -175,10 +175,20 @@ jobs:
         run: |
           # Workaround to provide additional free space for testing.
           #   https://github.com/actions/virtual-environments/issues/2840
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          sudo rm -rf \
+            "$AGENT_TOOLSDIRECTORY" \
+            /opt/google/chrome \
+            /opt/microsoft/msedge \
+            /opt/microsoft/powershell \
+            /opt/pipx \
+            /usr/lib/mono \
+            /usr/local/julia* \
+            /usr/local/lib/android \
+            /usr/local/lib/node_modules \
+            /usr/local/share/chromium \
+            /usr/local/share/powershell \
+            /usr/share/dotnet \
+            /usr/share/swift
       - name: Test installing app on L4T focal arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
@@ -255,10 +265,20 @@ jobs:
         run: |
           # Workaround to provide additional free space for testing.
           #   https://github.com/actions/virtual-environments/issues/2840
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          sudo rm -rf \
+            "$AGENT_TOOLSDIRECTORY" \
+            /opt/google/chrome \
+            /opt/microsoft/msedge \
+            /opt/microsoft/powershell \
+            /opt/pipx \
+            /usr/lib/mono \
+            /usr/local/julia* \
+            /usr/local/lib/android \
+            /usr/local/lib/node_modules \
+            /usr/local/share/chromium \
+            /usr/local/share/powershell \
+            /usr/share/dotnet \
+            /usr/share/swift
       - name: Test installing app on fedora 39 arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
