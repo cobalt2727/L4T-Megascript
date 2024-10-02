@@ -23,7 +23,7 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
   sudo apt update
 fi
 
-# add updated mesa ppa on bionic/focal/jammy
+# add updated mesa ppa on bionic/focal
 case "$__os_codename" in
 bionic)
   # use stable mesa ppa on bionic as upstream intends to remove bionic from the fresh ppa
