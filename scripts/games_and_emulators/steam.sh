@@ -23,18 +23,14 @@ if grep -q "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main" /etc/
   sudo apt update
 fi
 
-# add updated mesa ppa
+# add updated mesa ppa on bionic/focal/jammy
 case "$__os_codename" in
 bionic)
   # use stable mesa ppa on bionic as upstream intends to remove bionic from the fresh ppa
   sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-kisak-mesa-*.list
   ubuntu_ppa_installer "kisak/turtle" || error "PPA failed to install"
   ;;
-noble|mantic|lunar)
-  # skip
-  true
-  ;;
-*)
+focal)
   sudo rm -f /etc/apt/sources.list.d/kisak-ubuntu-turtle-*.list
   ubuntu_ppa_installer "kisak/kisak-mesa" || error "PPA failed to install"
   ;;
