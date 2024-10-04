@@ -65,7 +65,7 @@ if command -v snap; then
 
   if printf '%s\n' "$minimumver" "$__os_release" | sort -CV; then
     # 20.04 and up has snaps, run the scripts
-    description="Do you want to remove the snap store? If unsure, think of it as\
+    description="Do you want to remove all snaps and the snap store? If unsure, think of the snap store as\
   \nbloatware from Canonical\
   \nIt's controversial for a few reasons:\
   \n - the store is closed source, which is a bit weird for a Linux company...\
@@ -82,25 +82,15 @@ if command -v snap; then
   \nbuilding from source whenever possible.\
   \nSo as you can probably tell, we're extremely biased against\
   \nit and would recommend removing it. But the choice is yours:\
-  \n \n Do you want to remove the Snap Store?"
+  \n \n Do you want to remove the Snap Store?\
+  \nThis script will also install the official Firefox PPA\
+  \ninstead of the Snap version on 22.04 and newer."
     table=("yes" "no")
     userinput_func "$description" "${table[@]}"
     if [[ $output == "yes" ]]; then
       echo -e "\e[32mRemoving the Snap store...\e[0m"
       case "$__os_codename" in
-      # placeholder code in case we decide to remove the "only run this on 20.04 and up" bit
-      # we should probably add a check to make sure it doesn't remove snap if the user is on something like our free Oracle VMs
-      # bionic)
-      #   sudo apt purge snapd -y && sudo apt autoremove --purge -y
-      #   ;;
-      focal | hirsute | impish)
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
-        ;;
-      noble)
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
-        ;;
-      *)
-        bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-chromium.sh)"
+      bionic | focal | jammy | noble)
         bash -c "$(curl https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/snapless-firefox.sh)"
         ;;
       esac
@@ -112,7 +102,6 @@ if command -v snap; then
       sudo apt --fix-broken install
     else
       echo "Decided to keep the Snap store..."
-      echo "If you ever change your mind, run the initial setup script again"
     fi
   fi
 fi

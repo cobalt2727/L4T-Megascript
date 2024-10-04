@@ -25,13 +25,18 @@ Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/firefox >/dev/null
   fi
   # a standard apt install will not switch an already installed 1:1snap* package to a XXX firefox package since this would constitute a downgrade
   # the pin priorities added above will prevent Ubuntu repository firefox packages from even showing or installing in the future but we still need to do the initial downgrade from 1:1snap* to the ppa version of firefox
-  sudo apt --allow-downgrades install firefox -y || exit 1
+  # only firefox-esr is supported on ubuntu bionic
+  if [[ "$__os_release" == "18.04" ]]; then
+    sudo apt --allow-downgrades install firefox-esr -y || exit 1
+  else
+    sudo apt --allow-downgrades install firefox -y || exit 1
+  fi
   ;;
 *)
   # Add repository source to apt sources.list
-  debian_ppa_installer "mozillateam/ppa" "bionic" "0AB215679C571D1C8325275B9BDB3D89CE49EC21" || exit 1
+  debian_ppa_installer "mozillateam/ppa" "focal" "0AB215679C571D1C8325275B9BDB3D89CE49EC21" || exit 1
   # allow unattented upgrades to upgrade from this ppa if unattented upgrades is enabled
-  echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:bionic";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox >/dev/null
+  echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:focal";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox >/dev/null
   sudo apt install firefox -y || exit 1
   ;;
 esac
