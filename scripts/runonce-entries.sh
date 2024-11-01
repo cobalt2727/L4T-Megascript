@@ -432,7 +432,7 @@ _EOF_"
     # install the gnome software center flatpak plugin
     sudo apt install -y gnome-software-plugin-flatpak --no-install-recommends
     ;;
-  "540.2.0"|"540.3.0")
+  "540.2.0"|"540.3.0"|"540.4.0")
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     flatpak override --user --device=all
@@ -472,7 +472,7 @@ _EOF_"
     ;;
   *)
     warning "Your version of L4T ($BSP_version) is not currently supported. Flatpak GPU hardware acceleration is not available."
-    warning 'The current supported jetson chip models are t186/t194/t210/t234 on L4T 32.3.1/32.7.3/32.7.4/35.1.0/35.2.1/35.3.1/35.4.1'
+    warning 'The current supported jetson chip models are t186/t194/t210/t234 on L4T 32.3.1/32.7.3/32.7.4/35.1.0/35.2.1/35.3.1/35.4.1/36.2.0/36.3.0/36.4.0'
     echo "$jetson_chip_model - $model - $__os_desc - $BSP_version Unsupported BSP version detected for Flatpak hardware acceleration." >/tmp/output.txt
     send_error "/tmp/output.txt"
     ;;

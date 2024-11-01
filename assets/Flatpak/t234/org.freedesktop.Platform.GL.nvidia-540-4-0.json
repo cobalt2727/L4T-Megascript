@@ -1,0 +1,70 @@
+{
+    "id": "org.freedesktop.Platform.GL.nvidia-540-4-0",
+    "branch": "1.4",
+    "runtime": "org.freedesktop.Platform",
+    "build-extension": true,
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "21.08",
+    "sdk-extensions": [],
+    "separate-locales": false,
+    "cleanup": [ ],
+    "modules": [
+        {
+            "name": "BSP",
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t234/pool/main/n/nvidia-l4t-3d-core/nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.deb",
+                    "sha1": "0f4d7b11573008a66e958fe939ef7fbb989444c1"
+                },
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t234/pool/main/n/nvidia-l4t-core/nvidia-l4t-core_36.4.0-20240912212859_arm64.deb",
+                    "sha1": "f895b00e068ebd7784749ff4f37b8936858ca64c"
+                },
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t234/pool/main/n/nvidia-l4t-gbm/nvidia-l4t-gbm_36.4.0-20240912212859_arm64.deb",
+                    "sha1": "f2d9176627b36e669e51904743760d200b00b67d"
+                },
+                {
+                    "type": "file",
+                    "url": "https://repo.download.nvidia.com/jetson/t234/pool/main/n/nvidia-l4t-wayland/nvidia-l4t-wayland_36.4.0-20240912212859_arm64.deb",
+                    "sha1": "67fff9274f619a5c0f43e1ec35fd553b383670bc"
+                }
+            ],
+            "buildsystem": "simple",
+            "build-commands": [
+              "mkdir -p  ${FLATPAK_DEST}/nvidia_libs/gbm; \
+              ar x nvidia-l4t-3d-core*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              ar x nvidia-l4t-core*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              ar x nvidia-l4t-gbm*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              ar x nvidia-l4t-wayland*arm64.deb; \
+              tar -I zstd -xvf data.*; \
+              rm control.* data.* debian-binary; \
+              cp -r etc/nv_tegra_release ${FLATPAK_DEST}/nvidia_libs; \
+              install -Dm755 usr/lib/aarch64-linux-gnu/nvidia/* usr/lib/aarch64-linux-gnu/tegra-egl/* ${FLATPAK_DEST}/nvidia_libs; \
+              mkdir -p nvidia_libs ${FLATPAK_DEST}/nvidia_libs/vulkan/icd.d ${FLATPAK_DEST}/nvidia_libs/glvnd/egl_vendor.d ${FLATPAK_DEST}/nvidia_libs/egl/egl_external_platform.d; \
+              ln -s ../../nvidia_icd.json ${FLATPAK_DEST}/nvidia_libs/vulkan/icd.d; \
+              ln -s ../../nvidia.json ${FLATPAK_DEST}/nvidia_libs/glvnd/egl_vendor.d ; \
+              ln -s libnvidia-egl-wayland.so ${FLATPAK_DEST}/nvidia_libs/libnvidia-egl-wayland.so.1; \
+              ln -s libnvidia-egl-gbm.so ${FLATPAK_DEST}/nvidia_libs/libnvidia-egl-gbm.so.1; \
+              ln -s ../libnvidia-allocator.so ${FLATPAK_DEST}/nvidia_libs/gbm/nvidia-drm_gbm.so; \
+              ln -s ../libnvidia-allocator.so ${FLATPAK_DEST}/nvidia_libs/gbm/tegra-udrm_gbm.so; \
+              ln -s ../libnvidia-allocator.so ${FLATPAK_DEST}/nvidia_libs/gbm/tegra_gbm.so; \
+              cp usr/share/egl/egl_external_platform.d/nvidia_wayland.json ${FLATPAK_DEST}/nvidia_libs/egl/egl_external_platform.d/; \
+              cp usr/share/egl/egl_external_platform.d/nvidia_gbm.json ${FLATPAK_DEST}/nvidia_libs/egl/egl_external_platform.d/; \
+              ln -s nvidia_libs ${FLATPAK_DEST}/lib; \
+              ln -s nvidia_libs/vulkan ${FLATPAK_DEST}/vulkan; \
+              ln -s nvidia_libs/egl ${FLATPAK_DEST}/egl; \
+              ln -s nvidia_libs/glvnd ${FLATPAK_DEST}/glvnd; "
+            ]
+        }
+    ]
+}
