@@ -123,20 +123,29 @@ kill $pid_virgl' | sudo tee /usr/local/bin/steam || error "Failed to create stea
 # set execution bit
 sudo chmod +x /usr/local/bin/steam
 
-# copy official steam.desktop file to /usr/local and edit it
-# we can't edit the official steam.desktop file since this will get overwritten on a steam update
+#remove crashhandler.so from archive that is extracted to ~/.local/share/Steam/ubuntu12_32/crashhandler.so
+#workarounds first launch error https://github.com/ptitSeb/box64/issues/2021
+rm -rf /tmp/bootstraplinux_ubuntu12_32
+mkdir -p /tmp/bootstraplinux_ubuntu12_32 || error "failed to make temp folder /tmp/bootstraplinux_ubuntu12_32"
+tar -xf '/usr/lib/steam/bootstraplinux_ubuntu12_32.tar.xz' -C /tmp/bootstraplinux_ubuntu12_32 || error "failed to extract bootstraplinux_ubuntu12_32.tar.xz"
+rm -f /tmp/bootstraplinux_ubuntu12_32/ubuntu12_32/crashhandler.so || error "failed to remove crashhandler.so"
+#overwrite the archive (changes will be overwritten on steam.deb update, but this is only needed once for first setup to not fail)
+sudo tar -cJf '/usr/lib/steam/bootstraplinux_ubuntu12_32.tar.xz' -C /tmp/bootstraplinux_ubuntu12_32 . || error "failed to compress new bootstraplinux_ubuntu12_32.tar.xz"
+rm -rf ~/.local/share/Steam/ubuntu12_32/crashhandler.so /tmp/bootstraplinux_ubuntu12_32 #remove it in case it already exists
+
+# move official steam.desktop file to /usr/local and edit it (move it so users ignoring the reboot warning cannot find the wrong launcher)
+# we can't edit the official steam.desktop file since this will get overwritten on a steam update (steam adds its own apt repo)
 # if a matching name .desktop file is found in /usr/local/share/applications it takes priority over /usr/share/applications
 sudo mv -f /usr/share/applications/steam.desktop /usr/local/share/applications/steam.desktop
 sudo sed -i 's:Exec=/usr/bin/steam:Exec=/usr/local/bin/steam:' /usr/local/share/applications/steam.desktop
+#symlink to original location to prevent first-run steam exit when file is missing, and to prevent /usr/local/share in PATH from being a hard requirement (Chances are the user will reboot before steam.deb gets an update)
+sudo ln -s /usr/local/share/applications/steam.desktop /usr/share/applications/steam.desktop
 
-# remove official steam.desktop
-# this will prevent users from installing steam and launching it before /usr/local/share/applications/ is in the application search path
-sudo rm -f /usr/share/applications/steam.desktop
-
-# remove deb
-rm /tmp/steam.deb
 rm -f /home/${USER}/Desktop/steam.desktop
 
-yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --borders="20" --fixed --title 'WARNING!' --text 'YOU NEED TO REBOOT before starting steam.\n\nDo NOT run Steam via any popups!\n\nIf you do NOT REBOOT you WILL get unrecoverable ERRORS!' --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 &
+# remove deb
+rm -f /tmp/steam.deb
+
+yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --borders="20" --fixed --title 'WARNING!' --text 'Steam should be able to launch right now from the menu, but if it fails, try rebooting.\n\nDo NOT run Steam via any popups!' --window-icon=/usr/share/icons/L4T-Megascript.png --button=Ok:0 &
 disown
-warning 'YOU NEED TO REBOOT before starting steam. Do NOT run Steam via any popups!'
+warning 'Steam should be able to launch right now from the menu, but if it fails, try rebooting. Do NOT run Steam via any popups!'
