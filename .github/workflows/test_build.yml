@@ -239,7 +239,7 @@ jobs:
       - name: Test installing app on L4T noble arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://download.switchroot.org/ubuntu-noble/theofficialgman-kubuntu-noble-5.1.2-2024-05-20.7z
+          base_image: https://download.switchroot.org/ubuntu-noble/theofficialgman-kubuntu-noble-5.1.2-2024-10-18.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
@@ -304,10 +304,10 @@ jobs:
     if: ${{ inputs.noble_64 }}
     steps:
       - uses: actions/checkout@v4
-      - name: Test installing app on L4T noble arm64
+      - name: Test installing app on RPI noble arm64
         uses: theofficialgman/arm-runner-action@v12
         with:
-          base_image: https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-preinstalled-desktop-arm64+raspi.img.xz
+          base_image: https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04.1-preinstalled-desktop-arm64+raspi.img.xz
           bind_mount_repository: yes
           image_additional_mb: 5000
           # use TX1 ARM CPU cores
