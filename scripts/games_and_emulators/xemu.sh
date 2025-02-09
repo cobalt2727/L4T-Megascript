@@ -11,6 +11,7 @@ bionic)
   ;;
 noble)
   sudo apt install -y python3-venv || error "Could not install dependencies!"
+  ;;
 esac
 case "$__os_id" in
 Raspbian | Debian | Ubuntu)
