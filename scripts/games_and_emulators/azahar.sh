@@ -59,6 +59,9 @@ git clone --recurse-submodules -j$(nproc) https://github.com/azahar-emu/azahar
 cd azahar
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
+cd externals/glslang
+./update_glslang_sources.py || error "Could Not Pull All GLSLANG Sources"
+cd ~/azahar
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
