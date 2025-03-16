@@ -60,6 +60,7 @@ cd azahar
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
 # disable system spirv tools (and headers) when not using system glslang
+sed -i 's/set(BUILD_EXTERNAL OFF CACHE BOOL "")/set(BUILD_EXTERNAL ON CACHE BOOL "")/g' externals/CMakeLists.txt
 sed -i 's/set(ALLOW_EXTERNAL_SPIRV_TOOLS ON)/set(ALLOW_EXTERNAL_SPIRV_TOOLS OFF)/g' externals/CMakeLists.txt
 cd externals/glslang
 ./update_glslang_sources.py || error "Could Not Pull All GLSLANG Sources"
