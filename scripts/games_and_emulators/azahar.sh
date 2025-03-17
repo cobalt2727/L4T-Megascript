@@ -59,21 +59,15 @@ git clone --recurse-submodules -j$(nproc) https://github.com/azahar-emu/azahar
 cd azahar
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
-# disable system spirv tools (and headers) when not using system glslang
-sed -i 's/set(BUILD_EXTERNAL OFF CACHE BOOL "")/set(BUILD_EXTERNAL ON CACHE BOOL "")/g' externals/CMakeLists.txt
-sed -i 's/set(ALLOW_EXTERNAL_SPIRV_TOOLS ON)/set(ALLOW_EXTERNAL_SPIRV_TOOLS OFF)/g' externals/CMakeLists.txt
-cd externals/glslang
-./update_glslang_sources.py || error "Could Not Pull All GLSLANG Sources"
-cd ~/azahar
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 -DUSE_SYSTEM_GLSLANG=ON
   ;;
 *)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DUSE_SYSTEM_GLSLANG=ON
   ;;
 esac
 if [ "$?" != 0 ]; then
