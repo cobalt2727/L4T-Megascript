@@ -12,6 +12,9 @@ DIRECTORY="$(pwd)"
 # print date
 date
 
+# set debian frontend as non-interactive in CI
+export DEBIAN_FRONTEND=noninteractive
+
 #necessary functions
 error() { #red text and exit 1
   echo -e "\e[91m$1\e[0m" 1>&2
