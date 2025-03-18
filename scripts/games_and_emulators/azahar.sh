@@ -36,7 +36,8 @@ Raspbian | Debian | Ubuntu)
     ;;
   esac
 
-  sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev libswscale-dev libavdevice* libavformat-dev libavcodec-dev libssl-dev glslang-tools glslang-dev spirv-tools -y || error "Could not install dependencies"
+  # refer to https://github.com/azahar-emu/azahar/blob/d59ea25cbe75161fd90f7f5cd56279176d456d2d/src/common/dynamic_library/ffmpeg.h#L7-L16 for required ffmpeg development headers
+  sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev libswscale-dev libavformat-dev libavcodec-dev libavfilter-dev libssl-dev glslang-tools glslang-dev spirv-tools -y || error "Could not install dependencies"
 
   ;;
 
