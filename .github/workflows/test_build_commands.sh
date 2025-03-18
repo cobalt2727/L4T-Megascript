@@ -86,11 +86,11 @@ fi
 
 if grep -q debian /etc/os-release; then
   sudo apt update
-  sudo apt-get dist-upgrade -y
+  sudo apt-get dist-upgrade -y -o Dpkg::Options::="--force-confnew"
   sudo apt-get install bash dialog gnutls-bin curl yad zenity lsb-release software-properties-common -y
   hash -r
   sudo apt update
-  sudo apt dist-upgrade -y
+  sudo apt dist-upgrade -y -o Dpkg::Options::="--force-confnew"
   hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   sudo dnf --refresh --best --allowerasing -y upgrade
