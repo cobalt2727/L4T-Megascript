@@ -60,30 +60,23 @@ git clone --recurse-submodules -j$(nproc) https://github.com/azahar-emu/azahar
 cd azahar
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
-# workaround upstream bug https://github.com/azahar-emu/azahar/issues/741
-sed -i 's/CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE AND NOT (LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL \"aarch64\")" OFF)/option(ENABLE_OPENGL "Enables the OpenGL renderer" ON)/g' CMakeLists.txt
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
-
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 -DUSE_SYSTEM_GLSLANG=ON
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 -DUSE_SYSTEM_GLSLANG=ON
   ;;
 *)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DUSE_SYSTEM_GLSLANG=ON
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DUSE_SYSTEM_GLSLANG=ON
   ;;
 esac
 if [ "$?" != 0 ]; then
-  # undo workaround so git pull continues to work in the future
-  sed -i 's/option(ENABLE_OPENGL "Enables the OpenGL renderer" ON)/CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE AND NOT (LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL \"aarch64\")" OFF)/g' ../CMakeLists.txt
   # add debug logs about integrity of repo
   git fsck --no-dangling --full
   git submodule foreach --recursive git fsck --no-dangling --full
   error "Calling cmake failed"
 fi
-# undo workaround so git pull continues to work in the future
-sed -i 's/option(ENABLE_OPENGL "Enables the OpenGL renderer" ON)/CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE AND NOT (LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL \"aarch64\")" OFF)/g' ../CMakeLists.txt
 
 make -j$(nproc) || error "Compilation failed"
 sudo make install || error "Make install failed"
