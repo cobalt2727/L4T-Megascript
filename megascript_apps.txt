@@ -32,7 +32,7 @@ fn="Metaforce";;d="An attempt to recreate the engine for Retro Studios' GameCube
 
 fn="SM64Port";;d="A native port of the classic game for the N64 (requires a ROM)";;sn="SM64.sh";;f="games_and_emulators"
 
-fn="Citra";;d="3DS emulator";;sn="citra.sh";;f="games_and_emulators"
+fn="Azahar";;d="3DS emulator (Citra successor)";;sn="azahar.sh";;f="games_and_emulators"
 
 fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators"
 
