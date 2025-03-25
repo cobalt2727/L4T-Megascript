@@ -23,12 +23,12 @@ if test -f /usr/local/bin/dolphin-emu; then
 fi
 
 #and so on and so forth.
-CitraUserInput="no"
-if test -f /usr/local/bin/citra-qt; then
-  description="Do you want to update Citra? (May take 5 to 40 minutes)"
+AzaharUserInput="no"
+if test -f /usr/local/bin/azahar; then
+  description="Do you want to update Azahar? (May take 5 to 40 minutes)"
   table=("yes" "no")
   userinput_func "$description" "${table[@]}"
-  CitraUserInput="$output"
+  AzaharUserInput="$output"
 fi
 
 MelonDSUserInput="no"
@@ -257,12 +257,12 @@ else
   echo "Skipping Dolphin update..."
 fi
 
-if [[ $CitraUserInput == "yes" ]]; then
-  echo "Updating Citra..."
+if [[ $AzaharUserInput == "yes" ]]; then
+  echo "Updating Azahar..."
   sleep 5
-  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/citra.sh)" || exit $?
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/azahar.sh)" || exit $?
 else
-  echo "Skipping Citra update..."
+  echo "Skipping Azahar update..."
 fi
 
 if [[ $MelonDSUserInput == "yes" ]]; then
