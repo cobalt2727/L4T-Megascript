@@ -92,7 +92,9 @@ bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Me
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
 
 echo "Installing steam.deb"
-wget https://cdn.cloudflare.steamstatic.com/client/installer/steam.deb -O /tmp/steam.deb || wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O /tmp/steam.deb || wget https://repo.steampowered.com/steam/archive/stable/steam_latest.deb -O /tmp/steam.deb || error "Failed to download steam.deb"
+# hardcode 1.0.0.81 which is the newest version that still uses the `all` dpkg architecture definition which allows steam to be installed on any architecture system without jumping through dpkg hoops
+# the steam_latest.deb pointed to 1.0.0.81 until very recently
+wget https://repo.steampowered.com/steam/archive/stable/steam-launcher_1.0.0.81_all.deb -O /tmp/steam.deb || error "Failed to download steam.deb"
 sudo apt install --no-install-recommends --reinstall -y /tmp/steam.deb || error "Failed to install steam.deb"
 hash -r
 
