@@ -46,7 +46,7 @@ fn="Celeste (Pico-8 Port)";;d="A tight platforming game which lead to the develo
 
 fn="Flappy Bird";;d="A game about a bird flying in between warp pipes";;sn="flappy_install.sh";;f="games_and_emulators"
 
-fn="Steam";;d='WARNING: This emulates the x86_64 Linux version of Steam using Box64/86. Expect VERY poor performance on x86 32bit (Windows and Linux) games.';;sn="steam.sh";;f="games_and_emulators"
+# fn="Steam";;d='WARNING: This emulates the x86_64 Linux version of Steam using Box64/86. Expect VERY poor performance on x86 32bit (Windows and Linux) games.';;sn="steam.sh";;f="games_and_emulators"
 
 fn="SuperTux";;d='A 2D jump and run sidescroller game in a style similar to the original Super Mario games';;sn="ST2.sh";;f="games_and_emulators"
 
