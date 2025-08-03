@@ -37,12 +37,12 @@ Raspbian | Debian | Ubuntu)
   esac
 
   # refer to https://github.com/azahar-emu/azahar/blob/d59ea25cbe75161fd90f7f5cd56279176d456d2d/src/common/dynamic_library/ffmpeg.h#L7-L16 for required ffmpeg development headers
-  sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev libswscale-dev libavformat-dev libavcodec-dev libavfilter-dev libssl-dev glslang-tools glslang-dev spirv-tools -y || error "Could not install dependencies"
+  sudo apt-get install git libsdl2-2.0-0 libsdl2-dev qt6-base-dev qt6-base-private-dev libqt6opengl6-dev qt6-multimedia-dev libqt6multimedia6 qt6-l10n-tools libfdk-aac-dev build-essential cmake libc++-dev libswscale-dev libavformat-dev libavcodec-dev libavfilter-dev libssl-dev glslang-tools glslang-dev spirv-tools spirv-headers -y || error "Could not install dependencies"
 
   ;;
 
 Fedora)
-  sudo dnf install -y git cmake SDL2-devel openssl-devel libXext-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel cmake make clang llvm glslang-devel  || error "Could not install dependencies!"
+  sudo dnf install -y git cmake SDL2-devel openssl-devel libXext-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel cmake make clang llvm glslang-devel spirv-tools-devel spirv-headers-devel || error "Could not install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"
