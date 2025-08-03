@@ -271,7 +271,7 @@ jobs:
       - name: Test installing app on fedora 41 arm64
         uses: theofficialgman/chroot-runner-action@v0
         with:
-          base_image: https://download.switchroot.org/fedora-41/switch-kde-2025-02-09.7z
+          base_image: https://download.switchroot.org/fedora-41/switch-kde-2025-06-14.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
