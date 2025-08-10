@@ -60,6 +60,7 @@ bionic | focal)
   make -j$(nproc) || error "Compilation failed!"
   sudo make install PREFIX=/usr/local || error "Installation failed!"
   cd ..
+  sudo ldconfig
   sudo rm -rf miniupnpc*
 
   # anyway, getting back on topic...
