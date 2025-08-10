@@ -51,6 +51,18 @@ bionic | focal)
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install gcc-11 g++-11 -y || error "Failed to install dependencies!"
+
+  # 18.04's MiniUPnPc lib is too old to work. this is really more trouble than it's worth.
+  # considered submitting a PR to the source to allow the old version to work but there's probably a boatload of network vulnerabilities
+  wget https://miniupnp.tuxfamily.org/files/miniupnpc-2.2.6.tar.gz
+  tar xf miniupnpc-2.2.6.tar.gz
+  cd miniupnpc-2.2.6
+  make -j$(nproc) || error "Compilation failed!"
+  sudo make install PREFIX=/usr/local || error "Installation failed!"
+  cd ..
+  sudo rm -rf miniupnpc*
+
+  # anyway, getting back on topic...
   cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
   ;;
 *)
