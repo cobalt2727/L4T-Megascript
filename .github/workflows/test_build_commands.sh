@@ -95,7 +95,7 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   # targeting 2.42 to match Ubuntu 24.04
   wget -q https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
   # https://news.ycombinator.com/item?id=29334724
-  tar -xzvf binutils-modern.tar.gz
+  tar -xzf binutils-modern.tar.gz
   cd binutils*
   make distclean || true
   ./configure && make -j$(nproc) && sudo make install && cd /tmp && rm -rf binutils*
