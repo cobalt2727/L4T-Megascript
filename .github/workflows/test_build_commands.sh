@@ -96,7 +96,7 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   wget -q https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
   # https://news.ycombinator.com/item?id=29334724
   tar -xzf binutils-modern.tar.gz
-  cd binutils*
+  cd binutils-2.42
   make distclean || true
   ./configure && make -j$(nproc) && sudo make install && cd /tmp && rm -rf binutils*
 fi
