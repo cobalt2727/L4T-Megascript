@@ -93,7 +93,7 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   cd /tmp
   rm binutils*.tar.gz
   # targeting 2.42 to match Ubuntu 24.04
-  wget https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
+  wget -q https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
   # https://news.ycombinator.com/item?id=29334724
   tar -xzvf binutils-modern.tar.gz
   cd binutils*
