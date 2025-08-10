@@ -266,10 +266,15 @@ esac
 # fake url to give to HITS, it could be anything: https://github.com/cobalt2727/L4T-Megascript/hits
 # load this page to see the statistics: https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits
 # Note, loading the page will increment the counter by one
-
 # You can also visit this URL: https://hits.seeyoufarm.com/#history and put in https://github.com/cobalt2727/L4T-Megascript/hits to view recent history
+#curl -L https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits &>/dev/null
 
-curl -L https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits &>/dev/null
+####### most of the above no longer applies, hits.seeyoufarm.com shut down. would be real nice if we could get that data back, but oh well.
+# new info:
+# fancy badge - https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits&label=L4T+Megascript+sessions+launched&icon=nvidia&color=%2376b900&message=&style=for-the-badge
+# json comparing daily to total - https://hitscounter.dev/api/hit?output=json&url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits
+
+curl -L https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2Fcobalt2727%2FL4T-Megascript%2Fhits
 
 # check wifi signal strenth
 if [[ $(iwconfig 2>/dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') ]] && [ $(iwconfig 2>/dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $1}') -le -77 ]; then
