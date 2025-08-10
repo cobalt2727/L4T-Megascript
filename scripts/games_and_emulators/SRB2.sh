@@ -101,6 +101,8 @@ sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt &&
 
 #why does 'sudo make install' not cover this properly.
 sudo cp /tmp/SRB2-Source-Code/assets/installer/models/ /usr/local/SRB2/models
+sudo cp /tmp/SRB2-Source-Code/assets/installer/*.pk3 /usr/local/SRB2/
+sudo cp /tmp/SRB2-Source-Code/assets/installer/*.dat /usr/local/SRB2/
 
 status "Erasing temporary build files to save space..."
 sudo rm -rf /tmp/SRB2* /tmp/srb2*
