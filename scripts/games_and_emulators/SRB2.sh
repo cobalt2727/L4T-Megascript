@@ -100,9 +100,9 @@ xdg-open /usr/local/SRB2/ || echo ""
 sudo mv dedicated-server-howto.txt /usr/local/SRB2/dedicated-server-howto.txt && sudo touch /usr/local/SRB2/adedserv.cfg
 
 #why does 'sudo make install' not cover this properly.
-sudo cp /tmp/SRB2-Source-Code/assets/installer/models/ /usr/local/SRB2/models
-sudo cp /tmp/SRB2-Source-Code/assets/installer/*.pk3 /usr/local/SRB2/
-sudo cp /tmp/SRB2-Source-Code/assets/installer/*.dat /usr/local/SRB2/
+yes | sudo cp -rf /tmp/SRB2-Source-Code/assets/installer/models/ /usr/local/SRB2/models
+yes | sudo cp -rf /tmp/SRB2-Source-Code/assets/installer/*.pk3 /usr/local/SRB2/
+yes | sudo cp -rf /tmp/SRB2-Source-Code/assets/installer/*.dat /usr/local/SRB2/
 
 status "Erasing temporary build files to save space..."
 sudo rm -rf /tmp/SRB2* /tmp/srb2*
