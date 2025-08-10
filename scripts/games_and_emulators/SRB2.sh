@@ -44,7 +44,20 @@ rm -rf /tmp/SRB2-Source-Code/assets/installer/.git*
 status "Compiling the game..."
 cd /tmp/SRB2-Source-Code/build/
 sudo rm -rf *
-cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
+
+# GCC 7 stopped working. covering Focal for good measure
+case "$__os_codename" in
+bionic | focal)
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+  sudo apt install gcc-11 g++-11 -y || error "Failed to install dependencies!"
+  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  ;;
+*)
+  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
+  ;;
+esac
+
 make -j$(nproc) || error "Compilation failed!"
 status_green "Game compiled!"
 sudo make install || error "Installation failed!"
