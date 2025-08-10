@@ -84,6 +84,23 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   sudo apt install -y ca-certificates
 fi
 
+if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
+  # update binutils so that scripts with native flags don't fail, similar to what we had to do with our Oracle VMs way back in 2022
+  # https://discord.com/channels/719014537277210704/880675368875466792/1024753718102589513
+  # not every program will break without this, but some do
+  # case in point, see https://github.com/cobalt2727/L4T-Megascript/actions/runs/16857476242/job/47752811240
+  sudo apt install -y build-essential bison texinfo wget
+  cd /tmp
+  rm binutils*.tar.gz
+  # targeting 2.42 to match Ubuntu 24.04
+  wget https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
+  # https://news.ycombinator.com/item?id=29334724
+  tar -xzvf binutils-modern.tar.gz
+  cd binutils*
+  make distclean || true
+  ./configure && make -j$(nproc) && sudo make install && cd /tmp && rm -rf binutils*
+fi
+
 if grep -q debian /etc/os-release; then
   sudo apt update
   sudo apt-get dist-upgrade -y -o Dpkg::Options::="--force-confnew"
