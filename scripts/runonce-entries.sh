@@ -178,8 +178,8 @@ EOF
 
 runonce <<"EOF"
 case "$__os_codename" in
-bionic)
-  #bionic cmake is very old, use theofficialgman ppa for cmake
+bionic|focal|jammy)
+  #cmake is too old on non-latest LTS Ubuntu releases for many projects
   ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
   if [[ -f "/usr/bin/cmake" ]]; then
     #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
@@ -189,31 +189,6 @@ bionic)
   ;;
 xenial)
   ubuntu_ppa_installer "alexlarsson/flatpak" || error "PPA failed to install"
-  ;;
-focal)
-  # use kitware apt repo for 20.04 as it has x86/x64_64 and armhf/arm64 support (armhf/arm64 not available from this repo for bionic which is why its not used there)
-  sudo apt install gpg wget
-  wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
-  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
-  sudo apt-get update
-  sudo rm -f /usr/share/keyrings/kitware-archive-keyring.gpg
-  sudo apt-get install kitware-archive-keyring -y --reinstall
-  if [ $? != 0 ]; then
-    anything_installed_from_repo "https://apt.kitware.com/ubuntu/"
-    if [ $? != 0 ]; then
-      # nothing installed from repo, this check is to prevent removing repos which other pi-apps scripts or the user have used successfully
-      # safe to remove
-      sudo rm -f /etc/apt/sources.list.d/kitware.list /usr/share/keyrings/kitware-archive-keyring.gpg
-    fi
-    sudo apt update
-    warning "Could not install Kitware apt repo needed for updated cmake. Removed the Kitware repo to prevent apt errors"
-  fi
-
-  if [[ -f "/usr/bin/cmake" ]]; then
-    #remove manually installed cmake versions (as instructed by theofficialgman) only if apt cmake is found
-    sudo rm -rf '/usr/local/bin/cmake' '/usr/local/bin/cpack' '/usr/local/bin/ctest'
-  fi
-  hash -r
   ;;
 esac
 EOF
