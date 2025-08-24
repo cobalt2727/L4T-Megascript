@@ -54,14 +54,16 @@ bionic | focal)
   cd /tmp
 
   # 18.04's version of curl throws errors reporting that it can't connect to the master server when a dedicated server is run
-  SRB2_CURL_VERSION="8.5.0"
+  SRB2_CURL_VERSION="8.5.0" #I figure matching 24.04 is a safe bet
   wget "https://curl.se/download/curl-$SRB2_CURL_VERSION.tar.gz"
   tar -xzf "curl-$SRB2_CURL_VERSION.tar.gz"
-  cd "curl-$$SRB2_CURL_VERSION"
+  cd "curl-$SRB2_CURL_VERSION"
   ./configure --prefix=/usr/local --with-ssl --with-nghttp2
   make -j$(nproc) || error "Compilation failed!"
   sudo make install || error "Installation failed!"
+  cd ..
   sudo ldconfig
+  sudo rm -rf curl*
 
   # 18.04's MiniUPnPc lib is too old to work. this is really more trouble than it's worth.
   # considered submitting a PR to the source to allow the old version to work but there's probably a boatload of network vulnerabilities
