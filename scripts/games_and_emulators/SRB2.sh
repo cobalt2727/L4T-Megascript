@@ -57,7 +57,7 @@ bionic | focal)
   wget "https://curl.se/download/curl-$SRB2_CURL_VERSION.tar.gz"
   tar -xzf "curl-$SRB2_CURL_VERSION.tar.gz"
   cd "curl-$SRB2_CURL_VERSION"
-  ./configure --prefix=/usr/local --with-ssl --with-nghttp2 --with-rpath
+  ./configure --prefix=/usr/local --with-ssl --with-nghttp2 --with-rpath=/usr/local/lib
   make -j$(nproc) || error "Compilation failed!"
   sudo make install || error "Installation failed!"
   cd ..
