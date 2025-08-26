@@ -64,6 +64,9 @@ bionic | focal)
   sudo ldconfig
   sudo rm -rf curl*
 
+  # immediately remove the new curl binary if it's not linking like it should. this will be a pain to walk users through otherwise
+  /usr/local/bin/curl --version || sudo rm /usr/local/bin/curl && error "Failed to build curl properly!"
+
   # 18.04's MiniUPnPc lib is too old to work. this is really more trouble than it's worth.
   # considered submitting a PR to the source to allow the old version to work but there's probably a boatload of network vulnerabilities
   wget https://miniupnp.tuxfamily.org/files/miniupnpc-2.2.6.tar.gz
