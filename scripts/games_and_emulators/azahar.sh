@@ -29,7 +29,10 @@ Raspbian | Debian | Ubuntu)
     #installs LLVM-14 toolchain
     curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
 
-    sudo apt install -y libstdc++-11-dev libstdc++6 libclang-14-dev gcc-11 g++-11 clang-14 llvm-14 || error "Could not install dependencies"
+    sudo apt install -y libc++-14-dev libc++abi-14-dev libstdc++6 libclang-14-dev clang-14 llvm-14 || error "Could not install dependencies"
+    ;;
+  jammy)
+    sudo apt install -y libc++-14-dev libc++abi-14-dev clang llvm || error "Could not install dependencies"
     ;;
   *)
     sudo apt install -y clang llvm || error "Could not install dependencies"
