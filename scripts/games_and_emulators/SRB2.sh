@@ -31,12 +31,10 @@ esac
 
 cd /tmp || error "Failed to move to /tmp directory"
 status "Downloading game source code..."
+rm -rf SRB2-Source-Code
 # STJR's CMakeLists.txt fails if the source folder isn't a git folder - missing a /HEAD file or something. so instead...
 git clone https://github.com/stjr/srb2 --depth=1 -j$(nproc) SRB2-Source-Code || error "Failed to download assets!"
-# clean the build and assets directories
-rm -rf SRB2-Source-Code/build SRB2-Source-Code/assets
-mkdir -p SRB2-Source-Code/build/ SRB2-Source-Code/assets/
-rm -rf /tmp/SRB2-Source-Code/assets/installer
+mkdir -p SRB2-Source-Code/build/
 
 status "Downloading assets..."
 #this needs git-lfs installed due to how the assets are hosted
