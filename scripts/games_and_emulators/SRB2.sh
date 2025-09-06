@@ -29,10 +29,12 @@ Fedora)
   ;;
 esac
 
-cd /tmp
+cd /tmp || error "Failed to move to /tmp directory"
 status "Downloading game source code..."
 # STJR's CMakeLists.txt fails if the source folder isn't a git folder - missing a /HEAD file or something. so instead...
 git clone https://github.com/stjr/srb2 --depth=1 -j$(nproc) SRB2-Source-Code || error "Failed to download assets!"
+# clean the build and assets directories
+rm -rf SRB2-Source-Code/build SRB2-Source-Code/assets
 mkdir -p SRB2-Source-Code/build/ SRB2-Source-Code/assets/
 rm -rf /tmp/SRB2-Source-Code/assets/installer
 
@@ -42,7 +44,6 @@ git clone --depth=1 https://git.do.srb2.org/STJr/srb2assets-public.git -b SRB2_2
 rm -rf /tmp/SRB2-Source-Code/assets/installer/.git*
 
 status "Compiling the game..."
-sudo rm -rf *
 
 # GCC 7 stopped working. covering Focal for good measure
 case "$__os_codename" in
@@ -79,12 +80,12 @@ bionic | focal)
   sudo rm -rf miniupnpc*
 
   # anyway, getting back on topic...
-  cd /tmp/SRB2-Source-Code/build/
-  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  cd /tmp/SRB2-Source-Code/build/ || error "Failed to move to build directory"
+  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 || error "Failed to run cmake"
   ;;
 *)
-  cd /tmp/SRB2-Source-Code/build/
-  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native
+  cd /tmp/SRB2-Source-Code/build/ || error "Failed to move to build directory"
+  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native || error "Failed to run cmake"
   ;;
 esac
 
