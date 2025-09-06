@@ -38,7 +38,7 @@ fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
-fn="SRB2Kart";;d="A kart racing game using SRB2 as a base";;sn="SRB2Kart.sh";;f="games_and_emulators"
+# fn="SRB2Kart";;d="A kart racing game using SRB2 as a base";;sn="SRB2Kart.sh";;f="games_and_emulators"
 
 fn="RetroPie";;d="Powerful frontend for both emulators and native programs alike";;sn="retropie_auto.sh";;f="games_and_emulators"
 
