@@ -243,7 +243,7 @@ if ! command -v lsb_release &>/dev/null; then
   --width=700 --height=300 --text-info --title="Error" \
   --image="${DIRECTORY}/icons/error.png" --image-on-top --fontname=12 \
   --button='OK'
-  error "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again."  
+  error "You are missing critical dependencies to run the L4T-Megascript. Please fix your system apt/dnf repositories and try again."
 fi
 
 case "$__os_id" in
@@ -557,7 +557,7 @@ while [ $x == 1 ]; do
   if [ ! -z "$CHOICE" ]; then
     systemd-inhibit bash -c "while true; do sleep 60; sudo -v; kill -0 "$$" 2>/dev/null || exit; done" &
     case "$__os_id" in
-    Fedora) 
+    Fedora)
       sudo dnf --refresh check-update
       if [[ $? == 1 ]]; then
         # dnf check-update failed with an error
@@ -583,7 +583,7 @@ while [ $x == 1 ]; do
         # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
         # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
         sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-      fi     
+      fi
       update_output=$(sudo apt update 2>&1 | tee /dev/tty)
       echo "$update_output" | grep -qe '^Err:' -qe '^E:'
       if [[ $? == 0 ]]; then
@@ -593,7 +593,7 @@ while [ $x == 1 ]; do
         \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
           --button="Exit the L4T-Megascript":0
         exit 1
-      fi   
+      fi
       ;;
     esac
 
@@ -680,31 +680,33 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
           echo "logfile name is $logfile"
           if [[ "$internet_died" == 1 ]]; then
             sed -i "1iUSER Internet connection DIED"
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nThe script exited due to YOUR INTERNET BEING DEAD.\
-\nDo NOT complain about this. FIX your wifi, move closer to your router, or use Ethernet for a more stable connection.\
+            description="Uh oh! The ${scripts[$word]} script exited with an error code!\
+\nThe script exited due to your internet dying.\
+\nThis is something you'll have to fix yourself. Fix your WiFi, move closer to your router, or use Ethernet for a more stable connection.\
 \nError reporting has been disabled.\
-\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript? DO NOT CONTINUE until you fix your internet."
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript? DO NOT continue until you fix your internet."
             table=("Continue" "Exit")
           elif [[ "$error_type" =~ ^(system|internet|package)$ ]];then
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
+            description="Uh oh! The ${scripts[$word]} script exited with an error code!\
 \nError reporting has been disabled since this is not an issue with the L4T-Megascript.\
 \n\n$error_caption\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue" "Exit")
           elif [[ "$script_exit_code" == 2 ]]; then
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nThe script exited due to YOUR issue.\
-\nThis is usually due to out of space, internet dying, or using an unsupported OS/system. Please view the log in the terminal window for the exact cause.\
+            description="Uh oh! The ${scripts[$word]} script exited with an error code!\
+\nThe script exited due to an undetermined issue on YOUR end.\
+\nThis is usually due to your storage running out, internet dying, or the use of an unsupported OS/system.\
+\nPlease view the log in the terminal window for the exact cause.\
 \nError reporting has been disabled.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue" "Exit")
           else
-            description="OH NO! The ${scripts[$word]} script exited with an error code!\
-\nPLEASE view the log in terminal to find the error's cause.\
-\nThere is a VERY HIGH chance that YOU caused the error and it can be fixed with a simple google search.\
-\nIf you need help, send the error report to us via the button below to our Discord or create a GitHub issue!\
-\nIf you send an error report, a web browser WILL open with an invite to our Discord server. You should join and announce yourself.\
+            description="Uh oh! The ${scripts[$word]} script exited with an error code!\
+\nPlease view the log in terminal to find the error's cause.\
+\nThere is a chance that the error can be fixed with a simple Google search if you look it up.\
+\nIf you need help, send the error report to us via the button below to our Discord, or create a GitHub issue!\
+\nIf you send an error report, a web browser will open with an invite to our Discord server.\
+\nThe report gets sent automatically without any login needed, but you should still join and announce yourself.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue and Send Error" "Continue" "Exit and Send Error" "Exit")
           fi
