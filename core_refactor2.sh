@@ -200,7 +200,7 @@ if grep -q debian /etc/os-release; then
     exit
   fi
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
-  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release" "libxkbcommon-devel" "git")
+  dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release" "libxkbcommon-devel" "git" "bc")
   if [[ $gui == "gui" ]]; then
     pkexec sh -c "dnf install $(echo "${dependencies[@]}") -y --refresh; hash -r;"
   else
