@@ -74,6 +74,7 @@ git clone https://github.com/dolphin-emu/dolphin
 cd dolphin
 git pull || error_user "Failed to download source code from GitHub!"
 
+git submodule sync --recursive
 git -c submodule."Externals/Qt".update=none \
 -c submodule."Externals/FFmpeg-bin".update=none \
 -c submodule."Externals/libadrenotools".update=none \
