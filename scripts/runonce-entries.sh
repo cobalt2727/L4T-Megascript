@@ -32,7 +32,7 @@ case "$__os_id" in
 # upgrade the install once
 runonce <<"EOF"
 status "Running DNF updates..."
-sudo dnf --refresh --best --allowerasing -y upgrade || error "Temporarily turning on error reporting for dnf upgrades to aid in bugfixing with L4S Fedora! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+sudo dnf upgrade --refresh --best --allowerasing -y || error "Temporarily turning on error reporting for dnf upgrades to aid in bugfixing with L4S Fedora! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 EOF
 ############## fedora runonce entries end here ##############
 ;;
@@ -348,7 +348,7 @@ case "$jetson_chip_model" in
     flatpak override --user --device=all
     flatpak override --user --share=network
     flatpak override --user --filesystem=/sys
-    
+
     echo "export FLATPAK_GL_DRIVERS=nvidia-tegra-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
     sudo tee -a /etc/profile.d/flatpak_tegra.sh << '_EOF_'
 if command -v flatpak > /dev/null && [ -n "$DESKTOP_SESSION" ]; then
@@ -411,7 +411,7 @@ _EOF_"
     # installing tegra Flatpak BSP and workarounds
     sudo flatpak override --device=all
     flatpak override --user --device=all
-    
+
     echo "export FLATPAK_GL_DRIVERS=nvidia-${BSP_version//./-}" | sudo tee /etc/profile.d/flatpak_tegra.sh
     sudo tee -a /etc/profile.d/flatpak_tegra.sh << '_EOF_'
 if command -v flatpak > /dev/null && [ -n "$DESKTOP_SESSION" ]; then

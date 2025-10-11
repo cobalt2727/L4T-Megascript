@@ -26,7 +26,7 @@ warning() { #yellow text
 }
 
 status() { #cyan text to indicate what is happening
-  
+
   #detect if a flag was passed, and if so, pass it on to the echo command
   if [[ "$1" == '-'* ]] && [ ! -z "$2" ];then
     echo -e $1 "\e[96m$2\e[0m" 1>&2
@@ -110,7 +110,7 @@ if grep -q debian /etc/os-release; then
   sudo apt dist-upgrade -y -o Dpkg::Options::="--force-confnew"
   hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
-  sudo dnf --refresh --best --allowerasing -y upgrade
+  sudo dnf upgrade --refresh --best --allowerasing -y
   sudo dnf install bash dialog gnutls curl yad zenity lsb_release libxkbcommon-devel -y
   hash -r
 fi
