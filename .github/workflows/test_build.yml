@@ -40,8 +40,8 @@ on:
         description: 'Build on Switchroot Ubuntu Noble 64bit'
         required: true
         type: boolean
-      fedora_41_64:
-        description: 'L4S Fedora 41'
+      fedora_42_64:
+        description: 'L4S Fedora 42'
         required: true
         type: boolean
       noble_64:
@@ -244,10 +244,10 @@ jobs:
             export name="${{ inputs.name }}"
             ./.github/workflows/test_build_commands.sh
 
-  fedora-41-64bit:
+  fedora-42-64bit:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 720
-    if: ${{ inputs.fedora_41_64 }}
+    if: ${{ inputs.fedora_42_64 }}
     steps:
       - uses: actions/checkout@v4
       - name: Clear up some disk space
@@ -268,10 +268,10 @@ jobs:
             /usr/local/share/powershell \
             /usr/share/dotnet \
             /usr/share/swift
-      - name: Test installing app on fedora 41 arm64
+      - name: Test installing app on fedora 42 arm64
         uses: theofficialgman/chroot-runner-action@v0
         with:
-          base_image: https://download.switchroot.org/fedora-41/switch-kde-2025-06-14.7z
+          base_image: https://download.switchroot.org/fedora-42/switch-fedora-42-kde-2025-10-26.7z
           # add special arguments for switchroot image format
           bootpartition:
           rootpartition: 1
