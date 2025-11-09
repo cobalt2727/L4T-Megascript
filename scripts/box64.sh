@@ -102,10 +102,6 @@ EOF
   echo "start programs by typing 'box64 /path/to/my/application' in terminal"
   sleep 3
 
-elif
-  command -v dnf >/dev/null
-then
-  sudo dnf install -y box64 || error "Couldn't install box64!"
 else
-  error_user "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
+  error_user "No available package manager found. Are you using a Ubuntu/Debian based system?"
 fi
