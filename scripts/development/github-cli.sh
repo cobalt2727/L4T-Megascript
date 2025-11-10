@@ -8,9 +8,9 @@ if command -v apt >/dev/null; then
     sudo apt update &&
     sudo apt install gh -y || error "Failed to install Github CLI!"
 elif command -v dnf >/dev/null; then
-  sudo dnf install 'dnf-command(config-manager)' || error "Failed to install dependencies!"
+  sudo dnf install -y --refresh 'dnf-command(config-manager)' || error "Failed to install dependencies!"
   sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  sudo dnf install gh -y || error "Failed to install Github CLI!"
+  sudo dnf install -y --refresh gh || error "Failed to install Github CLI!"
 else
   error "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi

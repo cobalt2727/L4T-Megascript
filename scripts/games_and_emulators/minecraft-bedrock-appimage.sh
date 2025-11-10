@@ -50,7 +50,7 @@ Raspbian | Debian | Ubuntu)
 Fedora)
   echo -e "[minecraft-linux-pkg]\nname=minecraft-linux-pkg\nbaseurl=https://minecraft-linux.github.io/pkg/fedora-$__os_release\nenabled=1\ncountme=1\nrepo_gpgcheck=0\ntype=rpm\ngpgcheck=1\nskip_if_unavailable=False\ngpgkey=https://minecraft-linux.github.io/pkg/deb/pubkey.gpg" | sudo tee /etc/yum.repos.d/minecraft-linux-pkg.repo
 
-  sudo dnf install -y mcpelauncher-manifest mcpelauncher-ui-manifest msa-manifest || error "Failed to install dependencies"
+  sudo dnf install -y --refresh mcpelauncher-manifest mcpelauncher-ui-manifest msa-manifest || error "Failed to install dependencies"
   ;;
 *)
   lsb_release

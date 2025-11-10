@@ -12,7 +12,7 @@ Ubuntu)
   fi
   ;;
 Fedora)
-  sudo dnf install -y libreoffice || error "Failed to install dependencies"
+  sudo dnf install -y --refresh libreoffice || error "Failed to install dependencies"
   ;;
 Raspbian | Debian)
   package_available libreoffice-gtk2

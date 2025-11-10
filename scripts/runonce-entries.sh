@@ -32,7 +32,7 @@ case "$__os_id" in
 # upgrade the install once
 runonce <<"EOF"
 status "Running DNF updates..."
-sudo dnf upgrade --refresh --best --allowerasing -y || error "Temporarily turning on error reporting for dnf upgrades to aid in bugfixing with L4S Fedora! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+sudo dnf upgrade --refresh -y || status "Temporarily turning on error reporting for dnf upgrades to aid in bugfixing with L4S Fedora! Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 EOF
 ############## fedora runonce entries end here ##############
 ;;

@@ -50,7 +50,7 @@ if command -v apt >/dev/null; then
   rm -rf /tmp/antimicrox
 
 elif command -v dnf >/dev/null; then
-  sudo dnf install antimicrox -y || error "Failed to install AntiMicroX!"
+  sudo dnf install -y --refresh antimicrox || error "Failed to install AntiMicroX!"
 else
   error "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi

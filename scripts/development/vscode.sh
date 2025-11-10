@@ -39,7 +39,7 @@ then
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
   sudo dnf check-update
-  sudo dnf install -y code || error "Failed to install VS Code!"
+  sudo dnf install -y --refresh code || error "Failed to install VS Code!"
 
 else
   error_user "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"

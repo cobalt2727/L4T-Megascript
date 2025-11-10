@@ -184,12 +184,11 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     sudo dnf clean all
     sudo dnf check-update
     sudo dnf repoquery --unsatisfied
-    sudo dnf remove
     clear -x
     description="Please carefully examine the output of the command\nthat's about to run, and make sure it doesn't remove\nanythingyou *need* without providing a replacement.\nYou accept responsibility by confirming the next command."
     table=("I understand")
     userinput_func "$description" "${table[@]}"
-    sudo dnf upgrade --refresh --best --allowerasing -y
+    sudo dnf upgrade --refresh -y
     # sudo rpm -Va # this takes way too long, I have no idea when it would actually be used
   else
     error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"

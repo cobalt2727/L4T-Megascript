@@ -21,7 +21,7 @@ if command -v apt >/dev/null; then
   rm -rf /tmp/htop
 
 elif command -v dnf >/dev/null; then
-  sudo dnf install htop -y || error "Failed to install htop!"
+  sudo dnf install -y --refresh htop || error "Failed to install htop!"
 else
   error "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi
