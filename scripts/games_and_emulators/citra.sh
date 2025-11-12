@@ -45,7 +45,7 @@ Raspbian | Debian | Ubuntu)
   ;;
 
 Fedora)
-  sudo dnf install -y git cmake SDL2-devel openssl-devel libXext-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel cmake make clang llvm glslang-devel  || error "Could not install dependencies!"
+  sudo dnf install -y --refresh git cmake SDL2-devel openssl-devel libXext-devel qt6-qtbase-devel qt6-qtbase-private-devel qt6-qtmultimedia-devel cmake make clang llvm glslang-devel  || error "Could not install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install necessary dependencies yourself following https://wiki.dolphin-emu.org/index.php?title=Building_Dolphin_on_Linux if you haven't already...\\e[39m"

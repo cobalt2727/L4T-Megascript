@@ -82,7 +82,7 @@ Raspbian | Debian | Ubuntu)
   ;;
 Fedora)
   # this is so much nicer.
-  sudo dnf install -y systemd-devel cmake vulkan-headers ninja-build \
+  sudo dnf install -y --refresh systemd-devel cmake vulkan-headers ninja-build \
     clang-devel llvm-devel libpng-devel python-markupsafe libX11-devel || error "Failed to install dependencies"
   sudo dnf groupinstall "Development Tools" "Development Libraries" -y || error "Failed to install dependencies"
   ;;

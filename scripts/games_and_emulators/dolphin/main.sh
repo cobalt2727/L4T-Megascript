@@ -18,7 +18,7 @@ Raspbian | Debian | Ubuntu)
   fi
   ;;
 Fedora)
-  sudo dnf install -y systemd-devel || error "Failed to install dependencies!"
+  sudo dnf install -y --refresh systemd-devel || error "Failed to install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install udev development libraries yourself...\\e[39m"

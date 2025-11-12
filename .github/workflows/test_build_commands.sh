@@ -111,7 +111,7 @@ if grep -q debian /etc/os-release; then
   hash -r
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   sudo dnf upgrade --refresh --best --allowerasing -y
-  sudo dnf install bash dialog gnutls curl yad zenity lsb_release libxkbcommon-devel -y
+  sudo dnf install -y --refresh bash dialog gnutls curl yad zenity lsb_release libxkbcommon-devel
   hash -r
 fi
 

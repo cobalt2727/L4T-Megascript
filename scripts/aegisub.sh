@@ -18,7 +18,7 @@ Raspbian | Debian | Ubuntu)
   ;;
 Fedora)
   #TODO
-  sudo dnf install git autoconf gettext-devel automake freetype-devel fontconfig-devel libass-devel boost-devel wxBase-devel wxBase3-devel wxGTK3-devel intltool -y || error "Failed to install dependencies!"
+  sudo dnf install -y --refresh git autoconf gettext-devel automake freetype-devel fontconfig-devel libass-devel boost-devel wxBase-devel wxBase3-devel wxGTK3-devel intltool || error "Failed to install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install necessary dependencies yourself following https://github.com/wangqr/Aegisub#autoconf--make-for-linux-and-macos if you haven't already...\\e[39m"
