@@ -8,7 +8,7 @@ fn="Discord (Webcord)";;d="Discord Web App made in Electron";;sn="discord.sh";;f
 
 # fn="Kodi";;d="Free and open source media player";;e='echo "scripts not ready yet"';;f="scripts"
 
-fn="Install custom themes";;d="Script to build ocs-url to enable Install buttons on the Pling store and auto sync QT/GTK themes";;sn="custom-theme-toolbox.sh";;f="scripts"
+# fn="Install custom themes";;d="Script to build ocs-url to enable Install buttons on the Pling store and auto sync QT/GTK themes";;sn="custom-theme-toolbox.sh";;f="scripts"
 
 # fn="Box64";;d="Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems";;sn="box64.sh";;f="scripts"
 
