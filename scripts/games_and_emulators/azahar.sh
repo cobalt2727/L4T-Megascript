@@ -68,9 +68,6 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  # horrific. I don't know what's going on here and I don't know why this fixes it on bionic
-  sed -i -E 's/^([[:space:]]*)target_link_libraries\(libzstd_static[[:space:]]*\$\{THREADS_LIBS\}\)/\1target_link_libraries(libzstd_static PRIVATE ${THREADS_LIBS})/' ~/azahar/externals/zstd/build/cmake/lib/CMakeLists.txt
-
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 -DUSE_SYSTEM_GLSLANG=ON -DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON
   ;;
 *)
