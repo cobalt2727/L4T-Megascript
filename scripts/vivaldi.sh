@@ -7,5 +7,5 @@ if grep -q debian /etc/os-release; then
 
 elif [ $__os_id == "Fedora" ]; then
   sudo dnf config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-  sudo dnf install vivaldi-stable -y
+  sudo dnf install -y --refresh vivaldi-stable
 fi

@@ -74,7 +74,7 @@ if command -v apt >/dev/null; then
 
 elif command -v dnf >/dev/null; then
   echo "Installing Piper directly from the Fedora repos..."
-  sudo dnf install -y piper || error "Failed to install Piper!"
+  sudo dnf install -y --refresh piper || error "Failed to install Piper!"
 else
   error "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi

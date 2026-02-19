@@ -40,9 +40,9 @@ if grep -q debian /etc/os-release; then
 elif grep -q fedora /etc/os-release || grep -q nobara /etc/os-release; then
   dependencies=("bash" "dialog" "gnutls" "curl" "yad" "zenity" "lsb_release")
   if [[ $gui == "gui" ]]; then
-    pkexec sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; dnf upgrade -y; hash -r"
+    pkexec sh -c "dnf install -y --refresh $(echo "${dependencies[@]}"); hash -r; repository_branch=$repository_branch; repository_username=$repository_username"
   else
-    sudo sh -c "dnf upgrade -y; dnf install $(echo "${dependencies[@]}") -y; hash -r; repository_branch=$repository_branch; repository_username=$repository_username; dnf upgrade -y; hash -r"
+    sudo sh -c "dnf install -y --refresh $(echo "${dependencies[@]}"); hash -r; repository_branch=$repository_branch; repository_username=$repository_username"
   fi
 fi
 

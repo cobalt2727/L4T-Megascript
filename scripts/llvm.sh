@@ -50,7 +50,7 @@ elif
 	command -v dnf >/dev/null
 then
 	################ PLACEHOLDER
-	sudo dnf install -y clang llvm || error "Failed to install dependencies!"
+	sudo dnf install -y --refresh clang llvm || error "Failed to install dependencies!"
 else
 	error_user "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi

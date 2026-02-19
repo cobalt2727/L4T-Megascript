@@ -5,7 +5,7 @@ Raspbian | Debian | Ubuntu)
   sudo apt install git -y || error "Failed to install dependencies!"
   ;;
 Fedora)
-  sudo dnf install git -y || error "Failed to install dependencies!"
+  sudo dnf install -y --refresh git || error "Failed to install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but please press Ctrl+C now and install Git yourself from the package manager if you haven't already...\\e[39m"

@@ -30,7 +30,7 @@ Raspbian | Debian | Ubuntu)
   ;;
 Fedora)
   #TODO
-  sudo dnf install joycond wget -y || error "Failed to install dependencies!"
+  sudo dnf install -y --refresh joycond wget || error "Failed to install dependencies!"
   ;;
 *)
   echo -e "\\e[91mUnknown distro detected - this script should work, but you'll need to install xserver-xorg-input-joystick yourself...\\e[39m"
