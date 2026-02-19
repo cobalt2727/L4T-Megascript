@@ -56,6 +56,8 @@ fn="SuperTuxKart";;d='SuperTuxKart is a free kart racing game that focuses on fu
 
 fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators"
 
+fn="PortMaster";;d='Ultimate Handheld Linux Port Manager for various linux handheld devices with a great community and features.';;sn="portmaster.sh";;f="games_and_emulators"
+
 fn="RPGMaker";;d="RPG Maker MV / MZ for Linux";;sn="rpgmakermlinux-cicpoffs.sh";;f="games_and_emulators"
 
 fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="development"

@@ -54,6 +54,8 @@ fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified
 
 fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators"
 
+fn="PortMaster";;d='Ultimate Handheld Linux Port Manager for various linux handheld devices with a great community and features.';;sn="portmaster.sh";;f="games_and_emulators"
+
 fn="RPGMaker";;d="RPG Maker MV / MZ for Linux";;sn="rpgmakermlinux-cicpoffs.sh";;f="games_and_emulators"
 
 # fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="development"
