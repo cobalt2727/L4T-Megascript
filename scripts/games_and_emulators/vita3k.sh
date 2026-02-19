@@ -49,7 +49,7 @@ echo "Building Vita3k..."
 sleep 1
 cd ~
 git clone --recurse-submodules -j$(nproc) https://github.com/Vita3K/Vita3K
-cd Vita3k
+cd Vita3K
 git pull --recurse-submodules -j$(nproc) || error "Could Not Pull Latest Source Code"
 git submodule update --init --recursive || error "Could Not Pull All Submodules"
 
