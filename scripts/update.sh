@@ -39,6 +39,14 @@ if test -f /usr/local/bin/melonDS; then
   MelonDSUserInput="$output"
 fi
 
+mGBAUserInput="no"
+if test -f /usr/local/bin/mGBA; then
+  description="Do you want to update mGBA? (May take 5 to 20 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  mGBAUserInput="$output"
+fi
+
 MetaforceUserInput="no"
 if test -f /usr/local/bin/metaforce; then
   description="Do you want to update Metaforce? (May take 5 minutes to 3+ hours)"
@@ -264,6 +272,14 @@ if [[ $MelonDSUserInput == "yes" ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/melonDS.sh)" || exit $?
 else
   echo "Skipping melonDS update..."
+fi
+
+if [[ $mGBAUserInput == "yes" ]]; then
+  echo "Updating mGBA..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/mGBA.sh)" || exit $?
+else
+  echo "Skipping mGBA update..."
 fi
 
 if [[ $MetaforceUserInput == "yes" ]]; then
