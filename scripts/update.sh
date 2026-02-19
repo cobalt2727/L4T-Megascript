@@ -180,16 +180,11 @@ if [[ $SystemFixUserInput == "yes" ]]; then
     table=("I understand")
     sudo apt-get purge $(dpkg -l | grep '^rc' | awk '{print $2}') #-y
   elif grep -q "fedora" <<<"$__id"; then
-    # roughly translated the debian side of this using https://wiki.archlinux.org/title/Pacman/Rosetta
     sudo dnf clean all
-    sudo dnf check-update
-    sudo dnf repoquery --unsatisfied
     clear -x
     description="Please carefully examine the output of the command\nthat's about to run, and make sure it doesn't remove\nanythingyou *need* without providing a replacement.\nYou accept responsibility by confirming the next command."
     table=("I understand")
     userinput_func "$description" "${table[@]}"
-    sudo dnf upgrade --refresh --best --allowerasing
-    # sudo rpm -Va # this takes way too long, I have no idea when it would actually be used
   else
     error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"
   fi
@@ -210,8 +205,7 @@ echo "Running system updates..."
 if grep -q "debian" <<<"$__id_like"; then
   sudo apt-get dist-upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 elif grep -q "fedora" <<<"$__id"; then
-  # I feel like distro-sync would be a bad idea, haven't tested myself though
-  sudo dnf upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+  sudo dnf upgrade -y --refresh || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 else
   error "Something's not right. Are you on a Debian, Ubuntu, or Fedora system?"
 fi
@@ -341,7 +335,7 @@ if grep -q "debian" <<<"$__id_like"; then
   sudo apt update
   sudo apt dist-upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 elif grep -q "fedora" <<<"$__id"; then
-  sudo dnf --refresh upgrade -y || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
+  sudo dnf upgrade -y --refresh || error "Looks like something went wrong with your system updates. Please do not send in this report unless you are running a Nintendo Switch, and you've seen this message MULTIPLE TIMES."
 else
   error "This should be unreachable."
 fi
