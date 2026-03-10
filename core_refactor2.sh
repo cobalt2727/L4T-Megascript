@@ -359,7 +359,7 @@ conversion() {
 hash -r
 hidden=()
 
-apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps_fedora.txt)
+apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt)
 
 apps=$(echo "$apps" | sed '/^$/d')
 length=$(echo "$apps" | wc -l | awk '{ print $1 }')
