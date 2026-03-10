@@ -325,11 +325,8 @@ conversion() {
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
 
-        if [[ -n "$blacklist" ]]; then
-          if is_blacklisted "$blacklist"; then
-            hidden+=($i)
-            continue
-          fi
+        if [[ -n "$blacklist" ]] && is_blacklisted "$blacklist"; then
+          continue
         fi
 
         scripts[$i]=$sn
