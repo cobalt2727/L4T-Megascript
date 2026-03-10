@@ -286,19 +286,52 @@ if [[ $(iwconfig 2>/dev/null | sed -n -e 's/^.*Signal level=//p' | awk '{print $
   has_weak_wifi=1
 fi
 
+is_blacklisted() {
+  local list="$1"
+  IFS=',' read -ra items <<< "$list"
+
+  for item in "${items[@]}"; do
+    item="$(echo "$item" | xargs)"
+
+    # simple tokens
+    if [[ "$item" == "$__id" ]] ||
+    [[ "$item" == "$__id_like" ]] ||
+    [[ "$item" == "$__os_codename" ]] ||
+    [[ "$item" == "$__os_release" ]] ||
+    [[ "$item" == "$architecture" ]]; then
+      return 0
+    fi
+
+    # treat anything else as a bash condition
+    if eval "[[ $item ]]" 2>/dev/null; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 conversion() {
   for ((i = 1; i <= ${length}; i++)); do
     if [[ ! " ${hidden[@]} " =~ " ${i} " ]]; then
       fn=""
       d=""
-      e=""
       f=""
       sn=""
       selected="FALSE"
       is_root=""
+      blacklist=""
       line=$(echo "$apps" | sed -n $i"p")
       if [[ "$line" != \#* ]]; then
         eval "$(echo "$line" | tr ";" "\n")"
+
+        if [[ -n "$blacklist" ]]; then
+          if is_blacklisted "$blacklist"; then
+            hidden+=($i)
+            continue
+          fi
+        fi
+
         scripts[$i]=$sn
         friendly[$i]=$fn
         if [ "$f" = "scripts" ]; then
@@ -306,7 +339,6 @@ conversion() {
         else
           folder[$i]="scripts/$f"
         fi
-        execute[$i]=$e
         root[$i]=$is_root
         if [[ $gui == "gui" ]]; then
           ids+=($f)
@@ -327,14 +359,7 @@ conversion() {
 hash -r
 hidden=()
 
-case "$__os_id" in
-Fedora)
-  apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps_fedora.txt)
-  ;;
-*)
-  apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps.txt)
-  ;;
-esac
+apps=$(wget -qO- https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/megascript_apps_fedora.txt)
 
 apps=$(echo "$apps" | sed '/^$/d')
 length=$(echo "$apps" | wc -l | awk '{ print $1 }')

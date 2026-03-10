@@ -105,7 +105,8 @@ EOF
 elif
   command -v dnf >/dev/null
 then
-  sudo dnf install -y --refresh box64 || error "Couldn't install box64!"
+  # wildcard should work properly with azkali's repo for L4T Fedora users. will monitor error logs to see if this breaks for anyone
+  sudo dnf install -y box64* || error "Couldn't install box64!"
 else
   error_user "No available package manager found. Are you using a Ubuntu/Debian or Fedora based system?"
 fi
