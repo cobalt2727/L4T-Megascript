@@ -1,7 +1,8 @@
 # ignore all log files
 logs
-# ignore data folder
+# ignore data folder & API that pi-apps functions use
 data
+pi-apps/
 
 # random trash from the user's device
 .vscode
