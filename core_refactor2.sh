@@ -293,17 +293,11 @@ is_blacklisted() {
   for item in "${items[@]}"; do
     item="$(echo "$item" | xargs)"
 
-    # simple tokens
     if [[ "$item" == "$__id" ]] ||
-    [[ "$item" == "$__id_like" ]] ||
-    [[ "$item" == "$__os_codename" ]] ||
-    [[ "$item" == "$__os_release" ]] ||
-    [[ "$item" == "$architecture" ]]; then
-      return 0
-    fi
-
-    # treat anything else as a bash condition
-    if eval "[[ $item ]]" 2>/dev/null; then
+       [[ "$item" == "$__id_like" ]] ||
+       [[ "$item" == "$__os_codename" ]] ||
+       [[ "$item" == "$__os_release" ]] ||
+       [[ "$item" == "$architecture" ]]; then
       return 0
     fi
   done
