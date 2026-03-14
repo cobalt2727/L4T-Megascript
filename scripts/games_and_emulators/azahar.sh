@@ -26,13 +26,13 @@ Raspbian | Debian | Ubuntu)
     #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
     ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
     ubuntu_ppa_installer "okirby/qt6-testing" || error "PPA failed to install"
-    #installs LLVM-14 toolchain
-    curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
+    #installs LLVM-19 toolchain
+    curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
-    sudo apt install -y libc++-14-dev libc++abi-14-dev libstdc++6 libclang-14-dev clang-14 llvm-14 || error "Could not install dependencies"
+    sudo apt install -y libc++-19-dev libc++abi-19-dev libstdc++6 libclang-19-dev clang-19 llvm-19 || error "Could not install dependencies"
     ;;
   jammy)
-    sudo apt install -y libc++-14-dev libc++abi-14-dev clang llvm || error "Could not install dependencies"
+    sudo apt install -y libc++-19-dev libc++abi-19-dev clang llvm || error "Could not install dependencies"
     ;;
   *)
     sudo apt install -y clang llvm libc++-dev || error "Could not install dependencies"
@@ -68,7 +68,7 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 -DUSE_SYSTEM_GLSLANG=ON -DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-19 -DCMAKE_CXX_COMPILER=clang++-19 -DUSE_SYSTEM_GLSLANG=ON -DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON
   ;;
 *)
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DUSE_SYSTEM_GLSLANG=ON -DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON

@@ -19,10 +19,10 @@ Raspbian | Debian | Ubuntu)
 
   case "$__os_codename" in
   bionic | focal)
-    #installs LLVM-14 toolchain
-    curl https://apt.llvm.org/llvm.sh | sudo bash -s "14" || error "apt.llvm.org installer failed!"
+    #installs LLVM-19 toolchain
+    curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
-    sudo apt install -y libc++-14-dev libc++abi-14-dev libstdc++6 libclang-14-dev clang-14 clang-tools-14 llvm-14 || error "Could not install dependencies"
+    sudo apt install -y libc++-19-dev libc++abi-19-dev libstdc++6 libclang-19-dev clang-19 clang-tools-19 llvm-19 || error "Could not install dependencies"
     sudo apt install -y git cmake ninja-build libsdl2-dev pkg-config libgtk-3-dev xdg-desktop-portal openssl libssl-dev || error "Could not install dependencies"
     ;;
   jammy)
@@ -58,8 +58,8 @@ git submodule update --init --recursive || error "Could Not Pull All Submodules"
 # TODO: this makes a debug build. do we want that?
 case "$__os_codename" in
 bionic | focal)
-  cmake --preset linux-ninja-clang -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
-  cmake --build/linux-ninja-clang -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14
+  cmake --preset linux-ninja-clang -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-19 -DCMAKE_CXX_COMPILER=clang++-19
+  cmake --build/linux-ninja-clang -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-19 -DCMAKE_CXX_COMPILER=clang++-19
   ;;
 *)
   cmake --preset linux-ninja-clang
