@@ -90,17 +90,13 @@ echo
 
 case "$__os_codename" in
 bionic | focal | jammy)
-  echo "Ubuntu $__os_release detected, skipping LTO optimization..."
-  echo "If that means nothing to you, don't worry about it."
-  echo "That being said, we need to get you a newer compiler to prevent some bugs."
-  #to be fair, the only *known* bug here (for now) is that emulated Wii remote cursors don't work with GCC 7 builds
-  echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 13..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install gcc-13 g++-13 -y || error "Failed to install dependencies!"
   echo "Alright, NOW we can start the building process."
   echo -e "\e[1;33mIf it freezes, especially around 80% or 100%, even for a few minutes, that's normal.\e[0m"
   sleep 10
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 -DUSE_SYSTEM_FMT=OFF -DUSE_SYSTEM_ENET=OFF -DUSE_SYSTEM_LIBMGBA=OFF -DUSE_SYSTEM_GLSLANG=OFF
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-mcpu=native" -DCMAKE_C_FLAGS="-mcpu=native -static" -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 -DUSE_SYSTEM_FMT=OFF -DUSE_SYSTEM_ENET=OFF -DUSE_SYSTEM_LIBMGBA=OFF -DUSE_SYSTEM_GLSLANG=OFF -DUSE_SYSTEM_ZSTD=OFF
   ;;
 *)
   echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
