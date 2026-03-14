@@ -23,10 +23,10 @@ bionic | focal)
   curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
-  sudo apt install -y libstdc++-11-dev libstdc++6 libclang-19-dev gcc-11 g++-11 clang-19 || error "Failed to install dependencies!"
+  sudo apt install -y libstdc++-13-dev libstdc++6 libclang-19-dev gcc-13 g++-13 clang-19 || error "Failed to install dependencies!"
   ;;
 *)
-  sudo apt install -y libstdc++-11-dev libstdc++6 libclang-dev gcc g++ clang || error "Failed to install dependencies!"
+  sudo apt install -y libstdc++-13-dev libstdc++6 libclang-dev gcc g++ clang || error "Failed to install dependencies!"
   ;;
 esac
 
