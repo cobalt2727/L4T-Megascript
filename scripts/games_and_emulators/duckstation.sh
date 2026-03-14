@@ -7,7 +7,7 @@ impish | focal | bionic)
   case "$__os_codename" in
   focal | bionic)
     ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
-    sudo apt install gcc-11 g++-11 -y || error "Could not install dependencies"
+    sudo apt install gcc-13 g++-13 -y || error "Could not install dependencies"
     ;;
   *) ;;
   esac
@@ -27,7 +27,7 @@ cd build
 rm CMakeCache.txt
 case "$__os_codename" in
 focal | bionic)
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 .. || error "Cmake failed"
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 .. || error "Cmake failed"
   ;;
 *)
   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -GNinja .. || error "Cmake failed"

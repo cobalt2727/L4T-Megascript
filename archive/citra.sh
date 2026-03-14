@@ -33,7 +33,7 @@ Raspbian | Debian | Ubuntu)
     #installs LLVM-19 toolchain
     curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
-    sudo apt install -y libstdc++-11-dev libstdc++6 libclang-19-dev gcc-11 g++-11 clang-19 llvm-19 || error "Could not install dependencies"
+    sudo apt install -y libstdc++-13-dev libstdc++6 libclang-19-dev gcc-13 g++-13 clang-19 llvm-19 || error "Could not install dependencies"
     ;;
   *)
     sudo apt install -y clang llvm || error "Could not install dependencies"

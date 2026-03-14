@@ -41,13 +41,13 @@ case "$__os_codename" in
 bionic)
   ubuntu_ppa_installer "deadsnakes/ppa" || error "PPA failed to install"
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
-  sudo apt install python3.8 python3-pip gcc-11 g++-11 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
+  sudo apt install python3.8 python3-pip gcc-13 g++-13 -y || error "Could not install dependencies!" #GCC 9 (the 20.04 default) also works, I'm just using 11 to future-proof -cobalt
   sed -i -e 's/python3 /python3.8 /g' build.sh                      #this is hacky, yes, but hey, it works
   python3.8 -m pip install --upgrade pip
   source ~/.bashrc
   python3.8 -m pip install --upgrade meson PyYAML
   source ~/.bashrc
-  CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native CC=gcc-11 CXX=g++-11 ./build.sh || error "Compilation failed!"
+  CFLAGS=-mcpu=native CXXFLAGS=-mcpu=native CC=gcc-13 CXX=g++-13 ./build.sh || error "Compilation failed!"
   ;;
 *)
   python3 -m pip install --upgrade pip PyYAML

@@ -48,7 +48,7 @@ case "$__os_codename" in
 bionic | focal)
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
-  sudo apt install gcc-11 g++-11 build-essential libnghttp2-dev libssl-dev zlib1g-dev wget -y || error "Failed to install dependencies!"
+  sudo apt install gcc-13 g++-13 build-essential libnghttp2-dev libssl-dev zlib1g-dev wget -y || error "Failed to install dependencies!"
   cd /tmp
 
   # 18.04's version of curl throws errors reporting that it can't connect to the master server when a dedicated server is run
@@ -79,7 +79,7 @@ bionic | focal)
 
   # anyway, getting back on topic...
   cd /tmp/SRB2-Source-Code/build/ || error "Failed to move to build directory"
-  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 || error "Failed to run cmake"
+  cmake .. -DCMAKE_INSTALL_PREFIX="/usr/local/SRB2/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 || error "Failed to run cmake"
   ;;
 *)
   cd /tmp/SRB2-Source-Code/build/ || error "Failed to move to build directory"

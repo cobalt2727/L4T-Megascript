@@ -28,8 +28,8 @@ bionic)
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
-  # sudo apt install cmake gcc-11 g++-11 qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
-  sudo apt install -y cmake gcc-11 g++-11 qt515base qt515multimedia qt515gamepad || error "Could not install dependencies"
+  # sudo apt install cmake gcc-13 g++-13 qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
+  sudo apt install -y cmake gcc-13 g++-13 qt515base qt515multimedia qt515gamepad || error "Could not install dependencies"
   ;;
 *)
   package_available qt5-default
@@ -57,7 +57,7 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic)
-  cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+  cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13
   ;;
 *)
   cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native

@@ -25,14 +25,14 @@ bionic | focal)
   ubuntu_ppa_installer "theofficialgman/melonds-depends" || error "PPA failed to install"
   ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
 
-  echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
+  echo "Adding Ubuntu Toolchain Test PPA to install GCC 13..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
-  # sudo apt install cmake gcc-11 g++-11 qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
-  sudo apt install -y cmake gcc-11 g++-11 qt515base qt515multimedia qt515gamepad qt515svg || error "Could not install dependencies"
+  sudo apt install -y cmake gcc-13 g++-13 qt515base qt515multimedia qt515gamepad qt515svg || error "Could not install dependencies"
   ;;
 jammy)
-  sudo apt install -y cmake gcc g++ qt6-base-dev qt6-base-private-dev qt6-multimedia-dev libqt6svg6-dev || error "Failed to install dependencies"
+  ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+  sudo apt install -y cmake gcc-13 g++-13 qt6-base-dev qt6-base-private-dev qt6-multimedia-dev libqt6svg6-dev || error "Failed to install dependencies"
   ;;
 *)
   sudo apt install -y cmake gcc g++ qt6-base-dev qt6-base-private-dev qt6-multimedia-dev qt6-svg-dev || error "Failed to install dependencies"
@@ -54,7 +54,7 @@ cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
 bionic | focal)
-  cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 -DUSE_QT6=OFF
+  cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 -DUSE_QT6=OFF
   ;;
 *)
   cmake .. -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native

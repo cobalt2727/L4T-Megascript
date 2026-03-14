@@ -1,7 +1,7 @@
 echo "Started Prusaslicer Build Script"
 echo ""
 echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
-package_available gcc-11 || ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+package_available gcc-13 || ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
 case "$__os_codename" in
 bionic)
@@ -41,7 +41,7 @@ EOF
 esac
 
 status "Installing dependencies"
-sudo apt install gcc-11 g++-11 git libgtk-3-dev cmake build-essential curl libcurl4-openssl-dev libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev libpng-dev -y || error "Dependencies failed to install"
+sudo apt install gcc-13 g++-13 git libgtk-3-dev cmake build-essential curl libcurl4-openssl-dev libcgal-dev libboost-all-dev openssl libtbb-dev libgtest-dev libcereal-dev libnlopt-dev libqhull-dev libblosc-dev libopenexr-dev libopenvdb-dev libwxgtk3.0-gtk3-dev libpng-dev -y || error "Dependencies failed to install"
 package_available libnlopt-cxx-dev
 if [[ $? == "0" ]]; then
   sudo apt install -y libnlopt-cxx-dev || error "Failed to install dependencies"
@@ -60,7 +60,7 @@ git checkout 5307114969762e5012af6faee022d675ac8fb4ce
 mkdir -p build && cd build
 echo "Running cmake"
 rm -rf CMakeCache.txt
-cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 || error "Cmake makefile generation failed"
+cmake .. -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 || error "Cmake makefile generation failed"
 memtotal=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 if [[ $memtotal < 7500000 ]]; then
   echo "Startig compilation with two threads only (due to ram limitations)"

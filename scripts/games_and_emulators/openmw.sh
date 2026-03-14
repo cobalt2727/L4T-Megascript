@@ -29,7 +29,7 @@ bionic)
 
   echo "Installing GCC/G++ 11..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
-  sudo apt install gcc-11 g++-11 -y
+  sudo apt install gcc-13 g++-13 -y
 
   echo "Installing dependencies..."
   sleep 1
@@ -51,7 +51,7 @@ bionic)
   rm -rf CMakeCache.txt
 
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native \
-    -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+    -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13
   make -j$(($(nproc) - 1)) || error "Compilation failed"
   sudo make install || error "Make install failed"
   echo "Successfully installed OpenSceneGraph!"
@@ -67,7 +67,7 @@ bionic)
   rm -rf CMakeCache.txt
 
   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native \
-    -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11
+    -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13
   make -j$(($(nproc) - 1)) || error "Compilation failed"
   sudo make install || error "Make install failed"
 

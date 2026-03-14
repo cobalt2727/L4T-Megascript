@@ -41,23 +41,23 @@ then
     ;;
   "amd64")
     # add toolchain ppa for gcc 11 on bionic and focal
-    # newer releases of ubuntu have gcc-11 in the normal repos
+    # newer releases of ubuntu have gcc-13 in the normal repos
     # older releases of ubuntu are not supported
     case "$__os_codename" in
     bionic) ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install" ;;
     esac
     case "$__os_codename" in
-    bionic | focal) ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install" ;;
+    bionic | focal | jammy) ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install" ;;
     esac
 
-    sudo apt install zenity cmake git build-essential gcc-11 g++-11 -y || error "Could not install dependencies"
+    sudo apt install zenity cmake git build-essential gcc-13 g++-13 -y || error "Could not install dependencies"
     cd /tmp
     rm -rf box64
     git clone --depth=1 https://github.com/ptitSeb/box64
     cd box64
     mkdir build
     cd build
-    cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-11
+    cmake .. -DLD80BITS=1 -DNOALIGN=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=gcc-13
     echo "Building Box64"
 
     make -j$(nproc) || error "Compilation failed"

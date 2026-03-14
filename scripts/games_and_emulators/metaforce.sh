@@ -42,7 +42,7 @@ Raspbian | Debian | Ubuntu)
       libglu1-mesa-dev libdbus-1-dev libxi-dev libxrandr-dev libasound2-dev libpulse-dev \
       libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
       qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
-      clang-19 clang++-19 libclang-19-dev libmlir-19-dev libstdc++-11-dev libvulkan1 libvulkan-dev libjack-jackd2-dev libxinerama-dev libxcursor-dev || error "Failed to install dependencies!" #libfmt-dev
+      clang-19 clang++-19 libclang-19-dev libmlir-19-dev libstdc++-13-dev libvulkan1 libvulkan-dev libjack-jackd2-dev libxinerama-dev libxcursor-dev || error "Failed to install dependencies!" #libfmt-dev
     ;;
   *)
     case "$__os_codename" in
@@ -70,12 +70,18 @@ Raspbian | Debian | Ubuntu)
 
     sudo apt install -y --no-install-recommends libvulkan1 libvulkan-dev || error "Failed to install dependencies!"
 
-    package_available libstdc++-12-dev
+    package_available libstdc++-13-dev
     if [[ $? == "0" ]]; then
-      sudo apt install -y libstdc++-12-dev || error "Failed to install dependencies"
+      sudo apt install -y libstdc++-13-dev || error "Failed to install dependencies"
     else
-      sudo apt install -y libstdc++-11-dev || error "Failed to install dependencies"
+      package_available libstdc++-12-dev
+      if [[ $? == "0" ]]; then
+        sudo apt install -y libstdc++-12-dev || error "Failed to install dependencies"
+      else
+        sudo apt install -y libstdc++-11-dev || error "Failed to install dependencies"
+      fi
     fi
+
     ;;
   esac
   sudo apt install udev libudev1 libudev-dev python3-markupsafe -y
