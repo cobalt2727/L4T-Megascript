@@ -24,6 +24,9 @@ Raspbian | Debian | Ubuntu)
 
     sudo apt install -y libc++-19-dev libc++abi-19-dev libstdc++6 libclang-19-dev clang-19 clang-tools-19 llvm-19 || error "Could not install dependencies"
     sudo apt install -y git cmake ninja-build libsdl2-dev pkg-config libgtk-3-dev xdg-desktop-portal openssl libssl-dev || error "Could not install dependencies"
+
+    echo /usr/lib/llvm-19/lib | sudo tee /etc/ld.so.conf.d/llvm19.conf
+    sudo ldconfig
     ;;
   jammy)
     echo "TODO"

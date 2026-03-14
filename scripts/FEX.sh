@@ -24,6 +24,8 @@ bionic | focal)
 
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
   sudo apt install -y libstdc++-13-dev libstdc++6 libclang-19-dev gcc-13 g++-13 clang-19 || error "Failed to install dependencies!"
+  echo /usr/lib/llvm-19/lib | sudo tee /etc/ld.so.conf.d/llvm19.conf
+  sudo ldconfig
   ;;
 *)
   sudo apt install -y libstdc++-13-dev libstdc++6 libclang-dev gcc g++ clang || error "Failed to install dependencies!"

@@ -34,6 +34,8 @@ Raspbian | Debian | Ubuntu)
     curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
     sudo apt install -y libstdc++-13-dev libstdc++6 libclang-19-dev gcc-13 g++-13 clang-19 llvm-19 || error "Could not install dependencies"
+    echo /usr/lib/llvm-19/lib | sudo tee /etc/ld.so.conf.d/llvm19.conf
+    sudo ldconfig
     ;;
   *)
     sudo apt install -y clang llvm || error "Could not install dependencies"

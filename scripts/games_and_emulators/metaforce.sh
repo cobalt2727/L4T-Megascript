@@ -43,6 +43,8 @@ Raspbian | Debian | Ubuntu)
       libudev-dev libpng-dev libncurses5-dev cmake libx11-xcb-dev python3.8 libpython3.8-dev python3.8-dev \
       qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libclang-dev qt5-default qt515base \
       clang-19 clang++-19 libclang-19-dev libmlir-19-dev libstdc++-13-dev libvulkan1 libvulkan-dev libjack-jackd2-dev libxinerama-dev libxcursor-dev || error "Failed to install dependencies!" #libfmt-dev
+      echo /usr/lib/llvm-19/lib | sudo tee /etc/ld.so.conf.d/llvm19.conf
+      sudo ldconfig
     ;;
   *)
     case "$__os_codename" in
