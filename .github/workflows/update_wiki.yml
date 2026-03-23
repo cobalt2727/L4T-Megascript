@@ -45,6 +45,6 @@ jobs:
       - name: Upload scripts page to wiki
         uses: docker://decathlon/wiki-page-creator-action:latest
         env:
-          GH_PAT: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          GH_PAT: ${{ secrets.GH_WIKI_PAGE_CREATOR_TOKEN }}
           MD_FOLDER: "/github/workspace/wikioutput"          
 
