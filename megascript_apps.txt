@@ -32,7 +32,7 @@ fn="Azahar";;d="3DS emulator (Citra successor)";;sn="azahar.sh";;f="games_and_em
 
 fn="MelonDS";;d="DS emulator which aims to provide fast and accurate Nintendo DS emulation";;sn="melonDS.sh";;f="games_and_emulators";;blacklist="fedora"
 
-fn="mGBA";;d="A new generation of Game Boy Advance emulation";;sn="mGBA.sh";;f="games_and_emulators";;blacklist="fedora"
+fn="mGBA";;d="A new generation of Game Boy Advance emulator";;sn="mGBA.sh";;f="games_and_emulators";;blacklist="fedora"
 
 fn="SRB2";;d="A 3D open-source Sonic the Hedgehog fangame built using a modified version of Doom";;sn="SRB2.sh";;f="games_and_emulators"
 
