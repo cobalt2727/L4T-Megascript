@@ -239,8 +239,8 @@ fi
 
 echo "Updating Flatpak packages (if you have any)..."
 ##two separate flatpak updaters to catch all programs regardless of whether the user installed them for the system or just the user
-sudo flatpak update -y --noninteractive
-flatpak update --user -y --noninteractive
+sudo flatpak update -y --noninteractive || true
+flatpak update --user -y --noninteractive || true
 
 echo "Marking all AppImages under ~/Applications as executable..."
 chmod +x ~/Applications/*.AppImage
