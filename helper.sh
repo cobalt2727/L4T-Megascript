@@ -96,8 +96,13 @@ Fedora)
     # E: Problem executing scripts APT::Update::Post-Invoke-Success 'if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi'
     # https://askubuntu.com/questions/942895/e-problem-executing-scripts-aptupdatepost-invoke-success
     sudo sed -i 's%/dev/null;%/dev/null || true;%g' /etc/apt/apt.conf.d/50appstream
-  fi     
-  update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+  fi
+  if [ -t 1 ]; then
+    update_output=$(sudo apt update 2>&1 | tee /dev/tty)
+  else
+    update_output=$(sudo apt update 2>&1)
+    printf '%s\n' "$update_output"
+  fi
   echo "$update_output" | grep -qe '^Err:' -qe '^E:'
   if [[ $? == 0 ]]; then
     # apt update failed with an error
