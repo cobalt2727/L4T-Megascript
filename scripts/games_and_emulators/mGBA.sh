@@ -30,7 +30,8 @@ esac
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt-get install -y cmake git qt6-base-dev qt6-base-private-dev qt6-multimedia-dev linguist-qt6 \
+sudo apt-get install -y cmake git \
+  qt6-base-dev qt6-base-private-dev qt6-multimedia-dev linguist-qt6 qt6-tools-dev-tools qt6-l10n-tools \
   libsdl2-2.0-0 libsdl2-dev ffmpeg libelf-dev libepoxy-dev libzip-dev zipcmp zipmerge ziptool \
   libedit-dev libjson-c-dev libsqlite3-dev liblua5.3-dev || error "Could not install dependencies"
 
