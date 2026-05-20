@@ -391,7 +391,7 @@ ubuntu_ppa_installer() { #setup a PPA on an Ubuntu distro. Arguments: ppa_name
   # check if ppa .list filename does not exist under the current distro codename
   # on a distro upgrade the .list filename is not updated and add-apt-repository can re-use the old filename
   local ppa_dist="$__os_codename"
-  local standard_filename="/etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list" 
+  local standard_filename="/etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-${ppa_dist}.list"
   if [[ ! -f "$standard_filename" ]] && ls /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-*.list 1> /dev/null; then
     local original_filename="$(ls /etc/apt/sources.list.d/${ppa_name%/*}-ubuntu-${ppa_name#*/}-*.list | head -1)"
     # change the filename to match the current distro codename
@@ -438,7 +438,7 @@ add_external_repo() { # add an external apt repo and its gpg key.
   local components="$5"
   # additional options can be specified as the 6th, 7th, 8th, etc argument (eg: "Architectures: arm64")
 
-  # check if all needed vars are set  
+  # check if all needed vars are set
   [ -z "$reponame" ] && error "add_external_repo: reponame not set"
   [ -z "$uris" ] && error "add_external_repo: uris not set"
   [ -z "$suites" ] && error "add_external_repo: suites not set"
@@ -470,7 +470,7 @@ add_external_repo() { # add an external apt repo and its gpg key.
   # download gpg key from specified url
   if [ -f /usr/share/keyrings/${reponame}-archive-keyring.gpg ]; then
     sudo rm -f /usr/share/keyrings/${reponame}-archive-keyring.gpg
-  fi 
+  fi
   wget -qO- "$pubkeyurl" | sudo gpg --dearmor -o /usr/share/keyrings/${reponame}-archive-keyring.gpg
 
   if [ $? != 0 ];then
@@ -687,7 +687,7 @@ apt.armbian.com")"
     echo "Please install Switchroot Ubuntu Bionic or Switchroot Ubuntu Jammy."
     return 1
   elif local frankendebian="$(echo "$DEFAULT_REPOS" | grep -v $__os_codename)" && [ ! -z "$frankendebian" ];then
-    echo "Congratulations, Linux tinkerer, you broke your system. You have made your system a FrankenDebian.
+    echo "Unsafe modifications detected! You have made your system a FrankenDebian.
 This website explains your mistake in more detail: https://wiki.debian.org/DontBreakDebian
 Your current reported release (${__os_codename^}) should not be combined with other releases.
 Specifically, the issue is $(wc -l <<<"$frankendebian" | grep -q 1 && echo 'this line' || echo 'these lines'):"
@@ -700,11 +700,11 @@ Specifically, the issue is $(wc -l <<<"$frankendebian" | grep -q 1 && echo 'this
     echo "Your system might be recoverable if you did this recently and have not performed an apt upgrade yet, but otherwise you should probably reinstall your OS."
     return 1
   elif ! package_available init; then
-    echo "Congratulations, Linux tinkerer, you broke your system. The init package can not be found, which means you have removed the default debian sources from your system.
+    echo "Unsafe modifications detected! The init package can not be found, which means you have removed the default debian sources from your system. This is not an issue with the Megascript.
 All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
     return 1
   elif [ -z "$AVAILABLE_REPOS" ];then
-    echo "Congratulations, Linux tinkerer, you broke your system. You have removed ALL debian sources from your system.
+    echo "Unsafe modifications detected! You have removed ALL debian sources from your system. This is not an issue with the Megascript.
 All apt based application installs will fail. Unless you have a backup of your /etc/apt/sources.list /etc/apt/sources.list.d you will need to reinstall your OS."
   elif [ "$__os_id" == "Ubuntu" ] && ! ( echo "$DEFAULT_REPOS" | grep "$__os_codename " | awk '{if ($3=="main" || $3=="universe") print $3 }' | sort -u | tr '\n' ' ' | grep -q "main universe" && \
     echo "$DEFAULT_REPOS" | grep "$__os_codename-updates " | awk '{if ($3=="main" || $3=="universe") print $3 }' | sort -u | tr '\n' ' ' | grep -q "main universe" && \
@@ -722,8 +722,8 @@ Please reflash Switchroot Ubuntu ${__os_codename^}."
 Please reflash Switchroot Ubuntu ${__os_codename^}."
     return 1
   elif ! apt-get --dry-run check &>/dev/null ; then
-    echo "Congratulations, Linux tinkerer, you broke your system. There are packages on your system that are in a broken state.
-Refer to the output below for any potential solutions.
+    echo "Unsafe modifications detected! There are packages on your system that are in a broken state.
+This is not an issue with the Megascript. Refer to the output below for any potential solutions.
 
 $(apt-get --dry-run check)"
     return 1
@@ -784,7 +784,7 @@ export -f package_dependencies
 package_latest_version() { #returns the latest available versions of the specified package-name. Doesn't matter if it's installed or not.
   local package="$1"
   [ -z "$package" ] && error "package_latest_version(): no package specified!"
-  
+
   # use slower but more accurate apt list command to get package version for current architecture
   apt-cache policy "$package" 2>/dev/null | grep "Candidate: " | awk '{print $2}'
   #grep -rx "Package: $package" /var/lib/apt/lists --exclude="lock" --exclude-dir="partial" --after 4 | grep -o 'Version: .*' | awk '{print $2}' | sort -rV | head -n1
@@ -795,18 +795,18 @@ export -f package_latest_version
 package_is_new_enough() { #check if the $1 package has an available version greater than or equal to $2
   local package="$1"
   [ -z "$package" ] && error "package_is_new_enough(): no package specified!"
-  
+
   local compare_version="$2"
   [ -z "$package" ] && error "package_is_new_enough(): no comparison version number specified!"
-  
+
   #determine the latest available version for the specified package
   local package_version="$(package_latest_version "$package")"
-  
+
   #if version value not found, return 1 now
   if [ -z "$package_version" ];then
     return 1
   fi
-  
+
   #given both the package_version and compare_version, see if the greater of the two is the available package's version
   if [ "$(echo "$package_version"$'\n'"$compare_version" | sort -rV | head -n1)" == "$package_version" ];then
     #if so, indicate success
@@ -897,7 +897,7 @@ apt_lock_wait() { #Wait until other apt processes are finished before proceeding
     echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2
     sleep 1
   done
-  
+
   #Try to install a non-existent package to see if apt fails due to a lock-file. Repeat until no errors mention 'Could not get lock'
   while sudo -E apt install lkqecjhxwqekc 2>&1 | grep -q 'Could not get lock' ;do
     echo -en "Waiting for another script to finish before continuing... ${sp:i++%${#sp}:1} \e[0K\r" 1>&2

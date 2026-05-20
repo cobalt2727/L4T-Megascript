@@ -579,7 +579,7 @@ while [ $x == 1 ]; do
         # dnf check-update failed with an error
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+        \n\nCheck the above terminal logs for any broken dnf repos that you may have added.\nContinuing with the Megascript WILL produce errors so this will exit now." --window-icon=/usr/share/icons/L4T-Megascript.png \
           --button="Exit the L4T-Megascript":0
         exit
       fi
@@ -606,7 +606,7 @@ while [ $x == 1 ]; do
         # apt update failed with an error
         yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
         \n\n\Verify that you are connected to the internet. \
-        \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+        \n\nCheck the above terminal logs for any broken apt repos that you may have added.\nContinuing with the Megascript WILL produce errors so this will exit now." --window-icon=/usr/share/icons/L4T-Megascript.png \
           --button="Exit the L4T-Megascript":0
         exit 1
       fi
@@ -710,10 +710,18 @@ Or on Discord: \e[94m\e[4mhttps://discord.gg/abgW2AG87Z\e[0m" | tee -a "$logfile
             table=("Continue" "Exit")
           elif [[ "$script_exit_code" == 2 ]]; then
             description="Uh oh! The ${scripts[$word]} script exited with an error code!\
-\nThe script exited due to an undetermined issue on YOUR end.\
+\nThe script exited due to an undetermined issue on your end.\
 \nThis is usually due to your storage running out, internet dying, or the use of an unsupported OS/system.\
 \nPlease view the log in the terminal window for the exact cause.\
 \nError reporting has been disabled.\
+\n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
+            table=("Continue" "Exit")
+          elif [[ "$repository_username" != "cobalt2727" ]]; then
+            description="Uh oh! The ${scripts[$word]} script exited with an error code!\
+\nAs this is a local development copy of the L4T Megascript, error reporting has been disabled.\
+\nYou're on your own for this one - no support will be provided unless you switch to the official L4T Megascript.\
+\nIf you are a developer and know what you're doing, you can view the log in the terminal window for the exact cause.\
+\nYou can also view the log file in ~/L4T-Megascript/logs/ on your device.\
 \n\nContinue running the rest of the your selected Megascript installs or exit the Megascript?"
             table=("Continue" "Exit")
           else

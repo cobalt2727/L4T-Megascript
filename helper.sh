@@ -70,13 +70,13 @@ if [ -f "$logfile" ] || [ -f "$(echo "$logfile" | sed 's+-incomplete-+-success-+
 fi
 
 case "$__os_id" in
-Fedora) 
+Fedora)
   sudo dnf --refresh check-update
   if [[ $? == 1 ]]; then
     # dnf check-update failed with an error
     yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your DNF repos can not be updated and dnf has exited with an error! \
     \n\n\Verify that you are connected to the internet. \
-    \n\nCheck the above terminal logs for any BROKEN dnf repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+    \n\nCheck the above terminal logs for any broken dnf repos that you may have added.\nContinuing with the Megascript WILL produce errors so this will exit now." --window-icon=/usr/share/icons/L4T-Megascript.png \
       --button="Exit the L4T-Megascript":0
     exit
   fi
@@ -108,10 +108,10 @@ Fedora)
     # apt update failed with an error
     yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-warning" --width="500" --height="250" --title "ERROR" --text "Your APT repos can not be updated and apt has exited with an error! \
     \n\n\Verify that you are connected to the internet. \
-    \n\nCheck the above terminal logs for any BROKEN apt repos that you may have added.\nContinuing with the Megascript WILL produce ERRORs so this will exit now.\nFix your stuff." --window-icon=/usr/share/icons/L4T-Megascript.png \
+    \n\nCheck the above terminal logs for any broken apt repos that you may have added.\nContinuing with the Megascript WILL produce errors so this will exit now." --window-icon=/usr/share/icons/L4T-Megascript.png \
       --button="Exit the L4T-Megascript":0
     exit 1
-  fi   
+  fi
   ;;
 esac
 $2 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/$1)" &> >(tee -a "$logfile")
