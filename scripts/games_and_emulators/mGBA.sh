@@ -9,42 +9,30 @@ echo "Running updates..."
 sleep 1
 
 case "$__os_codename" in
-bionic)
-  echo "          -------UBUNTU 18.04 DETECTED-------"
-  echo
-  echo "theofficialgman has done his PPA Qt5 wizardry"
-  echo "enjoy mGBA on Ubuntu Bionic, Focal, Hirsute, and beyond"
-
-  if ! [[ "$dpkg_architecture" =~ ^("arm64"|"armhf")$ ]]; then
-    warning "You are not running an ARMhf/ARM64 architecture, your system is not supported and this may not work"
-    ubuntu_ppa_installer "beineri/opt-qt-5.15.2-bionic"
-  else
-    ubuntu_ppa_installer "theofficialgman/opt-qt-5.15.2-bionic-arm"
-  fi
-  ppa_installer
+bionic | focal)
+  echo "Adding QT6 repo..."
+  #it's not redneck if it works.
+  #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
+  ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
+  ubuntu_ppa_installer "okirby/qt6-testing" || error "PPA failed to install"
   ubuntu_ppa_installer "theofficialgman/melonds-depends" || error "PPA failed to install"
   ubuntu_ppa_installer "theofficialgman/cmake-bionic" || error "PPA failed to install"
 
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 11..."
   ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
 
-  # sudo apt install cmake gcc-13 g++-13 qt5123d qt512base qt512canvas3d qt512declarative qt512gamepad qt512graphicaleffects qt512imageformats qt512multimedia qt512xmlpatterns -y || error "Could not install dependencies"
-  sudo apt install -y cmake gcc-13 g++-13 qt515base qt515multimedia qt515gamepad || error "Could not install dependencies"
+  sudo apt install -y gcc-13 g++-13 || error "Could not install dependencies"
   ;;
 *)
-  package_available qt5-default
-  if [[ $? == "0" ]]; then
-    sudo apt install -y qt5-default qtbase5-private-dev qtmultimedia5-dev || error "Failed to install dependencies"
-  else
-    sudo apt install -y qtbase5-dev qtchooser qtbase5-private-dev qtmultimedia5-dev || error "Failed to install dependencies"
-  fi
-  sudo apt install -y cmake gcc g++ || error "Could not install dependencies"
+  sudo apt install -y gcc g++ || error "Could not install dependencies"
   ;;
 esac
 
 echo "Installing dependencies..."
 sleep 1
-sudo apt install cmake git libsdl2-2.0-0 libsdl2-dev ffmpeg libelf-dev libepoxy-dev libzip-dev zipcmp zipmerge ziptool libedit-dev libjson-c-dev libsqlite3-dev liblua5.3-dev -y || error "Could not install dependencies"
+sudo apt-get install -y cmake git qt6-base-dev qt6-base-private-dev qt6-multimedia-dev linguist-qt6 \
+  libsdl2-2.0-0 libsdl2-dev ffmpeg libelf-dev libepoxy-dev libzip-dev zipcmp zipmerge ziptool \
+  libedit-dev libjson-c-dev libsqlite3-dev liblua5.3-dev || error "Could not install dependencies"
 
 echo "Building mGBA..."
 sleep 1
