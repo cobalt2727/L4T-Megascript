@@ -34,7 +34,9 @@ Raspbian | Debian | Ubuntu)
     sudo ldconfig
     ;;
   jammy)
-    sudo apt install -y libc++-19-dev libc++abi-19-dev clang llvm || error "Could not install dependencies"
+    # libc++ 15 is the minimum as of May '26, start using the LLVM repo on Jammy as well if that gets raised
+    # https://github.com/azahar-emu/azahar/wiki/Building-From-Source#clang
+    sudo apt install -y libc++-15-dev libc++abi-15-dev clang llvm || error "Could not install dependencies"
     ;;
   *)
     sudo apt install -y clang llvm libc++-dev || error "Could not install dependencies"
