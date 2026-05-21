@@ -18,9 +18,7 @@ case "$__os_id" in
 Raspbian | Debian | Ubuntu)
 
   case "$__os_codename" in
-  bionic | focal)
-    echo "Adding GCC/G++ 11 repo..."
-    ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
+  bionic | focal | jammy)
     echo "Adding QT6 repo..."
     #it's not redneck if it works.
     #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
@@ -32,11 +30,6 @@ Raspbian | Debian | Ubuntu)
     sudo apt install -y libc++-19-dev libc++abi-19-dev libstdc++6 libclang-19-dev clang-19 llvm-19 || error "Could not install dependencies"
     echo /usr/lib/llvm-19/lib | sudo tee /etc/ld.so.conf.d/llvm19.conf
     sudo ldconfig
-    ;;
-  jammy)
-    # libc++ 15 is the minimum as of May '26, start using the LLVM repo on Jammy as well if that gets raised
-    # https://github.com/azahar-emu/azahar/wiki/Building-From-Source#clang
-    sudo apt install -y libc++-15-dev libc++abi-15-dev clang llvm || error "Could not install dependencies"
     ;;
   *)
     sudo apt install -y clang llvm libc++-dev || error "Could not install dependencies"
@@ -71,7 +64,7 @@ mkdir -p build
 cd build
 rm -rf CMakeCache.txt
 case "$__os_codename" in
-bionic | focal)
+bionic | focal | jammy)
   cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENGL=ON -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_COMPILER=clang-19 -DCMAKE_CXX_COMPILER=clang++-19 -DUSE_SYSTEM_GLSLANG=ON -DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON
   ;;
 *)
