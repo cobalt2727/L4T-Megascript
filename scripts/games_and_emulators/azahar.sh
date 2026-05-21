@@ -19,11 +19,12 @@ Raspbian | Debian | Ubuntu)
 
   case "$__os_codename" in
   bionic | focal | jammy)
-    echo "Adding QT6 repo..."
+    echo "Adding QT6, LLVM/Clang, stdc++ repos..."
     #it's not redneck if it works.
     #TODO: get https://github.com/oskirby/qt6-packaging/issues/2 resolved, or just build QT6 ourselves
     ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
     ubuntu_ppa_installer "okirby/qt6-testing" || error "PPA failed to install"
+    ubuntu_ppa_installer "ubuntu-toolchain-r/test" || error "PPA failed to install"
     #installs LLVM-19 toolchain
     curl https://apt.llvm.org/llvm.sh | sudo bash -s "19" || error "apt.llvm.org installer failed!"
 
