@@ -6,7 +6,7 @@ sleep 1
 echo "Making sure box64 is installed..."
 bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
 
-bash -c "$(curl -s https://raw.githubusercontent.com/SildurFX/Switchdeck/main/install-steam.sh)" || exit $?
+bash -c "$(curl -s https://raw.githubusercontent.com/SildurFX/Switchdeck/main/install-steam.sh)" || error "Failed to install Switchdeck!"
 
 if [[ $gui == "gui" ]]; then
   if yad --class L4T-Megascript --name "L4T Megascript" --center --image "dialog-information" --width="500" --height="250" --title "Steam is now installed! " \
