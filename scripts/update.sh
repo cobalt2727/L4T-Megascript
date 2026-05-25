@@ -47,6 +47,14 @@ if test -f /usr/local/bin/mGBA; then
   mGBAUserInput="$output"
 fi
 
+RMGKUserInput="no"
+if test -f /usr/local/bin/rmgk; then
+  description="Do you want to update RMG-K? (May take 5 to 20 minutes)"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  RMGKUserInput="$output"
+fi
+
 MetaforceUserInput="no"
 if test -f /usr/local/bin/metaforce; then
   description="Do you want to update Metaforce? (May take 5 minutes to 3+ hours)"
@@ -279,6 +287,14 @@ if [[ $mGBAUserInput == "yes" ]]; then
   bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/mGBA.sh)" || exit $?
 else
   echo "Skipping mGBA update..."
+fi
+
+if [[ $RMGKUserInput == "yes" ]]; then
+  echo "Updating RMG-K..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/games_and_emulators/rmgk.sh)" || exit $?
+else
+  echo "Skipping RMG-K update..."
 fi
 
 if [[ $MetaforceUserInput == "yes" ]]; then
