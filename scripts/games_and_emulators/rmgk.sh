@@ -33,33 +33,37 @@ esac
 
 sleep 1
 
-echo "Cloning or updating SDL3 source..."
-cd ~ || error "Could not enter home directory"
-if [ -d "$HOME/SDL" ]; then
-  cd "$HOME/SDL"
-  git pull || error "Could not pull latest SDL3 source. Verify your ~/SDL directory hasn't been modified."
+if pkg-config --exists sdl3; then
+  echo "SDL3 is already installed system-wide; skipping SDL3 build."
 else
-  git clone --depth=1 https://github.com/libsdl-org/SDL.git "$HOME/SDL" || error "SDL3 clone failed"
-  cd "$HOME/SDL"
+  echo "Cloning or updating SDL3 source..."
+  cd ~ || error "Could not enter home directory"
+  if [ -d "$HOME/SDL" ]; then
+    cd "$HOME/SDL"
+    git pull || error "Could not pull latest SDL3 source. Verify your ~/SDL directory hasn't been modified."
+  else
+    git clone --depth=1 https://github.com/libsdl-org/SDL.git "$HOME/SDL" || error "SDL3 clone failed"
+    cd "$HOME/SDL"
+  fi
+
+  mkdir -p build
+  cd build
+  rm -rf CMakeCache.txt
+
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DSDL_X11=ON \
+    -DSDL_WAYLAND=OFF \
+    -G Ninja \
+    || error "SDL3 configure failed"
+
+  echo "Building SDL3..."
+  cmake --build . --parallel "$(nproc)" || error "SDL3 build failed"
+
+  echo "Installing SDL3..."
+  sudo cmake --install . || error "SDL3 install failed"
 fi
-
-mkdir -p build
-cd build
-rm -rf CMakeCache.txt
-
-cmake .. \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr/local \
-  -DSDL_X11=ON \
-  -DSDL_WAYLAND=OFF \
-  -G Ninja \
-  || error "SDL3 configure failed"
-
-echo "Building SDL3..."
-cmake --build . --parallel "$(nproc)" || error "SDL3 build failed"
-
-echo "Installing SDL3..."
-sudo cmake --install . || error "SDL3 install failed"
 
 sleep 1
 
