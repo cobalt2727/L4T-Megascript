@@ -50,7 +50,6 @@ rm -rf CMakeCache.txt
 cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=/usr/local \
-  -DSDL_UNIX_CONSOLE_BUILD=OFF \
   -DSDL_X11=ON \
   -DSDL_WAYLAND=OFF \
   -G Ninja \
@@ -74,22 +73,31 @@ else
   cd "$HOME/RMG-K"
 fi
 
-mkdir -p Build/Release
-rm -rf ./Build/Release/CMakeCache.txt
+mkdir -p "$HOME/RMG-K/build"
+rm -rf "$HOME/RMG-K/build/CMakeCache.txt"
+
+echo "Configuring RMG-K..."
+cmake -S "$HOME/RMG-K" -B "$HOME/RMG-K/build" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DPORTABLE_INSTALL=OFF \
+  -DCMAKE_INSTALL_PREFIX=/usr \
+  -G Ninja \
+  || error "RMG-K configure failed"
 
 echo "Building RMG-K..."
-./Source/Script/Build.sh Release "$(nproc)" --no-bundle-dependencies --no-angrylion || error "RMG-K build failed"
+cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error "RMG-K build failed"
 
-if [ -x "$HOME/RMG-K/Bin/Release/RMG-K" ]; then
-  echo "Installing RMG-K runtime..."
-  sudo rm -rf /usr/local/share/rmgk
-  sudo mkdir -p /usr/local/share/rmgk
-  sudo cp -r "$HOME/RMG-K/Bin/Release"/* /usr/local/share/rmgk/ || error "Failed to copy RMG-K runtime files"
-  sudo install -Dm755 /usr/local/share/rmgk/RMG-K /usr/local/bin/rmgk || error "Failed to install launcher"
-  echo "RMG-K installed to /usr/local/share/rmgk and /usr/local/bin/rmgk"
+echo "Installing RMG-K..."
+sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr" || error "RMG-K install failed"
+
+if command -v rmgk >/dev/null 2>&1 || [ -x "/usr/bin/RMG-K" ]; then
+  if [ -x "/usr/bin/RMG-K" ] && ! command -v rmgk >/dev/null 2>&1; then
+    sudo install -Dm755 "/usr/bin/RMG-K" /usr/local/bin/rmgk || error "Failed to install launcher"
+  fi
+  echo "RMG-K installed successfully."
   echo "Run with: rmgk"
 else
-  error "RMG-K binary not found after build. Build may have failed or output location changed."
+  error "RMG-K installation succeeded but no executable was found in PATH."
 fi
 
 echo "Done!"
