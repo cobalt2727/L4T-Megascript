@@ -18,7 +18,7 @@ Raspbian|Debian|Ubuntu)
     libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxinerama-dev libxtst-dev \
     libxkbcommon-dev libxkbcommon-x11-dev \
     \
-    || error_user "Could not install dependencies"
+    || error "Could not install dependencies"
   ;;
 *)
   error_user "Unsupported distro detected. This installer currently supports Debian/Ubuntu based systems only."
