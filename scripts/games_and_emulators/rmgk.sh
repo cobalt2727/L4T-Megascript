@@ -20,7 +20,7 @@ Raspbian|Debian|Ubuntu)
     libhidapi-dev libsamplerate0-dev libspeex-dev libspeexdsp-dev libminizip-dev \
     qt6-base-dev qt6-websockets-dev qt6-svg-dev libvulkan-dev nasm zlib1g-dev \
     \
-    libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxinerama-dev \
+    libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxinerama-dev libxtst-dev \
     libxkbcommon-dev libxkbcommon-x11-dev \
     \
     || error "Could not install dependencies"
