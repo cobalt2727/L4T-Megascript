@@ -16,7 +16,7 @@ Raspbian|Debian|Ubuntu)
   sudo apt update -y
   sudo apt install -y git build-essential cmake ninja-build pkg-config \
     libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxinerama-dev \
-    libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev libwayland-egl-dev \
+    libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev \
     libwayland-cursor0 libasound2-dev libpulse-dev libdbus-1-dev libudev-dev \
     libgl1-mesa-dev libglu1-mesa-dev libfreetype6-dev libpng-dev libusb-1.0-0-dev \
     libhidapi-dev libsamplerate0-dev libspeex-dev libspeexdsp-dev libminizip-dev \
