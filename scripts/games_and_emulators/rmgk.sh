@@ -88,15 +88,11 @@ cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error_user "RMG-K bui
 echo "Installing RMG-K..."
 sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr/local" || error_user "RMG-K install failed"
 
-if command -v rmgk >/dev/null 2>&1 || [ -x "/usr/local/bin/RMG-K" ]; then
-  if [ -x "/usr/local/bin/RMG-K" ] && ! command -v rmgk >/dev/null 2>&1; then
-    sudo install -Dm755 "/usr/local/bin/RMG-K" /usr/local/bin/rmgk || error_user "Failed to install launcher"
-  fi
-  echo "RMG-K installed successfully."
-  echo "Run via terminal with [ rmgk ] or find it in your application menu."
-else
-  error_user "RMG-K installation succeeded but no executable was found in PATH."
-fi
+# Create symlink for RMG-K executable
+sudo ln -sf /usr/local/share/rmgk/RMG-K /usr/local/bin/RMG-K || error_user "Failed to create symlink"
+
+echo "RMG-K installed successfully."
+echo "Run via terminal with [ RMG-K ] or find it in your application menu."
 
 echo "Done!"
 echo "Sending you back to the main menu..."
