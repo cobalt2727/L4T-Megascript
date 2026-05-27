@@ -46,7 +46,6 @@ else
 
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
     -DSDL_X11=ON \
     -DSDL_WAYLAND=OFF \
     -G Ninja \
