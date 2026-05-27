@@ -88,9 +88,6 @@ cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error_user "RMG-K bui
 echo "Installing RMG-K..."
 sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr/local" || error_user "RMG-K install failed"
 
-# Create symlink for RMG-K executable
-sudo ln -sf /usr/local/share/rmgk/RMG-K /usr/local/bin/RMG-K || error_user "Failed to create symlink"
-
 echo "RMG-K installed successfully."
 echo "Run via terminal with [ RMG-K ] or find it in your application menu."
 
