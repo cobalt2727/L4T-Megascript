@@ -31,12 +31,12 @@ if pkg-config --exists sdl3; then
   echo "SDL3 is already installed system-wide; skipping SDL3 build."
 else
   echo "Cloning or updating SDL3 source..."
-  cd ~ || error_user "Could not enter home directory"
+  cd ~ || error "Could not enter home directory"
   if [ -d "$HOME/SDL" ]; then
     cd "$HOME/SDL"
     git pull || error_user "Could not pull latest SDL3 source. Verify your ~/SDL directory hasn't been modified."
   else
-    git clone --depth=1 https://github.com/libsdl-org/SDL.git "$HOME/SDL" || error_user "SDL3 clone failed"
+    git clone --depth=1 https://github.com/libsdl-org/SDL.git "$HOME/SDL" || error "SDL3 clone failed"
     cd "$HOME/SDL"
   fi
 
@@ -50,24 +50,24 @@ else
     -DSDL_X11=ON \
     -DSDL_WAYLAND=OFF \
     -G Ninja \
-    || error_user "SDL3 configure failed"
+    || error "SDL3 configure failed"
 
   echo "Building SDL3..."
-  cmake --build . --parallel "$(nproc)" || error_user "SDL3 build failed"
+  cmake --build . --parallel "$(nproc)" || error "SDL3 build failed"
 
   echo "Installing SDL3..."
-  sudo cmake --install . || error_user "SDL3 install failed"
+  sudo cmake --install . || error "SDL3 install failed"
 fi
 
 sleep 1
 
 echo "Cloning or updating RMG-K source..."
-cd ~ || error_user "Could not enter home directory"
+cd ~ || error "Could not enter home directory"
 if [ -d "$HOME/RMG-K" ]; then
   cd "$HOME/RMG-K"
-  git pull || error_user "Could Not Pull Latest RMG-K Source Code, verify your ~/RMG-K directory hasn't been modified."
+  git pull || error_user "Could not pull latest RMG-K source. Verify your ~/RMG-K directory hasn't been modified."
 else
-  git clone --depth=1 https://github.com/Jay-Day/RMG-K.git "$HOME/RMG-K" || error_user "RMG-K clone failed"
+  git clone --depth=1 https://github.com/Jay-Day/RMG-K.git "$HOME/RMG-K" || error "RMG-K clone failed"
   cd "$HOME/RMG-K"
 fi
 
@@ -80,16 +80,29 @@ cmake -S "$HOME/RMG-K" -B "$HOME/RMG-K/build" \
   -DPORTABLE_INSTALL=OFF \
   -DCMAKE_INSTALL_PREFIX=/usr/local \
   -G Ninja \
-  || error_user "RMG-K configure failed"
+  || error "RMG-K configure failed"
 
 echo "Building RMG-K..."
-cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error_user "RMG-K build failed"
+cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error "RMG-K build failed"
 
 echo "Installing RMG-K..."
-sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr/local" || error_user "RMG-K install failed"
+sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr/local" || error "RMG-K install failed"
 
-echo "RMG-K installed successfully."
-echo "Run via terminal with [ RMG-K ] or find it in your application menu."
+echo "Setting up wrapper..."
+sudo mv /usr/local/bin/RMG-K /usr/local/bin/RMG-K.bin || error "Could not rename RMG-K binary"
+sudo tee /usr/local/bin/RMG-K << 'EOF'
+#!/bin/bash
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+exec /usr/local/bin/RMG-K.bin "$@"
+EOF
+sudo chmod +x /usr/local/bin/RMG-K || error "Could not set wrapper permissions"
+
+if command -v RMG-K &> /dev/null; then
+  echo "RMG-K installed successfully."
+  echo "Run via terminal with [ RMG-K ] or find it in your application menu."
+else
+  error "RMG-K installation succeeded but no executable was found in PATH."
+fi
 
 echo "Done!"
 echo "Sending you back to the main menu..."
