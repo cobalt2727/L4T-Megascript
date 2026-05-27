@@ -78,8 +78,7 @@ echo "Configuring RMG-K..."
 cmake -S "$HOME/RMG-K" -B "$HOME/RMG-K/build" \
   -DCMAKE_BUILD_TYPE=Release \
   -DPORTABLE_INSTALL=OFF \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DCMAKE_INSTALL_LIBDIR="lib/aarch64-linux-gnu" \
+  -DCMAKE_INSTALL_PREFIX=/usr/local \
   -G Ninja \
   || error_user "RMG-K configure failed"
 
@@ -87,16 +86,16 @@ echo "Building RMG-K..."
 cmake --build "$HOME/RMG-K/build" --parallel "$(nproc)" || error_user "RMG-K build failed"
 
 echo "Installing RMG-K..."
-sudo cmake --install "$HOME/RMG-K/build" || error_user "RMG-K install failed"
+sudo cmake --install "$HOME/RMG-K/build" --prefix="/usr/local" || error_user "RMG-K install failed"
 
-if command -v rmgk >/dev/null 2>&1 || command -v RMG-K >/dev/null 2>&1; then
+if command -v rmgk >/dev/null 2>&1 || [ -x "/usr/local/bin/RMG-K" ]; then
+  if [ -x "/usr/local/bin/RMG-K" ] && ! command -v rmgk >/dev/null 2>&1; then
+    sudo install -Dm755 "/usr/local/bin/RMG-K" /usr/local/bin/rmgk || error_user "Failed to install launcher"
+  fi
   echo "RMG-K installed successfully."
-  echo "Run via terminal with [ rmgk ] or [ RMG-K ] or find it in your application menu."
-elif [ -d "/usr/lib/aarch64-linux-gnu/RMG" ]; then
-  echo "RMG-K installed successfully."
-  echo "Run via terminal with [ rmgk ] or [ RMG-K ] or find it in your application menu."
+  echo "Run via terminal with [ rmgk ] or find it in your application menu."
 else
-  error_user "RMG-K installation succeeded but no executable or library directory was found."
+  error_user "RMG-K installation succeeded but no executable was found in PATH."
 fi
 
 echo "Done!"
