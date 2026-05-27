@@ -78,7 +78,7 @@ echo "Configuring RMG-K..."
 cmake -S "$HOME/RMG-K" -B "$HOME/RMG-K/build" \
   -DCMAKE_BUILD_TYPE=Release \
   -DPORTABLE_INSTALL=OFF \
-  -DCMAKE_INSTALL_PREFIX=/usr \
+  -DCMAKE_INSTALL_PREFIX=/usr/local \
   -G Ninja \
   || error_user "RMG-K configure failed"
 
