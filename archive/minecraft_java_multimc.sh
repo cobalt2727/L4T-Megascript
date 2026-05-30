@@ -1,12 +1,6 @@
 #!/bin/bash
 # NOTE: This build is NOT a fork BUT it does use a custom native library repo for the arm64 builds, which is necessary as microsoft and the multimc5 devs do not provide arm64 native libraries
 
-function error {
-  echo -e "\\e[91m$1\\e[39m"
-  sleep 3
-  exit 1
-}
-
 case "$dpkg_architecture" in
 "arm64" | "amd64" | "i386" | "armhf") ;;
 *) error_user "Error: your cpu architecture ($dpkg_architecture) is not supporeted by MultiMC and will fail to compile" ;;
