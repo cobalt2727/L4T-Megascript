@@ -3,8 +3,12 @@
 echo "Steam (via SildurFX's Switchdeck project) script started!"
 sleep 1
 
-echo "Making sure box64 is installed..."
-bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
+if
+  command -v apt >/dev/null
+then
+  echo "Making sure box64 is installed..."
+  bash -c "$(curl -s https://raw.githubusercontent.com/$repository_username/L4T-Megascript/$repository_branch/scripts/box64.sh)" || exit $?
+fi
 
 bash -c "$(curl -s https://raw.githubusercontent.com/SildurFX/Switchdeck/main/install-steam.sh)" || error "Failed to install Switchdeck!"
 

@@ -10,9 +10,9 @@ sleep 1
 case "$__os_id" in
 Raspbian | Debian | Ubuntu)
 
-  # as of the following commit on October 30th, Dolphin requires QT 5.15 or higher (with the addition of setPlaceholderText)
+  # as of October 30th, 2022, Dolphin requires QT 5.15 or higher (with the addition of setPlaceholderText)
   # https://github.com/dolphin-emu/dolphin/commit/053320b7cf5e1f4363c20edc9275cd352641cbd9
-  # for easier future-proofing and keeping this script simpler, I've just forced everyone to use QT6 instead
+  # for easier future-proofing and keeping this script simpler, I just forced everyone to use QT6 instead
   case "$__os_codename" in
   bionic | impish | focal)
     ubuntu_ppa_installer "okirby/qt6-backports" || error "PPA failed to install"
@@ -78,16 +78,16 @@ git submodule sync --recursive
 git -c submodule."Externals/Qt".update=none \
 -c submodule."Externals/FFmpeg-bin".update=none \
 -c submodule."Externals/libadrenotools".update=none \
-submodule update --init --recursive || error_user "Failed to download submodules from GitHub!"
+submodule update --init --recursive --force --jobs=$(nproc) || error_user "Failed to download submodules from GitHub!"
 
 mkdir -p build
 cd build
 rm -rf CMakeCache.txt
 echo "Building..."
 echo
+
 #if you're looking at this script as a reference for building Dolphin on your own hardware,
 #you can do "cmake .." and nothing else on the next line for a slight performance hit with a much faster build time
-
 case "$__os_codename" in
 bionic | focal | jammy)
   echo "Adding Ubuntu Toolchain Test PPA to install GCC 13..."

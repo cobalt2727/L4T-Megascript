@@ -56,6 +56,8 @@ fn="Xemu";;d='Original Xbox emulator';;sn="xemu.sh";;f="games_and_emulators";;bl
 
 fn="RPGMaker";;d="RPG Maker MV / MZ for Linux";;sn="rpgmakermlinux-cicpoffs.sh";;f="games_and_emulators"
 
+fn="PortMaster";;d='PortMaster is a simple GUI tool designed to facilitate the downloading and installation of game ports for linux handheld devices.';;sn="portmaster.sh";;f="games_and_emulators"
+
 fn="Thonny Python IDE";;d="Thonny is an integrated development environment for Python that is designed for beginners";;sn="thonny.sh";;f="development";;blacklist="fedora"
 
 fn="VSCode";;d="Code editor redefined and optimized for building/debugging modern web + cloud applications";;sn="vscode.sh";;f="development";;blacklist="bionic"

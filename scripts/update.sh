@@ -82,6 +82,14 @@ if test -f /usr/bin/emulationstation; then
   RetroPieUserInput="$output"
 fi
 
+SwitchDeckUserInput="No"
+if test -f ~/.local/share/Steam/update-switchdeck.sh; then
+  description="Do you want to update Switchdeck?"
+  table=("yes" "no")
+  userinput_func "$description" "${table[@]}"
+  SwitchDeckUserInput="$output"
+fi
+
 XemuUserInput="no"
 if test -f /usr/local/bin/xemu; then
   description="Do you want to update Xemu? (May take 5 minutes to 2 hours)"
@@ -328,6 +336,14 @@ if [[ $RUserInput == "yes" ]]; then
   Rscript -e 'update.packages(ask = FALSE)' #there is no error handling here: packages installed from distro repos are guaranteed to fail
 else
   echo "Skipping R package updates..."
+fi
+
+if [[ $SwitchDeckUserInput == "yes" ]]; then
+  echo "Updating Switchdeck..."
+  sleep 5
+  bash -c "$(curl -s https://raw.githubusercontent.com/SildurFX/Switchdeck/refs/heads/main/files/steam/update-switchdeck.sh)" || exit $?
+else
+  echo "Skipping Xemu update..."
 fi
 
 if [[ $XemuUserInput == "yes" ]]; then

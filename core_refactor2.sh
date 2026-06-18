@@ -37,6 +37,14 @@ else
   exit 1
 fi
 
+# "regular" desktops only, sorry
+if [ -f /run/ostree-booted ] || [ -d /ostree ]; then
+  echo -e "\e[31mThe L4T Megascript does not support atomic systems.\e[0m"
+  notify-send "ERROR" "The L4T Megascript does not support atomic systems."
+  read -r -n 1 -s -p $'Press any key to continue...\n'
+  exit 1
+fi
+
 #sudo apt install figlet
 if test -f /usr/bin/figlet || test -f /usr/bin/figlet; then
   #sudo apt install lolcat

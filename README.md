@@ -16,51 +16,29 @@ In addition, keeping your Tegra system overclocked too often or rebuilding progr
   <a href="https://github.com/cobalt2727/L4T-Megascript/issues">
     Report an error</a>
   |
-  <a href="https://github.com/cobalt2727/L4T-Megascript/discussions/categories/ideas">
-    Submit a suggestion</a>
-  |
   <a href="https://github.com/cobalt2727/L4T-Megascript/pulls">
     Submit a script</a>
 
 ## What is this?
 
-The L4T Megascript is an open source multipurpose script for easily installing and updating a diverse collection of programs in L4T Ubuntu, with the purpose of helping new users to install programs and games in just a few steps. Currently designed with [Switchroot Ubuntu 24.04](https://wiki.switchroot.org/wiki/linux/l4t-ubuntu-noble-installation-guide) in mind, but almost everything should still run on 18.04 and up. Credit to the [Switchroot L4T Ubuntu team](https://switchroot.org/) for making this possible on Nintendo Switch devices, and, of course, Nvidia as well for L4T in general. We appreciate any and all feedback!
+The L4T Megascript is an open source multipurpose script for easily installing and updating a diverse collection of programs in L4T Ubuntu, with the purpose of helping new users to install programs and games in just a few clicks. Currently designed with [Switchroot Ubuntu 24.04](https://wiki.switchroot.org/wiki/linux/l4t-ubuntu-noble-installation-guide) and [Switchroot L4T Fedora](https://wiki.switchroot.org/wiki/linux/l4t-fedora-installation-guide-2) in mind.
+<sub>If you're on Ubuntu 18.04 through 22.04, your mileage may vary - scripts may be broken and/or hidden from the UI on older systems.</sub>
 
 ## Install/run the Megascript
-The script itself doesn't actually get installed, even though it does install a lot of other programs and features. All it downloads to your device is a little text file and desktop icon that runs the script directly off of this GitHub repo so you don't have to worry about updating things on your end! [Click here to get started!](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup)
+The script itself doesn't actually get installed, even though it does install a lot of other programs and features. All it downloads to your device is a little text file and desktop icon that runs the script directly off of this GitHub repo so you don't have to worry about updating things on your end. [Click here to get started!](https://github.com/cobalt2727/L4T-Megascript/wiki/Initial-Setup)
 <Br>
 
-### DISCLAIMER: In the interest of transparency and security we recommend reading through the source code yourself by checking recent commit history and/or downloading a local copy of the [latest source code](https://github.com/cobalt2727/L4T-Megascript/archive/refs/heads/master.zip). *NEVER RUN SCRIPTS FROM THE INTERNET YOU DON'T TRUST!* (That being said, if you do try reading our source code and something doesn't make sense to you, feel free to check our [wiki](./wiki) or hop in the Discord server using the link below and ask about it - we're happy to help!)
+For security and transparency's sake, we recommend reading through the source code yourself by checking [recent commit history](../../commits) to see what changes have been made recently and/or downloading a local copy of the [latest source code](https://github.com/cobalt2727/L4T-Megascript/archive/refs/heads/master.zip) for your perusal. Never run scripts off the internet you don't trust!
+That being said, if you do try reading our source code and something doesn't make sense to you, feel free to check our [wiki](../../wiki) or hop in the Discord server using the link below and ask about it - we're happy to help!)</sub>
 
-## Planned features:
-- Bring Fedora support to ALL scripts (this is currently a very long WIP, may require custom COPR repos with build flags for Tegra in some cases)
-    - compile [ES-DE](https://gitlab.com/es-de/emulationstation-de/) (or just use an AppImage) as a cross-platform replacement for RetroPie (though we'd still use RetroPie's build scripts to generate the premade Tegra RetroArch cores)
-    - alternatively, just use vanilla RetroArch and [make sure the online updater is disabled](https://wiki.archlinux.org/title/RetroArch#Enabling_the_%22Online_Updater%22) then auto download gman's cores instead
-- Add a build script and default configurations for [Slippi](https://slippi.gg/) - currently not possible until they rebase on mainline Dolphin instead of Ishiiruka
-- Add more apps!
+## Our Contributors
+<a href="https://github.com/cobalt2727/L4T-Megascript/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cobalt2727/L4T-Megascript" />
+</a>
 
-## Our Team
-- Cobalt: Manager/Lead Dev
-- theofficialgman: Contributor, UI designer
-- Lugsole: Contributor
-- Azkali: Advice/part of Switchroot dev team
-- all the users that put up with Cobalt breaking things every other week or so
-
+<sup>Credit to all the programs included naturally belongs to the original developers. All we did was automate the installation on a software/hardware combo that may or may not have been supported in the first place.</sup>
+Of course, credit goes to the [Switchroot team](https://switchroot.org/) for making this possible on Nintendo Switch devices, and Nvidia as well for L4T in general. We appreciate any and all feedback!
 
 ## Need some help or want to contribute?
 You're in luck - we've got a Discord server: [![Discord invite](https://discord.com/assets/ff41b628a47ef3141164bfedb04fb220.png)](https://discord.gg/abgW2AG87Z "Discord server invite link") <Br>
-[Click to join](https://discord.gg/abgW2AG87Z) <Br>
-
-## Credits
-- STJr: Developers, SRB2
-- Kart Krew: Developers, SRB2Kart
-- RetroPie: Developers, RetroPie (who would've guessed?)
-- dolphin-emu: Developers, Dolphin
-- moonlight-stream: Creators and developers of Moonlight-QT
-- lemon-sherbet: Developer, Celeste Classic port
-- Acry: Developer, Flappy Bird port
-- SuperTux: Developers, SuperTux2
-- n64decomp: Responsible for the SM64 Decompilation Project
-- sm64pc: Adapted the SM64 Port to work with ARM64 devices
-- OpenMW: Developers, OpenMW
-- many more!
+### [Click to join](https://discord.gg/abgW2AG87Z) <Br>
