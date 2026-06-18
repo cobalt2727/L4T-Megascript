@@ -40,8 +40,9 @@ fi
 # "regular" desktops only, sorry
 if [ -f /run/ostree-booted ] || [ -d /ostree ]; then
   echo -e "\e[31mThe L4T Megascript does not support atomic systems.\e[0m"
-  notify-send "ERROR" "The L4T Megascript does not support atomic systems."
-  read -r -n 1 -s -p $'Press any key to continue...\n'
+  command -v notify-send >/dev/null &&
+    notify-send "ERROR" "The L4T Megascript does not support atomic systems." || true
+  [ -t 0 ] && read -r -n 1 -s -p $'Press any key to continue...\n'
   exit 1
 fi
 
