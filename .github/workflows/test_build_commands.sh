@@ -84,7 +84,7 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   sudo apt install -y ca-certificates
 fi
 
-if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
+if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]] || [[ "$GITHUB_JOB" == "l4t-focal-64bit" ]]; then
   # update binutils so that scripts with native flags don't fail, similar to what we had to do with our Oracle VMs way back in 2022
   # https://discord.com/channels/719014537277210704/880675368875466792/1024753718102589513
   # not every program will break without this, but some do
@@ -93,10 +93,10 @@ if [[ "$GITHUB_JOB" == "l4t-bionic-64bit" ]]; then
   cd /tmp
   rm binutils*.tar.gz
   # targeting 2.42 to match Ubuntu 24.04
-  wget -q https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz -O binutils-modern.tar.gz
+  wget -q https://ftp.gnu.org/gnu/binutils/binutils-2.46.tar.gz -O binutils-modern.tar.gz
   # https://news.ycombinator.com/item?id=29334724
   tar -xzf binutils-modern.tar.gz
-  cd binutils-2.42
+  cd binutils-2.46
   make distclean || true
   ./configure && make -j$(nproc) && sudo make install && cd /tmp && rm -rf binutils*
 fi
