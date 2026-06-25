@@ -36,8 +36,8 @@ then
     sudo rm /etc/apt/sources.list.d/webcord.list*
 
     echo "Downloading the most recent .deb from SpacingBat3's repository..."
-    lastversion --assets --filter $dpkg_architecture.deb download https://github.com/SpacingBat3/WebCord
-
+    lastversion --having-asset "~${dpkg_architecture}.*\.deb$" --assets --filter $dpkg_architecture.deb download https://github.com/SpacingBat3/WebCord
+    
     echo "Done! Installing the package..."
     sudo apt install -y /tmp/webcord*$dpkg_architecture.deb || error "Webcord install failed"
   else
