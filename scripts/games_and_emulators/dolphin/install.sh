@@ -101,7 +101,7 @@ bionic | focal | jammy)
 *)
   echo -e "\e[1;33mIf it freezes, especially around 80%, even for a few minutes, that's normal.\e[0m"
   sleep 10
-  cmake .. -D ENABLE_LTO=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DUSE_SYSTEM_FMT=OFF -DUSE_SYSTEM_LIBMGBA=OFF -DUSE_SYSTEM_GLSLANG=OFF
+  cmake .. -D ENABLE_LTO=0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-mcpu=native -DCMAKE_C_FLAGS=-mcpu=native -DCMAKE_C_FLAGS_INIT="-static" -DUSE_SYSTEM_FMT=OFF -DUSE_SYSTEM_LIBMGBA=OFF -DUSE_SYSTEM_GLSLANG=OFF
   ;;
 esac
 
