@@ -325,6 +325,7 @@ fi
 if [[ $SwitchDeckUserInput == "yes" ]]; then
   echo "Updating Switchdeck..."
   sleep 5
+  find "$HOME/.local/share/Steam/Switchdeck/.update-lock" -mmin +60 -delete #nuke update lock if it was put there over an hour ago
   bash -c "$(curl -s https://raw.githubusercontent.com/SildurFX/Switchdeck/refs/heads/main/files/steam/update-switchdeck.sh)" || exit $?
 else
   echo "Skipping Switchdeck update..."
